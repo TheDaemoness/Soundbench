@@ -1,0 +1,75 @@
+<RCC>
+    <qresource prefix="/backdrops">
+        <file>channelsbackdrop.png</file>
+        <file>settingsbackdrop.png</file>
+        <file>mainbackdrop.png</file>
+        <file>aboutbackdrop.png</file>
+    </qresource>
+    <qresource prefix="/sliders">
+        <file>grooveh_thin_hover.png</file>
+        <file>grooveh_thin_idle.png</file>
+        <file>grooveh_thin_pressed.png</file>
+        <file>slider_click.png</file>
+        <file>slider_hover.png</file>
+        <file>slider_idle.png</file>
+        <file>grooveh_short_click.png</file>
+        <file>grooveh_short_hover.png</file>
+        <file>grooveh_short_idle.png</file>
+    </qresource>
+    <qresource prefix="/buttons">
+        <file>button75_hover.png</file>
+        <file>button75_idle.png</file>
+        <file>button75_pressed.png</file>
+        <file>button75_disabled.png</file>
+        <file>tab_hover.png</file>
+        <file>tab_idle.png</file>
+        <file>tab_press.png</file>
+        <file>tab_select.png</file>
+        <file>button75_toggled.png</file>
+    </qresource>
+    <qresource prefix="/radio">
+        <file>radio_off.png</file>
+        <file>radio_off_hover.png</file>
+        <file>radio_pressed.png</file>
+        <file>radio_selected.png</file>
+        <file>radio_selected_hover.png</file>
+        <file>radio_disabled.png</file>
+    </qresource>
+    <qresource prefix="/spinbox">
+        <file>spinbox_frame.png</file>
+        <file>spinbox_frame_edit.png</file>
+        <file>spinbox_frame_hover.png</file>
+        <file>spinbox_lower_disabled.png</file>
+        <file>spinbox_lower_hover.png</file>
+        <file>spinbox_lower_idle.png</file>
+        <file>spinbox_lower_pressed.png</file>
+        <file>spinbox_upper_disabled.png</file>
+        <file>spinbox_upper_hover.png</file>
+        <file>spinbox_upper_idle.png</file>
+        <file>spinbox_upper_pressed.png</file>
+        <file>spinbox_frame_disabled.png</file>
+    </qresource>
+    <qresource prefix="/textboxes">
+        <file>textbox_long_edit.png</file>
+        <file>textbox_long_idle.png</file>
+        <file>textbox_short_edit.png</file>
+        <file>textbox_short_hover.png</file>
+        <file>textbox_short_idle.png</file>
+        <file>textbox_long_hover.png</file>
+        <file>textbox_short_disabled.png</file>
+        <file>textbox_long_disabled.png</file>
+    </qresource>
+    <qresource prefix="/icons">
+        <file>sbicon.png</file>
+    </qresource>
+    <qresource prefix="/meters">
+        <file>cpumeter_off.png</file>
+        <file>cpumeter_on.png</file>
+    </qresource>
+    <qresource prefix="/popups">
+        <file>error_popup.png</file>
+        <file>warning_popup.png</file>
+        <file>gentype_popup.png</file>
+        <file>basicgener_backdrop.png</file>
+    </qresource>
+</RCC>

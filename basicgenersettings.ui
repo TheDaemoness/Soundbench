@@ -1,0 +1,389 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>BasicGenerSettings</class>
+ <widget class="QDialog" name="BasicGenerSettings">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>400</width>
+    <height>185</height>
+   </rect>
+  </property>
+  <property name="windowTitle">
+   <string>Basic Generator Settings</string>
+  </property>
+  <property name="windowIcon">
+   <iconset resource="sbMainResources.qrc">
+    <normaloff>:/icons/sbicon.png</normaloff>:/icons/sbicon.png</iconset>
+  </property>
+  <property name="windowOpacity">
+   <double>0.950000000000000</double>
+  </property>
+  <property name="styleSheet">
+   <string notr="true">QWidget {
+	color: cyan;
+}
+
+QRadioButton:disabled {
+	color: gray;
+}
+QRadioButton::indicator:disabled {
+	border-image: url(:/radio/radio_disabled.png);
+}
+QRadioButton::indicator {
+	width: 17px;
+	height: 17px;
+	border-image: url(:/radio/radio_off.png);
+}
+QRadioButton::indicator:hover {
+	width: 17px;
+	height: 17px;
+	border-image: url(:/radio/radio_off_hover.png);
+}
+QRadioButton::indicator:pressed {
+	width: 17px;
+	height: 17px;
+	border-image: url(:/radio/radio_pressed.png);
+}
+QRadioButton::indicator:checked {
+	width: 17px;
+	height: 17px;
+	border-image: url(:/radio/radio_selected.png);
+}
+QRadioButton::indicator:checked:hover {
+	width: 17px;
+	height: 17px;
+	border-image: url(:/radio/radio_selected_hover.png);
+}
+
+QDoubleSpinBox {
+	color: cyan;
+	border-image: url(:/spinbox/spinbox_frame.png);
+}
+QDoubleSpinBox:hover {
+	border-image: url(:/spinbox/spinbox_frame_hover.png);
+}
+QDoubleSpinBox:focus {
+	border-image: url(:/spinbox/spinbox_frame_edit.png);
+}
+QDoubleSpinBox::up-button {
+	height: 11px;
+	width: 20px;
+	border-image: url(:/spinbox/spinbox_upper_idle.png);
+}
+QDoubleSpinBox::down-button {
+	height: 11px;
+	width: 20px;
+	border-image: url(:/spinbox/spinbox_lower_idle.png);
+}
+QDoubleSpinBox::up-button:hover {
+	border-image: url(:/spinbox/spinbox_upper_hover.png);
+}
+QDoubleSpinBox::up-button:pressed {
+	border-image: url(:/spinbox/spinbox_upper_pressed.png);
+}
+QDoubleSpinBox::down-button:hover {
+	border-image: url(:/spinbox/spinbox_lower_hover.png);
+}
+QDoubleSpinBox::down-button:pressed {
+	border-image: url(:/spinbox/spinbox_lower_pressed.png);
+}
+
+QPushButton {
+	border-image: url(:/buttons/button75_idle.png);
+}
+QPushButton:disabled {
+	color: gray;
+	border-image: url(:/buttons/button75_disabled.png);
+}
+QPushButton:hover {
+	border-image: url(:/buttons/button75_hover.png);
+}
+QPushButton:pressed {
+	border-image: url(:/buttons/button75_pressed.png);
+}</string>
+  </property>
+  <widget class="QRadioButton" name="sineWave">
+   <property name="geometry">
+    <rect>
+     <x>30</x>
+     <y>50</y>
+     <width>61</width>
+     <height>23</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>Sine</string>
+   </property>
+  </widget>
+  <widget class="QRadioButton" name="triangleWave">
+   <property name="geometry">
+    <rect>
+     <x>30</x>
+     <y>80</y>
+     <width>91</width>
+     <height>23</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>Triangle</string>
+   </property>
+  </widget>
+  <widget class="QRadioButton" name="squareWave">
+   <property name="geometry">
+    <rect>
+     <x>30</x>
+     <y>110</y>
+     <width>91</width>
+     <height>23</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>Square</string>
+   </property>
+  </widget>
+  <widget class="QRadioButton" name="sawtoothWave">
+   <property name="geometry">
+    <rect>
+     <x>30</x>
+     <y>140</y>
+     <width>101</width>
+     <height>23</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>Sawtooth</string>
+   </property>
+  </widget>
+  <widget class="QDoubleSpinBox" name="ampBox">
+   <property name="geometry">
+    <rect>
+     <x>280</x>
+     <y>35</y>
+     <width>71</width>
+     <height>21</height>
+    </rect>
+   </property>
+   <property name="toolTip">
+    <string>Sets this (and only this) generator's volume.</string>
+   </property>
+   <property name="decimals">
+    <number>3</number>
+   </property>
+   <property name="minimum">
+    <double>0.000000000000000</double>
+   </property>
+   <property name="maximum">
+    <double>1.000000000000000</double>
+   </property>
+   <property name="singleStep">
+    <double>0.100000000000000</double>
+   </property>
+   <property name="value">
+    <double>1.000000000000000</double>
+   </property>
+  </widget>
+  <widget class="QLabel" name="waveLabel">
+   <property name="geometry">
+    <rect>
+     <x>30</x>
+     <y>25</y>
+     <width>100</width>
+     <height>20</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>Wave Shape</string>
+   </property>
+   <property name="alignment">
+    <set>Qt::AlignCenter</set>
+   </property>
+  </widget>
+  <widget class="QLabel" name="ampLabel">
+   <property name="geometry">
+    <rect>
+     <x>180</x>
+     <y>30</y>
+     <width>91</width>
+     <height>28</height>
+    </rect>
+   </property>
+   <property name="toolTip">
+    <string/>
+   </property>
+   <property name="text">
+    <string>Amplitude</string>
+   </property>
+   <property name="alignment">
+    <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+   </property>
+  </widget>
+  <widget class="QLabel" name="phaseLabel">
+   <property name="geometry">
+    <rect>
+     <x>180</x>
+     <y>60</y>
+     <width>91</width>
+     <height>28</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>Phase</string>
+   </property>
+   <property name="alignment">
+    <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+   </property>
+  </widget>
+  <widget class="QDoubleSpinBox" name="phaseBox">
+   <property name="geometry">
+    <rect>
+     <x>280</x>
+     <y>65</y>
+     <width>71</width>
+     <height>21</height>
+    </rect>
+   </property>
+   <property name="toolTip">
+    <string>Sets the wave's starting point.</string>
+   </property>
+   <property name="decimals">
+    <number>3</number>
+   </property>
+   <property name="maximum">
+    <double>1.000000000000000</double>
+   </property>
+   <property name="singleStep">
+    <double>0.083333000000000</double>
+   </property>
+  </widget>
+  <widget class="QPushButton" name="closeButton">
+   <property name="geometry">
+    <rect>
+     <x>190</x>
+     <y>130</y>
+     <width>81</width>
+     <height>25</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>Close</string>
+   </property>
+  </widget>
+  <widget class="QPushButton" name="applyButton">
+   <property name="geometry">
+    <rect>
+     <x>280</x>
+     <y>130</y>
+     <width>81</width>
+     <height>25</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>Apply</string>
+   </property>
+  </widget>
+  <widget class="QLabel" name="freqBiasLabel">
+   <property name="geometry">
+    <rect>
+     <x>180</x>
+     <y>90</y>
+     <width>91</width>
+     <height>28</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>Note Bias</string>
+   </property>
+   <property name="alignment">
+    <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+   </property>
+  </widget>
+  <widget class="QSpinBox" name="noteBiasBox">
+   <property name="geometry">
+    <rect>
+     <x>280</x>
+     <y>95</y>
+     <width>71</width>
+     <height>21</height>
+    </rect>
+   </property>
+   <property name="toolTip">
+    <string>Biases the generator's frequency by the number halfsteps here.</string>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">QSpinBox {
+	color: cyan;
+	border-image: url(:/spinbox/spinbox_frame.png);
+}
+QSpinBox:hover {
+	border-image: url(:/spinbox/spinbox_frame_hover.png);
+}
+QSpinBox:focus {
+	border-image: url(:/spinbox/spinbox_frame_edit.png);
+}
+QSpinBox::up-button {
+	height: 11px;
+	width: 20px;
+	border-image: url(:/spinbox/spinbox_upper_idle.png);
+}
+QSpinBox::down-button {
+	height: 11px;
+	width: 20px;
+	border-image: url(:/spinbox/spinbox_lower_idle.png);
+}
+QSpinBox::up-button:hover {
+	border-image: url(:/spinbox/spinbox_upper_hover.png);
+}
+QSpinBox::up-button:pressed {
+	border-image: url(:/spinbox/spinbox_upper_pressed.png);
+}
+QSpinBox::down-button:hover {
+	border-image: url(:/spinbox/spinbox_lower_hover.png);
+}
+QSpinBox::down-button:pressed {
+	border-image: url(:/spinbox/spinbox_lower_pressed.png);
+}</string>
+   </property>
+   <property name="prefix">
+    <string/>
+   </property>
+   <property name="minimum">
+    <number>-99</number>
+   </property>
+  </widget>
+  <widget class="QGraphicsView" name="backdrop">
+   <property name="geometry">
+    <rect>
+     <x>0</x>
+     <y>0</y>
+     <width>400</width>
+     <height>185</height>
+    </rect>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">QGraphicsView {
+	border-image: url(:/popups/basicgener_backdrop.png);
+}</string>
+   </property>
+  </widget>
+  <zorder>backdrop</zorder>
+  <zorder>sineWave</zorder>
+  <zorder>triangleWave</zorder>
+  <zorder>squareWave</zorder>
+  <zorder>sawtoothWave</zorder>
+  <zorder>ampBox</zorder>
+  <zorder>waveLabel</zorder>
+  <zorder>ampLabel</zorder>
+  <zorder>phaseLabel</zorder>
+  <zorder>phaseBox</zorder>
+  <zorder>closeButton</zorder>
+  <zorder>applyButton</zorder>
+  <zorder>freqBiasLabel</zorder>
+  <zorder>noteBiasBox</zorder>
+ </widget>
+ <resources>
+  <include location="sbMainResources.qrc"/>
+ </resources>
+ <connections/>
+</ui>
