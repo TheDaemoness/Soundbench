@@ -13,7 +13,6 @@ INCLUDEPATH += .
 HEADERS += architect.h \
            backend.h \
            backend.portaudio.h \
-           backend.pulseaudio.h \
            basicwaves.h \
            blueprint.h \
            common.h \
@@ -37,7 +36,6 @@ FORMS += errorpopup.ui \
 
 SOURCES += architect.cpp \
            backend.portaudio.cpp \
-           backend.pulseaudio.cpp \
            basicwaves.cpp \
            emitter.cpp \
            errorpopup.cpp \

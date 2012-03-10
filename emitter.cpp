@@ -24,13 +24,8 @@ namespace sb {
         if (backend != NULL) {
             delete backend;
         }
-        if (emt == sb::PulseAudio) {
-            std::clog << "Using PulseAudio as the audio backend.\n";
-            backend = new pulseaudio_backend(syn, sample_rate,supported_rates,2);
-            std::clog << "PulseAudio backend initialized.\n";
-        }
-        else if (emt == sb::PortAudio) {
-            std::clog << "Using PortAudio as the audio backend.\n";
+        if (emt == sb::PortAudio) {
+            std::clog << "Initializing PortAudio as the audio backend...\n";
             backend = new portaudio_backend(syn, sample_rate,supported_rates,2);
             std::clog << "PortAudio backend initialized.\n";
         }
@@ -39,7 +34,6 @@ namespace sb {
     }
 
     Emitter::Emitter(Synth* s) {
-        this->supported_apis[sb::PulseAudio] = pulseaudio_backend::instantiable();
         this->supported_apis[sb::PortAudio] = portaudio_backend::instantiable();
         syn = s;
         em_type = sb::PortAudio;

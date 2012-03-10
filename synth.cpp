@@ -69,10 +69,10 @@ namespace sb {
         for (size_t ec = 0; ec < channelcount; ++ec) { //Loop per internal channel.
             if (gener[ec] != NULL)
                 gener[ec]->reset();
-            for (size_t tive = 0; tive < fxcount; ++tive) { //Loop per effect.
+            /*for (size_t tive = 0; tive < fxcount; ++tive) { //Loop per effect.
                 if (eff[ec][tive] != NULL) //I could make these jokes all day.
                     eff[ec][tive]->reset();
-            }
+            }*/
         }
     }
     void Synth::tick(sbSample* frames, size_t chans) {
