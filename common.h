@@ -82,14 +82,13 @@ namespace sb {
 
     enum emitter_type {
         NoEmitter = 0,
-        PulseAudio, //Experimental.
         PortAudio,
         JACK_O //Not implemented. May never be implemented due to PortAudio support.
     };
 
     enum midi_type {
         NoMIDI = 0,
-        PortMIDI, //Not implemented.
+        PortMIDI, //Not implemented. Will be implemented in 0.3.0
         JACK_I //Not implemented. May never be implemented due to PortMIDI support.
     };
 

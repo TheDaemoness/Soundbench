@@ -43,7 +43,7 @@ namespace sb {
         }
     }
 
-    void Architect::buildSynth(Synth* syn,Blueprint* blu) {
+    void Architect::buildSynth(Synth* syn, Blueprint* blu) {
         syn->inactivechans = 0;
         for (size_t ous = 0; ous < channelcount; ++ous) {
             switch (blu->gener[ous]) {
@@ -52,11 +52,11 @@ namespace sb {
                 syn->gener[ous] = NULL;
                 ++(syn->inactivechans);
                 continue;
-            case sb::Blueprint::NoGener:
+            case Blueprint::NoGener:
                 syn->gener[ous] = NULL;
                 ++(syn->inactivechans);
                 break;
-            case sb::Blueprint::generBasic:
+            case Blueprint::generBasic:
                 syn->gener[ous] = new BasicGen(sb::curr_srate);
                 break;
             }
@@ -64,7 +64,6 @@ namespace sb {
                 if(syn->gener[ous] != NULL)
                     syn->gener[ous]->ctrl(dat.first,dat.second);
             }
-            syn->reset(); //Do not remove.
         }
     }
 }

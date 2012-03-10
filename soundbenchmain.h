@@ -33,6 +33,8 @@
 #include <limits>
 #include <functional>
 
+#include <QSignalMapper>
+
 namespace Ui {
     class SoundbenchMain: public Ui_SoundBenchMain {};
 } // namespace Ui
@@ -71,99 +73,43 @@ private slots:
         syn->volume() = static_cast<sbSample>(ui->volumeSlider->value())/ui->volumeSlider->maximum();
     }
 
-    //TODO: Clean all of this up. Qt does have something to deal with situations like these, after all.
-    void setSampleRate1() {
-        em->setSamplingRate(sb::sampling_rates[0]);
+    void setSampleRate(int which) {
+        em->setSamplingRate(sb::sampling_rates[which]);
         arch->buildSynth(syn,blu);
         em->start();
     }
-    void setSampleRate2() {
-        em->setSamplingRate(sb::sampling_rates[1]);
-        arch->buildSynth(syn,blu);
-        em->start();
-    }
-    void setSampleRate3() {
-        em->setSamplingRate(sb::sampling_rates[2]);
-        arch->buildSynth(syn,blu);
-        em->start();
-    }
-    void setSampleRate4() {
-        em->setSamplingRate(sb::sampling_rates[3]);
-        arch->buildSynth(syn,blu);
-        em->start();
-    }
-    void setSampleRate5() {
-        em->setSamplingRate(sb::sampling_rates[4]);
-        arch->buildSynth(syn,blu);
-        em->start();
-    }
-    void setSampleRate6() {
-        em->setSamplingRate(sb::sampling_rates[5]);
-        arch->buildSynth(syn,blu);
-        em->start();
-    }
-
-    void setGenType1() {
-        gtd = new GenTypeDialog(&blu->gener[0],&blu->gener_data[0],ui->gener1Label,ui->gen1SettButton);
+    void setGenType(int which) {
+        switch (which) {
+        case 1:
+            gtd = new GenTypeDialog(&blu->gener[1],&blu->gener_data[1],ui->gener1Label,ui->gen1SettButton);
+            break;
+        case 2:
+            gtd = new GenTypeDialog(&blu->gener[2],&blu->gener_data[2],ui->gener2Label,ui->gen2SettButton);
+            break;
+        case 3:
+            gtd = new GenTypeDialog(&blu->gener[3],&blu->gener_data[3],ui->gener3Label,ui->gen3SettButton);
+            break;
+        case 4:
+            gtd = new GenTypeDialog(&blu->gener[4],&blu->gener_data[4],ui->gener4Label,ui->gen4SettButton);
+            break;
+        default:
+            return;
+        }
         stopAndReset();
         gtd->exec();
         delete gtd;
         arch->buildSynth(syn,blu);
         em->start();
     }
-    void setGenType2() {
-        gtd = new GenTypeDialog(&blu->gener[1],&blu->gener_data[1],ui->gener2Label,ui->gen2SettButton);
+    void setGenSett(int which) {
         stopAndReset();
-        gtd->exec();
-        delete gtd;
+        genSetts(which);
         arch->buildSynth(syn,blu);
         em->start();
     }
-    void setGenType3() {
-        gtd = new GenTypeDialog(&blu->gener[2],&blu->gener_data[2],ui->gener3Label,ui->gen3SettButton);
-        stopAndReset();
-        gtd->exec();
-        delete gtd;
-        arch->buildSynth(syn,blu);
-        em->start();
-    }
-    void setGenType4() {
-        gtd = new GenTypeDialog(&blu->gener[3],&blu->gener_data[3],ui->gener4Label,ui->gen4SettButton);
-        stopAndReset();
-        gtd->exec();
-        delete gtd;
-        arch->buildSynth(syn,blu);
-        em->start();
-    }
-
-    void setGenSett1() {
-        stopAndReset();
-        setGenSett(0);
-        arch->buildSynth(syn,blu);
-        em->start();
-    }
-    void setGenSett2() {
-        stopAndReset();
-        setGenSett(1);
-        arch->buildSynth(syn,blu);
-        em->start();
-    }
-    void setGenSett3() {
-        stopAndReset();
-        setGenSett(2);
-        arch->buildSynth(syn,blu);
-        em->start();
-    }
-    void setGenSett4() {
-        stopAndReset();
-        setGenSett(3);
-        arch->buildSynth(syn,blu);
-        em->start();
-    }
-    //END TODO
 
 private:
-    void setGenSett(size_t i);
+    void genSetts(size_t i);
     inline void stopAndReset() {
         em->stop();
         syn->reset();
@@ -175,6 +121,7 @@ private:
     sb::Blueprint* blu;
     sb::Architect* arch;
     sb::Emitter* em;
+    QSignalMapper *sett_sigmap, *type_sigmap, *rate_sigmap;
 
     GenTypeDialog* gtd;
     union {

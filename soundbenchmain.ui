@@ -277,7 +277,7 @@ QTabBar::tab:selected {
 }</string>
     </property>
     <property name="currentIndex">
-     <number>7</number>
+     <number>1</number>
     </property>
     <widget class="QWidget" name="tabSelect">
      <attribute name="title">
@@ -327,7 +327,7 @@ QTabBar::tab:selected {
      <attribute name="title">
       <string>Player</string>
      </attribute>
-     <widget class="QGraphicsView" name="emitterBackdrop">
+     <widget class="QGraphicsView" name="playerBackdrop">
       <property name="geometry">
        <rect>
         <x>0</x>
@@ -340,30 +340,6 @@ QTabBar::tab:selected {
        <string notr="true">QGraphicsView {
 	background-color: black;
 }</string>
-      </property>
-     </widget>
-     <widget class="QLabel" name="selectComingSoon_3">
-      <property name="geometry">
-       <rect>
-        <x>0</x>
-        <y>0</y>
-        <width>1056</width>
-        <height>461</height>
-       </rect>
-      </property>
-      <property name="font">
-       <font>
-        <family>Ubuntu</family>
-        <pointsize>16</pointsize>
-        <weight>75</weight>
-        <bold>true</bold>
-       </font>
-      </property>
-      <property name="text">
-       <string>(Coming in version 0.2.0)</string>
-      </property>
-      <property name="alignment">
-       <set>Qt::AlignCenter</set>
       </property>
      </widget>
     </widget>
@@ -386,7 +362,7 @@ QTabBar::tab:selected {
 }</string>
       </property>
      </widget>
-     <widget class="QLabel" name="selectComingSoon_2">
+     <widget class="QLabel" name="macroComingSoon">
       <property name="geometry">
        <rect>
         <x>0</x>
@@ -1280,7 +1256,7 @@ p, li { white-space: pre-wrap; }
        </font>
       </property>
       <property name="text">
-       <string>Version 0.1.0 - Private Alpha</string>
+       <string>Version 0.1.0 - Public Alpha</string>
       </property>
       <property name="alignment">
        <set>Qt::AlignCenter</set>
@@ -1302,7 +1278,7 @@ p, li { white-space: pre-wrap; }
        </font>
       </property>
       <property name="text">
-       <string>Project Head: Albatross</string>
+       <string>Project Head: Amaya S.</string>
       </property>
      </widget>
      <widget class="QLabel" name="creditsDevelopment">
@@ -1321,7 +1297,7 @@ p, li { white-space: pre-wrap; }
        </font>
       </property>
       <property name="text">
-       <string>Programming: Albatross</string>
+       <string>Programming: Amaya S.</string>
       </property>
       <property name="alignment">
        <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
@@ -1349,7 +1325,7 @@ p, li { white-space: pre-wrap; }
 &lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;style type=&quot;text/css&quot;&gt;
 p, li { white-space: pre-wrap; }
 &lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:'Ubuntu'; font-size:14pt; font-weight:600; font-style:normal;&quot;&gt;
-&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-family:'Cantarell';&quot;&gt;Copyright © 2012  The Soundbench Project&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-family:'Cantarell';&quot;&gt;Copyright © 2012  Amaya S.&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
       </property>
       <property name="alignment">
        <set>Qt::AlignCenter</set>
@@ -1399,7 +1375,7 @@ p, li { white-space: pre-wrap; }
        </font>
       </property>
       <property name="text">
-       <string>Art: Albatross</string>
+       <string>Art: Amaya S.</string>
       </property>
       <property name="alignment">
        <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
@@ -1421,7 +1397,7 @@ p, li { white-space: pre-wrap; }
        </font>
       </property>
       <property name="text">
-       <string>User Interface Design: Albatross</string>
+       <string>User Interface Design: Amaya S.</string>
       </property>
       <property name="alignment">
        <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
@@ -1443,7 +1419,7 @@ p, li { white-space: pre-wrap; }
        </font>
       </property>
       <property name="text">
-       <string>Testing: Albatross</string>
+       <string>Testing: Amaya S.</string>
       </property>
       <property name="alignment">
        <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>

@@ -27,10 +27,14 @@ SoundbenchMain::SoundbenchMain(QWidget *parent) :
     arch->planDefaultSynth(blu);
     em = NULL;
     syn = NULL;
+
     ui = new Ui::SoundbenchMain();
     ui->setupUi(this);
-    for (char i = 0; i < 4; ++i)
-        arch->planDefaultBasicGen(blu,i);
+    sett_sigmap = new QSignalMapper;
+    type_sigmap = new QSignalMapper;
+    rate_sigmap = new QSignalMapper;
+
+    arch->planAllDefaults(blu);
 }
 
 void SoundbenchMain::delayedConstructor() {
@@ -43,6 +47,23 @@ void SoundbenchMain::delayedConstructor() {
     syn->volume() = static_cast<sbSample>(ui->volumeSlider->value())/ui->volumeSlider->maximum();
 
     std::map<sb::emitter_type,bool> backend_apis = em->getSupportedAPIs(); //TODO: Deal with this.
+
+    type_sigmap->setMapping(ui->gen1TypeButton,1);
+    type_sigmap->setMapping(ui->gen2TypeButton,2);
+    type_sigmap->setMapping(ui->gen3TypeButton,3);
+    type_sigmap->setMapping(ui->gen4TypeButton,4);
+
+    sett_sigmap->setMapping(ui->gen1SettButton,1);
+    sett_sigmap->setMapping(ui->gen2SettButton,2);
+    sett_sigmap->setMapping(ui->gen3SettButton,3);
+    sett_sigmap->setMapping(ui->gen4SettButton,4);
+
+    rate_sigmap->setMapping(ui->button441Sampling,0);
+    rate_sigmap->setMapping(ui->button48Sampling,1);
+    rate_sigmap->setMapping(ui->button882Sampling,2);
+    rate_sigmap->setMapping(ui->button96Sampling,3);
+    rate_sigmap->setMapping(ui->button176Sampling,4);
+    rate_sigmap->setMapping(ui->button192Sampling,5);
 
     //Check off the sampling rate being used.
     if (em->getSampleRate() == sb::sampling_rates[0])
@@ -80,25 +101,29 @@ void SoundbenchMain::delayedConstructor() {
     connect(ui->silenceButton,SIGNAL(clicked()),SLOT(silence()));
     connect(ui->volumeSlider,SIGNAL(valueChanged(int)),SLOT(setMasterVolume(int)));
 
-    //Connect the Channels widgets
-    connect(ui->gen1TypeButton,SIGNAL(clicked()),SLOT(setGenType1()));
-    connect(ui->gen2TypeButton,SIGNAL(clicked()),SLOT(setGenType2()));
-    connect(ui->gen3TypeButton,SIGNAL(clicked()),SLOT(setGenType3()));
-    connect(ui->gen4TypeButton,SIGNAL(clicked()),SLOT(setGenType4()));
+    //Connect the Channels page widgets.
+    connect(ui->gen1TypeButton,SIGNAL(clicked()),type_sigmap,SLOT(map()));
+    connect(ui->gen2TypeButton,SIGNAL(clicked()),type_sigmap,SLOT(map()));
+    connect(ui->gen3TypeButton,SIGNAL(clicked()),type_sigmap,SLOT(map()));
+    connect(ui->gen4TypeButton,SIGNAL(clicked()),type_sigmap,SLOT(map()));
 
-    connect(ui->gen1SettButton,SIGNAL(clicked()),SLOT(setGenSett1()));
-    connect(ui->gen2SettButton,SIGNAL(clicked()),SLOT(setGenSett2()));
-    connect(ui->gen3SettButton,SIGNAL(clicked()),SLOT(setGenSett3()));
-    connect(ui->gen4SettButton,SIGNAL(clicked()),SLOT(setGenSett4()));
+    connect(ui->gen1SettButton,SIGNAL(clicked()),sett_sigmap,SLOT(map()));
+    connect(ui->gen2SettButton,SIGNAL(clicked()),sett_sigmap,SLOT(map()));
+    connect(ui->gen3SettButton,SIGNAL(clicked()),sett_sigmap,SLOT(map()));
+    connect(ui->gen4SettButton,SIGNAL(clicked()),sett_sigmap,SLOT(map()));
 
+    //Connect the Settings page widgets
+    connect(ui->button441Sampling,SIGNAL(clicked()),rate_sigmap,SLOT(map()));
+    connect(ui->button48Sampling,SIGNAL(clicked()),rate_sigmap,SLOT(map()));
+    connect(ui->button882Sampling,SIGNAL(clicked()),rate_sigmap,SLOT(map()));
+    connect(ui->button96Sampling,SIGNAL(clicked()),rate_sigmap,SLOT(map()));
+    connect(ui->button176Sampling,SIGNAL(clicked()),rate_sigmap,SLOT(map()));
+    connect(ui->button192Sampling,SIGNAL(clicked()),rate_sigmap,SLOT(map()));
 
-    //Connect the Settings page widgets.
-    connect(ui->button441Sampling,SIGNAL(clicked()),SLOT(setSampleRate1()));
-    connect(ui->button48Sampling,SIGNAL(clicked()),SLOT(setSampleRate2()));
-    connect(ui->button882Sampling,SIGNAL(clicked()),SLOT(setSampleRate3()));
-    connect(ui->button96Sampling,SIGNAL(clicked()),SLOT(setSampleRate4()));
-    connect(ui->button176Sampling,SIGNAL(clicked()),SLOT(setSampleRate5()));
-    connect(ui->button192Sampling,SIGNAL(clicked()),SLOT(setSampleRate6()));
+    //Connect the sigmaps.
+    connect(sett_sigmap,SIGNAL(mapped(int)),SLOT(setGenSett(int)));
+    connect(type_sigmap,SIGNAL(mapped(int)),SLOT(setGenType(int)));
+    connect(rate_sigmap,SIGNAL(mapped(int)),SLOT(setSampleRate(int)));
 
     connect(ui->playButton,SIGNAL(toggled(bool)),SLOT(testSynth(bool)));
 
@@ -107,7 +132,7 @@ void SoundbenchMain::delayedConstructor() {
     em->start();
 }
 
-void SoundbenchMain::setGenSett(size_t i) {
+void SoundbenchMain::genSetts(size_t i) {
     if (blu->gener[i] == sb::Blueprint::generBasic) {
         stopAndReset();
         gsd.basic = new BasicGenerSettings(i,blu);
@@ -125,5 +150,9 @@ SoundbenchMain::~SoundbenchMain() {
     if (syn != NULL)
         delete syn;
     delete blu;
+
+    delete sett_sigmap;
+    delete type_sigmap;
+    delete rate_sigmap;
     delete ui;
 }

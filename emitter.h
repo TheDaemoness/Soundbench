@@ -23,7 +23,6 @@
 
 //local
 #include "common.h"
-#include "backend.pulseaudio.h"
 #include "backend.portaudio.h"
 
 //libstdc++11
