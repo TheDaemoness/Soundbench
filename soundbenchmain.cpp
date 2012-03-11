@@ -35,19 +35,18 @@ SoundbenchMain::SoundbenchMain(QWidget *parent) :
     rate_sigmap = new QSignalMapper;
 
     arch->planAllDefaults(blu);
-    teim = 0;
 }
 
 void SoundbenchMain::delayedConstructor() {
     sb::curr_srate = sb::sampling_rates[1];
 
-    syn = new sb::Synth(&teim);
+    syn = new sb::Synth;
     arch->buildSynth(syn,blu);
     em = new sb::Emitter(syn);
 
     syn->volume() = static_cast<sbSample>(ui->volumeSlider->value())/ui->volumeSlider->maximum();
     teimer = new QTimer;
-    metup = new MeterUpdater(ui->cpuMeter,&teim);
+    metup = new MeterUpdater(ui->cpuMeter);
 
     std::map<sb::emitter_type,bool> backend_apis = em->getSupportedAPIs(); //TODO: Deal with this.
 
@@ -132,11 +131,12 @@ void SoundbenchMain::delayedConstructor() {
 
     show();
 
+    teimer->start(10);
     em->start();
-    teimer->start(1);
 }
 
 void SoundbenchMain::genSetts(size_t i) {
+
     if (blu->gener[i] == sb::Blueprint::generBasic) {
         stopAndReset();
         gsd.basic = new BasicGenerSettings(i,blu);

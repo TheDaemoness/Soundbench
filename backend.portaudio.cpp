@@ -52,14 +52,9 @@ portaudio_backend::portaudio_backend(sb::Synth* s, size_t& srate, std::map<size_
 }
 
 int portaudio_backend::callback(const void*, void* output, unsigned long framecount, const PaStreamCallbackTimeInfo*, PaStreamCallbackFlags, void* syne) {
-    auto time_begin = std::chrono::high_resolution_clock::now();
     sbSample* framepointer = reinterpret_cast<sbSample*>(output);
     for (size_t i = 0; i < framecount; framepointer += sb::outchans, ++i)
         reinterpret_cast<sb::Synth*>(syne)->tick(framepointer,sb::outchans);
-    auto time_finis = std::chrono::high_resolution_clock::now();
-    *(reinterpret_cast<sb::Synth*>(syne)->timereqed) =
-            std::chrono::duration_cast<std::chrono::milliseconds>(time_finis.time_since_epoch() - time_begin.time_since_epoch()).count()*
-            sb::curr_srate/framecount;
     return paContinue;
 }
 

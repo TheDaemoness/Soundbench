@@ -124,8 +124,6 @@ private:
     QSignalMapper *sett_sigmap, *type_sigmap, *rate_sigmap;
     QTimer* teimer;
 
-    time_t teim;
-
     GenTypeDialog* gtd;
     union {
         BasicGenerSettings* basic;

@@ -1551,9 +1551,9 @@ QSlider::handle:pressed:horizontal {
    <widget class="QLabel" name="cpuLabel">
     <property name="geometry">
      <rect>
-      <x>10</x>
+      <x>0</x>
       <y>543</y>
-      <width>111</width>
+      <width>91</width>
       <height>25</height>
      </rect>
     </property>
@@ -1561,7 +1561,7 @@ QSlider::handle:pressed:horizontal {
      <string notr="true"/>
     </property>
     <property name="text">
-     <string>Compute Time</string>
+     <string>CPU Time</string>
     </property>
     <property name="alignment">
      <set>Qt::AlignCenter</set>
@@ -1570,11 +1570,18 @@ QSlider::handle:pressed:horizontal {
    <widget class="QProgressBar" name="cpuMeter">
     <property name="geometry">
      <rect>
-      <x>130</x>
+      <x>90</x>
       <y>547</y>
-      <width>921</width>
+      <width>961</width>
       <height>16</height>
      </rect>
+    </property>
+    <property name="font">
+     <font>
+      <family>Ubuntu</family>
+      <pointsize>7</pointsize>
+      <stylestrategy>PreferAntialias</stylestrategy>
+     </font>
     </property>
     <property name="toolTip">
      <string>Will work in version 0.2.0.</string>
@@ -1587,16 +1594,23 @@ QSlider::handle:pressed:horizontal {
 }
 QProgressBar {
 	border-image: url(:/meters/cpumeter_off.png);
+    color: black;
 }</string>
     </property>
     <property name="maximum">
      <number>1000</number>
     </property>
     <property name="value">
-     <number>0</number>
+     <number>1000</number>
+    </property>
+    <property name="alignment">
+     <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
     </property>
     <property name="textVisible">
-     <bool>false</bool>
+     <bool>true</bool>
+    </property>
+    <property name="format">
+     <string>     %p%</string>
     </property>
    </widget>
    <widget class="QPushButton" name="silenceButton">

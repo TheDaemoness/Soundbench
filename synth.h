@@ -29,7 +29,7 @@ namespace sb {
 
     class Synth {
     public:
-        explicit Synth(time_t*);
+        Synth();
         void noteOn(int halfsteps, sbSample amp);
         void noteOff(int halfsteps);
         void reset();
@@ -37,8 +37,6 @@ namespace sb {
 
         inline sbSample& volume() {return vol;}
         friend class Architect;
-
-        time_t* timereqed;
 
     private:
         sbSample buffer[channelcount][outchans];
