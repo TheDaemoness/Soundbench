@@ -1,0 +1,13 @@
+To build Soundbench, you have to make absolutely sure you have the following:
+	A C++11 compliant compiler (we recommend g++ 4.6)
+	libqt4
+	libportaudio
+	libpulseaudio (Optional as of 0.2.0)
+	
+If you have these, then all you need to do is open a terminal and type the following:
+	cd path/to/the/code
+	qmake
+	make (or gmake)
+
+Your executable will be in the same directory and will be named "Soundbench". Have fun!
+	

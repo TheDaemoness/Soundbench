@@ -35,16 +35,19 @@ SoundbenchMain::SoundbenchMain(QWidget *parent) :
     rate_sigmap = new QSignalMapper;
 
     arch->planAllDefaults(blu);
+    teim = 0;
 }
 
 void SoundbenchMain::delayedConstructor() {
     sb::curr_srate = sb::sampling_rates[1];
-    syn = new sb::Synth;
-    arch->buildSynth(syn,blu);
 
+    syn = new sb::Synth(&teim);
+    arch->buildSynth(syn,blu);
     em = new sb::Emitter(syn);
 
     syn->volume() = static_cast<sbSample>(ui->volumeSlider->value())/ui->volumeSlider->maximum();
+    teimer = new QTimer;
+    metup = new MeterUpdater(ui->cpuMeter,&teim);
 
     std::map<sb::emitter_type,bool> backend_apis = em->getSupportedAPIs(); //TODO: Deal with this.
 
@@ -100,6 +103,8 @@ void SoundbenchMain::delayedConstructor() {
     //Connect the main page widgets.
     connect(ui->silenceButton,SIGNAL(clicked()),SLOT(silence()));
     connect(ui->volumeSlider,SIGNAL(valueChanged(int)),SLOT(setMasterVolume(int)));
+    connect(ui->playButton,SIGNAL(toggled(bool)),SLOT(testSynth(bool)));
+    connect(teimer,SIGNAL(timeout()),metup,SLOT(update()));
 
     //Connect the Channels page widgets.
     connect(ui->gen1TypeButton,SIGNAL(clicked()),type_sigmap,SLOT(map()));
@@ -125,11 +130,10 @@ void SoundbenchMain::delayedConstructor() {
     connect(type_sigmap,SIGNAL(mapped(int)),SLOT(setGenType(int)));
     connect(rate_sigmap,SIGNAL(mapped(int)),SLOT(setSampleRate(int)));
 
-    connect(ui->playButton,SIGNAL(toggled(bool)),SLOT(testSynth(bool)));
-
     show();
 
     em->start();
+    teimer->start(1);
 }
 
 void SoundbenchMain::genSetts(size_t i) {
@@ -144,6 +148,8 @@ void SoundbenchMain::genSetts(size_t i) {
 }
 
 SoundbenchMain::~SoundbenchMain() {
+    teimer->stop();
+
     delete arch;
     if (em != NULL)
         delete em;
@@ -154,5 +160,8 @@ SoundbenchMain::~SoundbenchMain() {
     delete sett_sigmap;
     delete type_sigmap;
     delete rate_sigmap;
+
+    delete teimer;
+
     delete ui;
 }

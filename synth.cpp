@@ -21,9 +21,10 @@
 
 namespace sb {
 
-    Synth::Synth() {
+    Synth::Synth(time_t* timer) {
         inactivechans = 0;
         notes.resize(default_poly);
+        timereqed = timer;
         for (size_t i = 0; i < default_poly; ++i) {
             notes[i].first = 0.0;
             notes[i].second = 0;
@@ -99,5 +100,6 @@ namespace sb {
                 frames[out] *= vol; //Apply the master volume.
             }
         }
+
     }
 }

@@ -65,5 +65,6 @@ namespace sb {
                     syn->gener[ous]->ctrl(dat.first,dat.second);
             }
         }
+        syn->reset(); //Do not remove.
     }
 }

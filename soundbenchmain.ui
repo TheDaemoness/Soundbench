@@ -226,7 +226,7 @@ QPushButton:checked {
       <x>0</x>
       <y>0</y>
       <width>1065</width>
-      <height>600</height>
+      <height>575</height>
      </rect>
     </property>
     <property name="styleSheet">
@@ -277,7 +277,7 @@ QTabBar::tab:selected {
 }</string>
     </property>
     <property name="currentIndex">
-     <number>1</number>
+     <number>7</number>
     </property>
     <widget class="QWidget" name="tabSelect">
      <attribute name="title">
@@ -1551,9 +1551,9 @@ QSlider::handle:pressed:horizontal {
    <widget class="QLabel" name="cpuLabel">
     <property name="geometry">
      <rect>
-      <x>5</x>
-      <y>545</y>
-      <width>81</width>
+      <x>10</x>
+      <y>543</y>
+      <width>111</width>
       <height>25</height>
      </rect>
     </property>
@@ -1561,7 +1561,7 @@ QSlider::handle:pressed:horizontal {
      <string notr="true"/>
     </property>
     <property name="text">
-     <string>CPU Time</string>
+     <string>Compute Time</string>
     </property>
     <property name="alignment">
      <set>Qt::AlignCenter</set>
@@ -1570,9 +1570,9 @@ QSlider::handle:pressed:horizontal {
    <widget class="QProgressBar" name="cpuMeter">
     <property name="geometry">
      <rect>
-      <x>90</x>
-      <y>550</y>
-      <width>961</width>
+      <x>130</x>
+      <y>547</y>
+      <width>921</width>
       <height>16</height>
      </rect>
     </property>
@@ -1581,7 +1581,9 @@ QSlider::handle:pressed:horizontal {
     </property>
     <property name="styleSheet">
      <string notr="true">QProgressBar::chunk {
-	border-image: url(:/meters/cpumeter_on.png);
+	background-image: url(:/meters/cpumeter_on.png);
+    background-position: center left;
+    background-repeat: 0;
 }
 QProgressBar {
 	border-image: url(:/meters/cpumeter_off.png);

@@ -29,11 +29,10 @@
 
 #include "gentypedialog.h"
 #include "settings.basicgen.h"
-
-#include <limits>
-#include <functional>
+#include "meterupdater.h"
 
 #include <QSignalMapper>
+#include <QTimer>
 
 namespace Ui {
     class SoundbenchMain: public Ui_SoundBenchMain {};
@@ -121,12 +120,17 @@ private:
     sb::Blueprint* blu;
     sb::Architect* arch;
     sb::Emitter* em;
+
     QSignalMapper *sett_sigmap, *type_sigmap, *rate_sigmap;
+    QTimer* teimer;
+
+    time_t teim;
 
     GenTypeDialog* gtd;
     union {
         BasicGenerSettings* basic;
     } gsd;
+    MeterUpdater* metup;
 };
 
 #endif // SOUNDBENCHMAIN_H

@@ -26,7 +26,8 @@ HEADERS += architect.h \
            warningpopup.h \
     geners.h \
     settings.basicgen.h \
-    application.h
+    application.h \
+    meterupdater.h
 
 FORMS += errorpopup.ui \
          gentypedialog.ui \
@@ -47,7 +48,8 @@ SOURCES += architect.cpp \
     gen.basic.cpp \
     synth.cpp \
     settings.basicgen.cpp \
-    application.cpp
+    application.cpp \
+    meterupdater.cpp
 
 RESOURCES += sbMainResources.qrc
 

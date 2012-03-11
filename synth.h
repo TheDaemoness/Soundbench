@@ -21,6 +21,7 @@
 #define SYNTH_H
 
 #include "geners.h"
+#include <chrono>
 
 namespace sb {
 
@@ -28,7 +29,7 @@ namespace sb {
 
     class Synth {
     public:
-        Synth();
+        explicit Synth(time_t*);
         void noteOn(int halfsteps, sbSample amp);
         void noteOff(int halfsteps);
         void reset();
@@ -37,11 +38,14 @@ namespace sb {
         inline sbSample& volume() {return vol;}
         friend class Architect;
 
+        time_t* timereqed;
+
     private:
         sbSample buffer[channelcount][outchans];
         genBase* gener[channelcount];
         fxBase* eff[channelcount][fxcount];
         std::vector< std::pair<int,sbSample> > notes;
+
         sbSample vol;
         size_t inactivechans;
     };
