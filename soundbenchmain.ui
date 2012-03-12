@@ -277,7 +277,7 @@ QTabBar::tab:selected {
 }</string>
     </property>
     <property name="currentIndex">
-     <number>7</number>
+     <number>1</number>
     </property>
     <widget class="QWidget" name="tabSelect">
      <attribute name="title">
@@ -338,8 +338,102 @@ QTabBar::tab:selected {
       </property>
       <property name="styleSheet">
        <string notr="true">QGraphicsView {
-	background-color: black;
+	border-image: url(:/backdrops/playerbackdrop.png);
 }</string>
+      </property>
+     </widget>
+     <widget class="QListWidget" name="eventsList">
+      <property name="geometry">
+       <rect>
+        <x>30</x>
+        <y>40</y>
+        <width>321</width>
+        <height>371</height>
+       </rect>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">QListWidget {
+	background-color: rgba(0, 0, 0, 0);
+}</string>
+      </property>
+     </widget>
+     <widget class="QSlider" name="verticalSlider">
+      <property name="geometry">
+       <rect>
+        <x>350</x>
+        <y>40</y>
+        <width>16</width>
+        <height>371</height>
+       </rect>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">QSlider::groove {
+	border-image: url(:/sliders/groovev_square_idle.png);
+}
+QSlider::groove:hover {
+	border-image: url(:/sliders/groovev_square_hover.png);
+}
+QSlider::groove:pressed {
+	border-image: url(:/sliders/groovev_square_click.png);
+}
+QSlider::handle{
+	border-image: url(:/sliders/slider_square_idle.png);
+	height: 16px;
+}
+QSlider::handle:hover {
+	border-image: url(:/sliders/slider_square_hover.png);
+	height: 16px;
+}
+QSlider::handle:pressed {
+	border-image: url(:/sliders/slider_square_click.png);
+	height: 16px;
+}</string>
+      </property>
+      <property name="maximum">
+       <number>1000</number>
+      </property>
+      <property name="value">
+       <number>1000</number>
+      </property>
+      <property name="orientation">
+       <enum>Qt::Vertical</enum>
+      </property>
+     </widget>
+     <widget class="QSlider" name="horizontalSlider">
+      <property name="geometry">
+       <rect>
+        <x>30</x>
+        <y>410</y>
+        <width>321</width>
+        <height>16</height>
+       </rect>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">QSlider::groove:horizontal {
+	border-image: url(:/sliders/grooveh_square_idle.png);
+}
+QSlider::groove:horizontal:hover {
+	border-image: url(:/sliders/grooveh_square_hover.png);
+}
+QSlider::groove:horizontal:pressed {
+	border-image: url(:/sliders/grooveh_square_click.png);
+}
+QSlider::handle:horizontal {
+	border-image: url(:/sliders/slider_square_idle.png);
+	width: 16px;
+}
+QSlider::handle:hover:horizontal {
+	border-image: url(:/sliders/slider_square_hover.png);
+}
+QSlider::handle:pressed:horizontal {
+	border-image: url(:/sliders/slider_square_click.png);
+}</string>
+      </property>
+      <property name="maximum">
+       <number>1000</number>
+      </property>
+      <property name="orientation">
+       <enum>Qt::Horizontal</enum>
       </property>
      </widget>
     </widget>

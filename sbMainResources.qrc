@@ -4,17 +4,24 @@
         <file>settingsbackdrop.png</file>
         <file>mainbackdrop.png</file>
         <file>aboutbackdrop.png</file>
+        <file>playerbackdrop.png</file>
     </qresource>
     <qresource prefix="/sliders">
-        <file>grooveh_thin_hover.png</file>
-        <file>grooveh_thin_idle.png</file>
-        <file>grooveh_thin_pressed.png</file>
         <file>slider_click.png</file>
         <file>slider_hover.png</file>
         <file>slider_idle.png</file>
         <file>grooveh_short_click.png</file>
         <file>grooveh_short_hover.png</file>
         <file>grooveh_short_idle.png</file>
+        <file>grooveh_square_click.png</file>
+        <file>grooveh_square_hover.png</file>
+        <file>grooveh_square_idle.png</file>
+        <file>groovev_square_click.png</file>
+        <file>groovev_square_hover.png</file>
+        <file>groovev_square_idle.png</file>
+        <file>slider_square_click.png</file>
+        <file>slider_square_hover.png</file>
+        <file>slider_square_idle.png</file>
     </qresource>
     <qresource prefix="/buttons">
         <file>button75_hover.png</file>

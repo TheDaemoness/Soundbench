@@ -26,6 +26,8 @@ private:
     rusage ruse;
     rlimit64 rimit;
     timespec dust;
+    bool usehlimit;
+    bool nolimit;
 #else
 #endif
 
@@ -35,8 +37,6 @@ private:
     std::deque<double> prevtime;
     std::deque<uint64_t> prevtotaltime;
 
-    bool usehlimit;
-    bool nolimit;
     double avgtime, avgtotaltime;
 };
 

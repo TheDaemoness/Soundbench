@@ -11,11 +11,12 @@ MeterUpdater::MeterUpdater(QProgressBar* bare, QObject *parent) :
     totaltime = 0;
 
     nolimit = false;
+#ifndef _WIN32
     getrlimit64(RLIMIT_CPU,&rimit);
     if (rimit.rlim_cur == RLIM_INFINITY) {
         std::clog << "No soft limit on CPU usage. Checking for hard limit...\n";
         if (rimit.rlim_max == RLIM_INFINITY) {
-            std::clog << "No hard limit on CPU usage. Using total time.\n";
+            std::clog << "No hard limit on CPU usage. Using true CPU time.\n";
             nolimit = true;
         }
         else {
@@ -29,6 +30,8 @@ MeterUpdater::MeterUpdater(QProgressBar* bare, QObject *parent) :
     }
     if (!nolimit)
         prevtotaltime.push_back(0);
+#else
+#endif
 }
 
 #ifndef _WIN32
@@ -36,12 +39,12 @@ void MeterUpdater::update() {
     getrusage(RUSAGE_SELF,&ruse);
 
 
-    time = ruse.ru_stime.tv_usec + ruse.ru_stime.tv_sec*1000000;
+    time = ruse.ru_utime.tv_usec + ruse.ru_utime.tv_sec*1000000;
     if (!nolimit) {
         totaltime = usehlimit?rimit.rlim_cur*1000000:rimit.rlim_max*1000000;
     }
     else {
-        clock_gettime(CLOCK_PROCESS_CPUTIME_ID,&dust);
+        clock_gettime(CLOCK_REALTIME,&dust);
         totaltime = dust.tv_nsec/1000 + dust.tv_sec*1000000;
         prevtotaltime.push_back(totaltime);
     }
@@ -55,5 +58,9 @@ void MeterUpdater::update() {
         prevtime.pop_front();
         prevtotaltime.pop_front();
     }
+}
+#else
+void MeterUpdater::update() {
+    affectedbar->setValue(0);
 }
 #endif
