@@ -49,11 +49,11 @@ namespace sb {
             switch (blu->gener[ous]) {
             default:
                 std::cerr << "Unimplemented generator type requested. Defaulting to no generator.\n";
-                syn->gener[ous] = NULL;
+                syn->gener[ous] = nullptr;
                 ++(syn->inactivechans);
                 continue;
             case Blueprint::NoGener:
-                syn->gener[ous] = NULL;
+                syn->gener[ous] = nullptr;
                 ++(syn->inactivechans);
                 break;
             case Blueprint::generBasic:
@@ -61,7 +61,7 @@ namespace sb {
                 break;
             }
             for (std::pair<const sb::moduleParam,ParameterValue> dat : blu->gener_data[ous]) { //Humbug.
-                if(syn->gener[ous] != NULL)
+                if(syn->gener[ous] != nullptr)
                     syn->gener[ous]->ctrl(dat.first,dat.second);
             }
         }

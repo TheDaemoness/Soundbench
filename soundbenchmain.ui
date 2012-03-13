@@ -277,7 +277,7 @@ QTabBar::tab:selected {
 }</string>
     </property>
     <property name="currentIndex">
-     <number>1</number>
+     <number>7</number>
     </property>
     <widget class="QWidget" name="tabSelect">
      <attribute name="title">
@@ -357,7 +357,7 @@ QTabBar::tab:selected {
 }</string>
       </property>
      </widget>
-     <widget class="QSlider" name="verticalSlider">
+     <widget class="QSlider" name="eventVScroll">
       <property name="geometry">
        <rect>
         <x>350</x>
@@ -393,13 +393,19 @@ QSlider::handle:pressed {
        <number>1000</number>
       </property>
       <property name="value">
-       <number>1000</number>
+       <number>0</number>
       </property>
       <property name="orientation">
        <enum>Qt::Vertical</enum>
       </property>
+      <property name="invertedAppearance">
+       <bool>true</bool>
+      </property>
+      <property name="invertedControls">
+       <bool>true</bool>
+      </property>
      </widget>
-     <widget class="QSlider" name="horizontalSlider">
+     <widget class="QSlider" name="eventHScroll">
       <property name="geometry">
        <rect>
         <x>30</x>
@@ -475,15 +481,16 @@ QSlider::handle:pressed:horizontal {
       <property name="geometry">
        <rect>
         <x>400</x>
-        <y>130</y>
+        <y>120</y>
         <width>611</width>
-        <height>301</height>
+        <height>311</height>
        </rect>
       </property>
+      <property name="layoutDirection">
+       <enum>Qt::LeftToRight</enum>
+      </property>
       <property name="styleSheet">
-       <string notr="true">QTabWidget {
-	background-color: black;
-}</string>
+       <string notr="true"/>
       </property>
       <property name="currentIndex">
        <number>0</number>
@@ -498,7 +505,7 @@ QSlider::handle:pressed:horizontal {
           <x>0</x>
           <y>0</y>
           <width>611</width>
-          <height>259</height>
+          <height>269</height>
          </rect>
         </property>
         <property name="styleSheet">
@@ -518,7 +525,7 @@ QSlider::handle:pressed:horizontal {
           <x>0</x>
           <y>0</y>
           <width>611</width>
-          <height>259</height>
+          <height>269</height>
          </rect>
         </property>
         <property name="styleSheet">
@@ -598,6 +605,9 @@ QSlider::handle:pressed:horizontal {
       </property>
      </widget>
      <widget class="QPushButton" name="recordButton">
+      <property name="enabled">
+       <bool>false</bool>
+      </property>
       <property name="geometry">
        <rect>
         <x>740</x>
@@ -610,7 +620,7 @@ QSlider::handle:pressed:horizontal {
        <string>Record</string>
       </property>
      </widget>
-     <widget class="QPushButton" name="pushButton">
+     <widget class="QPushButton" name="timingConverterButton">
       <property name="geometry">
        <rect>
         <x>580</x>
@@ -623,7 +633,7 @@ QSlider::handle:pressed:horizontal {
        <string>Converter</string>
       </property>
      </widget>
-     <widget class="QPushButton" name="pushButton_2">
+     <widget class="QPushButton" name="eventModButton">
       <property name="geometry">
        <rect>
         <x>580</x>
@@ -1550,7 +1560,7 @@ p, li { white-space: pre-wrap; }
        </font>
       </property>
       <property name="text">
-       <string>Version 0.1.0 - Public Alpha</string>
+       <string>Version 0.1.0 - Development Branch</string>
       </property>
       <property name="alignment">
        <set>Qt::AlignCenter</set>

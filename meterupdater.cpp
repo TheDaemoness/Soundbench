@@ -16,7 +16,7 @@ MeterUpdater::MeterUpdater(QProgressBar* bare, QObject *parent) :
     if (rimit.rlim_cur == RLIM_INFINITY) {
         std::clog << "No soft limit on CPU usage. Checking for hard limit...\n";
         if (rimit.rlim_max == RLIM_INFINITY) {
-            std::clog << "No hard limit on CPU usage. Using true CPU time.\n";
+            std::clog << "No hard limit on CPU usage. Using true CPU time as upper bound of CPU meter.\n";
             nolimit = true;
         }
         else {

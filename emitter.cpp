@@ -21,7 +21,7 @@
 
 namespace sb {
     void Emitter::setEmitterType(emitter_type emt) {
-        if (backend != NULL) {
+        if (backend != nullptr) {
             delete backend;
         }
         if (emt == sb::PortAudio) {
@@ -38,19 +38,19 @@ namespace sb {
         syn = s;
         em_type = sb::PortAudio;
         sample_rate = sb::curr_srate;
-        backend = NULL;
+        backend = nullptr;
         setEmitterType(em_type);
     }
 
     void Emitter::setSamplingRate(size_t s_rate) {
         curr_srate = s_rate;
-        if (backend != NULL)
+        if (backend != nullptr)
             backend->setSamplingRate(s_rate);
         std::clog << "Set sampling rate to " << curr_srate << " samples per second.\n";
     }
 
     Emitter::~Emitter() {
-        if (backend != NULL)
+        if (backend != nullptr)
             delete backend;
     }
 }

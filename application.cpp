@@ -20,7 +20,7 @@
 #include "application.h"
 
 SoundbenchApp::SoundbenchApp(int argc, char** argv) : QApplication(argc,argv) {
-    sb = NULL;
+    sb = nullptr;
 }
 
 void SoundbenchApp::newSoundbench(int flags) {

@@ -38,7 +38,7 @@ namespace sb {
                 notes[i].first = halfsteps;
                 notes[i].second = amp;
                 for (size_t ation = 0; ation < channelcount; ++ation) {
-                    if (gener[ation] != NULL) //Older programmers: This does NOT unconditionally evaluate to false.
+                    if (gener[ation] != nullptr) //Older programmers: This does NOT unconditionally evaluate to false.
                         gener[ation]->noteOn(halfsteps,amp,i);
                 }
                 break;
@@ -50,7 +50,7 @@ namespace sb {
             if (notes[i].first == halfsteps && notes[i].second != sbSampleZero) {
                 notes[i].second = sbSampleZero;
                 for (size_t al = 0; al < channelcount; ++al) {
-                    if (gener[al] != NULL)
+                    if (gener[al] != nullptr)
                         gener[al]->noteOff(i);
                 }
             }
@@ -61,30 +61,30 @@ namespace sb {
             if(notes[i].second != sbSampleZero) {
                 notes[i].second = sbSampleZero;
                 for (size_t able = 0; able < channelcount; ++able) {
-                    if (gener[able] != NULL)
+                    if (gener[able] != nullptr)
                         gener[able]->noteOff(i);
                 }
             }
         }
         for (size_t ec = 0; ec < channelcount; ++ec) { //Loop per internal channel.
-            if (gener[ec] != NULL)
+            if (gener[ec] != nullptr)
                 gener[ec]->reset();
             /*for (size_t tive = 0; tive < fxcount; ++tive) { //Loop per effect.
-                if (eff[ec][tive] != NULL) //I could make these jokes all day.
+                if (eff[ec][tive] != nullptr) //I could make these jokes all day.
                     eff[ec][tive]->reset();
             }*/
         }
     }
     void Synth::tick(sbSample* frames, size_t chans) {
         for (size_t ic = 0; ic < channelcount; ++ic) { //Loop per internal channel.
-            if (gener[ic] != NULL)
+            if (gener[ic] != nullptr)
                 gener[ic]->tick(buffer[ic], chans);
             else {
                 for (size_t i = 0; i < chans; ++i)
                     buffer[ic][i] = sbSampleZero;
             }
             for (size_t ient = 0; ient < fxcount; ++ient) { //Loop per effect.
-                if (eff[ic][ient] != NULL)
+                if (eff[ic][ient] != nullptr)
                     eff[ic][ient]->tick(buffer[ient],chans);
             }
             for (size_t acid = 0; acid < chans; ++acid) { //Loop per outbound channel.

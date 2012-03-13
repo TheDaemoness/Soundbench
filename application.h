@@ -45,7 +45,7 @@ public:
     explicit SoundbenchApp(int argc, char** argv);
     ~SoundbenchApp();
     inline int run() {
-        if (sb != NULL)
+        if (sb != nullptr)
             sb->show();
         return this->exec();
     }

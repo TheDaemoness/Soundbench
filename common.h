@@ -20,6 +20,7 @@
 #ifndef SOUNDBENCH_API_H
 #define SOUNDBENCH_API_H
 
+#include <stdint.h>
 #include <utility>
 #include <vector>
 #include <array>

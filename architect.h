@@ -36,7 +36,7 @@ namespace sb {
         void planDefaultSynth(Blueprint*);
 
         //Building functions
-        void buildSynth(Synth*,Blueprint* blu = NULL);
+        void buildSynth(Synth*,Blueprint* blu = nullptr);
 
     private:
     };

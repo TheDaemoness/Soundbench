@@ -25,8 +25,8 @@ SoundbenchMain::SoundbenchMain(QWidget *parent) :
     arch = new sb::Architect;
     blu = new sb::Blueprint;
     arch->planDefaultSynth(blu);
-    em = NULL;
-    syn = NULL;
+    em = nullptr;
+    syn = nullptr;
 
     ui = new Ui::SoundbenchMain();
     ui->setupUi(this);
@@ -151,9 +151,9 @@ SoundbenchMain::~SoundbenchMain() {
     teimer->stop();
 
     delete arch;
-    if (em != NULL)
+    if (em != nullptr)
         delete em;
-    if (syn != NULL)
+    if (syn != nullptr)
         delete syn;
     delete blu;
 

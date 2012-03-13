@@ -35,10 +35,10 @@ portaudio_backend::portaudio_backend(sb::Synth* s, size_t& srate, std::map<size_
     dev.channelCount = chans;
     dev.sampleFormat = paFloat32;
     dev.suggestedLatency = Pa_GetDeviceInfo(dev.device)->defaultLowOutputLatency;
-    dev.hostApiSpecificStreamInfo = NULL;
+    dev.hostApiSpecificStreamInfo = nullptr;
 
     for(size_t i = 0; i < sb::sampling_rate_count; ++i)
-        srates[sb::sampling_rates[i]] = (Pa_IsFormatSupported(NULL,&dev,sb::sampling_rates[i]) == paFormatIsSupported);
+        srates[sb::sampling_rates[i]] = (Pa_IsFormatSupported(nullptr,&dev,sb::sampling_rates[i]) == paFormatIsSupported);
 
     if (!srates[sb::sampling_rates[1]]) {
         for (size_t i = 0; i < sb::sampling_rate_count; ++i) {
@@ -48,7 +48,7 @@ portaudio_backend::portaudio_backend(sb::Synth* s, size_t& srate, std::map<size_
     }
     sampling_rate = srate;
     syn = s;
-    river = NULL;
+    river = nullptr;
 }
 
 int portaudio_backend::callback(const void*, void* output, unsigned long framecount, const PaStreamCallbackTimeInfo*, PaStreamCallbackFlags, void* syne) {
@@ -60,8 +60,8 @@ int portaudio_backend::callback(const void*, void* output, unsigned long frameco
 
 void portaudio_backend::start() {
     int e = paNoError;
-    if (river == NULL)
-        e = Pa_OpenStream(&river,NULL,&dev,sampling_rate,paFramesPerBufferUnspecified,paNoFlag,portaudio_backend::callback,reinterpret_cast<void*>(syn));
+    if (river == nullptr)
+        e = Pa_OpenStream(&river,nullptr,&dev,sampling_rate,paFramesPerBufferUnspecified,paNoFlag,portaudio_backend::callback,reinterpret_cast<void*>(syn));
     if (e != paNoError) {
         std::cerr << "Problem when opening the output stream: " << Pa_GetErrorText(e) << ".\n";
         throw sbError("emitter::backend::portaudio",std::string("Couldn't open the output stream: ")+Pa_GetErrorText(e));
@@ -80,7 +80,7 @@ void portaudio_backend::setSamplingRate(size_t neorate) {
 
 void portaudio_backend::stop() {
     int e;
-    if(river != NULL) {
+    if(river != nullptr) {
         if (Pa_IsStreamActive(river)) {
             e = Pa_StopStream(river);
             if (e != paNoError) {
@@ -94,7 +94,7 @@ void portaudio_backend::stop() {
             throw sbError("emitter::backend::portaudio",std::string("Couldn't close the output stream: ")+Pa_GetErrorText(e));
         }
     }
-    river = NULL;
+    river = nullptr;
 }
 
 size_t portaudio_backend::returnSuggestedBufferSize() {
