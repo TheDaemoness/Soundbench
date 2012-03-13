@@ -25,7 +25,7 @@
 #include "emitter.h"
 #include "architect.h"
 #include "synth.h"
-#include "midi.h"
+#include "player.h"
 
 #include "gentypedialog.h"
 #include "settings.basicgen.h"
@@ -64,6 +64,13 @@ private slots:
             syn->reset();
         }
     }
+    void playSynth(bool b) {
+        if (b)
+            plai->play();
+        else
+            plai->stop();
+    }
+
     void silence() {
         stopAndReset();
         em->start();
@@ -120,6 +127,7 @@ private:
     sb::Blueprint* blu;
     sb::Architect* arch;
     sb::Emitter* em;
+    sb::Player* plai;
 
     QSignalMapper *sett_sigmap, *type_sigmap, *rate_sigmap;
     QTimer* teimer;

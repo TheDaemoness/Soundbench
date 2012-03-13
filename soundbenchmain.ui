@@ -1560,7 +1560,7 @@ p, li { white-space: pre-wrap; }
        </font>
       </property>
       <property name="text">
-       <string>Version 0.1.0 - Development Branch</string>
+       <string>Version Data Here</string>
       </property>
       <property name="alignment">
        <set>Qt::AlignCenter</set>
@@ -1872,6 +1872,9 @@ QSlider::handle:pressed:horizontal {
     </property>
    </widget>
    <widget class="QProgressBar" name="cpuMeter">
+    <property name="enabled">
+     <bool>true</bool>
+    </property>
     <property name="geometry">
      <rect>
       <x>90</x>
@@ -1905,7 +1908,7 @@ QProgressBar {
      <number>1000</number>
     </property>
     <property name="value">
-     <number>1000</number>
+     <number>0</number>
     </property>
     <property name="alignment">
      <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
@@ -1966,13 +1969,13 @@ QProgressBar {
 &lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;style type=&quot;text/css&quot;&gt;
 p, li { white-space: pre-wrap; }
 &lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:'Ubuntu'; font-size:11pt; font-weight:400; font-style:normal;&quot;&gt;
-&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;Hold a note for testing purposes.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;Play the tune in the Player interface.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
     </property>
     <property name="styleSheet">
      <string notr="true"/>
     </property>
     <property name="text">
-     <string>Test</string>
+     <string>Play</string>
     </property>
     <property name="checkable">
      <bool>true</bool>

@@ -43,6 +43,7 @@ void SoundbenchMain::delayedConstructor() {
     syn = new sb::Synth;
     arch->buildSynth(syn,blu);
     em = new sb::Emitter(syn);
+    plai = new sb::Player(syn);
 
     syn->volume() = static_cast<sbSample>(ui->volumeSlider->value())/ui->volumeSlider->maximum();
     teimer = new QTimer;
@@ -102,7 +103,7 @@ void SoundbenchMain::delayedConstructor() {
     //Connect the main page widgets.
     connect(ui->silenceButton,SIGNAL(clicked()),SLOT(silence()));
     connect(ui->volumeSlider,SIGNAL(valueChanged(int)),SLOT(setMasterVolume(int)));
-    connect(ui->playButton,SIGNAL(toggled(bool)),SLOT(testSynth(bool)));
+    connect(ui->playButton,SIGNAL(toggled(bool)),SLOT(playSynth(bool)));
     connect(teimer,SIGNAL(timeout()),metup,SLOT(update()));
 
     //Connect the Channels page widgets.
@@ -129,6 +130,8 @@ void SoundbenchMain::delayedConstructor() {
     connect(type_sigmap,SIGNAL(mapped(int)),SLOT(setGenType(int)));
     connect(rate_sigmap,SIGNAL(mapped(int)),SLOT(setSampleRate(int)));
 
+    ui->versionLabel->setText(SBVERSION);
+
     show();
 
     teimer->start(10);
@@ -151,6 +154,7 @@ SoundbenchMain::~SoundbenchMain() {
     teimer->stop();
 
     delete arch;
+    delete plai;
     if (em != nullptr)
         delete em;
     if (syn != nullptr)

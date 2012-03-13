@@ -29,7 +29,7 @@ MeterUpdater::MeterUpdater(QProgressBar* bare, QObject *parent) :
         usehlimit = false;
     }
     if (!nolimit)
-        prevtotaltime.push_back(0);
+        prevtotaltime.push(0);
 #else
 #endif
 }
@@ -46,17 +46,17 @@ void MeterUpdater::update() {
     else {
         clock_gettime(CLOCK_REALTIME,&dust);
         totaltime = dust.tv_nsec/1000 + dust.tv_sec*1000000;
-        prevtotaltime.push_back(totaltime);
+        prevtotaltime.push(totaltime);
     }
-    prevtime.push_back(time);
+    prevtime.push(time);
 
     avgtime = time - prevtime.front();
     avgtotaltime = totaltime - prevtotaltime.front();
     affectedbar->setValue(avgtime/avgtotaltime*1000.0);
 
-    if (prevtime.size() >= 500) {
-        prevtime.pop_front();
-        prevtotaltime.pop_front();
+    if (prevtime.size() >= 400) { //Maybe add some way of tuning this value in the future?
+        prevtime.pop();
+        prevtotaltime.pop();
     }
 }
 #else

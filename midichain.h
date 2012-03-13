@@ -44,8 +44,10 @@ namespace sb {
             virtual void doevent() = 0;
         };
 
-        /*Objects of this type MUST be dynamically allocated by PlayerStartNode.*/
+
+
         class MIDIEventIterator {
+            //WARNING: Objects of this type delete themselves.
             std::thread* tread;
             friend class PlayerStartNode;
             PlayerStartNode* star;
@@ -54,16 +56,20 @@ namespace sb {
 
         class PlayerStartNode : public MIDIEventNode {
             MIDIEventIterator* it;
+            bool running;
         public:
             explicit PlayerStartNode(Synth* syn) {
                 MIDIEventNode::synref = syn;
                 it = nullptr;
+                running = false;
             }
             ~PlayerStartNode() {
                 if (it != nullptr)
                     delete it;
             }
-
+            bool isRunning() {
+                return running;
+            }
             void doevent() {};
             void run() {
                 if (it == nullptr)
@@ -72,10 +78,13 @@ namespace sb {
                     delete it;
                     it = new MIDIEventIterator(this);
                 }
+                running = true;
             }
             void stop() {
-                if (it != nullptr)
-                    delete it;
+                if (it != nullptr) {
+                    running = false;
+                    it = nullptr;
+                }
             }
         };
 

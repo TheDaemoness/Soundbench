@@ -29,6 +29,8 @@
 #include <iostream>
 #include <string>
 
+#define SBVERSION "Main Development Branch"
+
 typedef float sbSample;
 const sbSample sbSampleMin = -1.0;
 const sbSample sbSampleMax = 1.0;

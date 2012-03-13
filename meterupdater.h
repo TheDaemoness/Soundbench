@@ -2,7 +2,7 @@
 #define METERUPDATER_H
 
 #include <QProgressBar>
-#include <deque>
+#include <queue>
 
 #ifndef _WIN32
     #include <sys/time.h>
@@ -34,8 +34,8 @@ private:
     double time;
     uint64_t totaltime;
 
-    std::deque<double> prevtime;
-    std::deque<uint64_t> prevtotaltime;
+    std::queue<double> prevtime;
+    std::queue<uint64_t> prevtotaltime;
 
     double avgtime, avgtotaltime;
 };

@@ -12,6 +12,7 @@ namespace sb {
             tread->join();
             delete tread;
             star->stop();
+            delete this;
         }
     }
 }
