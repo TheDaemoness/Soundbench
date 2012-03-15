@@ -15,6 +15,9 @@ class MeterUpdater : public QObject
     Q_OBJECT
 public:
     explicit MeterUpdater(QProgressBar* bare, QObject *parent = 0);
+    inline bool artificial_limit() {
+        return !nolimit;
+    }
 
 public slots:
     void update();

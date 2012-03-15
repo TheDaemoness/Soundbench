@@ -30,6 +30,7 @@
 #include "gentypedialog.h"
 #include "settings.basicgen.h"
 #include "meterupdater.h"
+#include "eventlist.h"
 
 #include <QSignalMapper>
 #include <QTimer>
@@ -56,11 +57,28 @@ public slots:
     //void disableMidi();
 
 private slots:
+    void restyleCPUMeter() {
+        if((metup->artificial_limit() || (ui->cpuMeter->value() >= 750)) && !cpumeter_orange) {
+            ui->cpuMeter->setStyleSheet(R"del(QProgressBar::chunk {
+                                            background-image: url(:/meters/cpumeter_warn.png);
+                                            background-position: center left;
+                                            background-repeat: 0;
+                                            }
+                                            QProgressBar {
+                                            border-image: url(:/meters/cpumeter_off.png);
+                                            color: black;
+                                            })del");
+        }
+        else if (!(metup->artificial_limit() || ui->cpuMeter->value() >= 750) && cpumeter_orange)
+            ui->cpuMeter->setStyleSheet("");
+
+    }
+
     void testSynth(bool b) {
         if (b)
-            syn->noteOn(36,1.0);
+            syn->noteOn(12.0,1.0);
         else {
-            syn->noteOff(36);
+            syn->noteOff(12.0);
             syn->reset();
         }
     }
@@ -84,6 +102,18 @@ private slots:
         arch->buildSynth(syn,blu);
         em->start();
     }
+    void openEventList() {
+        if (leest == nullptr)
+            leest = new EventList(ui->eventBox);
+        leest->show();
+    }
+    void closePopups() {
+        /*The purpose of this is to close all the popups that do not block the interface.
+        All non-blocking popups take care of freeing themselves.*/
+        if (leest != nullptr)
+            leest->close();
+    }
+
     void setGenType(int which) {
         switch (which) {
         case 1:
@@ -137,6 +167,9 @@ private:
         BasicGenerSettings* basic;
     } gsd;
     MeterUpdater* metup;
+    EventList* leest;
+
+    bool cpumeter_orange;
 };
 
 #endif // SOUNDBENCHMAIN_H

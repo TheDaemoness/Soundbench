@@ -72,11 +72,13 @@
     <qresource prefix="/meters">
         <file>cpumeter_off.png</file>
         <file>cpumeter_on.png</file>
+        <file>cpumeter_warn.png</file>
     </qresource>
     <qresource prefix="/popups">
         <file>error_popup.png</file>
         <file>warning_popup.png</file>
         <file>gentype_popup.png</file>
         <file>basicgener_backdrop.png</file>
+        <file>eventlist_popup.png</file>
     </qresource>
 </RCC>

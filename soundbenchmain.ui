@@ -321,6 +321,16 @@ QSlider::handle:hover:vertical {
 QSlider::handle:pressed:vertical {
 	border-image: url(:/sliders/slider_square_click.png);
 	height: 16px;
+}
+
+QProgressBar::chunk {
+	background-image: url(:/meters/cpumeter_on.png);
+    background-position: center left;
+    background-repeat: 0;
+}
+QProgressBar {
+	border-image: url(:/meters/cpumeter_off.png);
+    color: black;
 }</string>
   </property>
   <property name="dockOptions">
@@ -402,7 +412,7 @@ QTabBar::tab:selected {
 }</string>
     </property>
     <property name="currentIndex">
-     <number>1</number>
+     <number>7</number>
     </property>
     <widget class="QWidget" name="tabSelect">
      <attribute name="title">
@@ -472,8 +482,8 @@ QTabBar::tab:selected {
        <rect>
         <x>30</x>
         <y>50</y>
-        <width>321</width>
-        <height>371</height>
+        <width>341</width>
+        <height>386</height>
        </rect>
       </property>
       <property name="styleSheet">
@@ -483,53 +493,6 @@ QTabBar::tab:selected {
       </property>
       <property name="verticalScrollBarPolicy">
        <enum>Qt::ScrollBarAlwaysOff</enum>
-      </property>
-     </widget>
-     <widget class="QSlider" name="eventVScroll">
-      <property name="geometry">
-       <rect>
-        <x>350</x>
-        <y>50</y>
-        <width>16</width>
-        <height>371</height>
-       </rect>
-      </property>
-      <property name="styleSheet">
-       <string notr="true"/>
-      </property>
-      <property name="maximum">
-       <number>1000</number>
-      </property>
-      <property name="value">
-       <number>0</number>
-      </property>
-      <property name="orientation">
-       <enum>Qt::Vertical</enum>
-      </property>
-      <property name="invertedAppearance">
-       <bool>true</bool>
-      </property>
-      <property name="invertedControls">
-       <bool>true</bool>
-      </property>
-     </widget>
-     <widget class="QSlider" name="eventHScroll">
-      <property name="geometry">
-       <rect>
-        <x>30</x>
-        <y>420</y>
-        <width>321</width>
-        <height>16</height>
-       </rect>
-      </property>
-      <property name="styleSheet">
-       <string notr="true"/>
-      </property>
-      <property name="maximum">
-       <number>1000</number>
-      </property>
-      <property name="orientation">
-       <enum>Qt::Horizontal</enum>
       </property>
      </widget>
      <widget class="QSpinBox" name="eventDelay">
@@ -689,7 +652,7 @@ This is just to quickly hear what a sound sounds like.</string>
 }</string>
       </property>
       <property name="currentIndex">
-       <number>0</number>
+       <number>3</number>
       </property>
       <widget class="QWidget" name="noteOnPage">
        <widget class="QGraphicsView" name="noteOnBackdrop">
@@ -748,6 +711,66 @@ This is just to quickly hear what a sound sounds like.</string>
         </property>
         <property name="text">
          <string>Note Off</string>
+        </property>
+       </widget>
+      </widget>
+      <widget class="QWidget" name="holdPage">
+       <widget class="QGraphicsView" name="holdEventBackdrop">
+        <property name="geometry">
+         <rect>
+          <x>0</x>
+          <y>0</y>
+          <width>611</width>
+          <height>301</height>
+         </rect>
+        </property>
+        <property name="styleSheet">
+         <string notr="true">QGraphicsView {
+	background-color: black;
+}</string>
+        </property>
+       </widget>
+       <widget class="QLabel" name="holdEventLabel">
+        <property name="geometry">
+         <rect>
+          <x>10</x>
+          <y>10</y>
+          <width>91</width>
+          <height>18</height>
+         </rect>
+        </property>
+        <property name="text">
+         <string>Hold/Sustain</string>
+        </property>
+       </widget>
+      </widget>
+      <widget class="QWidget" name="sutenuoPage">
+       <widget class="QGraphicsView" name="sutenuoBackdrop">
+        <property name="geometry">
+         <rect>
+          <x>0</x>
+          <y>0</y>
+          <width>611</width>
+          <height>301</height>
+         </rect>
+        </property>
+        <property name="styleSheet">
+         <string notr="true">QGraphicsView {
+	background-color: black;
+}</string>
+        </property>
+       </widget>
+       <widget class="QLabel" name="sutenuoLabel">
+        <property name="geometry">
+         <rect>
+          <x>10</x>
+          <y>10</y>
+          <width>91</width>
+          <height>18</height>
+         </rect>
+        </property>
+        <property name="text">
+         <string>Sutenuo</string>
         </property>
        </widget>
       </widget>
@@ -1726,7 +1749,7 @@ p, li { white-space: pre-wrap; }
        </font>
       </property>
       <property name="text">
-       <string>Version Data Here</string>
+       <string>Version Data (DO NOT EDIT)</string>
       </property>
       <property name="alignment">
        <set>Qt::AlignCenter</set>
@@ -2060,15 +2083,7 @@ QSlider::handle:pressed:horizontal {
      <string>Will work in version 0.2.0.</string>
     </property>
     <property name="styleSheet">
-     <string notr="true">QProgressBar::chunk {
-	background-image: url(:/meters/cpumeter_on.png);
-    background-position: center left;
-    background-repeat: 0;
-}
-QProgressBar {
-	border-image: url(:/meters/cpumeter_off.png);
-    color: black;
-}</string>
+     <string notr="true"/>
     </property>
     <property name="maximum">
      <number>1000</number>

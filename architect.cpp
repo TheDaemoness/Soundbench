@@ -49,9 +49,6 @@ namespace sb {
             switch (blu->gener[ous]) {
             default:
                 std::cerr << "Unimplemented generator type requested. Defaulting to no generator.\n";
-                syn->gener[ous] = nullptr;
-                ++(syn->inactivechans);
-                continue;
             case Blueprint::NoGener:
                 syn->gener[ous] = nullptr;
                 ++(syn->inactivechans);
@@ -60,11 +57,19 @@ namespace sb {
                 syn->gener[ous] = new BasicGen(sb::curr_srate);
                 break;
             }
+            for (size_t effous = 0; effous < fxcount; ++effous) {
+                switch (blu->eff[ous][effous]) {
+                    default:
+                        std::cerr << "Unimplemented effect type requested. Defaulting to no effect.\n";
+                    case Blueprint::NoFx:
+                        syn->eff[ous][effous] = nullptr;
+                    break;
+                }
+            }
             for (std::pair<const sb::moduleParam,ParameterValue> dat : blu->gener_data[ous]) { //Humbug.
                 if(syn->gener[ous] != nullptr)
                     syn->gener[ous]->ctrl(dat.first,dat.second);
             }
         }
-        syn->reset(); //Do not remove.
     }
 }

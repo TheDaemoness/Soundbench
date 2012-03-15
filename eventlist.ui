@@ -70,6 +70,9 @@ QRadioButton::indicator:checked:hover {
    <property name="text">
     <string>Note On</string>
    </property>
+   <property name="checked">
+    <bool>true</bool>
+   </property>
   </widget>
   <widget class="QRadioButton" name="eventNoteOff">
    <property name="geometry">

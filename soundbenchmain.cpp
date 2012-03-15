@@ -27,6 +27,8 @@ SoundbenchMain::SoundbenchMain(QWidget *parent) :
     arch->planDefaultSynth(blu);
     em = nullptr;
     syn = nullptr;
+    leest = nullptr;
+    cpumeter_orange = false;
 
     ui = new Ui::SoundbenchMain();
     ui->setupUi(this);
@@ -105,6 +107,12 @@ void SoundbenchMain::delayedConstructor() {
     connect(ui->volumeSlider,SIGNAL(valueChanged(int)),SLOT(setMasterVolume(int)));
     connect(ui->playButton,SIGNAL(toggled(bool)),SLOT(playSynth(bool)));
     connect(teimer,SIGNAL(timeout()),metup,SLOT(update()));
+    connect(teimer,SIGNAL(timeout()),SLOT(restyleCPUMeter()));
+    connect(ui->mainTabs,SIGNAL(currentChanged(int)),SLOT(closePopups()));
+
+    //Conncet the Player page widgets.
+    connect(ui->eventListButton,SIGNAL(clicked()),SLOT(openEventList()));
+    connect(ui->holdA4Button,SIGNAL(toggled(bool)),SLOT(testSynth(bool)));
 
     //Connect the Channels page widgets.
     connect(ui->gen1TypeButton,SIGNAL(clicked()),type_sigmap,SLOT(map()));
@@ -164,6 +172,8 @@ SoundbenchMain::~SoundbenchMain() {
     delete sett_sigmap;
     delete type_sigmap;
     delete rate_sigmap;
+
+    delete leest;
 
     delete teimer;
 
