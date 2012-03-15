@@ -11,13 +11,15 @@ namespace sb {
         class PlayerStartNode;
 
         class MIDIEventNode {
+        protected:
             friend class PlayerStartNode;
 
             MIDIEventNode* next;
             uint16_t delay;
             static Synth* synref;
         public:
-            MIDIEventNode() {
+            explicit MIDIEventNode(uint16_t delae = 0) {
+                delay = delae;
                 next = nullptr;
             }
             MIDIEventNode* nextDestroy() {
@@ -88,13 +90,31 @@ namespace sb {
             }
         };
 
-        /*class NoteOnEventNode : public MIDIEventNode {
-
+        class NoteOnEventNode : public MIDIEventNode {
+            int halfsteps;
+            sbSample amp;
+        public:
+            explicit NoteOnEventNode(int notedist, sbSample ampe = 1.0, uint16_t delai = 0, MIDIEventNode* nexte = nullptr) : MIDIEventNode(delai) {
+                next = nexte;
+                halfsteps = notedist;
+                amp = ampe;
+            }
+            void doevent() {
+                synref->noteOn(halfsteps,amp);
+            }
         };
 
         class NoteOffEventNode : public MIDIEventNode {
-
-        };*/
+            int halfsteps;
+        public:
+            explicit NoteOffEventNode(int notedist, uint16_t delai = 0, MIDIEventNode* nexte = nullptr) : MIDIEventNode(delai) {
+                next = nexte;
+                halfsteps = notedist;
+            }
+            void doevent() {
+                synref->noteOff(halfsteps);
+            }
+        };
     }
 }
 

@@ -29,13 +29,15 @@ HEADERS += architect.h \
     application.h \
     meterupdater.h \
     player.h \
-    midichain.h
+    midichain.h \
+    eventlist.h
 
 FORMS += errorpopup.ui \
          gentypedialog.ui \
          soundbenchmain.ui \
          warningpopup.ui \
-    basicgenersettings.ui
+    basicgenersettings.ui \
+    eventlist.ui
 
 SOURCES += architect.cpp \
            backend.portaudio.cpp \
@@ -53,7 +55,8 @@ SOURCES += architect.cpp \
     application.cpp \
     meterupdater.cpp \
     player.cpp \
-    midichain.cpp
+    midichain.cpp \
+    eventlist.cpp
 
 RESOURCES += sbMainResources.qrc
 

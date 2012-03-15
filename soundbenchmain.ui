@@ -32,6 +32,33 @@
   <property name="palette">
    <palette>
     <active>
+     <colorrole role="WindowText">
+      <brush brushstyle="SolidPattern">
+       <color alpha="255">
+        <red>0</red>
+        <green>255</green>
+        <blue>255</blue>
+       </color>
+      </brush>
+     </colorrole>
+     <colorrole role="Text">
+      <brush brushstyle="SolidPattern">
+       <color alpha="255">
+        <red>0</red>
+        <green>255</green>
+        <blue>255</blue>
+       </color>
+      </brush>
+     </colorrole>
+     <colorrole role="ButtonText">
+      <brush brushstyle="SolidPattern">
+       <color alpha="255">
+        <red>0</red>
+        <green>255</green>
+        <blue>255</blue>
+       </color>
+      </brush>
+     </colorrole>
      <colorrole role="Base">
       <brush brushstyle="SolidPattern">
        <color alpha="255">
@@ -52,6 +79,33 @@
      </colorrole>
     </active>
     <inactive>
+     <colorrole role="WindowText">
+      <brush brushstyle="SolidPattern">
+       <color alpha="255">
+        <red>0</red>
+        <green>255</green>
+        <blue>255</blue>
+       </color>
+      </brush>
+     </colorrole>
+     <colorrole role="Text">
+      <brush brushstyle="SolidPattern">
+       <color alpha="255">
+        <red>0</red>
+        <green>255</green>
+        <blue>255</blue>
+       </color>
+      </brush>
+     </colorrole>
+     <colorrole role="ButtonText">
+      <brush brushstyle="SolidPattern">
+       <color alpha="255">
+        <red>0</red>
+        <green>255</green>
+        <blue>255</blue>
+       </color>
+      </brush>
+     </colorrole>
      <colorrole role="Base">
       <brush brushstyle="SolidPattern">
        <color alpha="255">
@@ -72,6 +126,33 @@
      </colorrole>
     </inactive>
     <disabled>
+     <colorrole role="WindowText">
+      <brush brushstyle="SolidPattern">
+       <color alpha="255">
+        <red>0</red>
+        <green>255</green>
+        <blue>255</blue>
+       </color>
+      </brush>
+     </colorrole>
+     <colorrole role="Text">
+      <brush brushstyle="SolidPattern">
+       <color alpha="255">
+        <red>0</red>
+        <green>255</green>
+        <blue>255</blue>
+       </color>
+      </brush>
+     </colorrole>
+     <colorrole role="ButtonText">
+      <brush brushstyle="SolidPattern">
+       <color alpha="255">
+        <red>0</red>
+        <green>255</green>
+        <blue>255</blue>
+       </color>
+      </brush>
+     </colorrole>
      <colorrole role="Base">
       <brush brushstyle="SolidPattern">
        <color alpha="255">
@@ -114,27 +195,8 @@
   <property name="windowOpacity">
    <double>0.950000000000000</double>
   </property>
-  <property name="dockOptions">
-   <set>QMainWindow::AllowTabbedDocks|QMainWindow::AnimatedDocks</set>
-  </property>
-  <property name="unifiedTitleAndToolBarOnMac">
-   <bool>true</bool>
-  </property>
-  <widget class="QWidget" name="centralWidget">
-   <property name="minimumSize">
-    <size>
-     <width>1065</width>
-     <height>573</height>
-    </size>
-   </property>
-   <property name="maximumSize">
-    <size>
-     <width>1065</width>
-     <height>573</height>
-    </size>
-   </property>
-   <property name="styleSheet">
-    <string notr="true">QWidget {
+  <property name="styleSheet">
+   <string notr="true">QWidget {
 	color: cyan;
 }
 
@@ -218,7 +280,70 @@ QPushButton:pressed {
 }
 QPushButton:checked {
 	border-image: url(:/buttons/button75_toggled.png);
+}
+
+QSlider::groove:horizontal {
+	border-image: url(:/sliders/grooveh_square_idle.png);
+}
+QSlider::groove:horizontal:hover {
+	border-image: url(:/sliders/grooveh_square_hover.png);
+}
+QSlider::groove:horizontal:pressed {
+	border-image: url(:/sliders/grooveh_square_click.png);
+}
+QSlider::handle:horizontal {
+	border-image: url(:/sliders/slider_square_idle.png);
+	width: 16px;
+}
+QSlider::handle:hover:horizontal {
+	border-image: url(:/sliders/slider_square_hover.png);
+}
+QSlider::handle:pressed:horizontal {
+	border-image: url(:/sliders/slider_square_click.png);
+}
+QSlider::groove:vertical {
+	border-image: url(:/sliders/groovev_square_idle.png);
+}
+QSlider::groove:vertical:hover {
+	border-image: url(:/sliders/groovev_square_hover.png);
+}
+QSlider::groove:vertical:pressed {
+	border-image: url(:/sliders/groovev_square_click.png);
+}
+QSlider::handle:vertical{
+	border-image: url(:/sliders/slider_square_idle.png);
+	height: 16px;
+}
+QSlider::handle:hover:vertical {
+	border-image: url(:/sliders/slider_square_hover.png);
+	height: 16px;
+}
+QSlider::handle:pressed:vertical {
+	border-image: url(:/sliders/slider_square_click.png);
+	height: 16px;
 }</string>
+  </property>
+  <property name="dockOptions">
+   <set>QMainWindow::AllowTabbedDocks|QMainWindow::AnimatedDocks</set>
+  </property>
+  <property name="unifiedTitleAndToolBarOnMac">
+   <bool>true</bool>
+  </property>
+  <widget class="QWidget" name="centralWidget">
+   <property name="minimumSize">
+    <size>
+     <width>1065</width>
+     <height>573</height>
+    </size>
+   </property>
+   <property name="maximumSize">
+    <size>
+     <width>1065</width>
+     <height>573</height>
+    </size>
+   </property>
+   <property name="styleSheet">
+    <string notr="true"/>
    </property>
    <widget class="QGraphicsView" name="mainbackdrop">
     <property name="geometry">
@@ -277,7 +402,7 @@ QTabBar::tab:selected {
 }</string>
     </property>
     <property name="currentIndex">
-     <number>7</number>
+     <number>1</number>
     </property>
     <widget class="QWidget" name="tabSelect">
      <attribute name="title">
@@ -342,7 +467,7 @@ QTabBar::tab:selected {
 }</string>
       </property>
      </widget>
-     <widget class="QListWidget" name="eventsList">
+     <widget class="QListWidget" name="eventsViewer">
       <property name="geometry">
        <rect>
         <x>30</x>
@@ -356,6 +481,9 @@ QTabBar::tab:selected {
 	background-color: rgba(0, 0, 0, 0);
 }</string>
       </property>
+      <property name="verticalScrollBarPolicy">
+       <enum>Qt::ScrollBarAlwaysOff</enum>
+      </property>
      </widget>
      <widget class="QSlider" name="eventVScroll">
       <property name="geometry">
@@ -367,27 +495,7 @@ QTabBar::tab:selected {
        </rect>
       </property>
       <property name="styleSheet">
-       <string notr="true">QSlider::groove {
-	border-image: url(:/sliders/groovev_square_idle.png);
-}
-QSlider::groove:hover {
-	border-image: url(:/sliders/groovev_square_hover.png);
-}
-QSlider::groove:pressed {
-	border-image: url(:/sliders/groovev_square_click.png);
-}
-QSlider::handle{
-	border-image: url(:/sliders/slider_square_idle.png);
-	height: 16px;
-}
-QSlider::handle:hover {
-	border-image: url(:/sliders/slider_square_hover.png);
-	height: 16px;
-}
-QSlider::handle:pressed {
-	border-image: url(:/sliders/slider_square_click.png);
-	height: 16px;
-}</string>
+       <string notr="true"/>
       </property>
       <property name="maximum">
        <number>1000</number>
@@ -415,25 +523,7 @@ QSlider::handle:pressed {
        </rect>
       </property>
       <property name="styleSheet">
-       <string notr="true">QSlider::groove:horizontal {
-	border-image: url(:/sliders/grooveh_square_idle.png);
-}
-QSlider::groove:horizontal:hover {
-	border-image: url(:/sliders/grooveh_square_hover.png);
-}
-QSlider::groove:horizontal:pressed {
-	border-image: url(:/sliders/grooveh_square_click.png);
-}
-QSlider::handle:horizontal {
-	border-image: url(:/sliders/slider_square_idle.png);
-	width: 16px;
-}
-QSlider::handle:hover:horizontal {
-	border-image: url(:/sliders/slider_square_hover.png);
-}
-QSlider::handle:pressed:horizontal {
-	border-image: url(:/sliders/slider_square_click.png);
-}</string>
+       <string notr="true"/>
       </property>
       <property name="maximum">
        <number>1000</number>
@@ -445,96 +535,40 @@ QSlider::handle:pressed:horizontal {
      <widget class="QSpinBox" name="eventDelay">
       <property name="geometry">
        <rect>
-        <x>425</x>
+        <x>405</x>
         <y>85</y>
-        <width>81</width>
+        <width>101</width>
         <height>21</height>
        </rect>
       </property>
       <property name="toolTip">
        <string>Delays are in miliseconds.</string>
       </property>
+      <property name="prefix">
+       <string/>
+      </property>
       <property name="maximum">
-       <number>65536</number>
+       <number>294967296</number>
       </property>
       <property name="singleStep">
        <number>1000</number>
       </property>
      </widget>
-     <widget class="QLabel" name="eventDelayLabel">
+     <widget class="QLabel" name="midiBeatLabel">
       <property name="geometry">
        <rect>
-        <x>410</x>
+        <x>400</x>
         <y>60</y>
         <width>111</width>
         <height>20</height>
        </rect>
       </property>
       <property name="text">
-       <string>Event Delay</string>
+       <string>MIDI Beat</string>
       </property>
       <property name="alignment">
        <set>Qt::AlignCenter</set>
       </property>
-     </widget>
-     <widget class="QTabWidget" name="tabWidget">
-      <property name="geometry">
-       <rect>
-        <x>400</x>
-        <y>120</y>
-        <width>611</width>
-        <height>311</height>
-       </rect>
-      </property>
-      <property name="layoutDirection">
-       <enum>Qt::LeftToRight</enum>
-      </property>
-      <property name="styleSheet">
-       <string notr="true"/>
-      </property>
-      <property name="currentIndex">
-       <number>0</number>
-      </property>
-      <widget class="QWidget" name="noteOnTab">
-       <attribute name="title">
-        <string>Note On</string>
-       </attribute>
-       <widget class="QGraphicsView" name="noteOnBackdrop">
-        <property name="geometry">
-         <rect>
-          <x>0</x>
-          <y>0</y>
-          <width>611</width>
-          <height>269</height>
-         </rect>
-        </property>
-        <property name="styleSheet">
-         <string notr="true">QGraphicsView {
-	background-color: black;
-}</string>
-        </property>
-       </widget>
-      </widget>
-      <widget class="QWidget" name="noteOffTab">
-       <attribute name="title">
-        <string>Note Off</string>
-       </attribute>
-       <widget class="QGraphicsView" name="noteOnBackdrop_2">
-        <property name="geometry">
-         <rect>
-          <x>0</x>
-          <y>0</y>
-          <width>611</width>
-          <height>269</height>
-         </rect>
-        </property>
-        <property name="styleSheet">
-         <string notr="true">QGraphicsView {
-	background-color: black;
-}</string>
-        </property>
-       </widget>
-      </widget>
      </widget>
      <widget class="QPushButton" name="exportButton">
       <property name="geometry">
@@ -620,30 +654,162 @@ QSlider::handle:pressed:horizontal {
        <string>Record</string>
       </property>
      </widget>
-     <widget class="QPushButton" name="timingConverterButton">
+     <widget class="QPushButton" name="holdA4Button">
       <property name="geometry">
        <rect>
-        <x>580</x>
+        <x>630</x>
         <y>60</y>
         <width>91</width>
         <height>25</height>
        </rect>
       </property>
+      <property name="toolTip">
+       <string>Hold down the A4 note. 
+This is just to quickly hear what a sound sounds like.</string>
+      </property>
       <property name="text">
-       <string>Converter</string>
+       <string>Hold A4</string>
+      </property>
+      <property name="checkable">
+       <bool>true</bool>
       </property>
      </widget>
-     <widget class="QPushButton" name="eventModButton">
+     <widget class="QStackedWidget" name="eventBox">
       <property name="geometry">
        <rect>
-        <x>580</x>
+        <x>400</x>
+        <y>130</y>
+        <width>611</width>
+        <height>301</height>
+       </rect>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">QStackedWidget {
+	background-color: black;
+}</string>
+      </property>
+      <property name="currentIndex">
+       <number>0</number>
+      </property>
+      <widget class="QWidget" name="noteOnPage">
+       <widget class="QGraphicsView" name="noteOnBackdrop">
+        <property name="geometry">
+         <rect>
+          <x>0</x>
+          <y>0</y>
+          <width>611</width>
+          <height>301</height>
+         </rect>
+        </property>
+        <property name="styleSheet">
+         <string notr="true">QGraphicsView {
+	background-color: black;
+}</string>
+        </property>
+       </widget>
+       <widget class="QLabel" name="NoteOnLabel">
+        <property name="geometry">
+         <rect>
+          <x>10</x>
+          <y>10</y>
+          <width>70</width>
+          <height>18</height>
+         </rect>
+        </property>
+        <property name="text">
+         <string>Note On</string>
+        </property>
+       </widget>
+      </widget>
+      <widget class="QWidget" name="noteOffPage">
+       <widget class="QGraphicsView" name="noteOffBackdrop">
+        <property name="geometry">
+         <rect>
+          <x>0</x>
+          <y>0</y>
+          <width>611</width>
+          <height>301</height>
+         </rect>
+        </property>
+        <property name="styleSheet">
+         <string notr="true">QGraphicsView {
+	background-color: black;
+}</string>
+        </property>
+       </widget>
+       <widget class="QLabel" name="NoteOffLabel">
+        <property name="geometry">
+         <rect>
+          <x>10</x>
+          <y>10</y>
+          <width>71</width>
+          <height>18</height>
+         </rect>
+        </property>
+        <property name="text">
+         <string>Note Off</string>
+        </property>
+       </widget>
+      </widget>
+     </widget>
+     <widget class="QPushButton" name="eventListButton">
+      <property name="geometry">
+       <rect>
+        <x>630</x>
         <y>90</y>
         <width>91</width>
         <height>25</height>
        </rect>
       </property>
+      <property name="toolTip">
+       <string>Open up a list of possible events.</string>
+      </property>
       <property name="text">
-       <string>Modifiers</string>
+       <string>Event List</string>
+      </property>
+     </widget>
+     <widget class="QSpinBox" name="tempoBox">
+      <property name="geometry">
+       <rect>
+        <x>530</x>
+        <y>85</y>
+        <width>61</width>
+        <height>21</height>
+       </rect>
+      </property>
+      <property name="toolTip">
+       <string>Delays are in miliseconds.</string>
+      </property>
+      <property name="prefix">
+       <string/>
+      </property>
+      <property name="minimum">
+       <number>1</number>
+      </property>
+      <property name="maximum">
+       <number>256</number>
+      </property>
+      <property name="singleStep">
+       <number>1000</number>
+      </property>
+      <property name="value">
+       <number>108</number>
+      </property>
+     </widget>
+     <widget class="QLabel" name="tempoLabel">
+      <property name="geometry">
+       <rect>
+        <x>510</x>
+        <y>60</y>
+        <width>101</width>
+        <height>20</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>Tempo</string>
+      </property>
+      <property name="alignment">
+       <set>Qt::AlignCenter</set>
       </property>
      </widget>
     </widget>
