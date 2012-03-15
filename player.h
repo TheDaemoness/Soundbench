@@ -12,9 +12,17 @@ namespace sb {
     private:
         midi::PlayerStartNode* first;
         std::deque<midi::MIDIEventNode> nodes;
+        unsigned char tempo;
+        time_t midiclocklen;
     public:
         explicit Player(Synth* syn) {
             first = new midi::PlayerStartNode(syn);
+            tempo = 108;
+            /*
+              microseconds/beat = 1 / (beats/minute * minutes/second * seconds/microsecond)
+              */
+            midiclocklen = static_cast<time_t>(1.0 / (static_cast<double>(tempo)/(0.000000017)));
+            first->accessMIDIClockLen(&midiclocklen);
         }
         ~Player() {
             delete first;

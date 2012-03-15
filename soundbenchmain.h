@@ -58,7 +58,7 @@ public slots:
 
 private slots:
     void restyleCPUMeter() {
-        if((metup->artificial_limit() || (ui->cpuMeter->value() >= 750)) && !cpumeter_orange) {
+        if(((metup->artificial_limit() && (ui->cpuMeter->value() >= 600)) || (ui->cpuMeter->value() >= 750)) && !cpumeter_orange) {
             ui->cpuMeter->setStyleSheet(R"del(QProgressBar::chunk {
                                             background-image: url(:/meters/cpumeter_warn.png);
                                             background-position: center left;
@@ -69,7 +69,7 @@ private slots:
                                             color: black;
                                             })del");
         }
-        else if (!(metup->artificial_limit() || ui->cpuMeter->value() >= 750) && cpumeter_orange)
+        else if (!((metup->artificial_limit() && (ui->cpuMeter->value() >= 600)) || ui->cpuMeter->value() >= 750) && cpumeter_orange)
             ui->cpuMeter->setStyleSheet("");
 
     }

@@ -139,6 +139,7 @@ void SoundbenchMain::delayedConstructor() {
     connect(rate_sigmap,SIGNAL(mapped(int)),SLOT(setSampleRate(int)));
 
     ui->versionLabel->setText(SBVERSION);
+    ui->eventsViewer->addItem(" Start - 0:0");
 
     show();
 
