@@ -26,7 +26,8 @@ namespace sb {
         notes.resize(default_poly);
         for (size_t i = 0; i < default_poly; ++i) {
             notes[i].first = 0.0;
-            notes[i].second = 0;
+            notes[i].second.first = 0;
+            notes[i].second.second = false;
         }
     }
 
@@ -34,9 +35,13 @@ namespace sb {
         if (amp <= 0.0)
             return;
         for (size_t i = 0; i < notes.size(); ++i) {
-            if (notes[i].second == sbSampleZero) {
+            if (notes[i].second.first == sbSampleZero) {
                 notes[i].first = halfsteps;
-                notes[i].second = amp;
+                notes[i].second.first = amp;
+                if(holdped && !notes[i].second.second)
+                    notes[i].second.second = 'h';
+                else
+                    notes[i].second.second = false;
                 for (size_t ation = 0; ation < channelcount; ++ation) {
                     if (gener[ation] != nullptr) //Older programmers: This does NOT unconditionally evaluate to false.
                         gener[ation]->noteOn(halfsteps,amp,i);
@@ -47,19 +52,50 @@ namespace sb {
     }
     void Synth::noteOff(int halfsteps) {
         for (size_t i = 0; i < notes.size(); ++i) {
-            if (notes[i].first == halfsteps && notes[i].second != sbSampleZero) {
-                notes[i].second = sbSampleZero;
-                for (size_t al = 0; al < channelcount; ++al) {
-                    if (gener[al] != nullptr)
-                        gener[al]->noteOff(i);
+            if (notes[i].first == halfsteps && notes[i].second.first != sbSampleZero) {
+                notes[i].second.first = sbSampleZero;
+                if(!notes[i].second.second) {
+                    for (size_t al = 0; al < channelcount; ++al) {
+                        if (gener[al] != nullptr)
+                            gener[al]->noteOff(i);
+                    }
                 }
             }
         }
     }
+
+    void Synth::pedal(char which, bool val) {
+        if (val) {
+            if (which == 'h')
+                holdped = true;
+            else if (which == 's')
+                sustped = true;
+            for (size_t i = 0; i < notes.size(); ++i) {
+                if (notes[i].second.first != sbSampleZero && !notes[i].second.second)
+                    notes[i].second.second = which;
+            }
+        }
+        else {
+            if (which == 'h')
+                holdped = false;
+            else if (which == 's')
+                sustped = false;
+            for (size_t i = 0; i < notes.size(); ++i) {
+                if (notes[i].second.first != sbSampleZero && notes[i].second.second == which) {
+                    for (size_t al = 0; al < channelcount; ++al) {
+                        if (gener[al] != nullptr)
+                            gener[al]->noteOff(i);
+                    }
+                }
+            }
+        }
+    }
+
     void Synth::reset() {
         for (size_t i = 0; i < notes.size(); ++i) {
-            if(notes[i].second != sbSampleZero) {
-                notes[i].second = sbSampleZero;
+            if(notes[i].second.first != sbSampleZero) {
+                notes[i].second.first = sbSampleZero;
+                notes[i].second.second = false;
                 for (size_t able = 0; able < channelcount; ++able) {
                     if (gener[able] != nullptr)
                         gener[able]->noteOff(i);
@@ -99,6 +135,5 @@ namespace sb {
                 frames[out] *= vol; //Apply the master volume.
             }
         }
-
     }
 }

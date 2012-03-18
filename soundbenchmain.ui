@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ui version="4.0">
- <author>The Albatross</author>
  <class>SoundBenchMain</class>
  <widget class="QMainWindow" name="SoundBenchMain">
   <property name="geometry">
@@ -486,6 +485,9 @@ QTabBar::tab:selected {
         <height>386</height>
        </rect>
       </property>
+      <property name="toolTip">
+       <string/>
+      </property>
       <property name="styleSheet">
        <string notr="true">QListWidget {
 	background-color: rgba(0, 0, 0, 0);
@@ -498,23 +500,29 @@ QTabBar::tab:selected {
      <widget class="QSpinBox" name="eventDelay">
       <property name="geometry">
        <rect>
-        <x>405</x>
+        <x>410</x>
         <y>85</y>
-        <width>101</width>
+        <width>91</width>
         <height>21</height>
        </rect>
       </property>
       <property name="toolTip">
-       <string>Delays are in miliseconds.</string>
+       <string>There are 24 MIDI beats to a quarter note.</string>
+      </property>
+      <property name="alignment">
+       <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
       </property>
       <property name="prefix">
        <string/>
       </property>
       <property name="maximum">
-       <number>294967296</number>
+       <number>999999999</number>
       </property>
       <property name="singleStep">
-       <number>1000</number>
+       <number>24</number>
+      </property>
+      <property name="value">
+       <number>0</number>
       </property>
      </widget>
      <widget class="QLabel" name="midiBeatLabel">
@@ -806,14 +814,14 @@ This is just to quickly hear what a sound sounds like.</string>
      <widget class="QSpinBox" name="tempoBox">
       <property name="geometry">
        <rect>
-        <x>530</x>
+        <x>535</x>
         <y>85</y>
-        <width>61</width>
+        <width>51</width>
         <height>21</height>
        </rect>
       </property>
       <property name="toolTip">
-       <string>Delays are in miliseconds.</string>
+       <string>There are 4 quarter notes per Soundbench beat.</string>
       </property>
       <property name="prefix">
        <string/>

@@ -32,6 +32,7 @@ namespace sb {
         Synth();
         void noteOn(int halfsteps, sbSample amp);
         void noteOff(int halfsteps);
+        void pedal(char which, bool val = true);
         void reset();
         void tick(sbSample* frame, size_t chans);
 
@@ -42,7 +43,9 @@ namespace sb {
         sbSample buffer[channelcount][outchans];
         genBase* gener[channelcount];
         fxBase* eff[channelcount][fxcount];
-        std::vector< std::pair<int,sbSample> > notes;
+        std::vector<std::pair<int,std::pair<sbSample,char>>> notes;
+
+        bool holdped, sustped;
 
         sbSample vol;
         size_t inactivechans;
