@@ -102,11 +102,6 @@ private slots:
         arch->buildSynth(syn,blu);
         em->start();
     }
-    void openEventList() {
-        if (leest == nullptr)
-            leest = new EventList(ui->eventBox);
-        leest->show();
-    }
     void closePopups() {
         /*The purpose of this is to close all the popups that do not block the interface.
         All non-blocking popups take care of freeing themselves.*/

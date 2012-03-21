@@ -111,7 +111,6 @@ void SoundbenchMain::delayedConstructor() {
     connect(ui->mainTabs,SIGNAL(currentChanged(int)),SLOT(closePopups()));
 
     //Conncet the Player page widgets.
-    connect(ui->eventListButton,SIGNAL(clicked()),SLOT(openEventList()));
     connect(ui->holdA4Button,SIGNAL(toggled(bool)),SLOT(testSynth(bool)));
 
     //Connect the Channels page widgets.

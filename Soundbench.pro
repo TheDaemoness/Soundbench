@@ -36,8 +36,7 @@ FORMS += errorpopup.ui \
          gentypedialog.ui \
          soundbenchmain.ui \
          warningpopup.ui \
-    basicgenersettings.ui \
-    eventlist.ui
+    basicgenersettings.ui
 
 SOURCES += architect.cpp \
            backend.portaudio.cpp \
