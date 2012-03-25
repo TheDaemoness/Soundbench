@@ -16,27 +16,16 @@
 
     Copyright 2012  Amaya S.
 */
-#ifndef ERRORPOPUP_H
-#define ERRORPOPUP_H
 
-#include <QDialog>
+#include "midifile.h"
 
-#include "problemfix.h"
+namespace sb {
+    void MidiFIO::write(MidiFileItem writeitem) {
 
-namespace Ui {
-    class ErrorPopup;
+    }
+
+    MidiFileItem MidiFIO::read() {
+        MidiFileItem returnitem;
+        return returnitem;
+    }
 }
-
-class ErrorPopup : public QDialog
-{
-    Q_OBJECT
-
-public:
-    explicit ErrorPopup(QWidget *parent = 0);
-    ~ErrorPopup();
-
-private:
-    Ui::ErrorPopup *ui;
-};
-
-#endif // ERRORPOPUP_H

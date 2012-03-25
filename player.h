@@ -23,6 +23,7 @@
 
 #include "midi.h"
 #include "midichain.h"
+#include "midifile.h"
 #include <deque>
 
 namespace sb {
@@ -30,12 +31,14 @@ namespace sb {
     class Player
     {
     private:
+        MidiFIO* reed;
         midi::PlayerStartNode* first;
         std::deque<midi::MIDIEventNode> nodes;
         unsigned char tempo;
         time_t midiclocklen;
     public:
         explicit Player(Synth* syn) {
+            reed = NULL;
             first = new midi::PlayerStartNode(syn);
             tempo = 108;
             /*

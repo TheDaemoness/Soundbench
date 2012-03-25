@@ -24,8 +24,13 @@ WarningPopup::WarningPopup(QWidget *parent) :
     QDialog(parent),
     ui(new Ui::WarningPopup)
 {
+    userchoice = false;
+    ui->fixButton->setEnabled(false);
     ui->setupUi(this);
-    QObject::connect(ui->ignoreButton,SIGNAL(clicked()),this,SLOT(close()));
+    QObject::connect(ui->abortButton,SIGNAL(clicked()),this,SLOT(warnAbort()));
+    QObject::connect(ui->ignoreButton,SIGNAL(clicked()),this,SLOT(warnIgnore()));
+    QObject::connect(ui->fixButton,SIGNAL(clicked()),this,SLOT(warnFix()));
+    fixexists = false;
 }
 
 WarningPopup::~WarningPopup() {
@@ -38,4 +43,10 @@ void WarningPopup::setWarningText(std::string text) {
 
 void WarningPopup::setInfoText(std::string text) {
     ui->warningInfo->setText(text.c_str());
+}
+
+void WarningPopup::setFix(sb::errs::ProblemFix* feex) {
+    thefix = feex;
+    fixexists = true;
+    ui->fixButton->setEnabled(true);
 }

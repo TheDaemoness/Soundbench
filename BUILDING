@@ -1,13 +1,31 @@
 To build Soundbench, you have to make absolutely sure you have the following:
-	A C++11 compliant compiler (we recommend g++ 4.6)
+	A C++11 compliant compiler (we recommend clang++)
 	libqt4
 	libportaudio
-	libpulseaudio (Optional as of 0.2.0)
-	
-If you have these, then all you need to do is open a terminal and type the following:
+
+===BUILDING===
+All you need to do is open a terminal and type the following:
 	cd path/to/the/code
 	qmake
 	make (or gmake)
 
 Your executable will be in the same directory and will be named "Soundbench". Have fun!
-	
+
+===ON BUILDING WITH CLANG===
+If you're going to build Soundbench with clang, then as at the time of writing qmake doesn't have a spec file for clang++, you will have to use few extra steps.
+
+In addition to the above prerequisites, we recommend having LLVM's libc++, as clang++ doesn't play too nicely with libstdc++.
+
+If g++ is your defualt C++ compiler, then open a terminal, and type the following
+	cd path/to/the/code
+	qmake
+
+Then open the resulting Makefile in your favorite text-editing program, and do the following:
+	Change lines 11, 12, and 17 to use clang and clang++ instead of gcc and g++, respectively.
+	Add the flag -stdlib=libc++ to list of flags on lines 15 and 18.
+
+Go back to your terminal (assuming it's still open) and type 'make'. If it's not open, reopen it and type
+	cd path/to/the/code
+	make
+
+Your project should be now built! Congrats!

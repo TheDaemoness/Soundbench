@@ -30,7 +30,6 @@
 #include "gentypedialog.h"
 #include "settings.basicgen.h"
 #include "meterupdater.h"
-#include "eventlist.h"
 
 #include <QSignalMapper>
 #include <QTimer>
@@ -105,8 +104,6 @@ private slots:
     void closePopups() {
         /*The purpose of this is to close all the popups that do not block the interface.
         All non-blocking popups take care of freeing themselves.*/
-        if (leest != nullptr)
-            leest->close();
     }
 
     void setGenType(int which) {
@@ -162,7 +159,6 @@ private:
         BasicGenerSettings* basic;
     } gsd;
     MeterUpdater* metup;
-    EventList* leest;
 
     bool cpumeter_orange;
 };

@@ -27,7 +27,6 @@ SoundbenchMain::SoundbenchMain(QWidget *parent) :
     arch->planDefaultSynth(blu);
     em = nullptr;
     syn = nullptr;
-    leest = nullptr;
     cpumeter_orange = false;
 
     ui = new Ui::SoundbenchMain();
@@ -172,8 +171,6 @@ SoundbenchMain::~SoundbenchMain() {
     delete sett_sigmap;
     delete type_sigmap;
     delete rate_sigmap;
-
-    delete leest;
 
     delete teimer;
 

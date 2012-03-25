@@ -22,6 +22,8 @@
 
 #include <QDialog>
 
+#include "problemfix.h"
+
 namespace Ui {
     class WarningPopup;
 }
@@ -35,9 +37,31 @@ public:
     ~WarningPopup();
     void setWarningText(std::string);
     void setInfoText(std::string);
+    void setFix(sb::errs::ProblemFix*);
+    bool returnContinue() {
+        return userchoice;
+    }
+
+private slots:
+    void warnIgnore() {
+        userchoice = true;
+        this->close();
+    }
+    void warnAbort() {
+        userchoice = false;
+        this->close();
+    }
+    void warnFix() {
+        thefix->fixit();
+        userchoice = true;
+        this->close();
+    }
 
 private:
     Ui::WarningPopup *ui;
+    bool userchoice;
+    bool fixexists;
+    sb::errs::ProblemFix* thefix;
 };
 
 #endif // WARNINGPOPUP_H

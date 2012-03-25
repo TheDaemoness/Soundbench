@@ -16,27 +16,30 @@
 
     Copyright 2012  Amaya S.
 */
-#ifndef ERRORPOPUP_H
-#define ERRORPOPUP_H
 
-#include <QDialog>
 
-#include "problemfix.h"
+#ifndef PROBLEMFIX_H
+#define PROBLEMFIX_H
 
-namespace Ui {
-    class ErrorPopup;
+namespace sb {
+
+    namespace errs {
+        class ProblemFix {
+        public:
+            ProblemFix() {
+                fixed = false;
+            }
+            virtual ~ProblemFix() {};
+            virtual void fixit() {
+                fixed = true;
+            }
+            bool wasFixed() {
+                return fixed;
+            }
+        private:
+            bool fixed;
+        };
+    }
 }
 
-class ErrorPopup : public QDialog
-{
-    Q_OBJECT
-
-public:
-    explicit ErrorPopup(QWidget *parent = 0);
-    ~ErrorPopup();
-
-private:
-    Ui::ErrorPopup *ui;
-};
-
-#endif // ERRORPOPUP_H
+#endif // PROBLEMFIX_H

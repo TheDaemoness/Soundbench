@@ -30,7 +30,8 @@ HEADERS += architect.h \
     meterupdater.h \
     player.h \
     midichain.h \
-    eventlist.h
+    midifile.h \
+    problemfix.h
 
 FORMS += errorpopup.ui \
          gentypedialog.ui \
@@ -55,8 +56,8 @@ SOURCES += architect.cpp \
     meterupdater.cpp \
     player.cpp \
     midichain.cpp \
-    eventlist.cpp
+    midifile.cpp
 
 RESOURCES += sbMainResources.qrc
 
-unix:!symbian: LIBS += -L/usr/lib/ -lportaudio -lportaudiocpp -lpulse -lpulse-simple
+unix:!symbian: LIBS += -L/usr/lib/ -lportaudio -lportaudiocpp
