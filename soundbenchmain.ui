@@ -507,7 +507,7 @@ QTabBar::tab:selected {
        </rect>
       </property>
       <property name="toolTip">
-       <string>Export a sound file using the specified tune.</string>
+       <string>Export a sound or MIDI file using the specified tune.</string>
       </property>
       <property name="text">
        <string>Export</string>

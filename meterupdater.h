@@ -52,7 +52,6 @@ private:
     bool nolimit;
 #else
 #endif
-
     double time;
     uint64_t totaltime;
 

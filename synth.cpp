@@ -43,7 +43,7 @@ namespace sb {
                 else
                     notes[i].second.second = false;
                 for (size_t ation = 0; ation < channelcount; ++ation) {
-                    if (gener[ation] != nullptr) //Older programmers: This does NOT unconditionally evaluate to false.
+                    if (gener[ation] != nullptr) //Older/cynical programmers: This does NOT unconditionally evaluate to false.
                         gener[ation]->noteOn(halfsteps,amp,i);
                 }
                 break;

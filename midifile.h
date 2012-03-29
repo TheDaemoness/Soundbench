@@ -21,7 +21,10 @@
 #define MIDIREADER_H
 
 #include <fstream>
+#include <deque>
+
 #include "warningpopup.h"
+#include "common.h"
 
 namespace sb {
 
@@ -36,10 +39,17 @@ namespace sb {
     };
 
     struct MidiFileItem {
+        bool read;
         MidiFileEvents evtype;
         unsigned char chan;
         std::pair<unsigned char, unsigned char> params;
         std::string asciitext;
+        bool operator==(std::string str) {
+            return str==asciitext;
+        }
+        bool operator==(MidiFileEvents ev) {
+            return evtype==ev;
+        }
     };
 
     class MidiFIO
@@ -47,42 +57,26 @@ namespace sb {
     public:
         MidiFIO() {
             writing = false;
+            res_is_fps = false;
+            res = 0;
+            tracklen = 0;
+            trackpos = 0;
         }
         ~MidiFIO();
-        bool open(std::string file, std::string mode = "r") {
-            if (file.substr(file.size()-5,4) != ".mid") {
-                WarningPopup* extensionwarning = new WarningPopup;
-                extensionwarning->setWarningText("Wrong File Extension");
-                extensionwarning->setInfoText(std::string(file) + " may not be a midi (.mid) file.\n\nBy ignoring this warning, the file will be read anyway.\n\nOtherwise, the import will be canceled.\n");
-                extensionwarning->exec();
-                bool goon = extensionwarning->returnContinue();
-                delete extensionwarning;
-                if (!goon)
-                    return false;
-            }
-            if (mode == "r")
-                river.open(file,std::ios_base::in|std::ios_base::binary);
-            else if (mode == "w")
-                river.open(file,std::ios_base::out|std::ios_base::trunc|std::ios_base::binary);
-            return river.is_open();
-        }
+        bool open(std::string, std::string mode = "r");
 
-        void write(MidiFileItem);
+        void write(MidiFileItem); //Somewhat of a misnormer. This writes to a buffer, not the open file.
+        void readfrom(uint16_t); //Changes from which track read() reads.
         MidiFileItem read();
-
-        void close() {
-            if(river.is_open()) {
-
-                river.close();
-            }
-            charisma.clear();
-        }
-
-        uint32_t timedata;
+        bool close(); //Do not change to void! This function has to return whether a write of the buffer was successful.
     private:
-        std::vector<std::deque<unsigned char>> charisma; //A buffer for tracks from the file.
+        char filetype;
+        std::vector<size_t> tracks; //Stores the read pointer offset to read from each track, starting with the Mtrk.
         std::fstream river;
         bool writing;
+        bool res_is_fps;
+        uint16_t res; //The tick time stored in
+        size_t tracklen, trackpos; //Tracklen is used to indicate the value just after a relevant Mtrk. Trackpos is a current position.
     };
 
 }

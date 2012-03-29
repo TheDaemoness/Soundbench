@@ -103,7 +103,7 @@ namespace sb {
             bool isRunning() {
                 return running;
             }
-            void doevent() {};
+            void doevent() {}
             void run() {
                 if (it == nullptr)
                     it = new MIDIEventIterator(this);
