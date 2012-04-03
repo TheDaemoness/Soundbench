@@ -20,6 +20,7 @@
 #include "emitter.h"
 
 namespace sb {
+
     void Emitter::setEmitterType(emitter_type emt) {
         if (backend != nullptr) {
             delete backend;

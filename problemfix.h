@@ -30,8 +30,9 @@ namespace sb {
                 fixed = false;
             }
             virtual ~ProblemFix() {};
-            virtual void fixit() {
+            virtual bool fixit() {
                 fixed = true;
+                return fixed;
             }
             bool wasFixed() {
                 return fixed;

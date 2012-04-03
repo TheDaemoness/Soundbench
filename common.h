@@ -89,26 +89,28 @@ namespace sb {
         JACK_O //Not implemented. May never be implemented due to PortAudio support.
     };
 
-    enum MidiControllers {
-        DataSlider = 0x06, //Implement in v. 0.6.0.
-        Volume = 0x07,
-        Pan = 0x0A,
-        ADSR_A = 0x10, //Implement in v. 0.8.0.
-        ADSR_D = 0x11, //Implement in v. 0.8.0.
-        ADSR_S = 0x12, //Implement in v. 0.8.0.
-        ADSR_R = 0x13, //Implement in v. 0.8.0.
-        HoldPedal = 0x40,
-        SustPedal = 0x42,
-        SoftPedal = 0x43, //Implement in v. 0.8.0.
-        LegatoPedal = 0x44, //Implement in v. 0.8.0.
-        ExtendRelease = 0x45, //Implement in v. 0.8.0.
-        DataInc = 0x60, //Implement in v. 0.6.0.
-        DataDec = 0x61, //Implement in v. 0.6.0.
-        UnregParamNumLSB = 0x62, //Implement in v. 0.6.0.
-        UnregParamNumMSB = 0x63, //Implement in v. 0.6.0.
-        RegedParamNumLSB = 0x64, //Implement in v. 0.7.0.
-        RegedParamNumMSB = 0x65 //Implement in v. 0.7.0.
-    };
+    namespace midi {
+        enum MidiControllers {
+            DataSlider = 0x06, //Implement in v. 0.6.0.
+            Volume = 0x07,
+            Pan = 0x0A,
+            ADSR_A = 0x10, //Implement in v. 0.8.0.
+            ADSR_D = 0x11, //Implement in v. 0.8.0.
+            ADSR_S = 0x12, //Implement in v. 0.8.0.
+            ADSR_R = 0x13, //Implement in v. 0.8.0.
+            HoldPedal = 0x40,
+            SustPedal = 0x42,
+            SoftPedal = 0x43, //Implement in v. 0.8.0.
+            LegatoPedal = 0x44, //Implement in v. 0.8.0.
+            ExtendRelease = 0x45, //Implement in v. 0.8.0.
+            DataInc = 0x60, //Implement in v. 0.6.0.
+            DataDec = 0x61, //Implement in v. 0.6.0.
+            UnregParamNumLSB = 0x62, //Implement in v. 0.6.0.
+            UnregParamNumMSB = 0x63, //Implement in v. 0.6.0.
+            RegedParamNumLSB = 0x64, //Implement in v. 0.7.0.
+            RegedParamNumMSB = 0x65 //Implement in v. 0.7.0.
+        };
+    }
 
     enum midi_type {
         NoMIDI = 0,

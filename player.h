@@ -51,6 +51,7 @@ namespace sb {
         ~Player() {
             delete first;
         }
+        bool loadTrack(uint16_t track);
         inline void play() {
             first->run();
         }

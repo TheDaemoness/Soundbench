@@ -23,32 +23,40 @@
 #include <fstream>
 #include <deque>
 
+#include "errorpopup.h"
 #include "warningpopup.h"
 #include "common.h"
 
 namespace sb {
 
-    enum MidiFileEvents {
-        NoteOn = 0x8,
-        NoteOff = 0x9,
-        Aftertouch = 0xA,
-        Controller = 0xB,
-        PitchBend = 0xE,
-        Meta = 0xF
-        //Soundbench ignores all MIDI events written in files not listed here.
-    };
+    namespace midi {
+        enum MidiFileEvents {
+            NoteOn = 0x8,
+            NoteOff = 0x9,
+            Aftertouch = 0xA,
+            Controller = 0xB,
+            PitchBend = 0xE,
+            Meta = 0xF
+            //Soundbench ignores all MIDI events written in files not listed here.
+        };
+    }
 
     struct MidiFileItem {
         bool read;
-        MidiFileEvents evtype;
-        unsigned char chan;
+        midi::MidiFileEvents evtype;
+        uint8_t chan;
         std::pair<unsigned char, unsigned char> params;
         std::string asciitext;
+        uint32_t delay;
         bool operator==(std::string str) {
             return str==asciitext;
         }
-        bool operator==(MidiFileEvents ev) {
+        bool operator==(midi::MidiFileEvents ev) {
             return evtype==ev;
+        }
+        uint32_t operator=(uint32_t del) {
+            delay = del;
+            return del;
         }
     };
 
@@ -75,8 +83,8 @@ namespace sb {
         std::fstream river;
         bool writing;
         bool res_is_fps;
-        uint16_t res; //The tick time stored in
-        size_t tracklen, trackpos; //Tracklen is used to indicate the value just after a relevant Mtrk. Trackpos is a current position.
+        uint16_t res; //The tick time stored in here.
+        size_t tracklen, trackpos; //Tracklen is used to indicate the number of bytes in a relevant Mtrk. It's mostly used by the writing part of the class.
     };
 
 }

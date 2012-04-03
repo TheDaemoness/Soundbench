@@ -32,11 +32,24 @@ class ErrorPopup : public QDialog
     Q_OBJECT
 
 public:
+    static const char fixcount = 7;
     explicit ErrorPopup(QWidget *parent = 0);
     ~ErrorPopup();
+    void setErrorText(std::string);
+    void setInfoText(std::string);
+    void addFix(sb::errs::ProblemFix*, std::string, std::string comments = "");
+    bool wasFixed() {
+        return fixed;
+    }
+
+private slots:
+    void takeAction();
 
 private:
     Ui::ErrorPopup *ui;
+    char whichfix;
+    bool fixed;
+    sb::errs::ProblemFix* fixes[fixcount];
 };
 
 #endif // ERRORPOPUP_H

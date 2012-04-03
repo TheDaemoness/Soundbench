@@ -22,6 +22,8 @@
 
 namespace sb {
     bool Player::loadFile(std::string fname) {
-        return false; //Failed.
+        if(!reed->open(fname))
+            return false; //Failed.
+        return true;
     }
 }
