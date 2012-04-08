@@ -65,7 +65,6 @@ namespace sb {
                 return *clockmicrosecs;
             }
 
-
             uint64_t getDelay() {
                 return beat;
             }

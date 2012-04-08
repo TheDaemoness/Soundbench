@@ -39,6 +39,9 @@ namespace sb {
             Meta = 0xF
             //Soundbench ignores all MIDI events written in files not listed here.
         };
+        enum MidiMetaEvents {
+            EndOfTrack = 0x2F
+        };
     }
 
     struct MidiFileItem {
@@ -46,10 +49,11 @@ namespace sb {
         midi::MidiFileEvents evtype;
         uint8_t chan;
         std::pair<unsigned char, unsigned char> params;
-        std::string asciitext;
+        uint8_t meta;
+        std::string meta_data;
         uint32_t delay;
         bool operator==(std::string str) {
-            return str==asciitext;
+            return str==meta_data;
         }
         bool operator==(midi::MidiFileEvents ev) {
             return evtype==ev;

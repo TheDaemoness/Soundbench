@@ -23,6 +23,8 @@
 
 namespace sb {
     void MidiFIO::write(MidiFileItem writeitem) {
+        if (!writing || !river.is_open())
+            return;
         //TODO: The following two lines are a hack. In a future version, Soundbench will correctly store the full range of values of a uint32_t.
         if (writeitem.delay & 4026531840) { // The most significant 4 bits of a uint32_t.
             std::cerr << "Internal warning: one or more of the last significant bits of a MidiFileItem::delay were set.\n";
@@ -60,7 +62,10 @@ namespace sb {
             river.put(writeitem.params.second);
         }
         else {
-            //TODO: Get this in order.
+            river.put(writeitem.meta);
+            if (writeitem.meta == midi::EndOfTrack) {
+                river.put(0);
+            }
         }
     }
 
@@ -76,7 +81,40 @@ namespace sb {
     }
 
     MidiFileItem MidiFIO::read() {
+        if (writing || !river.is_open())
+            return;
         MidiFileItem returnitem;
+        returnitem.delay = 0;
+        uint_8 nibble;
+        for(uint_8 i = 0; i < 4; ++i) {
+            returnitem.delay <<= 7; //Assure space for the next seven bits (1 byte - the next-byte-exists bit).
+            nibble = river.get();
+            returnitem.delay |= nibble & 127; //Everything excpet the next-byte-exists bit.
+            if (!(nibble & 128)) //The next-byte-exists bit isn't set? Stop looping!
+                break;
+        }
+        nibble = river.get();
+        returnitem.evtype = nibble >> 4; //Shift out the channel bits.
+        returnitem.chan = nibble & 31; //Mask out the event type bits.
+        if (evtype != midi::Meta) {
+            returnitem.params.first = river.get();
+            returnitem.params.second = river.get();
+        }
+        else {
+            //TODO: Sysex events?
+            returnitem.meta = river.get();
+            uint32_t evlen = 0;
+            for(uint_8 i = 0; i < 4; ++i) { //See the previous loop that handles variable length data fields for comments.
+                evlen <<= 7;
+                nibble = river.get();
+                evlen |= nibble & 127;
+                if (!(nibble & 128))
+                    break;
+            }
+            for(uint32_t i = 0; i < evlen; ++i) {
+                returnitem.meta_data.push_back(river.get());
+            }
+        }
         return returnitem;
     }
 
@@ -239,7 +277,7 @@ namespace sb {
         if (river.is_open()) {
             if (writing) {
                 river.seekp(18);
-                river.write((char*)(&tracklen),4);
+                river.write(reinterpret_cast<char*>(&tracklen),4);
             }
             river.close();
         }
