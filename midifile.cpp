@@ -81,12 +81,13 @@ namespace sb {
     }
 
     MidiFileItem MidiFIO::read() {
-        if (writing || !river.is_open())
-            return;
         MidiFileItem returnitem;
+        returnitem.evtype = midi::Failed;
+        if (writing || !river.is_open())
+            return returnitem;
         returnitem.delay = 0;
-        uint_8 nibble;
-        for(uint_8 i = 0; i < 4; ++i) {
+        uint8_t nibble;
+        for(uint8_t i = 0; i < 4; ++i) {
             returnitem.delay <<= 7; //Assure space for the next seven bits (1 byte - the next-byte-exists bit).
             nibble = river.get();
             returnitem.delay |= nibble & 127; //Everything excpet the next-byte-exists bit.
@@ -94,9 +95,9 @@ namespace sb {
                 break;
         }
         nibble = river.get();
-        returnitem.evtype = nibble >> 4; //Shift out the channel bits.
+        returnitem.evtype = static_cast<midi::MidiFileEvents>(nibble >> 4); //Shift out the channel bits.
         returnitem.chan = nibble & 31; //Mask out the event type bits.
-        if (evtype != midi::Meta) {
+        if (returnitem.evtype != midi::Meta) {
             returnitem.params.first = river.get();
             returnitem.params.second = river.get();
         }
@@ -104,7 +105,7 @@ namespace sb {
             //TODO: Sysex events?
             returnitem.meta = river.get();
             uint32_t evlen = 0;
-            for(uint_8 i = 0; i < 4; ++i) { //See the previous loop that handles variable length data fields for comments.
+            for(uint8_t i = 0; i < 4; ++i) { //See the previous loop that handles variable length data fields for comments.
                 evlen <<= 7;
                 nibble = river.get();
                 evlen |= nibble & 127;

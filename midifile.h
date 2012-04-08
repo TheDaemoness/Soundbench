@@ -31,6 +31,7 @@ namespace sb {
 
     namespace midi {
         enum MidiFileEvents {
+            Failed = 0x0,
             NoteOn = 0x8,
             NoteOff = 0x9,
             Aftertouch = 0xA,
@@ -57,10 +58,6 @@ namespace sb {
         }
         bool operator==(midi::MidiFileEvents ev) {
             return evtype==ev;
-        }
-        uint32_t operator=(uint32_t del) {
-            delay = del;
-            return del;
         }
     };
 
