@@ -71,6 +71,12 @@ namespace sb {
             MIDIEventNode* returnNext() {
                 return next;
             }
+            void attachNext(MIDIEventNode* nod = nullptr) {
+                if (next != nullptr)
+                    delete next;
+                next = nod;
+            }
+
             virtual void doevent() = 0;
         };
 
@@ -143,6 +149,36 @@ namespace sb {
             }
             void doevent() {
                 synref->noteOff(halfsteps);
+            }
+        };
+
+        class HoldPedalEventNode : public MIDIEventNode {
+            uint8_t pressure;
+        public:
+            explicit HoldPedalEventNode(uint8_t press, uint16_t delai = 0, MIDIEventNode* nexte = nullptr) : MIDIEventNode(delai) {
+                next = nexte;
+                pressure = press;
+            }
+            void doevent() {
+                if (pressure > 63)
+                    synref->pedal('h',true);
+                else
+                    synref->pedal('h',false);
+            }
+        };
+
+        class SustenuoEventNode : public MIDIEventNode {
+            uint8_t pressure;
+        public:
+            explicit SustenuoEventNode(uint8_t press, uint16_t delai = 0, MIDIEventNode* nexte = nullptr) : MIDIEventNode(delai) {
+                next = nexte;
+                pressure = press;
+            }
+            void doevent() {
+                if (pressure > 63)
+                    synref->pedal('s',true);
+                else
+                    synref->pedal('s',false);
             }
         };
     }

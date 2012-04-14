@@ -33,6 +33,7 @@
 
 #include <QSignalMapper>
 #include <QTimer>
+#include <QFileDialog>
 
 namespace Ui {
     class SoundbenchMain: public Ui_SoundBenchMain {};
@@ -56,6 +57,17 @@ public slots:
     //void disableMidi();
 
 private slots:
+
+    void importOpen() {
+        QString chosenfile = QFileDialog::getOpenFileName(
+                NULL,"Choose a file to import...", "~/", "Standard MIDI Files (*.mid, *.smf);;All Files (*)");
+    }
+    void exportOpen() {
+        QString chosenfile = QFileDialog::getSaveFileName(
+                NULL,"Choose a file to export to...", "~/",
+                "Wave File (*.wav);;AIFF File (*.aiff);;Standard MIDI File (*.mid);;Headerless RAW (*.raw);;MAT5 Binary Data File (*.mat)");
+    }
+
     void restyleCPUMeter() {
         if(((metup->artificial_limit() && (ui->cpuMeter->value() >= 600)) || (ui->cpuMeter->value() >= 750)) && !cpumeter_orange) {
             ui->cpuMeter->setStyleSheet(R"del(QProgressBar::chunk {
@@ -97,6 +109,7 @@ private slots:
     }
 
     void setSampleRate(int which) {
+        ui->playButton->setChecked(false);
         em->setSamplingRate(sb::sampling_rates[which]);
         arch->buildSynth(syn,blu);
         em->start();
@@ -142,6 +155,7 @@ private:
         em->stop();
         syn->reset();
         ui->playButton->setChecked(false);
+        ui->holdA4Button->setChecked(false);
     }
 
     Ui::SoundbenchMain *ui;

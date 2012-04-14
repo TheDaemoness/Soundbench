@@ -28,16 +28,11 @@ namespace sb {
             star = master;
             auto lamb = [](MIDIEventNode* first) {
                     MIDIEventNode* nowde = first;
-                    uint64_t clocks = 0;
                     while (nowde != NULL) {
-                        if (nowde->getDelay() != clocks) {
-                            std::this_thread::sleep_for(std::chrono::microseconds(first->accessMIDIClockLen()));
-                            ++clocks;
-                        }
-                        else {
-                            nowde->doevent();
-                            nowde = nowde->returnNext();
-                        }
+                        if (nowde->getDelay() > 0)
+                            std::this_thread::sleep_for(std::chrono::microseconds(first->accessMIDIClockLen()*nowde->getDelay()));
+                        nowde->doevent();
+                        nowde = nowde->returnNext();
                     }
             };
             tread = new std::thread(lamb,star->returnNext());

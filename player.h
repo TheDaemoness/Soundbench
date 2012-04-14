@@ -31,7 +31,7 @@ namespace sb {
     class Player
     {
     private:
-        MidiFIO* reed;
+        midi::MidiFIO* reed;
         midi::PlayerStartNode* first;
         std::deque<midi::MIDIEventNode> nodes;
         unsigned char tempo;
@@ -58,6 +58,7 @@ namespace sb {
         inline void stop() {
             first->stop();
         }
+        bool writeFile(std::string);
     };
 }
 

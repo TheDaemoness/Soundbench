@@ -60,4 +60,4 @@ SOURCES += architect.cpp \
 
 RESOURCES += sbMainResources.qrc
 
-unix:!symbian: LIBS += -L/usr/lib/ -lportaudio -lportaudiocpp
+unix:!symbian: LIBS += -L/usr/lib/ -lportaudio -lportaudiocpp -lsndfile

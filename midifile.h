@@ -32,6 +32,7 @@ namespace sb {
     namespace midi {
         enum MidiFileEvents {
             Failed = 0x0,
+            EndOfTrack = 0x1,
             NoteOn = 0x8,
             NoteOff = 0x9,
             Aftertouch = 0xA,
@@ -41,53 +42,52 @@ namespace sb {
             //Soundbench ignores all MIDI events written in files not listed here.
         };
         enum MidiMetaEvents {
-            EndOfTrack = 0x2F
+            MetaEndOfTrack = 0x2F
+        };
+
+        struct MidiFileItem {
+            bool read;
+            midi::MidiFileEvents evtype;
+            uint8_t chan;
+            std::pair<unsigned char, unsigned char> params;
+            uint8_t meta;
+            std::string meta_data;
+            uint32_t delay;
+            bool operator==(std::string str) {
+                return str==meta_data;
+            }
+            bool operator==(midi::MidiFileEvents ev) {
+                return evtype==ev;
+            }
+        };
+
+        class MidiFIO
+        {
+        public:
+            MidiFIO() {
+                writing = false;
+                res_is_fps = false;
+                res = 0;
+                tracklen = 0;
+                trackpos = 0;
+            }
+            ~MidiFIO();
+            bool open(std::string, std::string mode = "r");
+
+            void write(MidiFileItem); //Somewhat of a misnormer. This writes to a buffer, not the open file.
+            void readfrom(uint16_t); //Changes from which track read() reads.
+            MidiFileItem read();
+            bool close(); //Do not change to void! This function has to return whether a write of the buffer was successful.
+        private:
+            char filetype;
+            std::vector<size_t> tracks; //Stores the read pointer offset to read from each track, starting with the Mtrk.
+            std::fstream river;
+            bool writing;
+            bool res_is_fps;
+            uint16_t res; //The tick time stored in here.
+            size_t tracklen, trackpos; //Tracklen is used to indicate the number of bytes in a relevant Mtrk. It's mostly used by the writing part of the class.
         };
     }
-
-    struct MidiFileItem {
-        bool read;
-        midi::MidiFileEvents evtype;
-        uint8_t chan;
-        std::pair<unsigned char, unsigned char> params;
-        uint8_t meta;
-        std::string meta_data;
-        uint32_t delay;
-        bool operator==(std::string str) {
-            return str==meta_data;
-        }
-        bool operator==(midi::MidiFileEvents ev) {
-            return evtype==ev;
-        }
-    };
-
-    class MidiFIO
-    {
-    public:
-        MidiFIO() {
-            writing = false;
-            res_is_fps = false;
-            res = 0;
-            tracklen = 0;
-            trackpos = 0;
-        }
-        ~MidiFIO();
-        bool open(std::string, std::string mode = "r");
-
-        void write(MidiFileItem); //Somewhat of a misnormer. This writes to a buffer, not the open file.
-        void readfrom(uint16_t); //Changes from which track read() reads.
-        MidiFileItem read();
-        bool close(); //Do not change to void! This function has to return whether a write of the buffer was successful.
-    private:
-        char filetype;
-        std::vector<size_t> tracks; //Stores the read pointer offset to read from each track, starting with the Mtrk.
-        std::fstream river;
-        bool writing;
-        bool res_is_fps;
-        uint16_t res; //The tick time stored in here.
-        size_t tracklen, trackpos; //Tracklen is used to indicate the number of bytes in a relevant Mtrk. It's mostly used by the writing part of the class.
-    };
-
 }
 
 #endif // MIDIREADER_H

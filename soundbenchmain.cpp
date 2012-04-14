@@ -111,6 +111,8 @@ void SoundbenchMain::delayedConstructor() {
 
     //Conncet the Player page widgets.
     connect(ui->holdA4Button,SIGNAL(toggled(bool)),SLOT(testSynth(bool)));
+    connect(ui->importButton,SIGNAL(clicked()),SLOT(importOpen()));
+    connect(ui->exportButton,SIGNAL(clicked()),SLOT(exportOpen()));
 
     //Connect the Channels page widgets.
     connect(ui->gen1TypeButton,SIGNAL(clicked()),type_sigmap,SLOT(map()));
@@ -137,7 +139,7 @@ void SoundbenchMain::delayedConstructor() {
     connect(rate_sigmap,SIGNAL(mapped(int)),SLOT(setSampleRate(int)));
 
     ui->versionLabel->setText(SBVERSION);
-    ui->eventsViewer->addItem(" Start - 0:0");
+    ui->eventsViewer->addItem("Start - 0:0");
 
     show();
 
