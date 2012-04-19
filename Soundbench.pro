@@ -7,7 +7,8 @@ QMAKE_CXXFLAGS += -std=c++0x -pedantic
 TEMPLATE = app
 TARGET = 
 DEPENDPATH += .
-INCLUDEPATH += .
+
+unix: INCLUDEPATH += /usr/include/
 
 # Input
 HEADERS += architect.h \
@@ -60,4 +61,4 @@ SOURCES += architect.cpp \
 
 RESOURCES += sbMainResources.qrc
 
-unix:!symbian: LIBS += -L/usr/lib/ -lportaudio -lportaudiocpp -lsndfile
+unix: LIBS += -L/usr/lib/ -lportaudio -lportaudiocpp -lsndfile

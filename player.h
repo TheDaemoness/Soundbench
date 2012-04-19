@@ -38,7 +38,7 @@ namespace sb {
         time_t midiclocklen;
     public:
         explicit Player(Synth* syn) {
-            reed = NULL;
+            reed = new midi::MidiFIO;
             first = new midi::PlayerStartNode(syn);
             tempo = 108;
             /*
@@ -47,10 +47,11 @@ namespace sb {
             midiclocklen = static_cast<time_t>(1.0 / (static_cast<double>(tempo)/(0.000000017)));
             first->accessMIDIClockLen(&midiclocklen);
         }
-        bool loadFile(std::string);
         ~Player() {
             delete first;
+            delete reed;
         }
+
         bool loadTrack(uint16_t track);
         inline void play() {
             first->run();
@@ -58,7 +59,9 @@ namespace sb {
         inline void stop() {
             first->stop();
         }
+
         bool writeFile(std::string);
+        bool loadFile(std::string);
     };
 }
 

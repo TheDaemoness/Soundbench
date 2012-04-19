@@ -35,11 +35,11 @@ namespace sb {
             else {
                 uint8_t len = 0;
                 //TODO: Messy code. Clean this up.
-                if (writeitem.delay < 256)
+                if (writeitem.delay < 0x80)
                     len = 1;
-                else if (writeitem.delay < 16384)
+                else if (writeitem.delay < 0x8000)
                     len = 2;
-                else if (writeitem.delay < 1048576)
+                else if (writeitem.delay < 0x800000)
                     len = 3;
                 else
                     len = 4;
@@ -72,6 +72,7 @@ namespace sb {
         }
 
         void MidiFIO::readfrom(uint16_t traque) {
+            river.clear();
             if(river.is_open() && !writing && traque < tracks.size())
                 river.seekg(tracks[traque]+4); //Soundbench can ignore the 4 bytes with the Mtrk.
             tracklen = (trackpos = 0);
@@ -91,6 +92,10 @@ namespace sb {
                 returnitem.evtype = midi::EndOfTrack;
                 return returnitem;
             }
+            if (river.eof()) {
+                std::cerr << "Reading ended prematurely. Perhaps the track header is corrupted.\n";
+                return returnitem;
+            }
             returnitem.delay = 0;
             uint8_t byte;
             for(uint8_t i = 0; i < 4; ++i) {
@@ -104,7 +109,7 @@ namespace sb {
             byte = river.get();
             ++trackpos;
             returnitem.evtype = static_cast<midi::MidiFileEvents>(byte >> 4); //Shift out the channel bits.
-            returnitem.chan = byte & 31; //Mask out the event type bits.
+            returnitem.chan = (byte << 4) >> 4; //Shift out the event type bits.
             if (returnitem.evtype != midi::Meta) {
                 returnitem.params.first = river.get();
                 returnitem.params.second = river.get();
@@ -147,7 +152,7 @@ namespace sb {
                 std::cerr << "Opening MIDI file " << file << " for reading...\n";
                 bool ignoreInsane = false;
 
-                auto fileIsInsane = [&ignoreInsane, &awarning, file](std::string reason)->bool {
+                auto fileIsInsane = [&ignoreInsane, &awarning, file, this](std::string reason)->bool {
                     if (ignoreInsane)
                         return false;
                     awarning = new WarningPopup;
@@ -161,6 +166,8 @@ namespace sb {
                     delete awarning;
                     if (goon)
                         ignoreInsane = true;
+                    else
+                        river.close();
                     return !goon;
                 };
 
@@ -174,7 +181,7 @@ namespace sb {
                     delete anerror;
                     return false;
                 }
-                std::cerr << "Opened file successfully. Parsing and checking sanity...";
+                std::cerr << "Opened file successfully. Indexing and checking sanity... ";
 
                 //Sanity check: is the main header well-formed?
                 for (unsigned char i = 0; i < 9; ++i) {
@@ -262,7 +269,7 @@ namespace sb {
                     if (fileIsInsane("fewer tracks are present in the MIDI file than expected"))
                         return false;
                 }
-                std::cerr << "File parsed" << (ignoreInsane?".\n":" and sane.\n");
+                std::cerr << "File indexed" << (ignoreInsane?".\n":" and (probably) sane.\n");
             }
             else if (mode == "w") {
                 std::cerr << "Opening MIDI file " << file << " for writing...\n";

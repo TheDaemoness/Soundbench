@@ -25,12 +25,13 @@ WarningPopup::WarningPopup(QWidget *parent) :
     ui(new Ui::WarningPopup)
 {
     userchoice = false;
-    ui->fixButton->setEnabled(false);
+    fixexists = false;
     ui->setupUi(this);
+
+    ui->fixButton->setEnabled(false);
     QObject::connect(ui->abortButton,SIGNAL(clicked()),this,SLOT(warnAbort()));
     QObject::connect(ui->ignoreButton,SIGNAL(clicked()),this,SLOT(warnIgnore()));
     QObject::connect(ui->fixButton,SIGNAL(clicked()),this,SLOT(warnFix()));
-    fixexists = false;
 }
 
 WarningPopup::~WarningPopup() {

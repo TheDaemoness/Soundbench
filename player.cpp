@@ -22,16 +22,31 @@
 
 namespace sb {
     bool Player::loadFile(std::string fname) {
-        if(!reed->open(fname))
+        reed->close();
+        if(!reed->open(fname,"r"))
             return false; //Failed.
-        reed->readfrom(0);
+        return loadTrack(0);
+    }
+
+    bool Player::loadTrack(uint16_t track) {
+        reed->readfrom(track);
         midi::MidiFileItem miditem;
         midi::MIDIEventNode* chiter = first;
 
+        std::cerr << "Parsing the 1st track of the file...\n";
         while (true) {
+            bool probl = false;
             miditem = reed->read();
-            if (miditem == midi::EndOfTrack || miditem == midi::Failed)
+            if (miditem.evtype == midi::EndOfTrack) {
+                std::cerr << "Finished parsing.\n";
                 break;
+            }
+            if (miditem.evtype == midi::Failed) {
+                std::cerr << "Aborted parsing.\n";
+                break;
+            }
+
+            std::cerr << "Event of type " << miditem.evtype << " on chan " << miditem.chan << ".\n";
 
             switch(miditem.evtype) {
             case midi::NoteOn:
@@ -52,17 +67,38 @@ namespace sb {
                     chiter->attachNext(new midi::SustenuoEventNode(miditem.params.second, miditem.delay));
                     break;
                 default:
-                    std::cerr << "Request for unimplemented controller #" << miditem.params.first << " made. Ignoring.\n";
+                    std::cerr << "Request for unimplemented controller #" << static_cast<uint16_t>(miditem.params.first) << " made. Ignoring.\n";
+                    probl = true;
+                    break;
                 }
                 break;
-
+            case midi::ProgramChange:
+            case midi::ChannelPressure:
+                std::cerr << "Warning: Events of type " << static_cast<uint16_t>(miditem.evtype) << " are ignored.\n";
+                probl = true;
+                break;
+            case midi::Aftertouch:
+            case midi::Meta:
+                std::cerr << "Request for a currently unimplemented event of type " << static_cast<uint16_t>(miditem.evtype) << " made. Ignoring.\n";
+                probl = true;
+                break;
             default:
-                std::cerr << "Request for unknown event type #" << miditem.params.first << " made. Ignoring.\n";
-            break;
+                std::cerr << "Request for an unknown event of type " << static_cast<uint16_t>(miditem.evtype) << " made. Ignorning.\n";
+                probl = true;
+                break;
             }
-
-            chiter = chiter->returnNext();
+            if (!probl)
+                chiter = chiter->returnNext();
         }
         return true;
+    }
+
+    bool Player::writeFile(std::string fname) {
+        reed->close();
+        if(!reed->open(fname,"w"))
+            return false; //Failed.
+        std::cerr << "Not yet implemented!\n";
+        reed->close();
+        return false;
     }
 }

@@ -61,11 +61,17 @@ private slots:
     void importOpen() {
         QString chosenfile = QFileDialog::getOpenFileName(
                 NULL,"Choose a file to import...", "~/", "Standard MIDI Files (*.mid, *.smf);;All Files (*)");
+        if (!chosenfile.size())
+            return;
+        plai->loadFile(chosenfile.toStdString());
     }
     void exportOpen() {
         QString chosenfile = QFileDialog::getSaveFileName(
                 NULL,"Choose a file to export to...", "~/",
                 "Wave File (*.wav);;AIFF File (*.aiff);;Standard MIDI File (*.mid);;Headerless RAW (*.raw);;MAT5 Binary Data File (*.mat)");
+        if (!chosenfile.size())
+            return;
+        plai->writeFile(chosenfile.toStdString());
     }
 
     void restyleCPUMeter() {

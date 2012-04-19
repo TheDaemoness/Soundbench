@@ -31,15 +31,16 @@ namespace sb {
 
     namespace midi {
         enum MidiFileEvents {
-            Failed = 0x0,
-            EndOfTrack = 0x1,
+            Failed = 0x0, //Not used in MIDI files; for internal use.
+            EndOfTrack = 0x1, //Not used in MIDI files; for internal use.
             NoteOn = 0x8,
             NoteOff = 0x9,
             Aftertouch = 0xA,
             Controller = 0xB,
+            ProgramChange = 0xC,
+            ChannelPressure = 0xD,
             PitchBend = 0xE,
             Meta = 0xF
-            //Soundbench ignores all MIDI events written in files not listed here.
         };
         enum MidiMetaEvents {
             MetaEndOfTrack = 0x2F
@@ -71,13 +72,17 @@ namespace sb {
                 tracklen = 0;
                 trackpos = 0;
             }
-            ~MidiFIO();
-            bool open(std::string, std::string mode = "r");
+            ~MidiFIO() {
+                river.close();
+            }
 
-            void write(MidiFileItem); //Somewhat of a misnormer. This writes to a buffer, not the open file.
+            bool open(std::string, std::string mode = "r");
+            void write(MidiFileItem);
             void readfrom(uint16_t); //Changes from which track read() reads.
+            std::string getTrackName(uint16_t); //Checks the specified track for a meta-event giving the track's name.
             MidiFileItem read();
             bool close(); //Do not change to void! This function has to return whether a write of the buffer was successful.
+
         private:
             char filetype;
             std::vector<size_t> tracks; //Stores the read pointer offset to read from each track, starting with the Mtrk.
