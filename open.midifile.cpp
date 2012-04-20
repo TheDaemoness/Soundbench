@@ -19,126 +19,13 @@
 
 #include "midifile.h"
 
-//NOTICE: This file is commented to make it easier for the reader to understand.
-
 namespace sb {
     namespace midi {
-
-        void MidiFIO::write(MidiFileItem writeitem) {
-            if (!writing || !river.is_open())
-                return;
-            //TODO: The following two lines are a hack. In a future version, Soundbench will correctly store the full range of values of a uint32_t.
-            if (writeitem.delay & 4026531840) { // The most significant 4 bits of a uint32_t.
-                std::cerr << "Internal warning: one or more of the last significant bits of a MidiFileItem::delay were set.\n";
-                river.write("\255\255\255\127",4);
-            }
-            else {
-                uint8_t len = 0;
-                //TODO: Messy code. Clean this up.
-                if (writeitem.delay < 0x80)
-                    len = 1;
-                else if (writeitem.delay < 0x8000)
-                    len = 2;
-                else if (writeitem.delay < 0x800000)
-                    len = 3;
-                else
-                    len = 4;
-                tracklen += len;
-                writeitem.delay <<= len + (4-len)*8;
-                for(uint8_t i = 0; i < len; ++i) {
-                    writeitem.delay >>= 1;
-                    uint8_t val = *(reinterpret_cast<uint8_t*>(&writeitem.delay)+i);
-                    if (i == len-1)
-                        val &= 127; //Set the next-byte-exists bit to 0.
-                    else
-                        val |= 128; //Set the next-byte-exists bit to 1.
-                    river.put(val);
-                }
-            }
-            uint8_t dat = writeitem.evtype;
-            dat <<= 4;
-            dat += writeitem.chan;
-            river.put(dat);
-            if(writeitem.evtype != midi::Meta) {
-                river.put(writeitem.params.first);
-                river.put(writeitem.params.second);
-            }
-            else {
-                river.put(writeitem.meta);
-                if (writeitem.meta == midi::EndOfTrack) {
-                    river.put(0);
-                }
-            }
-        }
-
-        void MidiFIO::readfrom(uint16_t traque) {
-            river.clear();
-            if(river.is_open() && !writing && traque < tracks.size())
-                river.seekg(tracks[traque]+4); //Soundbench can ignore the 4 bytes with the Mtrk.
-            tracklen = (trackpos = 0);
-            for (unsigned char i = 0; i < 4; ++i) {
-                tracklen += river.get();
-                if (i < 3)
-                    tracklen <<= 8;
-            }
-        }
-
-        MidiFileItem MidiFIO::read() {
-            MidiFileItem returnitem;
-            returnitem.evtype = midi::Failed;
-            if (writing || !river.is_open())
-                return returnitem;
-            if (trackpos >= tracklen) {
-                returnitem.evtype = midi::EndOfTrack;
-                return returnitem;
-            }
-            if (river.eof()) {
-                std::cerr << "Reading ended prematurely. Perhaps the track header is corrupted.\n";
-                return returnitem;
-            }
-            returnitem.delay = 0;
-            uint8_t byte;
-            for(uint8_t i = 0; i < 4; ++i) {
-                returnitem.delay <<= 7; //Assure space for the next seven bits (1 byte - the next-byte-exists bit).
-                byte = river.get();
-                returnitem.delay |= byte & 127; //Everything excpet the next-byte-exists bit.
-                ++trackpos;
-                if (!(byte & 128)) //The next-byte-exists bit isn't set? Stop looping!
-                    break;
-            }
-            byte = river.get();
-            ++trackpos;
-            returnitem.evtype = static_cast<midi::MidiFileEvents>(byte >> 4); //Shift out the channel bits.
-            returnitem.chan = (byte << 4) >> 4; //Shift out the event type bits.
-            if (returnitem.evtype != midi::Meta) {
-                returnitem.params.first = river.get();
-                returnitem.params.second = river.get();
-                trackpos += 2;
-            }
-            else {
-                //TODO: Sysex events?
-                returnitem.meta = river.get();
-                uint32_t evlen = 0;
-                for(uint8_t i = 0; i < 4; ++i) { //See the previous loop that handles variable length data fields for comments.
-                    evlen <<= 7;
-                    byte = river.get();
-                    evlen |= byte & 127;
-                    if (!(byte & 128))
-                        break;
-                }
-                trackpos += evlen;
-                for(uint32_t i = 0; i < evlen; ++i) {
-                    returnitem.meta_data.push_back(river.get());
-                }
-            }
-            return returnitem;
-        }
-
         bool MidiFIO::open(std::string file, std::string mode) {
             if (river.is_open())
                 return true;
             WarningPopup* awarning;
-            if (file.substr(file.size()-5,4) != ".mid" && file.substr(file.size()-5,4) != ".smf" && mode == "r") {
+            if (file.substr(file.size()-4,4) != ".mid" && file.substr(file.size()-4,4) != ".smf" && mode == "r") {
                 awarning = new WarningPopup;
                 awarning->setWarningText("Wrong File Extension");
                 awarning->setInfoText(std::string(file) + " might not be a MIDI file due to its extension (which is not .mid or .smf).\n\nBy ignoring this warning, the file will be read anyway.\n\nOtherwise, the import will be canceled.\n");
@@ -149,6 +36,7 @@ namespace sb {
                     return false;
             }
             if (mode == "r") {
+                writing = false;
                 std::cerr << "Opening MIDI file " << file << " for reading...\n";
                 bool ignoreInsane = false;
 
@@ -181,11 +69,11 @@ namespace sb {
                     delete anerror;
                     return false;
                 }
-                std::cerr << "Opened file successfully. Indexing and checking sanity... ";
+                std::cerr << "Opened file successfully. Indexing and checking sanity...\n";
 
                 //Sanity check: is the main header well-formed?
                 for (unsigned char i = 0; i < 9; ++i) {
-                    static const char* chr = "Mthd\0\0\0\6\0";
+                    static const char* chr = "MThd\0\0\0\6\0";
                     if(river.get() != chr[i]) {
                         if (fileIsInsane("the file has a mal-formed header"))
                             return false;
@@ -194,11 +82,12 @@ namespace sb {
 
                 //Get the type of the file.
                 filetype = river.get();
+                std::cerr << "File is of type " << static_cast<char>(filetype + '0') << ".\n";
                 if(filetype == 0) {
                     river.ignore(2); //The next unsigned 16-bit integer will always be 1 in this case.
                 }
                 else {
-                    if (filetype > 0) {
+                    if (filetype != 1 && filetype != 2) {
                         if (fileIsInsane("the file is not a type 0, 1, or 2 MIDI file"))
                             return false;
                     }
@@ -219,12 +108,13 @@ namespace sb {
 
                 //Sanity check: Is the first track's header sane?
                 for (unsigned char i = 0; i < 4; ++i) {
-                    static const char* chrs = "Mtrk";
+                    static const char* chrs = "MTrk";
                     if(river.get() != chrs[i] || river.eof()) {
                         if (fileIsInsane("the file does not have a valid track just after the header"))
                             return false;
                     }
                 }
+                tracks.push_back(river.tellg()-4L);
 
                 //Index all the tracks.
                 if (filetype != 0) {
@@ -237,27 +127,25 @@ namespace sb {
                         bites += river.get();
                         river.seekg(bites,std::ios_base::cur);
 
-                        //Sanity check: After the number of given bytes, does an Mtrk or EOF exist?
-                        bool lastheaderfine = true;
+                        //Sanity check: After the number of given bytes, does an MTrk or EOF exist?
                         unsigned char i = 0;
                         for (; i < 4 && river.good(); ++i) {
-                            static const char* chrs = "Mtrk";
+                            static const char* chrs = "MTrk";
                             if(river.get() != chrs[i] && !river.eof()) {
-                                lastheaderfine = false;
                                 if (fileIsInsane("one of the tracks has a malformed or incorrect header"))
                                     return false;
                             }
                             else if (river.eof() && i > 0) {
-                                lastheaderfine = false;
                                 if (fileIsInsane("the last track's header is incomplete"))
                                     return false;
                             }
                             else if (river.eof() && i == 0)
                                 break;
                         }
-                        if (lastheaderfine)
-                            tracks.push_back(river.tellg()-(4L-i-bites));
-                        //TODO: If this part of the file was insane, have a way to check for an end-of-track event to get the real size.
+                        //TODO: For future versions, have a way of checking for an end-of-track event.
+                        if(!river.eof())
+                            tracks.push_back(river.tellg()-4L);
+
                     }
                 }
                 if(river.eof()) {
@@ -287,17 +175,6 @@ namespace sb {
                 tracklen = 0;
             }
             if(!river.is_open()) {
-            }
-            return true;
-        }
-
-        bool MidiFIO::close() {
-            if (river.is_open()) {
-                if (writing) {
-                    river.seekp(18);
-                    river.write(reinterpret_cast<char*>(&tracklen),4);
-                }
-                river.close();
             }
             return true;
         }

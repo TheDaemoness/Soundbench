@@ -46,8 +46,6 @@ namespace sb {
                 break;
             }
 
-            std::cerr << "Event of type " << miditem.evtype << " on chan " << miditem.chan << ".\n";
-
             switch(miditem.evtype) {
             case midi::NoteOn:
                 chiter->attachNext(new midi::NoteOnEventNode(miditem.params.first-69, /*69 is the MIDI number for A4*/
@@ -78,9 +76,18 @@ namespace sb {
                 probl = true;
                 break;
             case midi::Aftertouch:
-            case midi::Meta:
-                std::cerr << "Request for a currently unimplemented event of type " << static_cast<uint16_t>(miditem.evtype) << " made. Ignoring.\n";
                 probl = true;
+                break;
+            case midi::Meta:
+                switch (miditem.meta) {
+                case midi::MetaEndOfTrack:
+                    std::cerr << "End-Of-Track detected. Finished parsing.\n";
+                    return true;
+                default:
+                    std::cerr << "An unimplemented meta event of type " << static_cast<uint16_t>(miditem.meta) << " was requested.\n";
+                    probl = true;
+                    break;
+                }
                 break;
             default:
                 std::cerr << "Request for an unknown event of type " << static_cast<uint16_t>(miditem.evtype) << " made. Ignorning.\n";

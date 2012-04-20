@@ -28,6 +28,7 @@
 #include <cmath>
 #include <iostream>
 #include <string>
+#include <sstream>
 
 #define SBVERSION "Main Development Branch"
 
@@ -51,8 +52,25 @@ private:
     std::string what;
 };
 
-namespace sb {
+template <typename outType, typename inType>
+outType lexical_cast(inType in) {
+    std::stringstream strm;
+    strm.str(std::string());
+    strm << in;
+    outType out;
+    strm >> out;
+    return out;
+}
 
+template <typename inType> //We know that function template specializations are evil.
+std::string lexical_cast(inType in) {
+    std::stringstream strm;
+    strm.str(std::string());
+    strm << in;
+    return strm.str();
+}
+
+namespace sb {
     union ParameterValue { //For all you C++ programmers out there who don't know what this is... it's a C-style space-saver. ;)
         sbSample sample;
         size_t value;
@@ -76,6 +94,18 @@ namespace sb {
         return valu;
     }
 
+    enum simple_bitmasks {
+        Bit1 = 1,
+        Bit2 = 2,
+        Bit3 = 4,
+        Bit4 = 8,
+        Bit5 = 16,
+        Bit6 = 32,
+        Bit7 = 64,
+        Bit8 = 128,
+        NotBit8 = 127
+    };
+
     enum channel_mapping {
         Mono,
         Stereo,
@@ -86,36 +116,13 @@ namespace sb {
     enum emitter_type {
         NoEmitter = 0,
         PortAudio,
-        JACK_O //Not implemented. May never be implemented due to PortAudio support.
+        JACK_O //Not implemented.
     };
-
-    namespace midi {
-        enum MidiControllers {
-            DataSlider = 0x06, //Implement in v. 0.6.0.
-            Volume = 0x07,
-            Pan = 0x0A,
-            ADSR_A = 0x10, //Implement in v. 0.8.0.
-            ADSR_D = 0x11, //Implement in v. 0.8.0.
-            ADSR_S = 0x12, //Implement in v. 0.8.0.
-            ADSR_R = 0x13, //Implement in v. 0.8.0.
-            HoldPedal = 0x40,
-            SustPedal = 0x42,
-            SoftPedal = 0x43, //Implement in v. 0.8.0.
-            LegatoPedal = 0x44, //Implement in v. 0.8.0.
-            ExtendRelease = 0x45, //Implement in v. 0.8.0.
-            DataInc = 0x60, //Implement in v. 0.6.0.
-            DataDec = 0x61, //Implement in v. 0.6.0.
-            UnregParamNumLSB = 0x62, //Implement in v. 0.6.0.
-            UnregParamNumMSB = 0x63, //Implement in v. 0.6.0.
-            RegedParamNumLSB = 0x64, //Implement in v. 0.7.0.
-            RegedParamNumMSB = 0x65 //Implement in v. 0.7.0.
-        };
-    }
 
     enum midi_type {
         NoMIDI = 0,
         PortMIDI, //Not implemented. Will be implemented in 0.3.0
-        JACK_I //Not implemented. May never be implemented due to PortMIDI support.
+        JACK_I //Not implemented.
     };
 
     enum SimpleWaveTypes {

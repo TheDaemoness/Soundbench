@@ -28,8 +28,28 @@
 #include "common.h"
 
 namespace sb {
-
     namespace midi {
+
+        enum MidiControllers {
+            DataSlider = 0x06, //Implement in v. 0.6.0.
+            Volume = 0x07,
+            Pan = 0x0A,
+            ADSR_A = 0x10, //Implement in v. 0.8.0.
+            ADSR_D = 0x11, //Implement in v. 0.8.0.
+            ADSR_S = 0x12, //Implement in v. 0.8.0.
+            ADSR_R = 0x13, //Implement in v. 0.8.0.
+            HoldPedal = 0x40,
+            SustPedal = 0x42,
+            SoftPedal = 0x43, //Implement in v. 0.8.0.
+            LegatoPedal = 0x44, //Implement in v. 0.8.0.
+            ExtendRelease = 0x45, //Implement in v. 0.8.0.
+            DataInc = 0x60, //Implement in v. 0.6.0.
+            DataDec = 0x61, //Implement in v. 0.6.0.
+            UnregParamNumLSB = 0x62, //Implement in v. 0.6.0.
+            UnregParamNumMSB = 0x63, //Implement in v. 0.6.0.
+            RegedParamNumLSB = 0x64, //Implement in v. 0.7.0.
+            RegedParamNumMSB = 0x65 //Implement in v. 0.7.0.
+        };
         enum MidiFileEvents {
             Failed = 0x0, //Not used in MIDI files; for internal use.
             EndOfTrack = 0x1, //Not used in MIDI files; for internal use.
@@ -79,9 +99,14 @@ namespace sb {
             bool open(std::string, std::string mode = "r");
             void write(MidiFileItem);
             void readfrom(uint16_t); //Changes from which track read() reads.
-            std::string getTrackName(uint16_t); //Checks the specified track for a meta-event giving the track's name.
+            std::string checkTrackTitle(uint16_t); //Checks for a track title meta event.
+            std::string getTrackName(uint16_t); //Checks the specified track for a meta-event immediately after the header giving the track's name.
             MidiFileItem read();
-            bool close(); //Do not change to void! This function has to return whether a write of the buffer was successful.
+            bool close();
+
+            inline uint16_t getTrackCount() {
+                return filetype?tracks.size():1;
+            }
 
         private:
             char filetype;
@@ -90,7 +115,7 @@ namespace sb {
             bool writing;
             bool res_is_fps;
             uint16_t res; //The tick time stored in here.
-            size_t tracklen, trackpos; //Tracklen is used to indicate the number of bytes in a relevant Mtrk. It's mostly used by the writing part of the class.
+            size_t tracklen, trackpos;
         };
     }
 }

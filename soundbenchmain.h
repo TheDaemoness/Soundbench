@@ -60,7 +60,7 @@ private slots:
 
     void importOpen() {
         QString chosenfile = QFileDialog::getOpenFileName(
-                NULL,"Choose a file to import...", "~/", "Standard MIDI Files (*.mid, *.smf);;All Files (*)");
+                NULL,"Choose a file to import...", "~/", "Standard MIDI Files (*.mid *.smf);;All Files (*)");
         if (!chosenfile.size())
             return;
         plai->loadFile(chosenfile.toStdString());

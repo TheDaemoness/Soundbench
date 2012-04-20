@@ -24,7 +24,10 @@
 #include "midi.h"
 #include "midichain.h"
 #include "midifile.h"
+
 #include <deque>
+
+#include <QListWidget>
 
 namespace sb {
 

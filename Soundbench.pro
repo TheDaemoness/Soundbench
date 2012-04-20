@@ -57,7 +57,10 @@ SOURCES += architect.cpp \
     meterupdater.cpp \
     player.cpp \
     midichain.cpp \
-    midifile.cpp
+    open.midifile.cpp \
+    read.midifile.cpp \
+    write.midifile.cpp \
+    misc.midifile.cpp
 
 RESOURCES += sbMainResources.qrc
 

@@ -603,81 +603,6 @@ Coming in version 0.3.0.</string>
        <bool>false</bool>
       </property>
      </widget>
-     <widget class="QLabel" name="midiInputsLabel">
-      <property name="geometry">
-       <rect>
-        <x>30</x>
-        <y>180</y>
-        <width>331</width>
-        <height>20</height>
-       </rect>
-      </property>
-      <property name="text">
-       <string>MIDI Inputs</string>
-      </property>
-      <property name="alignment">
-       <set>Qt::AlignCenter</set>
-      </property>
-     </widget>
-     <widget class="QLabel" name="audioOutputsLabel">
-      <property name="geometry">
-       <rect>
-        <x>30</x>
-        <y>310</y>
-        <width>331</width>
-        <height>20</height>
-       </rect>
-      </property>
-      <property name="text">
-       <string>Audio Outputs</string>
-      </property>
-      <property name="alignment">
-       <set>Qt::AlignCenter</set>
-      </property>
-     </widget>
-     <widget class="QListWidget" name="midiInputsList">
-      <property name="geometry">
-       <rect>
-        <x>30</x>
-        <y>200</y>
-        <width>341</width>
-        <height>101</height>
-       </rect>
-      </property>
-      <property name="styleSheet">
-       <string notr="true">QListWidget {
-	background-color: rgba(0, 0, 0, 0);
-}</string>
-      </property>
-      <property name="selectionRectVisible">
-       <bool>false</bool>
-      </property>
-      <item>
-       <property name="text">
-        <string>No Input</string>
-       </property>
-      </item>
-     </widget>
-     <widget class="QListWidget" name="audioOutputsList">
-      <property name="geometry">
-       <rect>
-        <x>30</x>
-        <y>330</y>
-        <width>341</width>
-        <height>101</height>
-       </rect>
-      </property>
-      <property name="styleSheet">
-       <string notr="true">QListWidget {
-	background-color: rgba(0, 0, 0, 0);
-}</string>
-      </property>
-      <item>
-       <property name="text">
-        <string>Default</string>
-       </property>
-      </item>
-     </widget>
      <widget class="QPushButton" name="playButton">
       <property name="enabled">
        <bool>true</bool>
@@ -712,9 +637,9 @@ Coming in version 0.3.0.</string>
       <property name="geometry">
        <rect>
         <x>30</x>
-        <y>70</y>
+        <y>75</y>
         <width>341</width>
-        <height>101</height>
+        <height>361</height>
        </rect>
       </property>
       <property name="styleSheet">
