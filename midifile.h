@@ -30,45 +30,9 @@
 namespace sb {
     namespace midi {
 
-        enum MidiControllers {
-            DataSlider = 0x06, //Implement in v. 0.6.0.
-            Volume = 0x07,
-            Pan = 0x0A,
-            ADSR_A = 0x10, //Implement in v. 0.8.0.
-            ADSR_D = 0x11, //Implement in v. 0.8.0.
-            ADSR_S = 0x12, //Implement in v. 0.8.0.
-            ADSR_R = 0x13, //Implement in v. 0.8.0.
-            HoldPedal = 0x40,
-            SustPedal = 0x42,
-            SoftPedal = 0x43, //Implement in v. 0.8.0.
-            LegatoPedal = 0x44, //Implement in v. 0.8.0.
-            ExtendRelease = 0x45, //Implement in v. 0.8.0.
-            DataInc = 0x60, //Implement in v. 0.6.0.
-            DataDec = 0x61, //Implement in v. 0.6.0.
-            UnregParamNumLSB = 0x62, //Implement in v. 0.6.0.
-            UnregParamNumMSB = 0x63, //Implement in v. 0.6.0.
-            RegedParamNumLSB = 0x64, //Implement in v. 0.7.0.
-            RegedParamNumMSB = 0x65 //Implement in v. 0.7.0.
-        };
-        enum MidiFileEvents {
-            Failed = 0x0, //Not used in MIDI files; for internal use.
-            EndOfTrack = 0x1, //Not used in MIDI files; for internal use.
-            NoteOn = 0x8,
-            NoteOff = 0x9,
-            Aftertouch = 0xA,
-            Controller = 0xB,
-            ProgramChange = 0xC,
-            ChannelPressure = 0xD,
-            PitchBend = 0xE,
-            Meta = 0xF
-        };
-        enum MidiMetaEvents {
-            MetaEndOfTrack = 0x2F
-        };
-
         struct MidiFileItem {
             bool read;
-            midi::MidiFileEvents evtype;
+            midi::MidiEvents evtype;
             uint8_t chan;
             std::pair<unsigned char, unsigned char> params;
             uint8_t meta;
@@ -77,7 +41,7 @@ namespace sb {
             bool operator==(std::string str) {
                 return str==meta_data;
             }
-            bool operator==(midi::MidiFileEvents ev) {
+            bool operator==(midi::MidiEvents ev) {
                 return evtype==ev;
             }
         };
@@ -87,10 +51,8 @@ namespace sb {
         public:
             MidiFIO() {
                 writing = false;
-                res_is_fps = false;
                 res = 0;
                 tracklen = 0;
-                trackpos = 0;
             }
             ~MidiFIO() {
                 river.close();
@@ -112,10 +74,9 @@ namespace sb {
             char filetype;
             std::vector<size_t> tracks; //Stores the read pointer offset to read from each track, starting with the Mtrk.
             std::fstream river;
-            bool writing;
-            bool res_is_fps;
+            bool writing, eot_reached, res_is_fps;
             uint16_t res; //The tick time stored in here.
-            size_t tracklen, trackpos;
+            size_t tracklen;
         };
     }
 }

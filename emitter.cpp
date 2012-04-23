@@ -31,7 +31,7 @@ namespace sb {
             std::clog << "PortAudio backend initialized.\n";
         }
         else
-            throw sbError("emitter","Unimplemented backend.");
+            std::__throw_logic_error("emitter - Unimplemented backend.");
     }
 
     Emitter::Emitter(Synth* s) {

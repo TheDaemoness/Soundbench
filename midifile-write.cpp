@@ -7,7 +7,7 @@ namespace sb {
             if (!writing || !river.is_open())
                 return;
             //TODO: The following two lines are a hack. In a future version, Soundbench will correctly store the full range of values of a uint32_t.
-            if (writeitem.delay & 4026531840) { // The most significant 4 bits of a uint32_t.
+            if (writeitem.delay & 0xF0000000) { // The most significant 4 bits of a uint32_t.
                 std::cerr << "Internal warning: one or more of the last significant bits of a MidiFileItem::delay were set.\n";
                 river.write("\255\255\255\127",4);
             }
@@ -28,9 +28,9 @@ namespace sb {
                     writeitem.delay >>= 1;
                     uint8_t val = *(reinterpret_cast<uint8_t*>(&writeitem.delay)+i);
                     if (i == len-1)
-                        val &= 127; //Set the next-byte-exists bit to 0.
+                        val &= NotBit1; //Set the next-byte-exists bit to 0.
                     else
-                        val |= 128; //Set the next-byte-exists bit to 1.
+                        val |= Bit1; //Set the next-byte-exists bit to 1.
                     river.put(val);
                 }
             }
@@ -38,7 +38,7 @@ namespace sb {
             dat <<= 4;
             dat += writeitem.chan;
             river.put(dat);
-            if(writeitem.evtype != midi::Meta) {
+            if(writeitem.evtype != midi::SystemEvent) {
                 river.put(writeitem.params.first);
                 river.put(writeitem.params.second);
             }

@@ -20,15 +20,20 @@
 #ifndef SOUNDBENCH_API_H
 #define SOUNDBENCH_API_H
 
-#include <stdint.h>
+/*
+  This file is for anything that a large number of files in Soundbench might need.
+
+  If you are a project developer, DO NOT ADD ANYTHING TO THIS FILE WITHOUT CONSULTING THE PROJECT HEAD!
+*/
+
 #include <utility>
 #include <vector>
-#include <array>
 #include <map>
-#include <cmath>
 #include <iostream>
 #include <string>
-#include <sstream>
+#include <cmath>
+
+#include "utilities.h"
 
 #define SBVERSION "Main Development Branch"
 
@@ -36,39 +41,6 @@ typedef float sbSample;
 const sbSample sbSampleMin = -1.0;
 const sbSample sbSampleMax = 1.0;
 const sbSample sbSampleZero = 0.0;
-
-class sbError {
-public:
-    explicit sbError(std::string module, std::string message,bool iswarning = false) {
-        isSevere = !iswarning;
-        where = module;
-        what = message;
-    }
-    std::string module() {return where;}
-    std::string message() {return what;}
-private:
-    bool isSevere;
-    std::string where;
-    std::string what;
-};
-
-template <typename outType, typename inType>
-outType lexical_cast(inType in) {
-    std::stringstream strm;
-    strm.str(std::string());
-    strm << in;
-    outType out;
-    strm >> out;
-    return out;
-}
-
-template <typename inType> //We know that function template specializations are evil.
-std::string lexical_cast(inType in) {
-    std::stringstream strm;
-    strm.str(std::string());
-    strm << in;
-    return strm.str();
-}
 
 namespace sb {
     union ParameterValue { //For all you C++ programmers out there who don't know what this is... it's a C-style space-saver. ;)
@@ -94,18 +66,6 @@ namespace sb {
         return valu;
     }
 
-    enum simple_bitmasks {
-        Bit1 = 1,
-        Bit2 = 2,
-        Bit3 = 4,
-        Bit4 = 8,
-        Bit5 = 16,
-        Bit6 = 32,
-        Bit7 = 64,
-        Bit8 = 128,
-        NotBit8 = 127
-    };
-
     enum channel_mapping {
         Mono,
         Stereo,
@@ -116,13 +76,13 @@ namespace sb {
     enum emitter_type {
         NoEmitter = 0,
         PortAudio,
-        JACK_O //Not implemented.
+        JACK_O //Not implemented. Will be implemented in 0.3.0
     };
 
     enum midi_type {
         NoMIDI = 0,
         PortMIDI, //Not implemented. Will be implemented in 0.3.0
-        JACK_I //Not implemented.
+        JACK_I //Not implemented. Will be implemented in 0.3.0
     };
 
     enum SimpleWaveTypes {

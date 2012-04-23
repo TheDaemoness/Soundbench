@@ -23,7 +23,9 @@ namespace sb {
     namespace midi {
         bool MidiFIO::open(std::string file, std::string mode) {
             if (river.is_open())
-                return true;
+                return false;
+            eot_reached = false;
+
             WarningPopup* awarning;
             if (file.substr(file.size()-4,4) != ".mid" && file.substr(file.size()-4,4) != ".smf" && mode == "r") {
                 awarning = new WarningPopup;
@@ -35,6 +37,7 @@ namespace sb {
                 if (!goon)
                     return false;
             }
+
             if (mode == "r") {
                 writing = false;
                 std::cerr << "Opening MIDI file " << file << " for reading...\n";
@@ -103,8 +106,9 @@ namespace sb {
                 res = river.get();
                 res <<= 8;
                 res += river.get();
-                res_is_fps = res & 128; //Get the first bit.
-                res &= 127; //Set the first bit to 0.
+                res_is_fps = false; //Set here to assure it resets with every call to open().
+                res_is_fps = res & Bit1;
+                res &= NotBit1;
 
                 //Sanity check: Is the first track's header sane?
                 for (unsigned char i = 0; i < 4; ++i) {

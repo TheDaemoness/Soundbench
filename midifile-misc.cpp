@@ -22,7 +22,7 @@ namespace sb {
                 return;
 
             river.seekg(tracks[traque]+4); //Soundbench can ignore the 4 bytes with the MTrk.
-            tracklen = (trackpos = 0);
+            tracklen = 0;
             for (uint8_t i = 0; i < 4; ++i) {
                 tracklen += river.get();
                 if (i < 3)
@@ -44,7 +44,7 @@ namespace sb {
 
             //Ensure that we're reading a track name event. That'd be nasty if we weren't.
             std::string name;
-            const uint8_t tracknamebytes[3] = {0x0,0xFF,0x02};
+            const uint8_t tracknamebytes[3] = {0x0,0xFF,MetaTrackName};
             for(uint8_t i = 0; i < 3; ++i) {
                 if(river.get() != tracknamebytes[i])
                     return "";
@@ -54,8 +54,8 @@ namespace sb {
             for(uint8_t i = 0; i < 4; ++i) { //Parse the variable length data field
                 evlen <<= 7;
                 uint8_t byte = river.get();
-                evlen |= byte & 127;
-                if (!(byte & 128))
+                evlen |= byte & NotBit1;
+                if (!(byte & Bit1))
                     break;
             }
             for(uint32_t i = 0; i < evlen; ++i)

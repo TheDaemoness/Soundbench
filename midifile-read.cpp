@@ -27,12 +27,12 @@ namespace sb {
             returnitem.evtype = midi::Failed;
             if (writing || !river.is_open())
                 return returnitem;
-            if (trackpos >= tracklen) {
+            if (eot_reached) {
                 returnitem.evtype = midi::EndOfTrack;
                 return returnitem;
             }
             if (river.eof()) {
-                std::cerr << "Reading ended prematurely. Perhaps the track header is corrupted.\n";
+                std::cerr << "Reading ended prematurely (no End-Of-Track Meta Event?)\n";
                 return returnitem;
             }
             returnitem.delay = 0;
@@ -40,19 +40,16 @@ namespace sb {
             for(uint8_t i = 0; i < 4; ++i) {
                 returnitem.delay <<= 7; //Assure space for the next seven bits (1 byte - the next-byte-exists bit).
                 byte = river.get();
-                returnitem.delay |= byte & 127; //Everything excpet the next-byte-exists bit.
-                ++trackpos;
-                if (!(byte & 128)) //The next-byte-exists bit isn't set? Stop looping!
+                returnitem.delay |= byte & NotBit1; //Everything excpet the next-byte-exists bit.
+                if (!(byte & Bit1)) //The next-byte-exists bit isn't set? Stop looping!
                     break;
             }
             byte = river.get();
-            ++trackpos;
-            returnitem.evtype = static_cast<midi::MidiFileEvents>(byte >> 4); //Shift out the channel bits.
-            returnitem.chan = (byte << 4) >> 4; //Shift out the event type bits.
-            if (returnitem.evtype != midi::Meta) {
+            returnitem.evtype = static_cast<midi::MidiEvents>(byte >> 4); //Shift out the channel bits.
+            returnitem.chan = byte & (Bit5 | Bit6 | Bit7 | Bit8); //Mask out all but the last four bits.
+            if (returnitem.evtype != midi::SystemEvent) {
                 returnitem.params.first = river.get();
                 returnitem.params.second = river.get();
-                trackpos += 2;
             }
             else {
                 //TODO: Sysex events?
@@ -61,14 +58,15 @@ namespace sb {
                 for(uint8_t i = 0; i < 4; ++i) { //See the previous loop that handles variable length data fields for comments.
                     evlen <<= 7;
                     byte = river.get();
-                    evlen |= byte & 127;
-                    if (!(byte & 128))
+                    evlen |= byte & NotBit1;
+                    if (!(byte & Bit1))
                         break;
                 }
-                trackpos += evlen;
                 for(uint32_t i = 0; i < evlen; ++i) {
                     returnitem.meta_data.push_back(river.get());
                 }
+                if (returnitem.meta == MetaEndOfTrack)
+                    eot_reached = true;
             }
             return returnitem;
         }

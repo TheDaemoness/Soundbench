@@ -31,7 +31,7 @@ public:
         try {
             QApplication::notify(obj,evnt);
         }
-        catch(sbError& e) {
+        catch(std::exception& e) {
             //TODO: Stuff.
         }
         return false;

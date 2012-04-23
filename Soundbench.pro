@@ -12,7 +12,6 @@ unix: INCLUDEPATH += /usr/include/
 
 # Input
 HEADERS += architect.h \
-           backend.h \
            backend.portaudio.h \
            basicwaves.h \
            blueprint.h \
@@ -32,7 +31,9 @@ HEADERS += architect.h \
     player.h \
     midichain.h \
     midifile.h \
-    problemfix.h
+    problemfix.h \
+    backend.h \
+    utilities.h
 
 FORMS += errorpopup.ui \
          gentypedialog.ui \
@@ -48,19 +49,20 @@ SOURCES += architect.cpp \
            gentypedialog.cpp \
            main.cpp \
            midi.cpp \
-           soundbenchmain.cpp \
            warningpopup.cpp \
-    gen.basic.cpp \
     synth.cpp \
     settings.basicgen.cpp \
     application.cpp \
     meterupdater.cpp \
     player.cpp \
     midichain.cpp \
-    open.midifile.cpp \
-    read.midifile.cpp \
-    write.midifile.cpp \
-    misc.midifile.cpp
+    midifile-misc.cpp \
+    midifile-open.cpp \
+    midifile-read.cpp \
+    midifile-write.cpp \
+    geners.basic.cpp \
+    soundbenchmain-slots.cpp \
+    soundbenchmain-func.cpp
 
 RESOURCES += sbMainResources.qrc
 

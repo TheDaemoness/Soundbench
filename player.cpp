@@ -78,11 +78,8 @@ namespace sb {
             case midi::Aftertouch:
                 probl = true;
                 break;
-            case midi::Meta:
+            case midi::SystemEvent:
                 switch (miditem.meta) {
-                case midi::MetaEndOfTrack:
-                    std::cerr << "End-Of-Track detected. Finished parsing.\n";
-                    return true;
                 default:
                     std::cerr << "An unimplemented meta event of type " << static_cast<uint16_t>(miditem.meta) << " was requested.\n";
                     probl = true;

@@ -45,7 +45,6 @@ namespace sb {
         void reset();
         void setPolymorphism(size_t poly);
         void tick(float *sample, size_t chans);
-
     };
 }
 

@@ -25,11 +25,11 @@ portaudio_backend::portaudio_backend(sb::Synth* s, size_t& srate, std::map<size_
     int e;
     e = Pa_Initialize();
     if (e != paNoError) {
-        throw sbError("emitter::backend::portaudio",Pa_GetErrorText(e));
+        std::__throw_runtime_error((std::string("emitter::backend::portaudio - ")+Pa_GetErrorText(e)).c_str());
     }
     dev.device = Pa_GetDefaultOutputDevice();
     if (dev.device == paNoDevice) {
-        throw sbError("emitter::backend::portaudio","No default device");
+        std::__throw_runtime_error("emitter::backend::portaudio - No default device");
     }
 
     dev.channelCount = chans;
@@ -64,12 +64,12 @@ void portaudio_backend::start() {
         e = Pa_OpenStream(&river,nullptr,&dev,sampling_rate,paFramesPerBufferUnspecified,paNoFlag,portaudio_backend::callback,reinterpret_cast<void*>(syn));
     if (e != paNoError) {
         std::cerr << "Problem when opening the output stream: " << Pa_GetErrorText(e) << ".\n";
-        throw sbError("emitter::backend::portaudio",std::string("Couldn't open the output stream: ")+Pa_GetErrorText(e));
+        std::__throw_runtime_error((std::string("emitter::backend::portaudio - Couldn't open the output stream: ")+Pa_GetErrorText(e)).c_str());
     }
     e = Pa_StartStream(river);
     if (e != paNoError) {
         std::cerr << "Problem when starting the output stream: " << Pa_GetErrorText(e) << ".\n";
-        throw sbError("emitter::backend::portaudio",std::string("Couldn't start the output stream: ")+Pa_GetErrorText(e));
+        std::__throw_runtime_error((std::string("emitter::backend::portaudio - Couldn't start the output stream: ")+Pa_GetErrorText(e)).c_str());
     }
 }
 
@@ -85,13 +85,13 @@ void portaudio_backend::stop() {
             e = Pa_StopStream(river);
             if (e != paNoError) {
                 std::cerr << "Problem when stopping the output stream: " << Pa_GetErrorText(e) << ".\n";
-                throw sbError("emitter::backend::portaudio",std::string("Couldn't stop the output stream: ")+Pa_GetErrorText(e));
+                std::__throw_runtime_error((std::string("emitter::backend::portaudio - Couldn't stop the output stream: ")+Pa_GetErrorText(e)).c_str());
             }
         }
         e = Pa_CloseStream(river);
         if (e != paNoError) {
             std::cerr << "Problem when closing the output stream: " << Pa_GetErrorText(e) << ".\n";
-            throw sbError("emitter::backend::portaudio",std::string("Couldn't close the output stream: ")+Pa_GetErrorText(e));
+            std::__throw_runtime_error((std::string("emitter::backend::portaudio - Couldn't close the output stream: ")+Pa_GetErrorText(e)).c_str());
         }
     }
     river = nullptr;

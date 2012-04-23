@@ -24,14 +24,9 @@ SoundbenchApp::SoundbenchApp(int argc, char** argv) : QApplication(argc,argv) {
 }
 
 void SoundbenchApp::newSoundbench(int flags) {
-    try {
-        if (flags == 0) {
-            sb = new SoundbenchMain;
-            sb->delayedConstructor();
-        }
-    }
-    catch (sbError& e) {
-        std::cerr << "Fault in " << e.module() << " - " << e.message() << ".\n";
+    if (flags == 0) {
+        sb = new SoundbenchMain;
+        sb->delayedConstructor();\
     }
 }
 
