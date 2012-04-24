@@ -28,7 +28,7 @@ namespace sb {
                     writeitem.delay >>= 1;
                     uint8_t val = *(reinterpret_cast<uint8_t*>(&writeitem.delay)+i);
                     if (i == len-1)
-                        val &= NotBit1; //Set the next-byte-exists bit to 0.
+                        val &= ~Bit1; //Set the next-byte-exists bit to 0.
                     else
                         val |= Bit1; //Set the next-byte-exists bit to 1.
                     river.put(val);

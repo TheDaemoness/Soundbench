@@ -21,6 +21,7 @@
 #define MIDICHAIN_H
 
 #include "synth.h"
+#include "midienums.h"
 
 #include <thread>
 
@@ -167,10 +168,10 @@ namespace sb {
             }
         };
 
-        class SustenuoEventNode : public MIDIEventNode {
+        class SustenutoEventNode : public MIDIEventNode {
             uint8_t pressure;
         public:
-            explicit SustenuoEventNode(uint8_t press, uint16_t delai = 0, MIDIEventNode* nexte = nullptr) : MIDIEventNode(delai) {
+            explicit SustenutoEventNode(uint8_t press, uint16_t delai = 0, MIDIEventNode* nexte = nullptr) : MIDIEventNode(delai) {
                 next = nexte;
                 pressure = press;
             }

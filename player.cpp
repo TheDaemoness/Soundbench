@@ -61,8 +61,8 @@ namespace sb {
                 case midi::HoldPedal:
                     chiter->attachNext(new midi::HoldPedalEventNode(miditem.params.second, miditem.delay));
                     break;
-                case midi::SustPedal:
-                    chiter->attachNext(new midi::SustenuoEventNode(miditem.params.second, miditem.delay));
+                case midi::SustenutoPedal:
+                    chiter->attachNext(new midi::SustenutoEventNode(miditem.params.second, miditem.delay));
                     break;
                 default:
                     std::cerr << "Request for unimplemented controller #" << static_cast<uint16_t>(miditem.params.first) << " made. Ignoring.\n";

@@ -27,20 +27,47 @@
 */
 
 #include <utility>
-#include <vector>
 #include <map>
-#include <iostream>
 #include <string>
 #include <cmath>
 
-#include "utilities.h"
+#include "sbutilities.h"
+#include "problemfix.h"
 
-#define SBVERSION "Main Development Branch"
+#ifndef IS_SOUNDBENCH
+#define IS_SOUNDBENCH
+#endif
+
+#define SBVERSION "Development Branch"
 
 typedef float sbSample;
 const sbSample sbSampleMin = -1.0;
 const sbSample sbSampleMax = 1.0;
 const sbSample sbSampleZero = 0.0;
+
+class sbException {
+public:
+    sbException(std::string type, std::string info = "",
+            sb::errs::ProblemFix* fix1 = nullptr,
+            sb::errs::ProblemFix* fix2 = nullptr,
+            sb::errs::ProblemFix* fix3 = nullptr,
+            sb::errs::ProblemFix* fix4 = nullptr,
+            sb::errs::ProblemFix* fix5 = nullptr,
+            sb::errs::ProblemFix* fix6 = nullptr,
+            sb::errs::ProblemFix* fix7 = nullptr) {
+        errdata.first = type;
+        errdata.second = info;
+        fixlist.push_back(fix1);
+        fixlist.push_back(fix2);
+        fixlist.push_back(fix3);
+        fixlist.push_back(fix4);
+        fixlist.push_back(fix5);
+        fixlist.push_back(fix6);
+        fixlist.push_back(fix7);
+    }
+    std::pair<std::string, std::string> errdata;
+    std::vector<sb::errs::ProblemFix*> fixlist;
+};
 
 namespace sb {
     union ParameterValue { //For all you C++ programmers out there who don't know what this is... it's a C-style space-saver. ;)

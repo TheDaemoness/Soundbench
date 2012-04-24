@@ -61,9 +61,13 @@ void ErrorPopup::setInfoText(std::string txt) {
 }
 
 void ErrorPopup::addFix(sb::errs::ProblemFix* thefix, std::string desc, std::string comments) {
+    if (desc.empty())
+        desc = thefix->desc();
+    if (comments.empty())
+        comments = thefix->comments();
     unsigned char i = 0;
     for(;i < fixcount ; ++i) {
-        if (fixes[i] == NULL) {
+        if (fixes[i] == nullptr) {
             fixes[i] = thefix;
             break;
         }
@@ -111,7 +115,7 @@ void ErrorPopup::addFix(sb::errs::ProblemFix* thefix, std::string desc, std::str
 ErrorPopup::~ErrorPopup()
 {
     for(unsigned char i = 0; i < fixcount; ++i) {
-        if (fixes[i] != NULL)
+        if (fixes[i] != nullptr)
             delete fixes[i];
     }
     delete ui;

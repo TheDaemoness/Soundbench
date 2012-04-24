@@ -54,7 +54,7 @@ namespace sb {
             for(uint8_t i = 0; i < 4; ++i) { //Parse the variable length data field
                 evlen <<= 7;
                 uint8_t byte = river.get();
-                evlen |= byte & NotBit1;
+                evlen |= byte & ~Bit1;
                 if (!(byte & Bit1))
                     break;
             }

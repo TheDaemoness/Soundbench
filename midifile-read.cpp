@@ -40,7 +40,7 @@ namespace sb {
             for(uint8_t i = 0; i < 4; ++i) {
                 returnitem.delay <<= 7; //Assure space for the next seven bits (1 byte - the next-byte-exists bit).
                 byte = river.get();
-                returnitem.delay |= byte & NotBit1; //Everything excpet the next-byte-exists bit.
+                returnitem.delay |= byte & ~Bit1; //Everything excpet the next-byte-exists bit.
                 if (!(byte & Bit1)) //The next-byte-exists bit isn't set? Stop looping!
                     break;
             }
@@ -58,7 +58,7 @@ namespace sb {
                 for(uint8_t i = 0; i < 4; ++i) { //See the previous loop that handles variable length data fields for comments.
                     evlen <<= 7;
                     byte = river.get();
-                    evlen |= byte & NotBit1;
+                    evlen |= byte & ~Bit1;
                     if (!(byte & Bit1))
                         break;
                 }
@@ -67,6 +67,7 @@ namespace sb {
                 }
                 if (returnitem.meta == MetaEndOfTrack)
                     eot_reached = true;
+                    returnitem.evtype = EndOfTrack;
             }
             return returnitem;
         }

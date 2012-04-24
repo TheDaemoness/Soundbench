@@ -28,6 +28,7 @@ namespace sb {
 
             WarningPopup* awarning;
             if (file.substr(file.size()-4,4) != ".mid" && file.substr(file.size()-4,4) != ".smf" && mode == "r") {
+#ifdef IS_SOUNDBENCH
                 awarning = new WarningPopup;
                 awarning->setWarningText("Wrong File Extension");
                 awarning->setInfoText(std::string(file) + " might not be a MIDI file due to its extension (which is not .mid or .smf).\n\nBy ignoring this warning, the file will be read anyway.\n\nOtherwise, the import will be canceled.\n");
@@ -36,6 +37,9 @@ namespace sb {
                 delete awarning;
                 if (!goon)
                     return false;
+#else
+                std::cerr << "Warning: File extension is neither '.mid' or '.smf'.\n";
+#endif
             }
 
             if (mode == "r") {
@@ -44,6 +48,7 @@ namespace sb {
                 bool ignoreInsane = false;
 
                 auto fileIsInsane = [&ignoreInsane, &awarning, file, this](std::string reason)->bool {
+#ifdef IS_SOUNDBENCH
                     if (ignoreInsane)
                         return false;
                     awarning = new WarningPopup;
@@ -60,6 +65,14 @@ namespace sb {
                     else
                         river.close();
                     return !goon;
+#else
+                    if (reason.size() == 0)
+                        std::cerr << "Error:" << file << " appears to be either corrupt or non-conformant to the MIDI standard.\nAborting...\n";
+                    else
+                        std::cerr << "Error:" << file << " appears to be either corrupt or non-conformant to the MIDI standard because " << reason << ".\nAborting...\n";
+                    river.close();
+                    return false;
+#endif
                 };
 
                 ErrorPopup* anerror;
@@ -108,7 +121,7 @@ namespace sb {
                 res += river.get();
                 res_is_fps = false; //Set here to assure it resets with every call to open().
                 res_is_fps = res & Bit1;
-                res &= NotBit1;
+                res &= ~Bit1;
 
                 //Sanity check: Is the first track's header sane?
                 for (unsigned char i = 0; i < 4; ++i) {

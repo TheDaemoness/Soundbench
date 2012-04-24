@@ -29,7 +29,9 @@ namespace sb {
             ProblemFix() {
                 fixed = false;
             }
-            virtual ~ProblemFix() {};
+            virtual const char* desc() {return "";}
+            virtual const char* comments() {return "";}
+            virtual ~ProblemFix() {}
             virtual bool fixit() {
                 fixed = true;
                 return fixed;

@@ -29,12 +29,20 @@ class SoundbenchApp : public QApplication
 public:
     bool notify(QObject* obj, QEvent* evnt) {
         try {
-            QApplication::notify(obj,evnt);
+            return QApplication::notify(obj, evnt);
         }
-        catch(std::exception& e) {
-            //TODO: Stuff.
+        catch (sbException& e) {
+            exceptionSoundbench(e);
+            return true;
         }
-        return false;
+        catch (std::exception& e) {
+            exceptionStandard(e);
+            return true;
+        }
+        catch (...) {
+            exceptionUnknown();
+            return true;
+        }
     }
     enum SoundbenchFlags {
         Default = 0,
@@ -55,6 +63,10 @@ public:
         delete sb;
     }
 private:
+    void exceptionSoundbench(sbException& e);
+    void exceptionStandard(std::exception& e);
+    void exceptionUnknown();
+
     SoundbenchMain* sb;
 };
 

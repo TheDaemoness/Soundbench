@@ -18,18 +18,68 @@
 */
 
 #include "application.h"
+#include "errorpopup.h"
 
 SoundbenchApp::SoundbenchApp(int argc, char** argv) : QApplication(argc,argv) {
     sb = nullptr;
 }
 
 void SoundbenchApp::newSoundbench(int flags) {
-    if (flags == 0) {
-        sb = new SoundbenchMain;
-        sb->delayedConstructor();\
+    try {
+        if (flags == 0) {
+            sb = new SoundbenchMain;
+            sb->delayedConstructor();
+        }
+    }
+    catch (sbException& e) {
+        exceptionSoundbench(e);
+        return;
+    }
+    catch (std::exception& e) {
+        exceptionStandard(e);
+        return;
+    }
+    catch (...) {
+        exceptionUnknown();
+
     }
 }
 
 SoundbenchApp::~SoundbenchApp() {
     delete sb;
+}
+
+void SoundbenchApp::exceptionSoundbench(sbException& e) {
+    ErrorPopup* err = new ErrorPopup;
+    err->setErrorText(e.errdata.first);
+    err->setInfoText(e.errdata.second);
+    for(sb::errs::ProblemFix* f : e.fixlist)
+        err->addFix(f);
+    err->exec();
+    if (err->wasFixed()) {
+        delete err;
+        return;
+    }
+    else {
+        delete err;
+        abort();
+    }
+}
+
+void SoundbenchApp::exceptionStandard(std::exception& e) {
+    ErrorPopup* err = new ErrorPopup;
+    err->setErrorText("Fatal Error");
+    err->setInfoText(std::string("Details: ")+e.what());
+    err->exec();
+    delete err;
+    abort();
+}
+
+void SoundbenchApp::exceptionUnknown() {
+    ErrorPopup* err = new ErrorPopup;
+    err->setErrorText("Unknown Error");
+    err->setInfoText("An unknown error caused Soundbench to have some unresolvable problems.\n\nThis is an internal error so if you see this without having changed the program yourself, please report it as a bug.");
+    err->exec();
+    delete err;
+    abort();
 }

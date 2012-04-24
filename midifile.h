@@ -21,11 +21,14 @@
 #define MIDIREADER_H
 
 #include <fstream>
-#include <deque>
 
+#ifdef IS_SOUNDBENCH
 #include "errorpopup.h"
 #include "warningpopup.h"
-#include "common.h"
+#endif
+
+#include "sbutilities.h"
+#include "midienums.h"
 
 namespace sb {
     namespace midi {
