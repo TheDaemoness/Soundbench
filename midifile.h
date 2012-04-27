@@ -54,14 +54,13 @@ namespace sb {
         public:
             MidiFIO() {
                 writing = false;
-                res = 0;
                 tracklen = 0;
             }
             ~MidiFIO() {
                 river.close();
             }
 
-            bool open(std::string, std::string mode = "r");
+            bool open(std::string, std::string mode = "r", std::ostream& error_stream = std::cerr);
             void write(MidiFileItem);
             void readfrom(uint16_t); //Changes from which track read() reads.
             std::string checkTrackTitle(uint16_t); //Checks for a track title meta event.
@@ -78,7 +77,16 @@ namespace sb {
             std::vector<size_t> tracks; //Stores the read pointer offset to read from each track, starting with the Mtrk.
             std::fstream river;
             bool writing, eot_reached, res_is_fps;
-            uint16_t res; //The tick time stored in here.
+            union {
+                struct {
+                    uint16_t ticks_per_beat;
+                    uint16_t tempo;
+                } beats;
+                struct {
+                    uint8_t fps;
+                    uint8_t ticks_per_frame;
+                } frames;
+            } res;
             size_t tracklen;
         };
     }

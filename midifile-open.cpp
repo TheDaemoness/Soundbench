@@ -21,9 +21,11 @@
 
 namespace sb {
     namespace midi {
-        bool MidiFIO::open(std::string file, std::string mode) {
-            if (river.is_open())
+
+        bool MidiFIO::open(std::string file, std::string mode, std::ostream& error_stream) {
+            if (river.is_open()) {
                 return false;
+            }
             eot_reached = false;
 
             WarningPopup* awarning;
@@ -37,14 +39,11 @@ namespace sb {
                 delete awarning;
                 if (!goon)
                     return false;
-#else
-                std::cerr << "Warning: File extension is neither '.mid' or '.smf'.\n";
 #endif
             }
 
             if (mode == "r") {
                 writing = false;
-                std::cerr << "Opening MIDI file " << file << " for reading...\n";
                 bool ignoreInsane = false;
 
                 auto fileIsInsane = [&ignoreInsane, &awarning, file, this](std::string reason)->bool {
@@ -67,9 +66,11 @@ namespace sb {
                     return !goon;
 #else
                     if (reason.size() == 0)
-                        std::cerr << "Error:" << file << " appears to be either corrupt or non-conformant to the MIDI standard.\nAborting...\n";
-                    else
-                        std::cerr << "Error:" << file << " appears to be either corrupt or non-conformant to the MIDI standard because " << reason << ".\nAborting...\n";
+                        error_stream << "Unknown error.\n";
+                    else {
+                        reason[0] = toupper(reason[0]);
+                        error_stream << reason << '.';
+                    }
                     river.close();
                     return false;
 #endif
@@ -78,14 +79,21 @@ namespace sb {
                 ErrorPopup* anerror;
                 river.open(file,std::ios_base::in|std::ios_base::binary);
                 if (!river.is_open()) {
+#ifdef IS_SOUNDBENCH
                     anerror = new ErrorPopup;
                     anerror->setErrorText("Unable to Open File");
-                    anerror->setInfoText(std::string("Soundbench could not open '") + file + "'. This may be because the file does not exist or because you do not have permissions to open it.\n\nAt the moment, Soundbench has no way to change the permissions of files you do not have the rights to access.");
+                    anerror->setInfoText(std::string("Soundbench could not open ") + file + ". This may be because the file does not exist or because you do not have permissions to open it.\n\nAt the moment, Soundbench has no way to change the permissions of files you do not have the rights to access.");
                     anerror->exec();
                     delete anerror;
                     return false;
+#else
+                    error_stream << '\'' << file << "' cannot be opened for reading.";
+#endif
                 }
-                std::cerr << "Opened file successfully. Indexing and checking sanity...\n";
+
+#ifdef IS_SOUNDBENCH
+            error_stream << "Indexing the file...\n";
+#endif
 
                 //Sanity check: is the main header well-formed?
                 for (unsigned char i = 0; i < 9; ++i) {
@@ -98,7 +106,6 @@ namespace sb {
 
                 //Get the type of the file.
                 filetype = river.get();
-                std::cerr << "File is of type " << static_cast<char>(filetype + '0') << ".\n";
                 if(filetype == 0) {
                     river.ignore(2); //The next unsigned 16-bit integer will always be 1 in this case.
                 }
@@ -116,16 +123,26 @@ namespace sb {
 
                 //Get the time data.
                 writing = false;
-                res = river.get();
-                res <<= 8;
-                res += river.get();
-                res_is_fps = false; //Set here to assure it resets with every call to open().
-                res_is_fps = res & Bit1;
-                res &= ~Bit1;
+                uint16_t raw_res;
+                raw_res = river.get();
+                raw_res <<= 8;
+                raw_res += river.get();
+
+                //Fill the res union with the time data.
+                res_is_fps = raw_res & Bit1;
+                raw_res &= ~Bit1;
+                if (res_is_fps) {
+                    res.frames.fps = raw_res & Byte2;
+                    res.frames.ticks_per_frame = raw_res & Byte1;
+                }
+                else {
+                    res.beats.ticks_per_beat = raw_res;
+                    res.beats.tempo = 120; //The MIDI default.
+                }
 
                 //Sanity check: Is the first track's header sane?
+                const char* chrs = "MTrk";
                 for (unsigned char i = 0; i < 4; ++i) {
-                    static const char* chrs = "MTrk";
                     if(river.get() != chrs[i] || river.eof()) {
                         if (fileIsInsane("the file does not have a valid track just after the header"))
                             return false;
@@ -147,7 +164,6 @@ namespace sb {
                         //Sanity check: After the number of given bytes, does an MTrk or EOF exist?
                         unsigned char i = 0;
                         for (; i < 4 && river.good(); ++i) {
-                            static const char* chrs = "MTrk";
                             if(river.get() != chrs[i] && !river.eof()) {
                                 if (fileIsInsane("one of the tracks has a malformed or incorrect header"))
                                     return false;
@@ -174,7 +190,11 @@ namespace sb {
                     if (fileIsInsane("fewer tracks are present in the MIDI file than expected"))
                         return false;
                 }
-                std::cerr << "File indexed" << (ignoreInsane?".\n":" and (probably) sane.\n");
+
+#ifdef IS_SOUNDBENCH
+            error_stream << "File opened and indexed.\n";
+#endif
+
             }
             else if (mode == "w") {
                 std::cerr << "Opening MIDI file " << file << " for writing...\n";
@@ -182,8 +202,6 @@ namespace sb {
                 if (!river.is_open()) {
                     //TODO: Complain, and have a retry loop.
                 }
-                std::cerr << "File opened successfully.\n";
-
                 writing = true;
                 river.write("MThd\0\0\0\6\0\0\0\1\3\192",14); //Write the part of the header that will always be the same.
                 //The header (fancily formatted) is:  MThD 6 0 1 960

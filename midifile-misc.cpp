@@ -31,20 +31,20 @@ namespace sb {
         }
 
         std::string MidiFIO::checkTrackTitle(uint16_t traque) {
-            if(!river.is_open() || writing)
+            if (traque >= tracks.size() || !river.is_open() || writing)
                 return "";
 
             uint64_t currpos = river.tellg();
             if (filetype == 0)
                 river.seekg(22);
-            else if (filetype == 1) //TODO: Do a search for a instrument name meta event if filetype == 1.
+            else if (filetype == 1 && traque != 0) //TODO: Do a search for an instrument name meta event.
                 return std::string("Instrument Track ") + lexical_cast<std::string>(traque);
             else
                 river.seekg(tracks[traque]+8); //Skip over the MTrk and the track length.
 
             //Ensure that we're reading a track name event. That'd be nasty if we weren't.
             std::string name;
-            const uint8_t tracknamebytes[3] = {0x0,0xFF,MetaTrackName};
+            const uint8_t tracknamebytes[3] = {0x0,MetaEvent,MetaTrackName};
             for(uint8_t i = 0; i < 3; ++i) {
                 if(river.get() != tracknamebytes[i])
                     return "";
