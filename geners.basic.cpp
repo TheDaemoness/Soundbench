@@ -36,80 +36,83 @@ namespace sb {
         }
     }
     void BasicGen::ctrl(moduleParam arg, ParameterValue val) {
-         switch (arg) {
-         case genBasic_wave:
-             delete wav;
-             if (static_cast<SimpleWaveTypes>(val.value) == TriangleWave)
-                 wav = new Triangle(curr_srate);
-             else if (static_cast<SimpleWaveTypes>(val.value) == SquareWave)
+        switch (arg) {
+        case genBasic_wave:
+            delete wav;
+            if (static_cast<SimpleWaveTypes>(val.value) == TriangleWave)
+                wav = new Triangle(curr_srate);
+            else if (static_cast<SimpleWaveTypes>(val.value) == SquareWave)
                 wav = new Square(curr_srate);
-             else if (static_cast<SimpleWaveTypes>(val.value) == SawtoothWave)
+            else if (static_cast<SimpleWaveTypes>(val.value) == SawtoothWave)
                 wav = new Sawtooth(curr_srate);
-             else
+            else if (static_cast<SimpleWaveTypes>(val.value) == OvalWave) {
+                wav = new Oval(curr_srate);
+            }
+            else
                 wav = new Sine(curr_srate);
-             break;
-         case genBasic_amplutide:
-             gen_amp = val.sample;
-             break;
-         case genBasic_notebias:
-             notebias = val.value;
-             break;
-         case genBasic_phase:
-             for (double& ntepos: noteposs)
-                 ntepos = val.sample*2.0*pi;
-             break;
-         default:
-             //Ignore it. The blueprints have values for other generators too.
-             break;
-         }
-     }
-     void BasicGen::noteOn(int halfsteps, sbSample ampl, size_t pos) {
-         if(pos < notespds.size()) {
-             notespds[pos] = getFrequencyFromNote(halfsteps+notebias);
-             noteamps[pos] = ampl;
-         }
-         ++notes;
-     }
-     void BasicGen::noteOff(size_t pos) {
-         if(pos < notespds.size()) {
-             notespds[pos] = 0.0;
-             noteposs[pos] = offset*2.0*pi;
-             noteamps[pos] = 0.0;
-         }
-         --notes;
-     }
-     void BasicGen::reset() {
-         for (sbSample& amp : noteamps)
-             amp = 0.0;
-         for (double& marcher : noteposs)
-             marcher = (offset*2.0*pi);
-     }
-     void BasicGen::setPolymorphism(size_t poly) {
-         reset();
-         size_t olde = notespds.size();
-         noteposs.resize(poly);
-         noteamps.resize(poly);
-         notespds.resize(poly);
-         for (size_t i = olde; i < poly; ++i) {
-             noteamps[i] = sbSampleZero;
-             noteposs[i] = 0;
-             notespds[i] = 0;
-         }
-     }
-     void BasicGen::tick(float *sample, size_t chans) {
-         sample[0] = 0.0f;
-         for (size_t i = 0; i < notespds.size(); ++i) {
-             if (notespds[i] != 0.0) {
+            break;
+        case genBasic_amplutide:
+            gen_amp = val.sample;
+            break;
+        case genBasic_notebias:
+            notebias = val.value;
+            break;
+        case genBasic_phase:
+            for (double& ntepos: noteposs)
+                ntepos = val.sample*2.0*pi;
+            break;
+        default:
+            //Ignore it. The blueprints have values for other generators too.
+            break;
+        }
+    }
+    void BasicGen::noteOn(int halfsteps, sbSample ampl, size_t pos) {
+        if(pos < notespds.size()) {
+            notespds[pos] = getFrequencyFromNote(halfsteps+notebias);
+            noteamps[pos] = ampl;
+        }
+        ++notes;
+    }
+    void BasicGen::noteOff(size_t pos) {
+        if(pos < notespds.size()) {
+            notespds[pos] = 0.0;
+            noteposs[pos] = offset*2.0*pi;
+            noteamps[pos] = 0.0;
+        }
+        --notes;
+    }
+    void BasicGen::reset() {
+        for (sbSample& amp : noteamps)
+            amp = 0.0;
+        for (double& marcher : noteposs)
+            marcher = (offset*2.0*pi);
+    }
+    void BasicGen::setPolymorphism(size_t poly) {
+        reset();
+        size_t olde = notespds.size();
+        noteposs.resize(poly);
+        noteamps.resize(poly);
+        notespds.resize(poly);
+        for (size_t i = olde; i < poly; ++i) {
+            noteamps[i] = sbSampleZero;
+            noteposs[i] = 0;
+            notespds[i] = 0;
+        }
+    }
+    void BasicGen::tick(float *sample, size_t chans) {
+        sample[0] = 0.0f;
+        for (size_t i = 0; i < notespds.size(); ++i) {
+            if (notespds[i] != 0.0) {
                 noteposs[i] = std::fmod(noteposs[i],2.0*pi);
                 sample[0] += wav->getRaw(noteposs[i])*noteamps[i]*gen_amp;
                 noteposs[i] += 2.0*pi*(notespds[i]/sample_rate);
-             }
-         }
-         if (notes > 0)
+            }
+        }
+        if (notes > 0)
             sample[0] /= notes;
 
-         for (size_t i = 0; i < chans; ++i) {
+        for (size_t i = 0; i < chans; ++i) {
             sample[i] = sample[0];
-         }
-     }
+        }
+    }
 }

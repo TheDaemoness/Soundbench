@@ -25,17 +25,21 @@
 
 //I'd have liked to keep the Synth and backend class of objects separate, but it ends up being a lot easier to maintain the required performance this way.
 
-class em_backend {
-public:
-    em_backend() {}
-    virtual ~em_backend() {}
-    virtual void stop() = 0;
-    virtual void start() = 0;
-    virtual void setSamplingRate(size_t) = 0;
+namespace sb {
 
-protected:
-    size_t sampling_rate;
-    sb::Synth* syn;
-};
+    class em_backend {
+    public:
+        em_backend() {}
+        virtual ~em_backend() {}
+        virtual void stop() = 0;
+        virtual void start() = 0;
+        virtual void setSamplingRate(size_t) = 0;
+
+    protected:
+        size_t sampling_rate;
+        sb::Synth* syn;
+    };
+
+}
 
 #endif // BACKEND_H

@@ -121,7 +121,7 @@ QPushButton:pressed {
    <property name="geometry">
     <rect>
      <x>30</x>
-     <y>80</y>
+     <y>70</y>
      <width>91</width>
      <height>23</height>
     </rect>
@@ -134,7 +134,7 @@ QPushButton:pressed {
    <property name="geometry">
     <rect>
      <x>30</x>
-     <y>110</y>
+     <y>90</y>
      <width>91</width>
      <height>23</height>
     </rect>
@@ -147,7 +147,7 @@ QPushButton:pressed {
    <property name="geometry">
     <rect>
      <x>30</x>
-     <y>140</y>
+     <y>110</y>
      <width>101</width>
      <height>23</height>
     </rect>
@@ -367,6 +367,22 @@ QSpinBox::down-button:pressed {
 }</string>
    </property>
   </widget>
+  <widget class="QRadioButton" name="ovalWave">
+   <property name="enabled">
+    <bool>true</bool>
+   </property>
+   <property name="geometry">
+    <rect>
+     <x>30</x>
+     <y>130</y>
+     <width>101</width>
+     <height>23</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>Oval</string>
+   </property>
+  </widget>
   <zorder>backdrop</zorder>
   <zorder>sineWave</zorder>
   <zorder>triangleWave</zorder>
@@ -381,6 +397,7 @@ QSpinBox::down-button:pressed {
   <zorder>applyButton</zorder>
   <zorder>freqBiasLabel</zorder>
   <zorder>noteBiasBox</zorder>
+  <zorder>ovalWave</zorder>
  </widget>
  <resources>
   <include location="sbMainResources.qrc"/>

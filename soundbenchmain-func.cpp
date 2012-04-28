@@ -36,6 +36,8 @@ SoundbenchMain::SoundbenchMain(QWidget *parent) :
     rate_sigmap = new QSignalMapper;
 
     arch->planAllDefaults(blu);
+
+    cpumeter_orange = false;
 }
 
 void SoundbenchMain::delayedConstructor() {

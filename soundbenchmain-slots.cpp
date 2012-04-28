@@ -37,10 +37,8 @@ ui->cpuMeter->setStyleSheet("");
 void SoundbenchMain::testSynth(bool b) {
     if (b)
         syn->noteOn(12.0,1.0);
-    else {
+    else
         syn->noteOff(12.0);
-        syn->reset();
-    }
 }
 
 void SoundbenchMain::playSynth(bool b) {
@@ -99,5 +97,6 @@ void SoundbenchMain::setGenSett(int which) {
     stopAndReset();
     genSetts(which);
     arch->buildSynth(syn,blu);
+    syn->reset();
     em->start();
 }

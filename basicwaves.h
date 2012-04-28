@@ -27,6 +27,11 @@ namespace sb {
     class waveBase
     {
     public:
+        explicit waveBase(int sample_r) {
+            pos = -1;
+            sample_rate = sample_r;
+        }
+
         virtual ~waveBase() {}
 
         inline void setFrequency(double new_freq) {
@@ -80,6 +85,12 @@ namespace sb {
     class Triangle : public waveBase {
     public:
         explicit Triangle (int sample_r);
+        sbSample getRaw(float radians);
+    };
+
+    class Oval : public waveBase {
+    public:
+        explicit Oval (int sample_r);
         sbSample getRaw(float radians);
     };
 

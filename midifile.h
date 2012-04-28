@@ -69,7 +69,7 @@ namespace sb {
             bool close();
 
             inline uint16_t getTrackCount() {
-                return filetype?tracks.size():1;
+                return (filetype?tracks.size():1);
             }
 
         private:

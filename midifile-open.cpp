@@ -92,7 +92,7 @@ namespace sb {
                 }
 
 #ifdef IS_SOUNDBENCH
-            error_stream << "Indexing the file...\n";
+            std::cerr << "Indexing the file...\n";
 #endif
 
                 //Sanity check: is the main header well-formed?
@@ -192,7 +192,7 @@ namespace sb {
                 }
 
 #ifdef IS_SOUNDBENCH
-            error_stream << "File opened and indexed.\n";
+            std::cerr << "File opened and indexed.\n";
 #endif
 
             }

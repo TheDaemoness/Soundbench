@@ -22,49 +22,40 @@
 
 namespace sb {
 
-    Sine::Sine(int sample_r) {
-        pos = -1;
-        sample_rate = sample_r;
-    }
+    Sine::Sine(int sample_r) : waveBase(sample_r) {}
+    Sawtooth::Sawtooth(int sample_r) : waveBase(sample_r) {}
+    Square::Square(int sample_r) : waveBase(sample_r) {}
+    Triangle::Triangle(int sample_r) : waveBase(sample_r) {}
+    Oval::Oval(int sample_r) : waveBase(sample_r) {}
+
 
     sbSample Sine::getRaw(float x) {
         //TODO: Fast sine approximation with at least -150 dB SNR.
         return std::sin(x);
     }
 
-    Sawtooth::Sawtooth(int sample_r) {
-        pos = -1;
-        sample_rate = sample_r;
-    }
     sbSample Sawtooth::getRaw(float rads) {
-        return std::fmod(rads+pi,2*pi)/pi - 1.0;
+        return std::fmod(rads+pi,2.0f*pi)/pi - 1.0;
     }
 
-    Square::Square(int sample_r) {
-        pos = -1;
-        sample_rate = sample_r;
-    }
     sbSample Square::getRaw(float rads) {
-        //Note: This isn't a true square wave.
-        rads = std::fmod(rads,2*pi);
-        if (rads < pi)
-            return 1.0;
-        else
-            return -1.0;
+        rads = std::fmod(rads,2.0f*pi);
+        return (rads < pi?1.0:-1.0);
     }
 
-    Triangle::Triangle(int sample_r) {
-        pos = -1;
-        sample_rate = sample_r;
-    }
     sbSample Triangle::getRaw(float rads) {
         //TODO: IS THERE ANY COMPUTATIONALLY CHEAPER WAY OF CALCULATING A TRIANGLE WAVE?!
-        rads = std::fmod(rads,2*pi);
+        rads = std::fmod(rads,2.0f*pi);
         if (rads < 2.0*pi/4.0)
             return rads*4.0/(2.0*pi);
         else if ((rads >= 2.0*pi/4.0) && (rads < 6.0*pi/4.0))
             return 1.0 - (rads-2.0*pi/4.0)*4.0/(2.0*pi);
         else
             return (rads-6.0*pi/4.0)*4.0/(2.0*pi)-1.0;
+    }
+
+    sbSample Oval::getRaw(float rads) {
+        rads = std::fmod(rads,2.0f*pi);
+        return (rads<pi?1.0:-1.0)/(pi/2)*std::sqrt(pi*rads-rads*rads);
     }
 }

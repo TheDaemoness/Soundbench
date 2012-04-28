@@ -26,22 +26,26 @@
 
 //NOTICE: Do not reimplement this class to use Pa_WriteStream. It uses the callback to take advantage of the high-priority thread it runs in.
 
-class portaudio_backend : public em_backend {
-public:
-    static bool instantiable();
-    explicit portaudio_backend(sb::Synth*, size_t&,std::map<size_t,bool>&,size_t);
-    size_t returnSuggestedBufferSize();
-    ~portaudio_backend();
-    void start();
-    void stop();
-    void setSamplingRate(size_t);
-    static int callback(const void*, void*, unsigned long, const PaStreamCallbackTimeInfo*, PaStreamCallbackFlags, void*);
+namespace sb {
 
-private:
-    bool dead;
-    PaStream* river;
-    PaStreamParameters dev;
+    class portaudio_backend : public em_backend {
+    public:
+        static bool instantiable();
+        explicit portaudio_backend(sb::Synth*, size_t&,std::map<size_t,bool>&,size_t);
+        size_t returnSuggestedBufferSize();
+        ~portaudio_backend();
+        void start();
+        void stop();
+        void setSamplingRate(size_t);
+        static int callback(const void*, void*, unsigned long, const PaStreamCallbackTimeInfo*, PaStreamCallbackFlags, void*);
 
-};
+    private:
+        bool dead;
+        PaStream* river;
+        PaStreamParameters dev;
+
+    };
+
+}
 
 #endif // BACKEND_PORTAUDIO_H

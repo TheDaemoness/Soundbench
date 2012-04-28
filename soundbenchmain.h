@@ -28,7 +28,7 @@
 #include "player.h"
 
 #include "gentypedialog.h"
-#include "settings.basicgen.h"
+#include "settings_basicgen.h"
 #include "meterupdater.h"
 
 #include <QSignalMapper>

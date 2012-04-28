@@ -101,19 +101,23 @@ namespace sb {
     };
 
     enum emitter_type {
-        NoEmitter = 0,
+        NoEmitter,
         PortAudio,
         JACK_O //Not implemented. Will be implemented in 0.3.0
     };
 
     enum midi_type {
-        NoMIDI = 0,
+        NoMIDI,
         PortMIDI, //Not implemented. Will be implemented in 0.3.0
         JACK_I //Not implemented. Will be implemented in 0.3.0
     };
 
     enum SimpleWaveTypes {
-        SineWave, TriangleWave, SquareWave, SawtoothWave
+        SineWave = 1,
+        TriangleWave = 2,
+        SquareWave = 3,
+        SawtoothWave = 4,
+        OvalWave = 5
     };
 
     extern size_t curr_srate;

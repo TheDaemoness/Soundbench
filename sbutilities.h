@@ -21,9 +21,9 @@
 #define UTILITIES_H
 
 /*
-    This file has been split off from and included in common.h.
+    This file has been split off from and included in common.h in Soundbench.
 
-    Should the MIDI file parser prove to be reliable, it may be released as a separate subproject.
+    Should the MIDI file parser prove to be reliable, it may be released as a subproject.
 
     Utilities that *both* Soundbench and the midifile set of files might need will be put here.
     Anything that only Soundbench will need will be found in common.h
@@ -32,7 +32,7 @@
     If you are a project developer, DO NOT ADD ANYTHING TO THIS FILE WITHOUT CONSULTING THE PROJECT HEAD!
 */
 
-#include <stdint.h>
+#include <cinttypes>
 #include <iostream>
 #include <sstream>
 #include <vector>

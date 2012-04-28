@@ -27,12 +27,23 @@ namespace sb {
 
     class Architect;
 
+    /*
+        WARNING: This enum is *very* close to conflicting with the one on midienums.h.
+
+        Although they are in different namespaces, for the sake of avoiding confusion, please try to keep the names in each one different.
+    */
+    enum SupportedPedals {
+        NoPedal,
+        Hold,
+        Sustenuto
+    };
+
     class Synth {
     public:
         Synth();
         void noteOn(int halfsteps, sbSample amp);
         void noteOff(int halfsteps);
-        void pedal(char which, bool val = true);
+        void pedal(SupportedPedals which, bool val = true);
         void reset();
         void tick(sbSample* frame, size_t chans);
 
@@ -40,10 +51,16 @@ namespace sb {
         friend class Architect;
 
     private:
+        struct NoteInfo {
+            int8_t noteoffset;
+            sbSample amp;
+            SupportedPedals pedal; //For any pedals that affect this note.
+        };
+
         sbSample buffer[channelcount][outchans];
         genBase* gener[channelcount];
         fxBase* eff[channelcount][fxcount];
-        std::vector<std::pair<int,std::pair<sbSample,char>>> notes;
+        std::vector<NoteInfo> notes;
 
         bool holdped, sustped;
 

@@ -17,7 +17,7 @@
     Copyright 2012  Amaya S.
 */
 
-#include "settings.basicgen.h"
+#include "settings_basicgen.h"
 #include "ui_basicgenersettings.h"
 
 BasicGenerSettings::BasicGenerSettings(size_t chan, sb::Blueprint* blu, QWidget *parent) :
@@ -38,6 +38,8 @@ BasicGenerSettings::BasicGenerSettings(size_t chan, sb::Blueprint* blu, QWidget 
         ui->squareWave->setChecked(true);
     else if (static_cast<sb::SimpleWaveTypes>(blu->gener_data[chan][sb::genBasic_wave].value) == sb::SawtoothWave)
         ui->sawtoothWave->setChecked(true);
+    else if (static_cast<sb::SimpleWaveTypes>(blu->gener_data[chan][sb::genBasic_wave].value) == sb::OvalWave)
+        ui->ovalWave->setChecked(true);
     else
         ui->sineWave->setChecked(true);
 
@@ -57,6 +59,8 @@ void BasicGenerSettings::affect() {
         affectedblu->gener_data[affectedchan][sb::genBasic_wave] = sb::makeParamfromInt(sb::SquareWave);
     else if (ui->sawtoothWave->isChecked())
         affectedblu->gener_data[affectedchan][sb::genBasic_wave] = sb::makeParamfromInt(sb::SawtoothWave);
+    else if (ui->ovalWave->isChecked())
+        affectedblu->gener_data[affectedchan][sb::genBasic_wave] = sb::makeParamfromInt(sb::OvalWave);
     close();
 }
 

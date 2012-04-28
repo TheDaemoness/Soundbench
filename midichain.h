@@ -162,9 +162,9 @@ namespace sb {
             }
             void doevent() {
                 if (pressure > 63)
-                    synref->pedal('h',true);
+                    synref->pedal(Hold,true);
                 else
-                    synref->pedal('h',false);
+                    synref->pedal(Hold,false);
             }
         };
 
@@ -177,9 +177,9 @@ namespace sb {
             }
             void doevent() {
                 if (pressure > 63)
-                    synref->pedal('s',true);
+                    synref->pedal(Sustenuto,true);
                 else
-                    synref->pedal('s',false);
+                    synref->pedal(Sustenuto,false);
             }
         };
     }
