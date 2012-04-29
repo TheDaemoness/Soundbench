@@ -20,23 +20,24 @@
 #ifndef CHAINS_H
 #define CHAINS_H
 
-//local
-#include "modules.h"
+#include "soundbases.h"
 
 namespace sb {
 
     class BasicGen : public genBase {
     private:
-        waveBase* wav;
-        sbSample gen_amp, offset;
-        size_t notes, notebias;
-        std::vector<sbSample> noteamps;
-        std::vector<double> noteposs;
-        std::vector<double> notespds;
+        typedef std::pair<bool,waveBase*> BoolWavePair;
+
+        std::vector<BoolWavePair> ocean;
+        SimpleWaveTypes curr_wav;
+        sbSample gen_amp;
+        int notebias;
+        uint8_t notes;
     public:
         explicit BasicGen(size_t srate, size_t cracker = default_poly);
         ~BasicGen() {
-            delete wav;
+            for(auto i : ocean)
+                delete i.second;
         }
 
         void ctrl(moduleParam arg, ParameterValue val);

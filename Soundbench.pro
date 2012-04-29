@@ -20,11 +20,9 @@ HEADERS += architect.h \
            errorpopup.h \
            gentypedialog.h \
            midi.h \
-           modules.h \
            soundbenchmain.h \
            synth.h \
            warningpopup.h \
-    geners.h \
     application.h \
     meterupdater.h \
     player.h \
@@ -34,7 +32,9 @@ HEADERS += architect.h \
     backend.h \
     sbutilities.h \
     midienums.h \
-    settings_basicgen.h
+    settings_basicgen.h \
+    soundbases.h \
+    gener_basic.h
 
 FORMS += errorpopup.ui \
          gentypedialog.ui \
@@ -60,10 +60,10 @@ SOURCES += architect.cpp \
     midifile-open.cpp \
     midifile-read.cpp \
     midifile-write.cpp \
-    geners.basic.cpp \
     soundbenchmain-slots.cpp \
     soundbenchmain-func.cpp \
-    settings_basicgen.cpp
+    settings_basicgen.cpp \
+    gen_basic.cpp
 
 RESOURCES += sbMainResources.qrc
 

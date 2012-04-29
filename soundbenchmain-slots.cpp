@@ -19,18 +19,13 @@ void SoundbenchMain::exportOpen() {
 
 void SoundbenchMain::restyleCPUMeter() {
     if(((metup->artificial_limit() && (ui->cpuMeter->value() >= 600)) || (ui->cpuMeter->value() >= 750)) && !cpumeter_orange) {
-        ui->cpuMeter->setStyleSheet(R"del(QProgressBar::chunk {
-                                    background-image: url(:/meters/cpumeter_warn.png);
-                background-position: center left;
-        background-repeat: 0;
+        ui->cpuMeter->setStyleSheet("QProgressBar::chunk {background-image: url(:/meters/cpumeter_warn.png); background-position: center left; background-repeat: 0;} QProgressBar {border-image: url(:/meters/cpumeter_off.png); color: black;}");
+        cpumeter_orange = true;
     }
-    QProgressBar {
-        border-image: url(:/meters/cpumeter_off.png);
-color: black;
-    })del");
-}
-else if (!((metup->artificial_limit() && (ui->cpuMeter->value() >= 600)) || ui->cpuMeter->value() >= 750) && cpumeter_orange)
-ui->cpuMeter->setStyleSheet("");
+    else if (((metup->artificial_limit() && (ui->cpuMeter->value() <= 500)) || ui->cpuMeter->value() <= 600) && cpumeter_orange) {
+        ui->cpuMeter->setStyleSheet("");
+        cpumeter_orange = false;
+    }
 
 }
 

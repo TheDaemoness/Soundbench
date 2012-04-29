@@ -28,38 +28,39 @@ namespace sb {
     {
     public:
         explicit waveBase(int sample_r) {
-            pos = -1;
+            samp_pos = -1;
             sample_rate = sample_r;
+            rad_offset = 0.0f;
         }
 
         virtual ~waveBase() {}
 
-        inline void setFrequency(double new_freq) {
+        void setFrequency(double new_freq) {
             frequency = new_freq;
         }
-        inline void setAmplitude(sbSample new_amp) {
+        void setAmplitude(sbSample new_amp) {
             amplitude = new_amp;
         }
-        inline sbSample getAmplitude() {
-            return amplitude;
+        void setOffset(float phase) {
+            rad_offset = phase;
         }
-        inline bool isActive() {
-            return amplitude != sbSampleZero;
+
+        void reset() {
+            samp_pos = -1;
         }
-        inline void reset() {
-            pos = -1;
-        }
-        inline virtual sbSample tick() {
-            ++pos;
-            return getRaw(frequency/sample_rate * pos);
+        virtual sbSample tick() {
+            ++samp_pos;
+            float rad = (frequency/sample_rate)*samp_pos;
+            return getRaw(rad + rad_offset);
         }
 
         virtual sbSample getRaw(float radians) = 0;
 
     protected:
-        size_t pos; //WARNING: Pos is in samples, and it must start at -1!
+        size_t samp_pos; //WARNING: samp_pos is in samples, and it must start at -1!
         int sample_rate;
         double frequency;
+        float rad_offset;
         sbSample amplitude;
     };
 

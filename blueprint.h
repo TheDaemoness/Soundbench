@@ -20,7 +20,7 @@
 #ifndef BLUEPRINT_H
 #define BLUEPRINT_H
 
-#include "geners.h"
+#include "gener_basic.h"
 
 //libstdc++11
 #include <vector>

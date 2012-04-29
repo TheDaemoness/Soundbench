@@ -132,7 +132,7 @@ namespace sb {
     const size_t sampling_rate_count = 6;
 
     inline float getFrequencyFromNote(unsigned char note, float A4 = 440.00) {
-        return A4*std::pow(1.059463094359,note-48);
+        return A4*std::pow(1.059463094359,note);
     }
 }
 

@@ -22,11 +22,11 @@
 
 namespace sb {
 
-    Sine::Sine(int sample_r) : waveBase(sample_r) {}
-    Sawtooth::Sawtooth(int sample_r) : waveBase(sample_r) {}
-    Square::Square(int sample_r) : waveBase(sample_r) {}
-    Triangle::Triangle(int sample_r) : waveBase(sample_r) {}
-    Oval::Oval(int sample_r) : waveBase(sample_r) {}
+    Sine::Sine(int sample_r) : Sine::waveBase(sample_r) {}
+    Sawtooth::Sawtooth(int sample_r) : Sawtooth::waveBase(sample_r) {}
+    Square::Square(int sample_r) : Square::waveBase(sample_r) {}
+    Triangle::Triangle(int sample_r) : Triangle::waveBase(sample_r) {}
+    Oval::Oval(int sample_r) : Oval::waveBase(sample_r) {}
 
 
     sbSample Sine::getRaw(float x) {
@@ -56,6 +56,8 @@ namespace sb {
 
     sbSample Oval::getRaw(float rads) {
         rads = std::fmod(rads,2.0f*pi);
-        return (rads<pi?1.0:-1.0)/(pi/2)*std::sqrt(pi*rads-rads*rads);
+        bool invert = rads > pi;
+        rads = std::fmod(rads,pi);
+        return (invert?-2.0:2.0)/pi*std::sqrt(pi*rads-rads*rads);
     }
 }
