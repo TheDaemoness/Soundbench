@@ -60,9 +60,10 @@ namespace sb {
                 river.close();
             }
 
-            bool open(std::string, std::string mode = "r", std::ostream& error_stream = std::cerr);
+            bool readerOpen(std::string, std::ostream& error_stream = std::cerr);
+            bool writerOpen(std::string, std::ostream& error_stream = std::cerr);
             void write(MidiFileItem);
-            void readfrom(uint16_t); //Changes from which track read() reads.
+            void readFrom(uint16_t); //Changes from which track read() reads.
             std::string checkTrackTitle(uint16_t); //Checks for a track title meta event.
             std::string getTrackName(uint16_t); //Checks the specified track for a meta-event immediately after the header giving the track's name.
             MidiFileItem read();

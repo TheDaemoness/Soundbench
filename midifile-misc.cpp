@@ -16,7 +16,7 @@ namespace sb {
             return true;
         }
 
-        void MidiFIO::readfrom(uint16_t traque) {
+        void MidiFIO::readFrom(uint16_t traque) {
             river.clear();
             if(!river.is_open() || writing || traque >= tracks.size() || filetype == 0)
                 return;

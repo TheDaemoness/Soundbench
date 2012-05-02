@@ -37,15 +37,15 @@ namespace sb {
         if (amp <= sbSampleZero)
             return;
         for (size_t i = 0; i < notes.size(); ++i) {
-            if (notes[i].amp == sbSampleZero) {
+            if (notes[i].amp == sbSampleZero && notes[i].pedal == NoPedal) {
                 notes[i].noteoffset = halfsteps;
                 notes[i].amp = amp;
-                if(holdped && notes[i].pedal == NoPedal)
+                if(holdped)
                     notes[i].pedal = Hold;
                 else
                     notes[i].pedal = NoPedal;
                 for (size_t ation = 0; ation < channelcount; ++ation) {
-                    if (gener[ation] != nullptr) //Older/cynical programmers: This does NOT unconditionally evaluate to false.
+                    if (gener[ation] != nullptr)
                         gener[ation]->noteOn(halfsteps,amp,i);
                 }
                 break;
@@ -55,11 +55,13 @@ namespace sb {
 
     void Synth::noteOff(int halfsteps) {
         for (size_t i = 0; i < notes.size(); ++i) {
-            if (notes[i].noteoffset == halfsteps && notes[i].amp) {
+            if (notes[i].noteoffset == halfsteps && notes[i].amp != sbSampleZero) {
                 notes[i].amp = sbSampleZero;
-                for (size_t al = 0; al < channelcount; ++al) {
-                    if (gener[al] != nullptr)
-                        gener[al]->noteOff(i);
+                if (notes[i].pedal == NoPedal) {
+                    for (size_t al = 0; (al < channelcount); ++al) {
+                        if (gener[al] != nullptr)
+                            gener[al]->noteOff(i);
+                    }
                 }
             }
         }
@@ -82,11 +84,13 @@ namespace sb {
             else if (which == Sustenuto)
                 sustped = false;
             for (size_t i = 0; i < notes.size(); ++i) {
-                if (notes[i].amp == sbSampleZero && notes[i].pedal == which) {
+                if (notes[i].pedal == which) {
                     notes[i].pedal = NoPedal;
-                    for (size_t al = 0; al < channelcount; ++al) {
-                        if (gener[al] != nullptr)
-                            gener[al]->noteOff(i);
+                    if (notes[i].amp == sbSampleZero) {
+                        for (size_t al = 0; al < channelcount; ++al) {
+                            if (gener[al] != nullptr)
+                                gener[al]->noteOff(i);
+                        }
                     }
                 }
             }
@@ -130,7 +134,7 @@ namespace sb {
             for (size_t acid = 0; acid < chans; ++acid) { //Loop per outbound channel.
                 if (!ic)
                     frames[acid] = sbSampleZero;
-                frames[acid] += buffer[ic][acid]; //Bufferic acid. What an incorrect name that'd be.
+                frames[acid] += buffer[ic][acid]; //What an incorrect name that'd be.
             }
         }
         if (inactivechans != channelcount) {

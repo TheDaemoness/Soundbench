@@ -33,7 +33,6 @@ namespace sb {
         //Planning functions.
         void planAllDefaults(Blueprint*);
         void planDefaultBasicGen(Blueprint*,size_t chan_index = 0);
-        void planDefaultSynth(Blueprint*);
 
         //Building functions
         void buildSynth(Synth*,Blueprint* blu = nullptr);

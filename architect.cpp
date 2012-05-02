@@ -27,20 +27,17 @@ namespace sb {
     void Architect::planAllDefaults(Blueprint* blu) {
         for (size_t i = 0; i < channelcount; ++i)
             planDefaultBasicGen(blu, i);
+        for (size_t ac = 0; ac < sb::channelcount; ++ac) {
+            blu->gener[ac] = Blueprint::NoGener;
+            for (size_t ed = 0; ed < sb::fxcount; ++ed)
+                blu->eff[ac][ed] = Blueprint::NoFx; //Indeed.
+        }
     }
 
     void Architect::planDefaultBasicGen(Blueprint* blu, size_t chan_index) {
         blu->gener_data[chan_index][genBasic_wave] = makeParamfromInt(SineWave);
         blu->gener_data[chan_index][genBasic_amplutide] = makeParamfromSample(1.0);
         blu->gener_data[chan_index][genBasic_phase] = makeParamfromInt(0);
-    }
-
-    void Architect::planDefaultSynth(Blueprint* blu) {
-        for (size_t ac = 0; ac < sb::channelcount; ++ac) {
-            blu->gener[ac] = Blueprint::NoGener;
-            for (size_t ed = 0; ed < sb::fxcount; ++ed)
-                blu->eff[ac][ed] = Blueprint::NoFx; //Indeed.
-        }
     }
 
     void Architect::buildSynth(Synth* syn, Blueprint* blu) {

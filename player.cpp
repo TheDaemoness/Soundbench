@@ -23,13 +23,13 @@
 namespace sb {
     bool Player::loadFile(std::string fname) {
         reed->close();
-        if(!reed->open(fname,"r"))
+        if(!reed->readerOpen(fname))
             return false; //Failed.
         return loadTrack(0);
     }
 
     bool Player::loadTrack(uint16_t track) {
-        reed->readfrom(track);
+        reed->readFrom(track);
         midi::MidiFileItem miditem;
         midi::MIDIEventNode* chiter = first;
 
@@ -99,7 +99,7 @@ namespace sb {
 
     bool Player::writeFile(std::string fname) {
         reed->close();
-        if(!reed->open(fname,"w"))
+        if(!reed->readerOpen(fname))
             return false; //Failed.
         std::cerr << "Not yet implemented!\n";
         reed->close();

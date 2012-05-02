@@ -57,13 +57,15 @@ SOURCES += architect.cpp \
     player.cpp \
     midichain.cpp \
     midifile-misc.cpp \
-    midifile-open.cpp \
     midifile-read.cpp \
     midifile-write.cpp \
     soundbenchmain-slots.cpp \
     soundbenchmain-func.cpp \
     settings_basicgen.cpp \
-    gen_basic.cpp
+    midifile-readeropen.cpp \
+    midifile-writeropen.cpp \
+    gener_basic.cpp \
+    soundbenchmain-init.cpp
 
 RESOURCES += sbMainResources.qrc
 
