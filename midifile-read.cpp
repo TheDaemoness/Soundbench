@@ -35,15 +35,27 @@ namespace sb {
                 std::cerr << "Reading ended prematurely (no End-Of-Track Meta Event?)\n";
                 return returnitem;
             }
+
+            //Deal with the delay.
+            uint32_t raw_delay = 0;
             returnitem.delay = 0;
             uint8_t byte;
             for(uint8_t i = 0; i < 4; ++i) {
-                returnitem.delay <<= 7; //Assure space for the next seven bits (1 byte - the next-byte-exists bit).
+                raw_delay <<= 7; //Assure space for the next seven bits (1 byte - the next-byte-exists bit).
                 byte = river.get();
-                returnitem.delay |= byte & ~Bit1; //Everything excpet the next-byte-exists bit.
+                raw_delay |= byte & ~Bit1; //Everything excpet the next-byte-exists bit.
                 if (!(byte & Bit1)) //The next-byte-exists bit isn't set? Stop looping!
                     break;
             }
+            if (res_is_fps)
+                returnitem.delay = 1000000.0/res.frames.fps/res.frames.ticks_per_frame*raw_delay;
+                //microseconds/second * seconds/frame * frames/tick * ticks
+            else
+                returnitem.delay = 1.0/res.beats.ticks_per_beat*res.beats.microsecs_per_beat*raw_delay;
+                //beats/tick * microseconds/beat * ticks
+
+
+
             byte = river.get();
             returnitem.evtype = static_cast<midi::MidiEvents>(byte >> 4); //Shift out the channel bits.
             returnitem.chan = byte & (Bit5 | Bit6 | Bit7 | Bit8); //Mask out all but the last four bits.

@@ -36,18 +36,6 @@ void SoundbenchMain::exportOpen() {
     plai->writeFile(chosenfile.toStdString());
 }
 
-void SoundbenchMain::restyleCPUMeter() {
-    if(((metup->artificial_limit() && (ui->cpuMeter->value() >= 600)) || (ui->cpuMeter->value() >= 750)) && !cpumeter_orange) {
-        ui->cpuMeter->setStyleSheet("QProgressBar::chunk {background-image: url(:/meters/cpumeter_warn.png); background-position: center left; background-repeat: 0;} QProgressBar {border-image: url(:/meters/cpumeter_off.png); color: black;}");
-        cpumeter_orange = true;
-    }
-    else if (((metup->artificial_limit() && (ui->cpuMeter->value() <= 500)) || ui->cpuMeter->value() <= 600) && cpumeter_orange) {
-        ui->cpuMeter->setStyleSheet("");
-        cpumeter_orange = false;
-    }
-
-}
-
 void SoundbenchMain::testSynth(bool b) {
     if (b)
         syn->noteOn(0,1.0);

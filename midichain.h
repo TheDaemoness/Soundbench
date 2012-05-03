@@ -35,19 +35,23 @@ namespace sb {
             friend class PlayerStartNode;
 
             MIDIEventNode* next;
-            uint64_t beat;
-            static time_t* clockmicrosecs;
+            uint32_t delae;
             static Synth* synref;
         public:
-            explicit MIDIEventNode(uint16_t beet = 0) {
-                beat = beet;
+            explicit MIDIEventNode(uint32_t tiim = 0) {
+                delae = tiim;
                 next = nullptr;
             }
             MIDIEventNode* nextDestroy() {
-                return next->returnNext();
-                delete next;
+                if (next != nullptr) {
+                    MIDIEventNode* evnode = next->returnNext();
+                    delete next;
+                    return evnode;
+                }
+                return nullptr;
+
             }
-           void chainDestroy() {
+            void chainDestroy() {
                 if (next != nullptr) {
                     next->chainDestroy();
                     delete next;
@@ -57,17 +61,8 @@ namespace sb {
                 chainDestroy();
             }
 
-
-            void accessMIDIClockLen(time_t* microsecs) {
-                clockmicrosecs = microsecs;
-            }
-
-            time_t accessMIDIClockLen() {
-                return *clockmicrosecs;
-            }
-
-            uint64_t getDelay() {
-                return beat;
+            uint32_t getDelay() {
+                return delae;
             }
             MIDIEventNode* returnNext() {
                 return next;

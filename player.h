@@ -25,6 +25,8 @@
 #include "midichain.h"
 #include "midifile.h"
 
+#include "cpumeter.h"
+
 #include <deque>
 
 #include <QListWidget>
@@ -37,18 +39,17 @@ namespace sb {
         midi::MidiFIO* reed;
         midi::PlayerStartNode* first;
         std::deque<midi::MIDIEventNode> nodes;
-        unsigned char tempo;
         time_t midiclocklen;
+
+        QListWidget* affectedlist;
+        CpuMeter* affectedmet;
     public:
-        explicit Player(Synth* syn) {
+        explicit Player(Synth* syn, QListWidget* tracklist, CpuMeter* themet) {
+            affectedlist = tracklist;
+            affectedmet = themet;
+
             reed = new midi::MidiFIO;
             first = new midi::PlayerStartNode(syn);
-            tempo = 108;
-            /*
-              microseconds/beat = 1 / (beats/minute * minutes/second * seconds/microsecond)
-              */
-            midiclocklen = static_cast<time_t>(1.0 / (static_cast<double>(tempo)/(0.000000017)));
-            first->accessMIDIClockLen(&midiclocklen);
         }
         ~Player() {
             delete first;

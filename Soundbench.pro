@@ -34,7 +34,8 @@ HEADERS += architect.h \
     midienums.h \
     settings_basicgen.h \
     soundbases.h \
-    gener_basic.h
+    gener_basic.h \
+    cpumeter.h
 
 FORMS += errorpopup.ui \
          gentypedialog.ui \

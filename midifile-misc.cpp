@@ -13,6 +13,7 @@ namespace sb {
                 }
                 river.close();
             }
+            tracks.clear();
             return true;
         }
 
@@ -30,7 +31,7 @@ namespace sb {
             }
         }
 
-        std::string MidiFIO::checkTrackTitle(uint16_t traque) {
+        std::string MidiFIO::getTrackName(uint16_t traque) {
             if (traque >= tracks.size() || !river.is_open() || writing)
                 return "";
 
@@ -47,7 +48,7 @@ namespace sb {
             const uint8_t tracknamebytes[3] = {0x0,MetaEvent,MetaTrackName};
             for(uint8_t i = 0; i < 3; ++i) {
                 if(river.get() != tracknamebytes[i])
-                    return "";
+                    return (filetype==1?"Metadata Track":"");
             }
 
             uint32_t evlen;

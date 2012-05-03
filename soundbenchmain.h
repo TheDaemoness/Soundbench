@@ -29,10 +29,9 @@
 
 #include "gentypedialog.h"
 #include "settings_basicgen.h"
-#include "meterupdater.h"
+#include "cpumeter.h"
 
 #include <QSignalMapper>
-#include <QTimer>
 #include <QFileDialog>
 
 namespace Ui {
@@ -60,7 +59,6 @@ private slots:
     //Implemented in soundbenchmain-slots.cpp
     void importOpen();
     void exportOpen();
-    void restyleCPUMeter();
     void testSynth(bool);
     void playSynth(bool);
     void silence();
@@ -87,15 +85,13 @@ private:
     sb::Player* plai;
 
     QSignalMapper *sett_sigmap, *type_sigmap, *rate_sigmap;
-    QTimer* teimer;
 
     GenTypeDialog* gtd;
     union {
         BasicGenerSettings* basic;
     } gsd;
-    MeterUpdater* metup;
 
-    bool cpumeter_orange;
+    CpuMeter* met;
 };
 
 #endif // SOUNDBENCHMAIN_H

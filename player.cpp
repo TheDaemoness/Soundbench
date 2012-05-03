@@ -23,9 +23,32 @@
 namespace sb {
     bool Player::loadFile(std::string fname) {
         reed->close();
+        affectedlist->clear();
+        affectedmet->setProgress(0);
+
         if(!reed->readerOpen(fname))
             return false; //Failed.
-        return loadTrack(0);
+
+        if(reed->getFileType() == midi::SingleTrack) {
+            affectedmet->setProgress(500);
+            bool a = loadTrack(0);
+            affectedmet->startMeter();
+            return a;
+        }
+        else {
+            affectedmet->setProgress(100);
+            for(uint16_t i = 0, e = reed->getTrackCount(); i < e; ++i) {
+                affectedlist->addItem(reed->getTrackName(i).c_str());
+                affectedmet->setProgress(100 + 800*(i+1)/e);
+            }
+            bool a;
+            if (reed->getFileType() == midi::MultiTrack)
+                a = loadTrack(1);
+            else
+                a = loadTrack(0);
+            affectedmet->startMeter();
+            return a;
+        }
     }
 
     bool Player::loadTrack(uint16_t track) {
@@ -33,7 +56,7 @@ namespace sb {
         midi::MidiFileItem miditem;
         midi::MIDIEventNode* chiter = first;
 
-        std::cerr << "Parsing the 1st track of the file...\n";
+        std::cerr << "Parsing the track " << track << " of the file...\n";
         while (true) {
             bool probl = false;
             miditem = reed->read();

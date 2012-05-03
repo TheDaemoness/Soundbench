@@ -22,7 +22,12 @@
 namespace sb {
     namespace midi {
 
-        bool MidiFIO::readerOpen(std::string file, std::ostream& error_stream) {
+#ifdef IS_SOUNDBENCH
+        bool MidiFIO::readerOpen(std::string file)
+#else
+        bool MidiFIO::readerOpen(std::string file, std::ostream& error_stream)
+#endif
+        {
             if (river.is_open()) {
                 return false;
             }
@@ -135,7 +140,7 @@ namespace sb {
             }
             else {
                 res.beats.ticks_per_beat = raw_res;
-                res.beats.tempo = 120; //The MIDI default.
+                res.beats.microsecs_per_beat = 500000; //The MIDI default.
             }
 
             //Sanity check: Is the first track's header sane?

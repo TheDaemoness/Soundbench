@@ -22,15 +22,14 @@
 namespace sb {
     namespace midi {
         Synth* MIDIEventNode::synref;
-        time_t* MIDIEventNode::clockmicrosecs;
 
         MIDIEventIterator::MIDIEventIterator(PlayerStartNode* master) {
             star = master;
             auto lamb = [](MIDIEventNode* first) {
                     MIDIEventNode* nowde = first;
-                    while (nowde != NULL) {
+                    while (nowde != nullptr) {
                         if (nowde->getDelay() > 0)
-                            std::this_thread::sleep_for(std::chrono::microseconds(first->accessMIDIClockLen()*nowde->getDelay()));
+                            std::this_thread::sleep_for(std::chrono::microseconds(nowde->getDelay()));
                         nowde->doevent();
                         nowde = nowde->returnNext();
                     }

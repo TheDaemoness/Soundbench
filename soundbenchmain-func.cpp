@@ -32,7 +32,6 @@ void SoundbenchMain::genSetts(size_t i) {
 }
 
 SoundbenchMain::~SoundbenchMain() {
-    teimer->stop();
 
     delete arch;
     delete plai;
@@ -42,11 +41,11 @@ SoundbenchMain::~SoundbenchMain() {
         delete syn;
     delete blu;
 
+    delete met;
+
     delete sett_sigmap;
     delete type_sigmap;
     delete rate_sigmap;
-
-    delete teimer;
 
     delete ui;
 }

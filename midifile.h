@@ -60,17 +60,24 @@ namespace sb {
                 river.close();
             }
 
+#ifndef IS_SOUNDBENCH
             bool readerOpen(std::string, std::ostream& error_stream = std::cerr);
             bool writerOpen(std::string, std::ostream& error_stream = std::cerr);
+#else
+            bool readerOpen(std::string);
+            bool writerOpen(std::string);
+#endif
             void write(MidiFileItem);
             void readFrom(uint16_t); //Changes from which track read() reads.
-            std::string checkTrackTitle(uint16_t); //Checks for a track title meta event.
             std::string getTrackName(uint16_t); //Checks the specified track for a meta-event immediately after the header giving the track's name.
             MidiFileItem read();
             bool close();
 
             inline uint16_t getTrackCount() {
                 return (filetype?tracks.size():1);
+            }
+            inline MidiFileTypes getFileType() {
+                return static_cast<MidiFileTypes>(filetype);
             }
 
         private:
@@ -81,7 +88,7 @@ namespace sb {
             union {
                 struct {
                     uint16_t ticks_per_beat;
-                    uint16_t tempo;
+                    uint32_t microsecs_per_beat;
                 } beats;
                 struct {
                     uint8_t fps;

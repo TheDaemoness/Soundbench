@@ -26,7 +26,6 @@ SoundbenchMain::SoundbenchMain(QWidget *parent) :
     blu = new sb::Blueprint;
     em = nullptr;
     syn = nullptr;
-    cpumeter_orange = false;
 
     ui = new Ui::SoundbenchMain();
     ui->setupUi(this);
@@ -35,8 +34,6 @@ SoundbenchMain::SoundbenchMain(QWidget *parent) :
     rate_sigmap = new QSignalMapper;
 
     arch->planAllDefaults(blu);
-
-    cpumeter_orange = false;
 }
 
 void SoundbenchMain::delayedConstructor() {
@@ -45,11 +42,11 @@ void SoundbenchMain::delayedConstructor() {
     syn = new sb::Synth;
     arch->buildSynth(syn,blu);
     em = new sb::Emitter(syn);
-    plai = new sb::Player(syn);
+    met = new CpuMeter(ui->cpuMeter,ui->cpuLabel);
+
+    plai = new sb::Player(syn,ui->songsTracksList,met);
 
     syn->volume() = static_cast<sbSample>(ui->volumeSlider->value())/ui->volumeSlider->maximum();
-    teimer = new QTimer;
-    metup = new MeterUpdater(ui->cpuMeter);
 
     std::map<sb::emitter_type,bool> backend_apis = em->getSupportedAPIs(); //TODO: Deal with this.
 
@@ -106,8 +103,6 @@ void SoundbenchMain::delayedConstructor() {
     connect(ui->silenceButton,SIGNAL(clicked()),SLOT(silence()));
     connect(ui->volumeSlider,SIGNAL(valueChanged(int)),SLOT(setMasterVolume(int)));
     connect(ui->playButton,SIGNAL(toggled(bool)),SLOT(playSynth(bool)));
-    connect(teimer,SIGNAL(timeout()),metup,SLOT(update()));
-    connect(teimer,SIGNAL(timeout()),SLOT(restyleCPUMeter()));
     connect(ui->mainTabs,SIGNAL(currentChanged(int)),SLOT(closePopups()));
 
     //Conncet the Player page widgets.
@@ -144,6 +139,6 @@ void SoundbenchMain::delayedConstructor() {
 
     show();
 
-    teimer->start(10);
     em->start();
+    met->startMeter();
 }

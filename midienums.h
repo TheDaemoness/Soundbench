@@ -135,6 +135,11 @@ namespace sb {
             MetaTrackName = 0x02,
             MetaEndOfTrack = 0x2F
         };
+        enum MidiFileTypes {
+            SingleTrack = 0,
+            MultiTrack = 1,
+            MultiSong = 2
+        };
     }
 }
 

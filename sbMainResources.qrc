@@ -73,6 +73,8 @@
         <file>cpumeter_off.png</file>
         <file>cpumeter_on.png</file>
         <file>cpumeter_warn.png</file>
+        <file>cpumeter_progress.png</file>
+        <file>cpumeter_red.png</file>
     </qresource>
     <qresource prefix="/popups">
         <file>error_popup.png</file>

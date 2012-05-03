@@ -37,6 +37,14 @@ public:
     inline bool artificial_limit() {
         return !nolimit;
     }
+    void reset() {
+        while(!prevtime.empty())
+            prevtime.pop();
+        while(!prevtotaltime.empty())
+            prevtotaltime.pop();
+        time = 0.0;
+        totaltime = 0;
+    }
 
 public slots:
     void update();
