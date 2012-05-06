@@ -27,7 +27,7 @@
 #include "warningpopup.h"
 #endif
 
-#include "sbutilities.h"
+#include "common.h"
 #include "midienums.h"
 
 namespace sb {
@@ -62,12 +62,9 @@ namespace sb {
 
 #ifndef IS_SOUNDBENCH
             bool readerOpen(std::string, std::ostream& error_stream = std::cerr);
-            bool writerOpen(std::string, std::ostream& error_stream = std::cerr);
 #else
             bool readerOpen(std::string);
-            bool writerOpen(std::string);
 #endif
-            void write(MidiFileItem);
             void readFrom(uint16_t); //Changes from which track read() reads.
             std::string getTrackName(uint16_t); //Checks the specified track for a meta-event immediately after the header giving the track's name.
             MidiFileItem read();

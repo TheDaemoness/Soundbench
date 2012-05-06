@@ -20,7 +20,7 @@
 #ifndef MODULES_H
 #define MODULES_H
 
-#include "common.h"
+#include "sbutilities.h"
 #include "basicwaves.h"
 
 #include <cstring>

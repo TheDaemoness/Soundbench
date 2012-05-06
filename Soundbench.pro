@@ -27,7 +27,6 @@ HEADERS += architect.h \
     meterupdater.h \
     player.h \
     midichain.h \
-    midifile.h \
     problemfix.h \
     backend.h \
     sbutilities.h \
@@ -35,7 +34,9 @@ HEADERS += architect.h \
     settings_basicgen.h \
     soundbases.h \
     gener_basic.h \
-    cpumeter.h
+    cpumeter.h \
+    sfrenderer.h \
+    midifio.h
 
 FORMS += errorpopup.ui \
          gentypedialog.ui \
@@ -57,17 +58,19 @@ SOURCES += architect.cpp \
     meterupdater.cpp \
     player.cpp \
     midichain.cpp \
-    midifile-misc.cpp \
-    midifile-read.cpp \
-    midifile-write.cpp \
     soundbenchmain-slots.cpp \
     soundbenchmain-func.cpp \
     settings_basicgen.cpp \
-    midifile-readeropen.cpp \
-    midifile-writeropen.cpp \
     gener_basic.cpp \
-    soundbenchmain-init.cpp
+    soundbenchmain-init.cpp \
+    sfrenderer.cpp \
+    midifio-read.cpp \
+    midifio-readeropen.cpp \
+    midifio-misc.cpp
 
 RESOURCES += sbMainResources.qrc
 
 unix: LIBS += -L/usr/lib/ -lportaudio -lportaudiocpp -lsndfile
+
+OTHER_FILES += \
+    ProgrammingStyleRegulations.txt

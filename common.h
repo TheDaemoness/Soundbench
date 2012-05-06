@@ -17,123 +17,63 @@
     Copyright 2012  Amaya S.
 */
 
-#ifndef SOUNDBENCH_API_H
-#define SOUNDBENCH_API_H
+#ifndef COMMON_H
+#define COMMON_H
 
 /*
-  This file is for anything that a large number of files in Soundbench might need.
+    This file is part of Soundbench.
 
-  If you are a project developer, DO NOT ADD ANYTHING TO THIS FILE WITHOUT CONSULTING THE PROJECT HEAD!
+    Should the MIDI file parser prove to be reliable, it may be released as a subproject.
+
+    Utilities that *both* Soundbench and the midifile set of files might need will be put here.
+    Anything that only Soundbench will need will be found in common.h
+    Anything that only the subproject will need will be found in midifile.h
+
+    If you are a project developer, DO NOT ADD ANYTHING TO THIS FILE WITHOUT CONSULTING THE PROJECT HEAD!
 */
 
-#include <utility>
-#include <map>
-#include <string>
-#include <cmath>
-
-#include "sbutilities.h"
-#include "problemfix.h"
-
-#ifndef IS_SOUNDBENCH
-#define IS_SOUNDBENCH
-#endif
-
-#define SBVERSION "Development Branch"
-
-typedef float sbSample;
-const sbSample sbSampleMin = -1.0;
-const sbSample sbSampleMax = 1.0;
-const sbSample sbSampleZero = 0.0;
-
-class sbException {
-public:
-    sbException(std::string type, std::string info = "",
-            sb::errs::ProblemFix* fix1 = nullptr,
-            sb::errs::ProblemFix* fix2 = nullptr,
-            sb::errs::ProblemFix* fix3 = nullptr,
-            sb::errs::ProblemFix* fix4 = nullptr,
-            sb::errs::ProblemFix* fix5 = nullptr,
-            sb::errs::ProblemFix* fix6 = nullptr,
-            sb::errs::ProblemFix* fix7 = nullptr) {
-        errdata.first = type;
-        errdata.second = info;
-        fixlist.push_back(fix1);
-        fixlist.push_back(fix2);
-        fixlist.push_back(fix3);
-        fixlist.push_back(fix4);
-        fixlist.push_back(fix5);
-        fixlist.push_back(fix6);
-        fixlist.push_back(fix7);
-    }
-    std::pair<std::string, std::string> errdata;
-    std::vector<sb::errs::ProblemFix*> fixlist;
-};
+#include <cinttypes>
+#include <iostream>
+#include <sstream>
+#include <vector>
 
 namespace sb {
-    union ParameterValue { //For all you C++ programmers out there who don't know what this is... it's a C-style space-saver. ;)
-        sbSample sample;
-        size_t value;
-        void* other;
+
+    enum simple_bitmasks { //Notice: These values are for use on single bytes and assume big endian format.
+        Bit8 = 1,
+        Bit7 = 2,
+        Bit6 = 4,
+        Bit5 = 8,
+        Bit4 = 16,
+        Bit3 = 32,
+        Bit2 = 64,
+        Bit1 = 128
     };
-    template <typename T>
-    inline ParameterValue makeParamfromPointer(T* ptr) {
-        ParameterValue valu;
-        valu.other = reinterpret_cast<void*>(ptr);
-        return valu;
+
+    enum simple_bytemasks { //Byte1 is the least significant for the purposes of supporting many different integer sizes, up to uint32_t.
+        Byte1 = 0xFF,
+        Byte2 = 0xFF00,
+        Byte3 = 0xFF0000,
+        Byte4 = 0xFF000000
+    };
+
+    template <typename outType, typename inType>
+    outType lexical_cast(inType in) {
+        std::stringstream strm;
+        strm.str(std::string());
+        strm << in;
+        outType out;
+        strm >> out;
+        return out;
     }
-    template <typename T>
-    inline ParameterValue makeParamfromInt(T i) {
-        ParameterValue valu;
-        valu.value = static_cast<size_t>(i); //Do NOT make this a dynamic_cast.
-        return valu;
-    }
-    inline ParameterValue makeParamfromSample(sbSample i) {
-        ParameterValue valu;
-        valu.sample = i;
-        return valu;
-    }
 
-    enum channel_mapping {
-        Mono,
-        Stereo,
-        StereoLeft,
-        StereoRight
-    };
-
-    enum emitter_type {
-        NoEmitter,
-        PortAudio,
-        JACK_O //Not implemented. Will be implemented in 0.3.0
-    };
-
-    enum midi_type {
-        NoMIDI,
-        PortMIDI, //Not implemented. Will be implemented in 0.3.0
-        JACK_I //Not implemented. Will be implemented in 0.3.0
-    };
-
-    enum SimpleWaveTypes {
-        SineWave = 1,
-        TriangleWave = 2,
-        SquareWave = 3,
-        SawtoothWave = 4,
-        OvalWave = 5
-    };
-
-    extern size_t curr_srate;
-    const size_t outchans = 2;
-    const float pi = 3.14159265358979323846264338327950288f;
-
-    const size_t default_poly = 16;
-    const unsigned char channelcount = 4;
-    const unsigned char fxcount = 4;
-
-    const size_t sampling_rates[] = {44100,48000,88200,96000,176400,192000};
-    const size_t sampling_rate_count = 6;
-
-    inline float getFrequencyFromNote(unsigned char note, float A4 = 440.00) {
-        return A4*std::pow(1.059463094359,note);
+    template <typename inType> //We know that function template specializations are evil.
+    std::string lexical_cast(inType in) {
+        std::stringstream strm;
+        strm.str(std::string());
+        strm << in;
+        return strm.str();
     }
 }
 
-#endif // SOUNDBENCH_API_H
+#endif // COMMON_H

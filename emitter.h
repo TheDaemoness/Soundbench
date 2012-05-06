@@ -22,7 +22,7 @@
 
 
 //local
-#include "common.h"
+#include "sbutilities.h"
 #include "backend.portaudio.h"
 
 //libstdc++11

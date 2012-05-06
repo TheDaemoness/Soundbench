@@ -1,0 +1,55 @@
+NOTICE: This file is only for people who would like to contribute to Soundbench, either as one-time donators of source code or as regular developers.
+If you're just hacking Soundbench for your own purposes... disregard this file. :)
+
+This file contains a set of coding regulations as set forth by the project head. Please do NOT change this file unless you are the project head.
+These are in place to ensure that Soundbench's sourcecode remains high quality and easy to navigate, understand, and change without fear of introducing bugs as side-effects.
+
+All the regulations will be in bullet format. Any bullets with an asterisk after them indicate guidelines.
+Guidelines may be bent or sometimes outright broken if the programmer thinks it's necessary, at his or her discretion.
+
+1. Whitespace and Brackets
+
+1.1. Opening brackets must be on the same line as the statement preceeding them, regardless of the type of statement.
+1.2. If an if statement executes only one line of code, then do not surround it with brackets.
+1.3. Templates are to be split over two lines, with the template keyword and the template parameters on one line and the rest of the declaration on the other.
+
+
+2. Naming
+
+2.1. All functions (whether member or free-standing) should have camelcased names starting with a lower case letter (i.e. doSomethingFunny).
+2.2. All classes, enums, enumerated constants, structs, and unions. should have camelcase names starting with an upper case letter (i.e. SomeRandomClass).
+2.3. All variables should have lowercased names and should have no digits. (i.e. rabbit_stew).
+2.3.1. Juxtapositioning of words is permitted as the juxtaposition is legible. (i.e. filepos).
+2.4. All constants defined with the const keyword should be named as a variable would.
+2.5. Macros taking arguments should have names as functions but should also have two underscores preceeding their names (i.e. __macrosAreEvil).
+2.6. All other macros should have completely capitalized names.
+
+
+3. Files
+
+3.1. One should be able to tell what a file contains just by looking at its name.
+3.1.1* Header and source files should ideally be named after the class they contain if they contain only one.
+3.2. Header and source file names should be lowercased.
+3.3* Files should be kept shorter than 150 lines.
+3.4. Files must be kept shorter than 250 lines.
+3.5. Headers have the .h prefix and source files have the .cpp extension.
+3.6* Headers should only declare one class at a time unless the classes are derived from each other and have similar purposes.
+3.7* When possible, header and source file names should match.
+3.8. If splitting implementations or declaractions over several files, there are a few naming rules to follow:
+3.9.1. If a header exists primarily to declare a derived class from a class that has its own header file, the file should have the name:
+    <header of the original class>.<abbreviated class name or recognizable purpose>.h
+    Example: backend.portaudio.h
+3.9.2. If a header exists primariy to declare a class that is easily categorizable or a derived class from a class without its own header file, the file should have the name:
+    <category or abbreviated original class name>_<abbreviated class name or recognizable purpose>.h
+    Example: gener_basic.h
+3.9.3. If the implementation of a class has to be split over several files, the implementation files should have the name:
+    <header declaring the class>-<portion of the class being defined>.cpp
+    Example: midifile-open.cpp
+3.10. THE HEADER FILES midienums.h, common.h, AND sbutilities.h MAY NOT BE MODIFIED BY ANYONE OTHER THAN THE PROJECT HEAD!
+
+4. Declarations and Definitions
+
+4.1. Functions outside of a class or defined in the header file of a class must be no longer than 10 linues.
+4.2* Inheritance should only be used when polymorphism is used.
+4.3. Access levels in classes must be explicitly stated.
+4.4. If one enumerated constant needs to be explicitly set to a certain value, then all the constants in that enumeration must be explicitly set.

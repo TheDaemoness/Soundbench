@@ -20,7 +20,7 @@
 #ifndef BASICWAVES_H
 #define BASICWAVES_H
 
-#include "common.h"
+#include "sbutilities.h"
 
 namespace sb {
 

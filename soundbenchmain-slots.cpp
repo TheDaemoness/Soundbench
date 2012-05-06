@@ -30,7 +30,7 @@ void SoundbenchMain::importOpen() {
 void SoundbenchMain::exportOpen() {
     QString chosenfile = QFileDialog::getSaveFileName(
                 NULL,"Choose a file to export to...", "~/",
-                "Wave File (*.wav);;AIFF File (*.aiff);;Standard MIDI File (*.mid);;Headerless RAW (*.raw);;MAT5 Binary Data File (*.mat)");
+                "Wave File (*.wav);;AIFF File (*.aiff);;Headerless RAW (*.raw);;MAT5 Binary Data File (*.mat)"); //Put .mid back in here in version 0.3.0.
     if (!chosenfile.size())
         return;
     plai->writeFile(chosenfile.toStdString());

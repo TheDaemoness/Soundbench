@@ -23,11 +23,12 @@
 
 #include "midi.h"
 #include "midichain.h"
-#include "midifile.h"
-
+#include "midifio.h"
 #include "cpumeter.h"
+#include "sfrenderer.h"
 
 #include <deque>
+#include <cstdio>
 
 #include <QListWidget>
 

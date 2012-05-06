@@ -17,7 +17,7 @@
     Copyright 2012  Amaya S.
 */
 
-#include "midifile.h"
+#include "midifio.h"
 
 namespace sb {
     namespace midi {
