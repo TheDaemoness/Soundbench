@@ -73,7 +73,7 @@ namespace sb {
                 next = nod;
             }
 
-            virtual void doevent() = 0;
+            virtual void doEvent() = 0;
         };
 
 
@@ -104,7 +104,7 @@ namespace sb {
             bool isRunning() {
                 return running;
             }
-            void doevent() {}
+            void doEvent() {}
             void run() {
                 if (it == nullptr)
                     it = new MIDIEventIterator(this);
@@ -131,7 +131,7 @@ namespace sb {
                 halfsteps = notedist;
                 amp = ampe;
             }
-            void doevent() {
+            void doEvent() {
                 synref->noteOn(halfsteps,amp);
             }
         };
@@ -143,7 +143,7 @@ namespace sb {
                 next = nexte;
                 halfsteps = notedist;
             }
-            void doevent() {
+            void doEvent() {
                 synref->noteOff(halfsteps);
             }
         };
@@ -155,7 +155,7 @@ namespace sb {
                 next = nexte;
                 pressure = press;
             }
-            void doevent() {
+            void doEvent() {
                 if (pressure > 63)
                     synref->pedal(Hold,true);
                 else
@@ -170,7 +170,7 @@ namespace sb {
                 next = nexte;
                 pressure = press;
             }
-            void doevent() {
+            void doEvent() {
                 if (pressure > 63)
                     synref->pedal(Sustenuto,true);
                 else

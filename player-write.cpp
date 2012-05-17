@@ -50,6 +50,38 @@ namespace sb {
         if(!wri->open(fname,form))
             return false;
 
+        midi::MIDIEventNode* nody = first;
+        uint32_t evcount = 0;
+        while (true) {
+            if (nody == nullptr)
+                break;
+            else
+                nody = nody->returnNext();
+            ++evcount;
+        }
+
+        affectedmet->setProgress(0);
+
+        //Microseconds per sample: (microseconds / second) / (samples / second)
+        uint32_t factor = 100000 / curr_srate;
+        bool cont = true;
+        nody = first;
+        float evnum = 0;
+
+        for(uint64_t microsecs = 0; cont; microsecs += factor) {
+            while (microsecs >= nody->getDelay()) {
+                nody->doEvent();
+                microsecs -= nody->getDelay();
+                nody = nody->returnNext();
+                if (nody == nullptr)
+                    cont = false;
+            }
+            ++evnum;
+            affectedmet->setProgress(evnum/evcount*1000);
+            wri->tick();
+        }
+
+        affectedmet->startMeter();
         return true;
     }
 }

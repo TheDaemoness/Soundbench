@@ -30,7 +30,7 @@ namespace sb {
                     while (nowde != nullptr) {
                         if (nowde->getDelay() > 0)
                             std::this_thread::sleep_for(std::chrono::microseconds(nowde->getDelay()));
-                        nowde->doevent();
+                        nowde->doEvent();
                         nowde = nowde->returnNext();
                     }
             };

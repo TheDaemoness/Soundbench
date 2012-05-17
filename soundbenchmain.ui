@@ -465,9 +465,9 @@ QTabBar::tab:selected {
       <property name="geometry">
        <rect>
         <x>0</x>
-        <y>10</y>
+        <y>0</y>
         <width>1056</width>
-        <height>461</height>
+        <height>471</height>
        </rect>
       </property>
       <property name="styleSheet">
@@ -1203,9 +1203,9 @@ p, li { white-space: pre-wrap; }
       </property>
      </widget>
     </widget>
-    <widget class="QWidget" name="tabEnvelopes">
+    <widget class="QWidget" name="tabModulo">
      <attribute name="title">
-      <string>Envelopes</string>
+      <string>Modulate</string>
      </attribute>
      <widget class="QGraphicsView" name="envelopeBackdrop">
       <property name="geometry">
@@ -1917,8 +1917,7 @@ QSlider::handle:pressed:horizontal {
      </font>
     </property>
     <property name="toolTip">
-     <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-size:9pt;&quot;&gt;This can show any of the following:&lt;br&gt;How much processing power the program is using for generating sound&lt;br&gt;
-How far along a certain task is.&lt;/span&gt;&lt;/p&gt;&lt;p&gt;&lt;br/&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+     <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-size:9pt;&quot;&gt;This can show either of the following:&lt;br/&gt;How much processing power the program is using for generating sound.&lt;br/&gt;How far along a certain task is.&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
     </property>
     <property name="styleSheet">
      <string notr="true"/>
