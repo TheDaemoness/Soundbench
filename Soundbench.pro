@@ -35,8 +35,8 @@ HEADERS += architect.h \
     soundbases.h \
     gener_basic.h \
     cpumeter.h \
-    sfrenderer.h \
-    midifio.h
+    midifio.h \
+    sfwriter.h
 
 FORMS += errorpopup.ui \
          gentypedialog.ui \
@@ -56,17 +56,18 @@ SOURCES += architect.cpp \
     synth.cpp \
     application.cpp \
     meterupdater.cpp \
-    player.cpp \
     midichain.cpp \
     soundbenchmain-slots.cpp \
     soundbenchmain-func.cpp \
     settings_basicgen.cpp \
     gener_basic.cpp \
     soundbenchmain-init.cpp \
-    sfrenderer.cpp \
     midifio-read.cpp \
     midifio-readeropen.cpp \
-    midifio-misc.cpp
+    midifio-misc.cpp \
+    sfwriter.cpp \
+    player-load.cpp \
+    player-write.cpp
 
 RESOURCES += sbMainResources.qrc
 

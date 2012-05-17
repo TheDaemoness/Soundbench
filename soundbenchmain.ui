@@ -1917,7 +1917,8 @@ QSlider::handle:pressed:horizontal {
      </font>
     </property>
     <property name="toolTip">
-     <string>Will work in version 0.2.0.</string>
+     <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-size:9pt;&quot;&gt;This can show any of the following:&lt;br&gt;How much processing power the program is using for generating sound&lt;br&gt;
+How far along a certain task is.&lt;/span&gt;&lt;/p&gt;&lt;p&gt;&lt;br/&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
     </property>
     <property name="styleSheet">
      <string notr="true"/>

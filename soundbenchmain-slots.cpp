@@ -20,20 +20,29 @@
 #include "soundbenchmain.h"
 
 void SoundbenchMain::importOpen() {
+    stopAndReset();
     QString chosenfile = QFileDialog::getOpenFileName(
                 NULL,"Choose a file to import...", "~/", "Standard MIDI Files (*.mid *.smf);;All Files (*)");
-    if (!chosenfile.size())
+
+    if (!chosenfile.size()) {
+        em->start();
         return;
+    }
     plai->loadFile(chosenfile.toStdString());
+    em->start();
 }
 
 void SoundbenchMain::exportOpen() {
+    stopAndReset();
     QString chosenfile = QFileDialog::getSaveFileName(
                 NULL,"Choose a file to export to...", "~/",
-                "Wave File (*.wav);;AIFF File (*.aiff);;Headerless RAW (*.raw);;MAT5 Binary Data File (*.mat)"); //Put .mid back in here in version 0.3.0.
-    if (!chosenfile.size())
+                "Wave File (*.wav);;AIFF File (*.aiff);;FLAC File (*.flac);;Headerless RAW file (*.raw);;MAT5 Binary Data File (*.mat)"); //Put .mid back in here in version 0.3.0.
+    if (!chosenfile.size()) {
+        em->start();
         return;
+    }
     plai->writeFile(chosenfile.toStdString());
+    em->start();
 }
 
 void SoundbenchMain::testSynth(bool b) {

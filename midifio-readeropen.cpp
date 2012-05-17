@@ -40,7 +40,7 @@ namespace sb {
                 awarning->setWarningText("Wrong File Extension");
                 awarning->setInfoText(std::string(file) + " might not be a MIDI file due to its extension (which is not .mid or .smf).\n\nBy ignoring this warning, the file will be read anyway.\n\nOtherwise, the import will be canceled.\n");
                 awarning->exec();
-                bool goon = awarning->returnContinue();
+                bool goon = awarning->fixed();
                 delete awarning;
                 if (!goon)
                     return false;
@@ -60,7 +60,7 @@ namespace sb {
                 else
                     awarning->setInfoText(file + " appears to be either corrupt or non-conformant to the MIDI standard because " + reason + ".\n\nBy ignoring this warning, Soundbench will attempt to continue parsing the file.\n\nOtherwise, the import will be canceled.\n");
                 awarning->exec();
-                bool goon = awarning->returnContinue();
+                bool goon = awarning->fixed();
                 delete awarning;
                 if (goon)
                     ignoreInsane = true;

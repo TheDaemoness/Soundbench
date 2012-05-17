@@ -70,7 +70,7 @@ namespace sb {
                     return (filetype==1?"Metadata Track":"Unnamed Track");
             }
 
-            uint32_t evlen;
+            uint32_t evlen = 0;
             for(uint8_t i = 0; i < 4; ++i) { //Parse the variable length data field
                 evlen <<= 7;
                 uint8_t byte = river.get();

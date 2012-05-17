@@ -24,6 +24,7 @@
 namespace sb {
 
     portaudio_backend::portaudio_backend(Synth* s, size_t& srate, std::map<size_t, bool>& srates, size_t chans) {
+        running = false;
         int e;
         e = Pa_Initialize();
         if (e != paNoError) {
@@ -73,6 +74,7 @@ namespace sb {
             std::cerr << "Problem when starting the output stream: " << Pa_GetErrorText(e) << ".\n";
             std::__throw_runtime_error((std::string("emitter::backend::portaudio - Couldn't start the output stream: ")+Pa_GetErrorText(e)).c_str());
         }
+        running = true;
     }
 
     void portaudio_backend::setSamplingRate(size_t neorate) {
@@ -97,6 +99,7 @@ namespace sb {
             }
         }
         river = nullptr;
+        running = false;
     }
 
     size_t portaudio_backend::returnSuggestedBufferSize() {

@@ -38,7 +38,7 @@ public:
     void setWarningText(std::string);
     void setInfoText(std::string);
     void setFix(sb::errs::ProblemFix*);
-    bool returnContinue() {
+    bool fixed() {
         return userchoice;
     }
 

@@ -119,13 +119,4 @@ namespace sb {
         }
         return true;
     }
-
-    bool Player::writeFile(std::string fname) {
-        reed->close();
-        if(!reed->readerOpen(fname))
-            return false; //Failed.
-        std::cerr << "Not yet implemented!\n";
-        reed->close();
-        return false;
-    }
 }

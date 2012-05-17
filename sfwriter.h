@@ -22,12 +22,42 @@
 
 #include <sndfile.h>
 
+#include "emitter.h"
+#include "synth.h"
+
 namespace sb {
 
-    class SoundFileRenderer
-    {
+    enum ExportableFiles {
+        FileWAV,
+        FileAIFF,
+        FileFLAC,
+        FileRAW,
+        FileMAT
+    };
+
+/*
+    WARNING: This is a class that will react poorly to a change of the type of sbSample.
+    For reasons why, see the put and tick functions of this class.
+*/
+    class SoundFileWriter {
     public:
-        SoundFileRenderer();
+        explicit SoundFileWriter(Synth* seen) {
+            filehandel = nullptr;
+            syn = seen;
+        }
+
+        bool open(std::string name, ExportableFiles ex);
+        bool put(sbSample* samp, size_t len = 1);
+        bool tick();
+        void close();
+
+        ~SoundFileWriter() {
+            close();
+        }
+    private:
+        bool emstate;
+        SNDFILE* filehandel;
+        Synth* syn;
     };
 
 }

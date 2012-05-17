@@ -56,6 +56,9 @@ namespace sb {
         void stop() {
             backend->stop();
         }
+        bool isRunning() {
+            return backend->isRunning();
+        }
 
     private:
         emitter_type em_type;

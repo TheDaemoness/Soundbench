@@ -56,9 +56,11 @@ MeterUpdater::MeterUpdater(QProgressBar* bare, QObject *parent) :
 #ifndef _WIN32
 void MeterUpdater::update() {
     getrusage(RUSAGE_SELF,&ruse);
-
-
     time = ruse.ru_utime.tv_usec + ruse.ru_utime.tv_sec*1000000;
+
+    getrusage(RUSAGE_THREAD,&ruse);
+    time -= ruse.ru_utime.tv_usec + ruse.ru_utime.tv_sec*1000000;
+
     if (!nolimit) {
         totaltime = usehlimit?rimit.rlim_cur*1000000:rimit.rlim_max*1000000;
     }

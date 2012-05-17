@@ -1,55 +1,127 @@
 NOTICE: This file is only for people who would like to contribute to Soundbench, either as one-time donators of source code or as regular developers.
 If you're just hacking Soundbench for your own purposes... disregard this file. :)
 
-This file contains a set of coding regulations as set forth by the project head. Please do NOT change this file unless you are the project head.
+This file contains a set of coding regulations as set forth by the project head.
 These are in place to ensure that Soundbench's sourcecode remains high quality and easy to navigate, understand, and change without fear of introducing bugs as side-effects.
 
-All the regulations will be in bullet format. Any bullets with an asterisk after them indicate guidelines.
+Any bullets with an asterisk after them indicate guidelines.
 Guidelines may be bent or sometimes outright broken if the programmer thinks it's necessary, at his or her discretion.
 
-1. Whitespace and Brackets
+
+~~~~~~~~~~~~~~~~~
+
+1. General
+
+1.1. This file should not be modified by anyone other than the project head but should be included in the repository.
+1.2. No files in the project define new macros unless authorized by the project head.
+1.3. New typeless pointers (void*) may not be added to the project unless authorized by the project head.
+1.3.1. Existing typeless pointers that exist as parts of unions, structs, or classes may be used with caution.
+1.4. The project may use any C++11 features already implemented in the latest stable g++ compiler using libstdc++.
+1.5* The liberal use of comments is encouraged. Go ahead, be verbose!
+1.6. Please prefer the cstdint integers over the normal integers.
+1.7. THE HEADER FILES midienums.h, common.h, AND sbutilities.h MAY NOT BE MODIFIED BY ANYONE OTHER THAN THE PROJECT HEAD!
+
+
+2. Whitespace and Brackets
 
 1.1. Opening brackets must be on the same line as the statement preceeding them, regardless of the type of statement.
 1.2. If an if statement executes only one line of code, then do not surround it with brackets.
 1.3. Templates are to be split over two lines, with the template keyword and the template parameters on one line and the rest of the declaration on the other.
 
 
-2. Naming
+3. Naming
 
-2.1. All functions (whether member or free-standing) should have camelcased names starting with a lower case letter (i.e. doSomethingFunny).
-2.2. All classes, enums, enumerated constants, structs, and unions. should have camelcase names starting with an upper case letter (i.e. SomeRandomClass).
-2.3. All variables should have lowercased names and should have no digits. (i.e. rabbit_stew).
-2.3.1. Juxtapositioning of words is permitted as the juxtaposition is legible. (i.e. filepos).
-2.4. All constants defined with the const keyword should be named as a variable would.
-2.5. Macros taking arguments should have names as functions but should also have two underscores preceeding their names (i.e. __macrosAreEvil).
-2.6. All other macros should have completely capitalized names.
+3.1. All functions (whether member or free-standing) should have camelcased names starting with a lower case letter (i.e. doSomethingFunny).
+3.2. All classes, enums, enumerated constants, structs, and unions. should have camelcase names starting with an upper case letter (i.e. SomeRandomClass).
+3.3. All variables should have lowercased names and should have no digits. (i.e. rabbit_stew).
+3.3.1. Juxtapositioning of words is permitted as long as the juxtaposition is understandable. (i.e. filepoint).
+3.4. All constants defined with the const keyword should be named as a variable would.
+3.5. Macros taking arguments should have names as functions but should also have two underscores preceeding their names (i.e. __macrosAreEvil).
+3.6. All other macros should have completely capitalized names.
+3.7. There are a names that hold special meanings throughout the project.
+3.7.1. syn: A pointer to a Synth object.
+3.7.2. em: A pointer to an Emitter object.
+3.7.3. blu: A pointer to a Blueprint object.
 
 
-3. Files
+4. Files
 
-3.1. One should be able to tell what a file contains just by looking at its name.
-3.1.1* Header and source files should ideally be named after the class they contain if they contain only one.
-3.2. Header and source file names should be lowercased.
-3.3* Files should be kept shorter than 150 lines.
-3.4. Files must be kept shorter than 250 lines.
-3.5. Headers have the .h prefix and source files have the .cpp extension.
-3.6* Headers should only declare one class at a time unless the classes are derived from each other and have similar purposes.
-3.7* When possible, header and source file names should match.
-3.8. If splitting implementations or declaractions over several files, there are a few naming rules to follow:
-3.9.1. If a header exists primarily to declare a derived class from a class that has its own header file, the file should have the name:
+4.1. One should be able to tell what a file contains just by looking at its name.
+4.1.1* Header and source files should ideally be named after the class they contain if they contain only one.
+4.2. Header and source file names should be lowercased.
+4.3* Files should be kept shorter than 150 lines.
+4.4. Files must be kept shorter than 250 lines.
+4.5. Headers have the .h prefix and source files have the .cpp extension.
+4.6* Headers should only declare one class at a time unless the classes are derived from each other and have similar purposes.
+4.7* When possible, header and source file names should match.
+4.8. If splitting implementations or declaractions over several files, there are a few naming rules to follow:
+4.8.1. If a header exists primarily to declare a derived class from a class that has its own header file, the file should have the name:
     <header of the original class>.<abbreviated class name or recognizable purpose>.h
     Example: backend.portaudio.h
-3.9.2. If a header exists primariy to declare a class that is easily categorizable or a derived class from a class without its own header file, the file should have the name:
+4.8.2. If a header exists primariy to declare a class that is easily categorizable or a derived class from a class without its own header file, the file should have the name:
     <category or abbreviated original class name>_<abbreviated class name or recognizable purpose>.h
     Example: gener_basic.h
-3.9.3. If the implementation of a class has to be split over several files, the implementation files should have the name:
+4.8.3. If the implementation of a class has to be split over several files, the implementation files should have the name:
     <header declaring the class>-<portion of the class being defined>.cpp
     Example: midifile-open.cpp
-3.10. THE HEADER FILES midienums.h, common.h, AND sbutilities.h MAY NOT BE MODIFIED BY ANYONE OTHER THAN THE PROJECT HEAD!
 
-4. Declarations and Definitions
 
-4.1. Functions outside of a class or defined in the header file of a class must be no longer than 10 linues.
-4.2* Inheritance should only be used when polymorphism is used.
-4.3. Access levels in classes must be explicitly stated.
-4.4. If one enumerated constant needs to be explicitly set to a certain value, then all the constants in that enumeration must be explicitly set.
+5. Namespaces
+
+5.1. NEVER "USE" NAMESPACES THROUGH THE using KEYWORD!
+5.2. All classes and functions that have a sole purpose of interacting with the user interface should not be in any namespace.
+5.3. All other classes should be in the namespace sb.
+5.4. All derivatives of the ProblemFix class should be in namespace sb::errs.
+5.5. Everything in the midifio and midienum headers and all derivatives of the MIDIEventNode classs should be in namespace sb::midi.
+
+
+6. Classes and Structs
+
+5.1. Functions outside of a class or defined in the header file of a class must be no longer than 10 linues.
+5.2* Inheritance should only be used when polymorphism is used.
+5.3. Access levels in classes must be explicitly stated.
+5.4. Explicit constructors must be used if the class needs to interface with the UI in some way, in which case it should take pointers to the UI elements.
+5.5* Please do not hesitate to create types for a class to use internally in the class's private or protected scopes.
+5.6. No class should have an automatic pointer as a member.
+
+
+7. Enumerations and Constants
+
+7.1. Magic numbers and characters are strictly forbidden. Enumerations should be used instead and should be used freely.
+7.2. If one enumerated constant needs to be explicitly set to a certain value, then all the constants in that enumeration must be explicitly set.
+7.3* If a constant has a meaningful value, then it should be assigned an identifier so that it may be changed later if necessary.
+
+
+8. Flow Control
+
+8.1. Use while loops only if they're in the used with sentinels.
+8.2. Temporary variables in for loops to not need to be limited to single letters. They may have any name as long as they follow regulation 3.3.
+8.3. The use of ternary operators is permitted as long as the entire operator is surrounded in parentheses, i.e. (condition?returna:returnb).
+8.4. All flow control statements should have no space between them and any parentheses they might require.
+
+
+9. Standard Library
+
+9.1* Minor warnings that the user doesn't need to address and brief status messages may be reported through std::cerr.
+9.2* If Soundbench offers a class with the same or similar functionality to an STL class, prefer the Soundbench class.
+9.3. Nested std::pairs are forbidden; please create a struct with meaningful names instead.
+9.4. Do not use std::cin and std::cout. Add something to the UI if the program needs to interface with the user.
+9.5. Do not use automatic pointers as members of a class.
+9.5.1* If you are not completely certain that you can manually manage memory inside functions, then automatic pointers are recommended.
+9.5.2. Please do not use auto_ptrs and regular pointers in the same function. Use unique_ptrs instead if you plan to mix pointers.
+
+
+10. User Interface
+
+10.1. All user interface elements should be stylistically similar.
+10.2. Please use Soundbench's WarningPopup and ErrorPopup classes to report problems that require the user to pass judgement or know about.
+10.3. Please do not change existing artwork without consulting with the project head. If one piece is to be changed, likely most of it will need to be.
+10.4. Please do not use UI elements that do not have stylesheets.
+10.4.1. Elements that have been styled: QButton, QRadioButton, QSlider, QTabWidget, QTextBrower, QTextBox, QLabel
+10.4.2. Exceptions to this rule: QListWidget, QTreeWidget, QTableWidget
+10.5. Do not use QComboBoxes. Unfortunately, their stylesheet parsers are laden with bugs and until they're fixed, they cannot be properly styled.
+10.5.1. For shorter lists of options, use QRadioButtons in their own QWidget.
+10.5.2. For longer lists of options, please use a QListWidget.
+10.6. If a progress bar is needed, please create a pointer to the CpuMeter object used in SoundbenchMain and use the setProgress() slot.
+10.6.1. Please remember to call the startMeter() function when you don't need the progress bar anymore. :)
+

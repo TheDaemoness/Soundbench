@@ -29,15 +29,21 @@ namespace sb {
 
     class em_backend {
     public:
-        em_backend() {}
+        em_backend() {
+            running = false;
+        }
         virtual ~em_backend() {}
         virtual void stop() = 0;
         virtual void start() = 0;
         virtual void setSamplingRate(size_t) = 0;
+        virtual bool isRunning() {
+            return running;
+        }
 
     protected:
         size_t sampling_rate;
         sb::Synth* syn;
+        bool running;
     };
 
 }

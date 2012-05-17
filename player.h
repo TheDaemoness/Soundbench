@@ -25,7 +25,7 @@
 #include "midichain.h"
 #include "midifio.h"
 #include "cpumeter.h"
-#include "sfrenderer.h"
+#include "sfwriter.h"
 
 #include <deque>
 #include <cstdio>
@@ -41,6 +41,7 @@ namespace sb {
         midi::PlayerStartNode* first;
         std::deque<midi::MIDIEventNode> nodes;
         time_t midiclocklen;
+        SoundFileWriter* wri;
 
         QListWidget* affectedlist;
         CpuMeter* affectedmet;
@@ -51,10 +52,12 @@ namespace sb {
 
             reed = new midi::MidiFIO;
             first = new midi::PlayerStartNode(syn);
+            wri = new SoundFileWriter(syn);
         }
         ~Player() {
             delete first;
             delete reed;
+            delete wri;
         }
 
         bool loadTrack(uint16_t track);
