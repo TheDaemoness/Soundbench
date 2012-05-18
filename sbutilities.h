@@ -72,7 +72,7 @@ public:
 namespace sb {
     union ParameterValue { //For all you C++ programmers out there who don't know what this is... it's a C-style space-saver. ;)
         sbSample sample;
-        size_t value;
+        int64_t value;
         void* other;
     };
     template <typename T>
@@ -84,7 +84,7 @@ namespace sb {
     template <typename T>
     inline ParameterValue makeParamfromInt(T i) {
         ParameterValue valu;
-        valu.value = static_cast<size_t>(i); //Do NOT make this a dynamic_cast.
+        valu.value = static_cast<int64_t>(i);
         return valu;
     }
     inline ParameterValue makeParamfromSample(sbSample i) {
@@ -131,8 +131,8 @@ namespace sb {
     const size_t sampling_rates[] = {44100,48000,88200,96000,176400,192000};
     const size_t sampling_rate_count = 6;
 
-    inline float getFrequencyFromNote(unsigned char note, float A4 = 440.00) {
-        return A4*std::pow(1.059463094359,note);
+    inline float getFrequencyFromNote(int8_t delta, float A4 = 440.00) {
+        return A4*std::pow(pow(2.0,1.0/12),delta);
     }
 }
 

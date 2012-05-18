@@ -23,8 +23,6 @@ namespace sb {
     namespace midi {
 
         MidiFileItem MidiFIO::read() {
-            MidiFileItem returnitem;
-            returnitem.evtype = midi::Failed;
             if (writing || !river.is_open())
                 return returnitem;
             if (eot_reached) {
@@ -33,6 +31,7 @@ namespace sb {
             }
             if (river.eof()) {
                 std::cerr << "Reading ended prematurely (no End-Of-Track Meta Event?)\n";
+                returnitem.evtype = midi::EndOfTrack;
                 return returnitem;
             }
 
@@ -49,21 +48,30 @@ namespace sb {
             }
             if (res_is_fps)
                 returnitem.delay = 1000000.0/res.frames.fps/res.frames.ticks_per_frame*raw_delay;
-                //microseconds/second * seconds/frame * frames/tick * ticks
+            //microseconds/second * seconds/frame * frames/tick * ticks
             else
                 returnitem.delay = 1.0/res.beats.ticks_per_beat*res.beats.microsecs_per_beat*raw_delay;
-                //beats/tick * microseconds/beat * ticks
-
-
+            //beats/tick * microseconds/beat * ticks
 
             byte = river.get();
-            returnitem.evtype = static_cast<midi::MidiEvents>(byte >> 4); //Shift out the channel bits.
-            returnitem.chan = byte & (Bit5 | Bit6 | Bit7 | Bit8); //Mask out all but the last four bits.
-            if (returnitem.evtype != midi::SystemEvent) {
-                returnitem.params.first = river.get();
-                returnitem.params.second = river.get();
+
+            if(byte & Bit1) {
+                returnitem.evtype = static_cast<midi::MidiEvents>(byte >> 4); //Shift out the channel bits.
+                returnitem.chan = byte & (Bit5 | Bit6 | Bit7 | Bit8); //Mask out all but the last four bits.
+
+                if (returnitem.evtype != midi::SystemEvent) {
+                    returnitem.params.first = river.get();
+                    if (returnitem.evtype != ProgramChange && returnitem.evtype != ChannelPressure)
+                        returnitem.params.second = river.get();
+                }
             }
-            else {
+            else { //Running status.
+                returnitem.params.first = byte;
+                if (returnitem.evtype != ProgramChange && returnitem.evtype != ChannelPressure)
+                    returnitem.params.second = river.get();
+            }
+
+            if (returnitem.evtype == midi::SystemEvent) {
                 //TODO: Sysex events?
                 returnitem.meta = river.get();
                 uint32_t evlen = 0;
@@ -77,9 +85,10 @@ namespace sb {
                 for(uint32_t i = 0; i < evlen; ++i) {
                     returnitem.meta_data.push_back(river.get());
                 }
-                if (returnitem.meta == MetaEndOfTrack)
+                if (returnitem.meta == MetaEndOfTrack) {
                     eot_reached = true;
                     returnitem.evtype = EndOfTrack;
+                }
             }
             return returnitem;
         }

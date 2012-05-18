@@ -17,36 +17,34 @@
     Copyright 2012  Amaya S.
 */
 
-#ifndef CHAINS_H
-#define CHAINS_H
+#ifndef SAMPLETABLE_H
+#define SAMPLETABLE_H
 
-#include "soundbases.h"
+#include "basicwaves.h"
 
 namespace sb {
 
-    class BasicGen : public genBase {
-    private:
-        typedef std::pair<bool,waveBase*> BoolWavePair;
-
-        std::vector<BoolWavePair> ocean;
-        SimpleWaveTypes curr_wav;
-        sbSample gen_amp;
-        int16_t notebias;
-        uint8_t notes;
+    class PeriodicSampleTable {
     public:
-        explicit BasicGen(size_t srate, size_t cracker = default_poly);
-        ~BasicGen() {
-            for(auto i : ocean)
-                delete i.second;
+        explicit PeriodicSampleTable(waveBase* wav = nullptr, bool autodelete = true) {
+            if (wav == nullptr) {
+                samples.resize(curr_srate,0.0);
+                return;
+            }
+
+            samples.reserve(curr_srate);
+            float factor = pi*2/curr_srate;
+            for (uint32_t i = 0; i < curr_srate; ++i)
+                samples.push_back(wav->getRaw(factor*i));
+
+            if (autodelete)
+                delete wav;
         }
 
-        void ctrl(moduleParam arg, ParameterValue val);
-        void noteOn(int halfsteps, sbSample amp, size_t pos);
-        void noteOff(size_t pos);
-        void reset();
-        void setPolymorphism(size_t poly);
-        void tick(float *sample, size_t chans);
+    protected:
+        std::vector<sbSample> samples;
     };
+
 }
 
-#endif // CHAINS_H
+#endif //SAMPLETABLE_H

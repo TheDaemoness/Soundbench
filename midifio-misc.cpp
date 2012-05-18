@@ -42,12 +42,14 @@ namespace sb {
                 return;
 
             river.seekg(tracks[traque]+4); //Soundbench can ignore the 4 bytes with the MTrk.
+
             tracklen = 0;
             for (uint8_t i = 0; i < 4; ++i) {
                 tracklen += river.get();
                 if (i < 3)
                     tracklen <<= 8;
             }
+            eot_reached = false;
         }
 
         std::string MidiFIO::getTrackName(uint16_t traque) {
@@ -57,8 +59,6 @@ namespace sb {
             uint64_t currpos = river.tellg();
             if (filetype == 0)
                 river.seekg(22);
-            else if (filetype == 1 && traque != 0) //TODO: Do a search for an instrument name meta event.
-                return std::string("Instrument Track ") + lexical_cast<std::string>(traque);
             else
                 river.seekg(tracks[traque]+8); //Skip over the MTrk and the track length.
 
@@ -66,8 +66,14 @@ namespace sb {
             std::string name;
             const uint8_t tracknamebytes[3] = {0x0,MetaEvent,MetaTrackName};
             for(uint8_t i = 0; i < 3; ++i) {
-                if(river.get() != tracknamebytes[i])
-                    return (filetype==1?"Metadata Track":"Unnamed Track");
+                if(river.get() != tracknamebytes[i]) {
+                    if (filetype == 1 && traque != 0)
+                        return std::string("Instrument Track ") + lexical_cast<std::string>(traque);
+                    else if (filetype == 1)
+                        return std::string("Metadata Track");
+                    else
+                        return std::string("Unnamed Track");
+                }
             }
 
             uint32_t evlen = 0;

@@ -111,3 +111,9 @@ void SoundbenchMain::setGenSett(int which) {
     syn->reset();
     em->start();
 }
+
+void SoundbenchMain::setTrack(int e) {
+    met->setProgress(500);
+    plai->loadTrack(static_cast<uint16_t>(e));
+    met->startMeter();
+}

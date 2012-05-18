@@ -51,19 +51,23 @@ namespace sb {
             return false;
 
         midi::MIDIEventNode* nody = first;
+        if (nody == nullptr)
+            return false;
+
         uint32_t evcount = 0;
-        while (true) {
-            if (nody == nullptr)
-                break;
-            else
-                nody = nody->returnNext();
+        while (nody != nullptr) {
+            nody = nody->returnNext();
             ++evcount;
         }
 
+        if (evcount == 1)
+            std::cerr << "Have 1 event to process.\n";
+        else
+            std::cerr << "Have " << evcount << " events to process.\n";
         affectedmet->setProgress(0);
 
         //Microseconds per sample: (microseconds / second) / (samples / second)
-        uint32_t factor = 100000 / curr_srate;
+        uint32_t factor = 1000000 / curr_srate;
         bool cont = true;
         nody = first;
         float evnum = 0;
@@ -73,14 +77,17 @@ namespace sb {
                 nody->doEvent();
                 microsecs -= nody->getDelay();
                 nody = nody->returnNext();
-                if (nody == nullptr)
+                if (nody == nullptr) {
                     cont = false;
+                    break;
+                }
             }
             ++evnum;
             affectedmet->setProgress(evnum/evcount*1000);
             wri->tick();
         }
 
+        wri->close();
         affectedmet->startMeter();
         return true;
     }

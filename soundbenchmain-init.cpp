@@ -109,6 +109,7 @@ void SoundbenchMain::delayedConstructor() {
     connect(ui->holdA4Button,SIGNAL(toggled(bool)),SLOT(testSynth(bool)));
     connect(ui->importButton,SIGNAL(clicked()),SLOT(importOpen()));
     connect(ui->exportButton,SIGNAL(clicked()),SLOT(exportOpen()));
+    connect(ui->songsTracksList,SIGNAL(currentRowChanged(int)),SLOT(setTrack(int)));
 
     //Connect the Channels page widgets.
     connect(ui->gen1TypeButton,SIGNAL(clicked()),type_sigmap,SLOT(map()));

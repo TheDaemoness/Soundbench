@@ -67,6 +67,7 @@ private slots:
     void closePopups();
     void setGenType(int);
     void setGenSett(int);
+    void setTrack(int);
 
 private:
     void genSetts(size_t i);

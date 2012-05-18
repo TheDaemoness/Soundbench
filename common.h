@@ -39,7 +39,9 @@
 
 namespace sb {
 
-    enum simple_bitmasks { //Notice: These values are for use on single bytes and assume big endian format.
+    enum SimpleBitmasks { //Notice: These values are for use on single bytes.
+        AllBits = 255,
+        NoBits = 0,
         Bit8 = 1,
         Bit7 = 2,
         Bit6 = 4,
@@ -49,13 +51,7 @@ namespace sb {
         Bit2 = 64,
         Bit1 = 128
     };
-
-    enum simple_bytemasks { //Byte1 is the least significant for the purposes of supporting many different integer sizes, up to uint32_t.
-        Byte1 = 0xFF,
-        Byte2 = 0xFF00,
-        Byte3 = 0xFF0000,
-        Byte4 = 0xFF000000
-    };
+    //If a bytemask is needed, shift the AllBits mask around.
 
     template <typename outType, typename inType>
     outType lexical_cast(inType in) {

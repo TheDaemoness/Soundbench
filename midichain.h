@@ -55,6 +55,7 @@ namespace sb {
                 if (next != nullptr) {
                     next->chainDestroy();
                     delete next;
+                    next = nullptr;
                 }
             }
             virtual ~MIDIEventNode() {

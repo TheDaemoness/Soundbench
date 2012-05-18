@@ -30,14 +30,12 @@ namespace sb {
             return false; //Failed.
 
         if(reed->getFileType() == midi::SingleTrack) {
-            affectedmet->setProgress(500);
             bool a = loadTrack(0);
-            affectedmet->startMeter();
             return a;
         }
         else {
             affectedmet->setProgress(100);
-            for(uint16_t i = 0, e = reed->getTrackCount(); i < e; ++i) {
+            for(uint16_t i = (reed->getFileType() == midi::MultiTrack?1:0), e = reed->getTrackCount(); i < e; ++i) {
                 affectedlist->addItem(reed->getTrackName(i).c_str());
                 affectedmet->setProgress(100 + 800*(i+1)/e);
             }
@@ -52,11 +50,13 @@ namespace sb {
     }
 
     bool Player::loadTrack(uint16_t track) {
+        std::cerr << "Parsing track #" << track+1 << " of the file...\n";
+        if (reed->getFileType() == midi::MultiTrack)
+            ++track;
         reed->readFrom(track);
         midi::MidiFileItem miditem;
         midi::MIDIEventNode* chiter = first;
-
-        std::cerr << "Parsing the track " << track << " of the file...\n";
+        first->chainDestroy();
         while (true) {
             bool probl = false;
             miditem = reed->read();
@@ -64,8 +64,8 @@ namespace sb {
                 std::cerr << "Finished parsing.\n";
                 break;
             }
-            if (miditem.evtype == midi::Failed) {
-                std::cerr << "Aborted parsing.\n";
+            if (miditem.evtype == midi::NoDataRead) {
+                std::cerr << "Failed to parse the file.\n";
                 break;
             }
 

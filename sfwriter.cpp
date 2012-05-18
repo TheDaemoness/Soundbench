@@ -24,13 +24,13 @@ namespace sb {
         SF_INFO params;
         params.samplerate = curr_srate;
         params.channels = outchans;
-        params.format = SF_FORMAT_PCM_24;
+        params.format = SF_FORMAT_PCM_32;
         if (ex == FileWAV)
             params.format |= SF_FORMAT_WAV;
         else if (ex == FileAIFF)
             params.format |= SF_FORMAT_AIFF;
         else if (ex == FileFLAC)
-            params.format |= SF_FORMAT_FLAC;
+            params.format = SF_FORMAT_FLAC | SF_FORMAT_PCM_24; //WARNING: Do not remove the SF_FORMAT_PCM_32.
         else if (ex == FileRAW)
             params.format |= SF_FORMAT_RAW;
         else if (ex == FileMAT)

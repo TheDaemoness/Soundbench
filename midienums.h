@@ -114,7 +114,7 @@ namespace sb {
             SystemEvent = 0xF,
 
             //The following (as far as the developers know) are not used in the MIDI specification. They may be used for internal use.
-            Failed = 0x0,
+            NoDataRead = 0x0,
             EndOfTrack = 0x1
         };
         enum MidiSystemEvents {
@@ -132,7 +132,7 @@ namespace sb {
             MetaEvent = 0xFF
         };
         enum MidiMetaEvents {
-            MetaTrackName = 0x02,
+            MetaTrackName = 0x03,
             MetaEndOfTrack = 0x2F
         };
         enum MidiFileTypes {

@@ -135,8 +135,8 @@ namespace sb {
             res_is_fps = raw_res & Bit1;
             raw_res &= ~Bit1;
             if (res_is_fps) {
-                res.frames.fps = raw_res & Byte2;
-                res.frames.ticks_per_frame = raw_res & Byte1;
+                res.frames.fps = raw_res & (AllBits << 8);
+                res.frames.ticks_per_frame = raw_res & AllBits;
             }
             else {
                 res.beats.ticks_per_beat = raw_res;

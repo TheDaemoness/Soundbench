@@ -36,7 +36,8 @@ HEADERS += architect.h \
     gener_basic.h \
     cpumeter.h \
     midifio.h \
-    sfwriter.h
+    sfwriter.h \
+    sampletable.h
 
 FORMS += errorpopup.ui \
          gentypedialog.ui \
@@ -67,7 +68,8 @@ SOURCES += architect.cpp \
     midifio-misc.cpp \
     sfwriter.cpp \
     player-load.cpp \
-    player-write.cpp
+    player-write.cpp \
+    sampletable.cpp
 
 RESOURCES += sbMainResources.qrc
 

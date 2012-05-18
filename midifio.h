@@ -53,8 +53,10 @@ namespace sb {
         {
         public:
             MidiFIO() {
+                returnitem.evtype = midi::NoDataRead;
                 writing = false;
                 tracklen = 0;
+                eot_reached = false;
             }
             ~MidiFIO() {
                 river.close();
@@ -93,6 +95,7 @@ namespace sb {
                 } frames;
             } res;
             size_t tracklen;
+            MidiFileItem returnitem;
         };
     }
 }
