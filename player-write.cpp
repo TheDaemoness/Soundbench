@@ -81,8 +81,8 @@ namespace sb {
                     cont = false;
                     break;
                 }
+                ++evnum;
             }
-            ++evnum;
             affectedmet->setProgress(evnum/evcount*1000);
             wri->tick();
         }

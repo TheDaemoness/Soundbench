@@ -53,9 +53,9 @@ namespace sb {
     bool SoundFileWriter::tick() {
         if (filehandel == nullptr)
             return false;
-        float tmp;
-        syn->tick(&tmp,1);
-        sf_write_float(filehandel,&tmp,1);
+        float tmp[2];
+        syn->tick(tmp,2);
+        sf_write_float(filehandel,tmp,2);
         return true;
     }
 

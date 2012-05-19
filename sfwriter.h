@@ -49,6 +49,10 @@ namespace sb {
         bool open(std::string name, ExportableFiles ex);
         bool put(sbSample* samp, size_t len = 1);
         bool tick();
+        inline bool is_open() {
+            return filehandel != nullptr;
+        }
+
         void close();
 
         ~SoundFileWriter() {

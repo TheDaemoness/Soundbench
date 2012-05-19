@@ -1,4 +1,5 @@
 /*
+
     This file is part of Soundbench.
 
     Soundbench is free software: you can redistribute it and/or modify
@@ -17,12 +18,18 @@
     Copyright 2012  Amaya S.
 */
 
-#include "midi.h"
+#ifndef MIDI_H
+#define MIDI_H
+
 
 namespace sb {
 
-    Midi::Midi()
-    {
-    }
+    //This'll get implemented in version 0.3.0.
+    class MidiRtIO {
+    public:
+        MidiRtIO();
+    };
 
 }
+
+#endif // MIDI_H

@@ -60,10 +60,21 @@ public slots:
         teimer->start(10);
     }
 
-    void setProgress(int val) {
+    void forceProgressMode() {
         teimer->stop();
+        affectedbar->setStyleSheet("QProgressBar::chunk {\n"
+                                   "background-image: url(:/meters/cpumeter_progress.png);\n"
+                                   "background-position: center left;\n"
+                                   "background-repeat: 0;\n"
+                                   "}");
+        affectedtex->setText("Progress");
+        affectedbar->setValue(0);
+        progressmode = true;
+    }
 
+    void setProgress(int val) {
         if (!progressmode) {
+            teimer->stop();
             affectedbar->setStyleSheet("QProgressBar::chunk {\n"
                                        "background-image: url(:/meters/cpumeter_progress.png);\n"
                                        "background-position: center left;\n"

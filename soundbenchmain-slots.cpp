@@ -21,11 +21,13 @@
 
 void SoundbenchMain::importOpen() {
     stopAndReset();
+    met->forceProgressMode();
     QString chosenfile = QFileDialog::getOpenFileName(
                 NULL,"Choose a file to import...", "~/", "Standard MIDI Files (*.mid *.smf);;All Files (*)");
 
     if (!chosenfile.size()) {
         em->start();
+        met->startMeter();
         return;
     }
     plai->loadFile(chosenfile.toStdString());
@@ -34,11 +36,13 @@ void SoundbenchMain::importOpen() {
 
 void SoundbenchMain::exportOpen() {
     stopAndReset();
+    met->forceProgressMode();
     QString chosenfile = QFileDialog::getSaveFileName(
                 NULL,"Choose a file to export to...", "~/",
-                "Wave File (*.wav);;AIFF File (*.aiff);;FLAC File (*.flac);;Headerless RAW file (*.raw);;MAT5 Binary Data File (*.mat)"); //Put .mid back in here in version 0.3.0.
+                "Wave File (*.wav);;AIFF File (*.aiff);;Free Lossless Audio Codec File (*.flac);;Headerless RAW file (*.raw);;MAT5 Binary Data File (*.mat)"); //Put .mid back in here in version 0.3.0.
     if (!chosenfile.size()) {
         em->start();
+        met->startMeter();
         return;
     }
     plai->writeFile(chosenfile.toStdString());

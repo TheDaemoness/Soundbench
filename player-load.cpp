@@ -57,6 +57,7 @@ namespace sb {
         midi::MidiFileItem miditem;
         midi::MIDIEventNode* chiter = first;
         first->chainDestroy();
+
         while (true) {
             bool probl = false;
             miditem = reed->read();

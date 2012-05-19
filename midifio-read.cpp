@@ -37,7 +37,6 @@ namespace sb {
 
             //Deal with the delay.
             uint32_t raw_delay = 0;
-            returnitem.delay = 0;
             uint8_t byte;
             for(uint8_t i = 0; i < 4; ++i) {
                 raw_delay <<= 7; //Assure space for the next seven bits (1 byte - the next-byte-exists bit).
