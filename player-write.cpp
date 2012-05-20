@@ -22,7 +22,6 @@
 
 namespace sb {
     bool Player::writeFile(std::string fname) {
-        reed->close();
         std::string ext = fname.substr(fname.find_last_of("."));
         ExportableFiles form;
         if(ext == ".wav")
@@ -55,7 +54,7 @@ namespace sb {
             return false;
 
         uint32_t evcount = 0;
-        while (nody != nullptr) {
+        while (nody->returnNext() != nullptr) {
             nody = nody->returnNext();
             ++evcount;
         }
