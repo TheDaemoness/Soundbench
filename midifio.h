@@ -67,7 +67,7 @@ namespace sb {
 #else
             bool readerOpen(std::string);
 #endif
-            void readFrom(uint16_t); //Changes from which track read() reads.
+            bool readFrom(uint16_t); //Changes from which track read() reads.
             std::string getTrackName(uint16_t); //Checks the specified track for a meta-event immediately after the header giving the track's name.
             MidiFileItem read();
             bool close();

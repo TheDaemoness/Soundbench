@@ -36,10 +36,10 @@ namespace sb {
             return true;
         }
 
-        void MidiFIO::readFrom(uint16_t traque) {
+        bool MidiFIO::readFrom(uint16_t traque) {
             river.clear(std::ios_base::eofbit);
             if(!river.is_open() || writing || traque >= tracks.size() || filetype == SingleTrack)
-                return;
+                return false;
 
             river.seekg(tracks[traque]+4); //Soundbench can ignore the 4 bytes with the MTrk.
 
@@ -51,6 +51,7 @@ namespace sb {
             }
             eot_reached = false;
             returnitem.evtype = NoDataRead;
+            return true;
         }
 
         std::string MidiFIO::getTrackName(uint16_t traque) {

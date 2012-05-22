@@ -68,7 +68,7 @@ void SoundbenchApp::exceptionSoundbench(sbException& e) {
 
 void SoundbenchApp::exceptionStandard(std::exception& e) {
     ErrorPopup* err = new ErrorPopup;
-    err->setErrorText("Fatal Error");
+    err->setErrorText("Severe Interal Error");
     err->setInfoText(std::string("Details: ")+e.what());
     err->exec();
     delete err;
@@ -77,8 +77,8 @@ void SoundbenchApp::exceptionStandard(std::exception& e) {
 
 void SoundbenchApp::exceptionUnknown() {
     ErrorPopup* err = new ErrorPopup;
-    err->setErrorText("Unknown Error");
-    err->setInfoText("An unknown error caused Soundbench to have some unresolvable problems.\n\nThis is an internal error so if you see this without having changed the program yourself, please report it as a bug.");
+    err->setErrorText("Unknown Internal Error");
+    err->setInfoText("An unknown error caused Soundbench to have some unresolvable problems.\n\nThis is an internal error so if you see in an offical binary, please report it as a bug.");
     err->exec();
     delete err;
     abort();

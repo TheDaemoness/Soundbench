@@ -31,6 +31,13 @@ ErrorPopup::ErrorPopup(QWidget *parent) :
     fixed = false;
     for(unsigned char i = 0; i < fixcount; ++i)
         fixes[i] = NULL;
+    ui->fix1Choice->setDisabled(true);
+    ui->fix2Choice->setDisabled(true);
+    ui->fix3Choice->setDisabled(true);
+    ui->fix4Choice->setDisabled(true);
+    ui->fix5Choice->setDisabled(true);
+    ui->fix6Choice->setDisabled(true);
+    ui->fix7Choice->setDisabled(true);
     connect(ui->applyButton,SIGNAL(clicked()),SLOT(takeAction()));
 }
 

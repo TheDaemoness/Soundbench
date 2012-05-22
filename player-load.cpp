@@ -53,13 +53,15 @@ namespace sb {
         std::cerr << "Parsing track #" << track+1 << " of the file...\n";
         if (reed->getFileType() == midi::MultiTrack)
             ++track;
-        reed->readFrom(track);
+        if (!reed->readFrom(track)) {
+            std::cerr << "Error switching tracks.\n";
+            return false;
+        }
         midi::MidiFileItem miditem;
         midi::MIDIEventNode* chiter = first;
         first->chainDestroy();
 
         while (true) {
-            bool probl = false;
             miditem = reed->read();
             if (miditem.evtype == midi::EndOfTrack) {
                 std::cerr << "Finished parsing.\n";
@@ -90,34 +92,34 @@ namespace sb {
                     break;
                 default:
                     std::cerr << "Request for unimplemented controller #" << static_cast<uint16_t>(miditem.params.first) << " made. Ignoring.\n";
-                    probl = true;
+                    chiter->attachNext(new midi::DelayNode(miditem.delay));
                     break;
                 }
                 break;
             case midi::ProgramChange:
             case midi::ChannelPressure:
+            case midi::PitchBend:
                 std::cerr << "Warning: Events of type " << static_cast<uint16_t>(miditem.evtype) << " are ignored.\n";
-                probl = true;
+                chiter->attachNext(new midi::DelayNode(miditem.delay));
                 break;
             case midi::Aftertouch:
-                probl = true;
+                chiter->attachNext(new midi::DelayNode(miditem.delay));
                 break;
             case midi::SystemEvent:
                 switch (miditem.meta) {
                 default:
                     std::cerr << "An unimplemented meta event of type " << static_cast<uint16_t>(miditem.meta) << " was requested.\n";
-                    probl = true;
+                    chiter->attachNext(new midi::DelayNode(miditem.delay));
                     break;
                 }
                 break;
             default:
-                std::cerr << "Request for an unknown event of type " << static_cast<uint16_t>(miditem.evtype) << " made. Ignorning.\n";
-                probl = true;
+                std::__throw_logic_error("The file reader ignored running status. If you see this message while running an official binary, then please report it as a bug. It shouldn't take too long to fix.");
                 break;
             }
-            if (!probl)
-                chiter = chiter->returnNext();
+            chiter = chiter->returnNext();
         }
+        isready = true;
         return true;
     }
 }

@@ -36,7 +36,7 @@ namespace sb {
 
             MIDIEventNode* next;
             uint32_t delae;
-            static Synth* synref;
+            static Synth* synref; //In main.cpp
         public:
             explicit MIDIEventNode(uint32_t tiim = 0) {
                 delae = tiim;
@@ -77,50 +77,26 @@ namespace sb {
             virtual void doEvent() = 0;
         };
 
-
-
-        class MIDIEventIterator {
-            //WARNING: Objects of this type delete themselves.
-            std::thread* tread;
-            friend class PlayerStartNode;
-            PlayerStartNode* star;
-            explicit MIDIEventIterator(PlayerStartNode*);
-        };
-
         class PlayerStartNode : public MIDIEventNode {
-            MIDIEventIterator* it;
             bool running;
-            time_t* midiclocklen;
         public:
-            explicit PlayerStartNode(Synth* syn) {
-                MIDIEventNode::synref = syn;
-                it = nullptr;
+            explicit PlayerStartNode(Synth* syn) : MIDIEventNode(0) {
                 running = false;
+                MIDIEventNode::synref = syn;
             }
-
-            ~PlayerStartNode() {
-                if (it != nullptr)
-                    delete it;
-            }
+            void play() {};
+            void stop() {};
             bool isRunning() {
                 return running;
             }
+
             void doEvent() {}
-            void run() {
-                if (it == nullptr)
-                    it = new MIDIEventIterator(this);
-                else {
-                    delete it;
-                    it = new MIDIEventIterator(this);
-                }
-                running = true;
-            }
-            void stop() {
-                if (it != nullptr) {
-                    running = false;
-                    it = nullptr;
-                }
-            }
+        };
+
+        class DelayNode : public MIDIEventNode { //This is mostly a placeholder for unimplemented and unsupported events.
+        public:
+            explicit DelayNode(uint32_t taim = 0) : MIDIEventNode(taim) {}
+            void doEvent() {}
         };
 
         class NoteOnEventNode : public MIDIEventNode {

@@ -56,7 +56,6 @@ SOURCES += architect.cpp \
     synth.cpp \
     application.cpp \
     meterupdater.cpp \
-    midichain.cpp \
     soundbenchmain-slots.cpp \
     soundbenchmain-func.cpp \
     settings_basicgen.cpp \

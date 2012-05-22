@@ -51,7 +51,7 @@ namespace sb {
 
         midi::MIDIEventNode* nody = first;
         if (nody == nullptr)
-            return false;
+            return true;
 
         uint32_t evcount = 0;
         while (nody->returnNext() != nullptr) {
@@ -66,12 +66,13 @@ namespace sb {
         affectedmet->setProgress(0);
 
         //Microseconds per sample: (microseconds / second) / (samples / second)
-        uint32_t factor = 1000000 / curr_srate;
+        float factor = 1000000 / curr_srate;
         bool cont = true;
         nody = first;
-        float evnum = 0;
+        uint32_t evnum = 0;
+        uint64_t sampcount = 0;
 
-        for(uint64_t microsecs = 0; cont; microsecs += factor) {
+        for(double microsecs = 0.0; cont; microsecs += factor) {
             while (microsecs >= nody->getDelay()) {
                 nody->doEvent();
                 microsecs -= nody->getDelay();
@@ -82,10 +83,12 @@ namespace sb {
                 }
                 ++evnum;
             }
+            ++sampcount;
             affectedmet->setProgress(evnum/evcount*1000);
             wri->tick();
         }
 
+        std::cerr << "Wrote " << sampcount << " samples to the file (appx. " << static_cast<float>(sampcount) / curr_srate << " seconds).\n";
         wri->close();
         affectedmet->startMeter();
         return true;

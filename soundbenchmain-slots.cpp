@@ -31,10 +31,13 @@ void SoundbenchMain::importOpen() {
         return;
     }
     plai->loadFile(chosenfile.toStdString());
+    ui->exportButton->setEnabled(true);
     em->start();
 }
 
 void SoundbenchMain::exportOpen() {
+    if(!plai->ready())
+        return;
     stopAndReset();
     met->forceProgressMode();
     QString chosenfile = QFileDialog::getSaveFileName(
@@ -45,6 +48,7 @@ void SoundbenchMain::exportOpen() {
         met->startMeter();
         return;
     }
+
     plai->writeFile(chosenfile.toStdString());
     em->start();
 }
@@ -57,6 +61,8 @@ void SoundbenchMain::testSynth(bool b) {
 }
 
 void SoundbenchMain::playSynth(bool b) {
+    if (!plai->ready())
+        return;
     if (b)
         plai->play();
     else

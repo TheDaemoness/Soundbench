@@ -36,6 +36,7 @@ namespace sb {
     class Player
     {
     private:
+        bool isready;
         midi::MidiFIO* reed;
         midi::PlayerStartNode* first;
         std::deque<midi::MIDIEventNode> nodes;
@@ -48,6 +49,7 @@ namespace sb {
         explicit Player(Synth* syn, QListWidget* tracklist, CpuMeter* themet) {
             affectedlist = tracklist;
             affectedmet = themet;
+            isready = false;
 
             reed = new midi::MidiFIO;
             first = new midi::PlayerStartNode(syn);
@@ -60,11 +62,10 @@ namespace sb {
         }
 
         bool loadTrack(uint16_t track);
-        inline void play() {
-            first->run();
-        }
-        inline void stop() {
-            first->stop();
+        inline void play() {}
+        inline void stop() {}
+        inline bool ready() {
+            return isready;
         }
 
         bool writeFile(std::string);
