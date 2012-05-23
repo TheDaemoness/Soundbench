@@ -2,12 +2,13 @@ To build Soundbench, you have to make absolutely sure you have the following:
 	A C++11 compliant compiler (we recommend clang++)
 	libqt4
 	libportaudio
+	libsndfile
 
-===BUILDING===
+===BUILDING ON *NIX===
 All you need to do is open a terminal and type the following:
 	cd path/to/the/code
 	qmake
-	make (or gmake)
+	make
 
 Your executable will be in the same directory and will be named "Soundbench". Have fun!
 

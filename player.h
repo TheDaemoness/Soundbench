@@ -33,8 +33,8 @@
 
 namespace sb {
 
-    class Player
-    {
+    class Player : public QObject {
+        Q_OBJECT
     private:
         bool isready;
         midi::MidiFIO* reed;
@@ -42,9 +42,11 @@ namespace sb {
         std::deque<midi::MIDIEventNode> nodes;
         time_t midiclocklen;
         SoundFileWriter* wri;
+        std::string fi;
 
         QListWidget* affectedlist;
         CpuMeter* affectedmet;
+
     public:
         explicit Player(Synth* syn, QListWidget* tracklist, CpuMeter* themet) {
             affectedlist = tracklist;
@@ -54,22 +56,33 @@ namespace sb {
             reed = new midi::MidiFIO;
             first = new midi::PlayerStartNode(syn);
             wri = new SoundFileWriter(syn);
+
+            connect(this,SIGNAL(progressed(int)),affectedmet,SLOT(setProgress(int)));
         }
         ~Player() {
+            disconnect(SIGNAL(progressed(int)),affectedmet,SLOT(setProgress(int)));
             delete first;
             delete reed;
             delete wri;
         }
 
         bool loadTrack(uint16_t track);
-        inline void play() {}
-        inline void stop() {}
-        inline bool ready() {
+
+        void play() {}
+        void stop() {}
+        bool ready() {
             return isready;
         }
+        void setFile(std::string thefile) {
+            fi = thefile;
+        }
 
-        bool writeFile(std::string);
-        bool loadFile(std::string);
+    signals:
+        void progressed(int gression);
+
+    public slots:
+        void writeFile();
+        void loadFile();
     };
 }
 

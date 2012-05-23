@@ -26,8 +26,7 @@
 
 #include "meterupdater.h"
 
-class CpuMeter : public QObject
-{
+class CpuMeter : public QObject {
     Q_OBJECT
 public:
     explicit CpuMeter(QProgressBar* bare, QLabel* tex) {
@@ -60,18 +59,6 @@ public slots:
         teimer->start(10);
     }
 
-    void forceProgressMode() {
-        teimer->stop();
-        affectedbar->setStyleSheet("QProgressBar::chunk {\n"
-                                   "background-image: url(:/meters/cpumeter_progress.png);\n"
-                                   "background-position: center left;\n"
-                                   "background-repeat: 0;\n"
-                                   "}");
-        affectedtex->setText("Progress");
-        affectedbar->setValue(0);
-        progressmode = true;
-    }
-
     void setProgress(int val) {
         if (!progressmode) {
             teimer->stop();
@@ -84,6 +71,7 @@ public slots:
             progressmode = true;
         }
         affectedbar->setValue(val);
+        affectedbar->repaint();
     }
 
 private slots:

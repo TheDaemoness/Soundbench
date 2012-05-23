@@ -21,8 +21,8 @@
 #include "player.h"
 
 namespace sb {
-    bool Player::writeFile(std::string fname) {
-        std::string ext = fname.substr(fname.find_last_of("."));
+    void Player::writeFile() {
+        std::string ext = fi.substr(fi.find_last_of("."));
         ExportableFiles form;
         if(ext == ".wav")
             form = FileWAV;
@@ -42,16 +42,16 @@ namespace sb {
             bool goon = w->fixed();
             delete w;
             if (!goon)
-                return false;
+                return;
             else
                 form = FileWAV;
         }
-        if(!wri->open(fname,form))
-            return false;
+        if(!wri->open(fi,form))
+            return;
 
         midi::MIDIEventNode* nody = first;
         if (nody == nullptr)
-            return true;
+            return;
 
         uint32_t evcount = 0;
         while (nody->returnNext() != nullptr) {
@@ -63,16 +63,16 @@ namespace sb {
             std::cerr << "Have 1 event to process.\n";
         else
             std::cerr << "Have " << evcount << " events to process.\n";
-        affectedmet->setProgress(0);
+        emit progressed(0);
 
         //Microseconds per sample: (microseconds / second) / (samples / second)
-        float factor = 1000000 / curr_srate;
+        uint16_t factor = 1000000 / curr_srate;
         bool cont = true;
         nody = first;
-        uint32_t evnum = 0;
+        uint32_t evnum = 0, prevnum = 0;
         uint64_t sampcount = 0;
 
-        for(double microsecs = 0.0; cont; microsecs += factor) {
+        for(uint64_t microsecs = 0; cont; microsecs += factor) {
             while (microsecs >= nody->getDelay()) {
                 nody->doEvent();
                 microsecs -= nody->getDelay();
@@ -84,13 +84,15 @@ namespace sb {
                 ++evnum;
             }
             ++sampcount;
-            affectedmet->setProgress(evnum/evcount*1000);
+            if (evnum != prevnum) {
+                emit progressed(1000*evnum/evcount);
+                prevnum = evnum;
+            }
             wri->tick();
         }
 
         std::cerr << "Wrote " << sampcount << " samples to the file (appx. " << static_cast<float>(sampcount) / curr_srate << " seconds).\n";
         wri->close();
-        affectedmet->startMeter();
-        return true;
+        return;
     }
 }

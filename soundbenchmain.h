@@ -33,6 +33,7 @@
 
 #include <QSignalMapper>
 #include <QFileDialog>
+#include <QThread>
 
 namespace Ui {
     class SoundbenchMain: public Ui_SoundBenchMain {};

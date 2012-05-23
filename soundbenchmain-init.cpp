@@ -43,7 +43,6 @@ void SoundbenchMain::delayedConstructor() {
     arch->buildSynth(syn,blu);
     em = new sb::Emitter(syn);
     met = new CpuMeter(ui->cpuMeter,ui->cpuLabel);
-
     plai = new sb::Player(syn,ui->songsTracksList,met);
 
     syn->volume() = static_cast<sbSample>(ui->volumeSlider->value())/ui->volumeSlider->maximum();
@@ -138,7 +137,6 @@ void SoundbenchMain::delayedConstructor() {
     connect(rate_sigmap,SIGNAL(mapped(int)),SLOT(setSampleRate(int)));
 
     ui->versionLabel->setText(SBVERSION);
-    ui->eventsViewer->addItem("Start - 0:0");
 
     show();
 

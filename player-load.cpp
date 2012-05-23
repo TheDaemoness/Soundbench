@@ -21,36 +21,28 @@
 #include "player.h"
 
 namespace sb {
-    bool Player::loadFile(std::string fname) {
+    void Player::loadFile() {
         reed->close();
         affectedlist->clear();
-        affectedmet->setProgress(0);
 
-        if(!reed->readerOpen(fname))
-            return false; //Failed.
+        if(!reed->readerOpen(fi))
+            return; //Failed.
 
-        if(reed->getFileType() == midi::SingleTrack) {
-            bool a = loadTrack(0);
-            return a;
-        }
+        if(reed->getFileType() == midi::SingleTrack)
+            return;
         else {
-            affectedmet->setProgress(100);
-            for(uint16_t i = (reed->getFileType() == midi::MultiTrack?1:0), e = reed->getTrackCount(); i < e; ++i) {
+            for(uint16_t i = (reed->getFileType() == midi::MultiTrack?1:0), e = reed->getTrackCount(); i < e; ++i)
                 affectedlist->addItem(reed->getTrackName(i).c_str());
-                affectedmet->setProgress(100 + 800*(i+1)/e);
-            }
-            bool a;
             if (reed->getFileType() == midi::MultiTrack)
-                a = loadTrack(1);
+                loadTrack(1);
             else
-                a = loadTrack(0);
-            affectedmet->startMeter();
-            return a;
+                loadTrack(0);
+            affectedlist->setCurrentRow(0);
+            return;
         }
     }
 
     bool Player::loadTrack(uint16_t track) {
-        std::cerr << "Parsing track #" << track+1 << " of the file...\n";
         if (reed->getFileType() == midi::MultiTrack)
             ++track;
         if (!reed->readFrom(track)) {
@@ -64,14 +56,13 @@ namespace sb {
         while (true) {
             miditem = reed->read();
             if (miditem.evtype == midi::EndOfTrack) {
-                std::cerr << "Finished parsing.\n";
+                std::cerr << "Ready.\n";
                 break;
             }
             if (miditem.evtype == midi::NoDataRead) {
-                std::cerr << "Failed to parse the file.\n";
+                std::cerr << "Failed to parse the track.\n";
                 break;
             }
-
             switch(miditem.evtype) {
             case midi::NoteOn:
                 chiter->attachNext(new midi::NoteOnEventNode(miditem.params.first-69, /*69 is the MIDI number for A4*/

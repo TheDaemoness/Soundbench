@@ -411,7 +411,7 @@ QTabBar::tab:selected {
 }</string>
     </property>
     <property name="currentIndex">
-     <number>5</number>
+     <number>1</number>
     </property>
     <widget class="QWidget" name="tabSelect">
      <attribute name="title">
@@ -474,27 +474,6 @@ QTabBar::tab:selected {
        <string notr="true">QGraphicsView {
 	border-image: url(:/backdrops/playerbackdrop.png);
 }</string>
-      </property>
-     </widget>
-     <widget class="QListWidget" name="eventsViewer">
-      <property name="geometry">
-       <rect>
-        <x>390</x>
-        <y>100</y>
-        <width>631</width>
-        <height>341</height>
-       </rect>
-      </property>
-      <property name="toolTip">
-       <string/>
-      </property>
-      <property name="styleSheet">
-       <string notr="true">QListWidget {
-	background-color: rgba(0, 0, 0, 0);
-}</string>
-      </property>
-      <property name="verticalScrollBarPolicy">
-       <enum>Qt::ScrollBarAlwaysOff</enum>
       </property>
      </widget>
      <widget class="QPushButton" name="exportButton">
@@ -667,6 +646,30 @@ Coming in version 0.3.0.</string>
       </property>
       <property name="text">
        <string>Songs/Tracks</string>
+      </property>
+      <property name="alignment">
+       <set>Qt::AlignCenter</set>
+      </property>
+     </widget>
+     <widget class="QLabel" name="envelopesComingSoon_2">
+      <property name="geometry">
+       <rect>
+        <x>400</x>
+        <y>90</y>
+        <width>611</width>
+        <height>341</height>
+       </rect>
+      </property>
+      <property name="font">
+       <font>
+        <family>Ubuntu</family>
+        <pointsize>16</pointsize>
+        <weight>75</weight>
+        <bold>true</bold>
+       </font>
+      </property>
+      <property name="text">
+       <string>(Quick I/O settings coming in version 0.3.0)</string>
       </property>
       <property name="alignment">
        <set>Qt::AlignCenter</set>

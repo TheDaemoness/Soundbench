@@ -21,7 +21,6 @@
 
 void SoundbenchMain::importOpen() {
     stopAndReset();
-    met->forceProgressMode();
     QString chosenfile = QFileDialog::getOpenFileName(
                 NULL,"Choose a file to import...", "~/", "Standard MIDI Files (*.mid *.smf);;All Files (*)");
 
@@ -30,8 +29,11 @@ void SoundbenchMain::importOpen() {
         met->startMeter();
         return;
     }
-    plai->loadFile(chosenfile.toStdString());
+    plai->setFile(chosenfile.toStdString());
+    plai->loadFile();
     ui->exportButton->setEnabled(true);
+    ui->songsTracksList->setCurrentRow(0);
+
     em->start();
 }
 
@@ -39,7 +41,7 @@ void SoundbenchMain::exportOpen() {
     if(!plai->ready())
         return;
     stopAndReset();
-    met->forceProgressMode();
+    met->setProgress(0);
     QString chosenfile = QFileDialog::getSaveFileName(
                 NULL,"Choose a file to export to...", "~/",
                 "Wave File (*.wav);;AIFF File (*.aiff);;Free Lossless Audio Codec File (*.flac);;Headerless RAW file (*.raw);;MAT5 Binary Data File (*.mat)"); //Put .mid back in here in version 0.3.0.
@@ -49,7 +51,8 @@ void SoundbenchMain::exportOpen() {
         return;
     }
 
-    plai->writeFile(chosenfile.toStdString());
+    plai->setFile(chosenfile.toStdString());
+    plai->writeFile();
     em->start();
 }
 
