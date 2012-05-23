@@ -21,8 +21,7 @@
 
 namespace sb {
 
-    MidiRtIO::MidiRtIO()
-    {
+    MidiRtIO::MidiRtIO() {
     }
 
 }

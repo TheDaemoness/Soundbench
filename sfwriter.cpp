@@ -43,23 +43,44 @@ namespace sb {
         }
         return true;
     }
-    bool SoundFileWriter::put(sbSample* samp, size_t len) {
-        if (filehandel == nullptr)
-            return false;
-        sf_write_float(filehandel,samp,len);
-        return true;
+    void SoundFileWriter::put(sbSample* samp, size_t len) {
+        for (size_t i = 0; i < len; ++i)
+            samples.push_back(samp[i]);
+        needsflush = true;
     }
 
-    bool SoundFileWriter::tick() {
+    void SoundFileWriter::tick() {
+        sbSample tmp[2];
+        syn->tick(tmp,2);
+        samples.push_back(tmp[0]);
+        samples.push_back(tmp[1]);
+        needsflush = true;
+    }
+
+    bool SoundFileWriter::flush() {
         if (filehandel == nullptr)
             return false;
-        float tmp[2];
-        syn->tick(tmp,2);
-        sf_write_float(filehandel,tmp,2);
+        sbSample tmp[2];
+        bool flipper = false;
+        for(sbSample s : samples) {
+            if (flipper) {
+                tmp[1] = s;
+                sf_writef_float(filehandel,tmp,2);
+                flipper = false;
+            }
+            else {
+                tmp[0] = s;
+                flipper = true;
+            }
+        }
+        samples.clear();
+        needsflush = false;
         return true;
     }
 
     void SoundFileWriter::close() {
+        if (needsflush)
+            flush();
         if (filehandel != nullptr)
             sf_close(filehandel);
     }

@@ -83,17 +83,9 @@ namespace sb {
             char filetype;
             std::vector<size_t> tracks; //Stores the read pointer offset to read from each track, starting with the Mtrk.
             std::fstream river;
-            bool writing, eot_reached, res_is_fps;
-            union {
-                struct {
-                    uint16_t ticks_per_beat;
-                    uint32_t microsecs_per_beat;
-                } beats;
-                struct {
-                    uint8_t fps;
-                    uint8_t ticks_per_frame;
-                } frames;
-            } res;
+            bool writing, eot_reached;
+            uint32_t factor; //microseconds/tick
+            uint16_t ticks_per_beat;
             size_t tracklen;
             MidiFileItem returnitem;
         };

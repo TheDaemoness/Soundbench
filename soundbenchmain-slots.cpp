@@ -53,6 +53,7 @@ void SoundbenchMain::exportOpen() {
 
     plai->setFile(chosenfile.toStdString());
     plai->writeFile();
+    met->startMeter();
     em->start();
 }
 

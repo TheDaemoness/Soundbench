@@ -67,12 +67,14 @@ namespace sb {
 
         //Microseconds per sample: (microseconds / second) / (samples / second)
         uint16_t factor = 1000000 / curr_srate;
-        bool cont = true;
         nody = first;
+        bool cont = true;
         uint32_t evnum = 0, prevnum = 0;
         uint64_t sampcount = 0;
 
         for(uint64_t microsecs = 0; cont; microsecs += factor) {
+            if(!wri->empty() && microsecs >= nody->getDelay())
+                wri->flush();
             while (microsecs >= nody->getDelay()) {
                 nody->doEvent();
                 microsecs -= nody->getDelay();

@@ -45,15 +45,10 @@ namespace sb {
                 if (!(byte & Bit1)) //The next-byte-exists bit isn't set? Stop looping!
                     break;
             }
-            if (res_is_fps)
-                returnitem.delay = 1000000.0/res.frames.fps/res.frames.ticks_per_frame*raw_delay;
-            //microseconds/second * seconds/frame * frames/tick * ticks
-            else
-                returnitem.delay = 1.0/res.beats.ticks_per_beat*res.beats.microsecs_per_beat*raw_delay;
-            //beats/tick * microseconds/beat * ticks
+
+            returnitem.delay = factor*raw_delay;
 
             byte = river.get();
-
             if(byte & Bit1) {
                 returnitem.evtype = static_cast<midi::MidiEvents>(byte >> 4); //Shift out the channel bits.
                 returnitem.chan = byte & (Bit5 | Bit6 | Bit7 | Bit8); //Mask out all but the last four bits.

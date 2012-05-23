@@ -22,6 +22,8 @@
 
 #include <sndfile.h>
 
+#include <deque>
+
 #include "emitter.h"
 #include "synth.h"
 
@@ -44,13 +46,19 @@ namespace sb {
         explicit SoundFileWriter(Synth* seen) {
             filehandel = nullptr;
             syn = seen;
+            needsflush = false;
         }
 
         bool open(std::string name, ExportableFiles ex);
-        bool put(sbSample* samp, size_t len = 1);
-        bool tick();
+        void put(sbSample* samp, size_t len = 1);
+        void tick();
+        bool flush();
         inline bool is_open() {
             return filehandel != nullptr;
+        }
+
+        bool empty() {
+            return !needsflush;
         }
 
         void close();
@@ -59,7 +67,8 @@ namespace sb {
             close();
         }
     private:
-        bool emstate;
+        std::deque<sbSample> samples;
+        bool emstate, needsflush;
         SNDFILE* filehandel;
         Synth* syn;
     };

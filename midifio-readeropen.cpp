@@ -32,6 +32,7 @@ namespace sb {
                 return false;
             }
             eot_reached = false;
+            factor = 0;
 
             WarningPopup* awarning;
             if (file.substr(file.size()-4,4) != ".mid" && file.substr(file.size()-4,4) != ".smf") {
@@ -102,7 +103,7 @@ namespace sb {
             for (unsigned char i = 0; i < 9; ++i) {
                 static const char* chr = "MThd\0\0\0\6\0";
                 if(river.get() != chr[i]) {
-                    if (fileIsInsane("the file has a mal-formed header"))
+                    if (fileIsInsane("the file has a header that is not MIDI-conformant"))
                         return false;
                 }
             }
@@ -132,15 +133,15 @@ namespace sb {
             raw_res += river.get();
 
             //Fill the res union with the time data.
-            res_is_fps = raw_res & Bit1;
+            bool res_is_fps = raw_res & Bit1;
             raw_res &= ~Bit1;
             if (res_is_fps) {
-                res.frames.fps = raw_res >> 8;
-                res.frames.ticks_per_frame = raw_res & AllBits;
+                factor = 1000000/(raw_res & 65280)/(raw_res & 255); //microseconds/second * seconds/frame * frames/tick
+                ticks_per_beat = 0;
             }
             else {
-                res.beats.ticks_per_beat = raw_res;
-                res.beats.microsecs_per_beat = 500000; //The MIDI default.
+                factor = 500000/raw_res; //microseconds/beat * beats/tick
+                ticks_per_beat = raw_res;
             }
 
             //Sanity check: Is the first track's header sane?
