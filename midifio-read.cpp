@@ -66,6 +66,7 @@ namespace sb {
             }
 
             if (returnitem.evtype == midi::SystemEvent) {
+                returnitem.meta_data.clear();
                 //TODO: Sysex events?
                 returnitem.meta = river.get();
                 uint32_t evlen = 0;
@@ -76,8 +77,17 @@ namespace sb {
                     if (!(byte & Bit1))
                         break;
                 }
-                for(uint32_t i = 0; i < evlen; ++i) {
+                for(uint32_t i = 0; i < evlen; ++i)
                     returnitem.meta_data.push_back(river.get());
+
+                if (returnitem.meta == MetaTempo) {
+                    factor = 0;
+                    for(int i = 0; i < 3; i++) {
+                        factor <<= 8;
+                        factor += returnitem.meta_data[i];
+                    }
+                    factor /= ticks_per_beat;
+                    std::cerr << "Timing changed to " << factor << " microseconds per tick.\n";
                 }
                 if (returnitem.meta == MetaEndOfTrack) {
                     eot_reached = true;

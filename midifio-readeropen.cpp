@@ -185,27 +185,28 @@ namespace sb {
 
                 }
             }
-            if(river.eof())
-                readFrom(0);
 
             if (tracks.size() < tracklen) {
                 if (fileIsInsane("fewer tracks are present in the MIDI file than expected"))
                     return false;
             }
+            readFrom(0);
 
 #ifdef IS_SOUNDBENCH
             std::cerr << "File opened and indexed.\n";
 #endif
 
-        if(filetype == MultiTrack) { //Handle the meta events written in the first track.
-            MidiFileItem ret;
-            do {
-                ret = read();
-            } while (ret.evtype != EndOfTrack);
-            readFrom(1);
-        }
+            if(filetype == MultiTrack) { //Handle the meta events written in the first track.
+                std::cerr << "Parsing the metadata track.\n";
+                MidiFileItem ret;
+                do {
+                    ret = read();
+                } while (ret.evtype != EndOfTrack);
+                readFrom(1);
+                std::cerr << "Done parsing the metadata track.\n";
+            }
 
-        return true;
+            return true;
         }
     }
 }

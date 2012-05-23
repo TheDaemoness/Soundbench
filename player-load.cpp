@@ -98,6 +98,10 @@ namespace sb {
                 break;
             case midi::SystemEvent:
                 switch (miditem.meta) {
+                case midi::MetaTempo:
+                case midi::MetaTrackName:
+                    chiter->attachNext(new midi::DelayNode(miditem.delay));
+                    break;
                 default:
                     std::cerr << "An unimplemented meta event of type " << static_cast<uint16_t>(miditem.meta) << " was requested.\n";
                     chiter->attachNext(new midi::DelayNode(miditem.delay));

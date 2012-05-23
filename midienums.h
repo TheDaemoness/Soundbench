@@ -133,7 +133,7 @@ namespace sb {
         };
         enum MidiMetaEvents {
             MetaTrackName = 0x03,
-            //We need a tempo event here.
+            MetaTempo = 0x51,
             MetaEndOfTrack = 0x2F
         };
         enum MidiFileTypes {
