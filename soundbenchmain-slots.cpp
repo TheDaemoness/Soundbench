@@ -69,7 +69,6 @@ void SoundbenchMain::exportOpen() {
 }
 
 void SoundbenchMain::setTempo(int tiem) {
-    std::cerr << "Tempo: " << tiem << '\n';
     plai->setTempo(tiem);
     plai->loadTrack(ui->songsTracksList->currentRow());
 }

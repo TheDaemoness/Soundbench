@@ -4,6 +4,7 @@
 
 QMAKE_CXXFLAGS_WARN_ON += -Wall -Wextra -pedantic
 QMAKE_CXXFLAGS += -std=c++0x -D IS_SOUNDBENCH
+QMAKE_CXXFLAGS_RELEASE += -O1
 
 TEMPLATE = app
 TARGET = 

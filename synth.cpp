@@ -155,6 +155,7 @@ namespace sb {
                 //Smooth the samples slightly to reduce clicking.
                 frames[out] += prevsample[out];
                 frames[out] /= 2;
+                prevsample[out] = frames[out];
             }
         }
     }
