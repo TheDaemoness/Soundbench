@@ -36,6 +36,21 @@ namespace sb {
             return true;
         }
 
+        uint16_t MidiFIO::getTempo() {
+            if (ticks_per_beat != 0)
+                return 60000000/factor/ticks_per_beat; //Microseconds/minutes * ticks/microsecond * beats/tick
+            return 0;
+        }
+
+        bool MidiFIO::setTempo(uint16_t tempo) {
+            if (ticks_per_beat == 0 || tempo == 0)
+                return false;
+            std::cerr << "Previous Factor: " << factor << '\n';
+            factor = 60000000/tempo/ticks_per_beat; //Microseconds/minute * minutes/beat * beats/tick
+            std::cerr << "Current Factor: " << factor << '\n';
+            return true;
+        }
+
         bool MidiFIO::readFrom(uint16_t traque) {
             river.clear(std::ios_base::eofbit);
             if(!river.is_open() || writing || traque >= tracks.size() || filetype == SingleTrack)

@@ -43,6 +43,7 @@ namespace sb {
     }
 
     bool Player::loadTrack(uint16_t track) {
+        std::cerr << "Loading track #" << track << "...\n";
         if (reed->getFileType() == midi::MultiTrack)
             ++track;
         if (!reed->readFrom(track)) {
@@ -56,7 +57,7 @@ namespace sb {
         while (true) {
             miditem = reed->read();
             if (miditem.evtype == midi::EndOfTrack) {
-                std::cerr << "Ready.\n";
+                std::cerr << "Finished loading the track.\n";
                 break;
             }
             if (miditem.evtype == midi::NoDataRead) {
@@ -65,9 +66,12 @@ namespace sb {
             }
             switch(miditem.evtype) {
             case midi::NoteOn:
+                if (miditem.params.second != 0)
                 chiter->attachNext(new midi::NoteOnEventNode(miditem.params.first-69, /*69 is the MIDI number for A4*/
                                                              static_cast<sbSample>(miditem.params.second)/127,
                                                              miditem.delay));
+                else
+                    chiter->attachNext(new midi::NoteOffEventNode(miditem.params.first-69, miditem.delay));
                 break;
             case midi::NoteOff:
                 chiter->attachNext(new midi::NoteOffEventNode(miditem.params.first-69, miditem.delay));
@@ -109,7 +113,7 @@ namespace sb {
                 }
                 break;
             default:
-                std::__throw_logic_error("The file reader ignored running status. If you see this message while running an official binary, then please report it as a bug. It shouldn't take too long to fix.");
+                std::__throw_logic_error("The MIDI file reader ignored running status. If you see this message while running an official binary, then please report it as a bug. It shouldn't take too long to fix.");
                 break;
             }
             chiter = chiter->returnNext();

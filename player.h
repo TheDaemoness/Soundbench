@@ -68,6 +68,13 @@ namespace sb {
 
         bool loadTrack(uint16_t track);
 
+        inline bool setTempo(int tmp) {
+            return reed->setTempo(tmp);
+        }
+        inline int getTempo() {
+            return reed->getTempo();
+        }
+
         void play() {}
         void stop() {}
         bool ready() {

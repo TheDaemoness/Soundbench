@@ -23,14 +23,24 @@ namespace sb {
 
     Synth::Synth() {
         inactivechans = 0;
+        currentpoly = default_poly;
         notes.resize(default_poly);
         for (size_t i = 0; i < default_poly; ++i) {
             notes[i].amp = 0.0;
             notes[i].noteoffset = 0;
             notes[i].pedal = NoPedal;
         }
+        for (size_t i = 0; i < outchans; ++i)
+            prevsample[i] = sbSampleZero;
         holdped = false;
         sustped = false;
+    }
+
+    void Synth::setPolyphony(uint8_t poly) {
+        for (uint8_t cracker = 0; cracker < poly; ++cracker)
+        if (gener[cracker] != nullptr)
+            gener[cracker]->setPolymorphism(poly);
+        notes.resize(poly);
     }
 
     void Synth::noteOn(int halfsteps, sbSample amp) {
@@ -44,7 +54,7 @@ namespace sb {
                     notes[i].pedal = Hold;
                 else
                     notes[i].pedal = NoPedal;
-                for (size_t ation = 0; ation < channelcount; ++ation) {
+                for (size_t ation = 0; ation < internchannels; ++ation) {
                     if (gener[ation] != nullptr)
                         gener[ation]->noteOn(halfsteps,amp,i);
                 }
@@ -58,7 +68,7 @@ namespace sb {
             if (notes[i].noteoffset == halfsteps && notes[i].amp != sbSampleZero) {
                 notes[i].amp = sbSampleZero;
                 if (notes[i].pedal == NoPedal) {
-                    for (size_t al = 0; (al < channelcount); ++al) {
+                    for (size_t al = 0; (al < internchannels); ++al) {
                         if (gener[al] != nullptr)
                             gener[al]->noteOff(i);
                     }
@@ -87,7 +97,7 @@ namespace sb {
                 if (notes[i].pedal == which) {
                     notes[i].pedal = NoPedal;
                     if (notes[i].amp == sbSampleZero) {
-                        for (size_t al = 0; al < channelcount; ++al) {
+                        for (size_t al = 0; al < internchannels; ++al) {
                             if (gener[al] != nullptr)
                                 gener[al]->noteOff(i);
                         }
@@ -103,13 +113,13 @@ namespace sb {
             if(notes[i].amp != sbSampleZero) {
                 notes[i].amp = sbSampleZero;
                 notes[i].pedal = NoPedal;
-                for (size_t able = 0; able < channelcount; ++able) {
+                for (size_t able = 0; able < internchannels; ++able) {
                     if (gener[able] != nullptr)
                         gener[able]->noteOff(i);
                 }
             }
         }
-        for (size_t ec = 0; ec < channelcount; ++ec) { //Loop per internal channel.
+        for (size_t ec = 0; ec < internchannels; ++ec) { //Loop per internal channel.
             if (gener[ec] != nullptr)
                 gener[ec]->reset();
             /*for (size_t tive = 0; tive < fxcount; ++tive) { //Loop per effect.
@@ -120,7 +130,7 @@ namespace sb {
     }
 
     void Synth::tick(sbSample* frames, size_t chans) {
-        for (size_t ic = 0; ic < channelcount; ++ic) { //Loop per internal channel.
+        for (size_t ic = 0; ic < internchannels; ++ic) { //Loop per internal channel.
             if (gener[ic] != nullptr)
                 gener[ic]->tick(buffer[ic], chans);
             else {
@@ -137,10 +147,14 @@ namespace sb {
                 frames[acid] += buffer[ic][acid]; //What an incorrect name that'd be.
             }
         }
-        if (inactivechans != channelcount) {
+        if (inactivechans != internchannels) {
             for (size_t out = 0; out < chans; ++out) {
-                frames[out] /= (channelcount-inactivechans); //Correctly average the signal from the running channels.
+                frames[out] /= (internchannels-inactivechans); //Correctly average the signal from the running channels.
                 frames[out] *= vol; //Apply the master volume.
+
+                //Smooth the samples slightly to reduce clicking.
+                frames[out] += prevsample[out];
+                frames[out] /= 2;
             }
         }
     }

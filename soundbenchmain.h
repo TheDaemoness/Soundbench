@@ -69,6 +69,8 @@ private slots:
     void setGenType(int);
     void setGenSett(int);
     void setTrack(int);
+    void setTempo(int);
+    void setPoly(int);
 
 private:
     void genSetts(size_t i);

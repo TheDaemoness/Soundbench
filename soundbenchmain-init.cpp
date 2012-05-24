@@ -109,8 +109,8 @@ void SoundbenchMain::delayedConstructor() {
     connect(ui->importButton,SIGNAL(clicked()),SLOT(importOpen()));
     connect(ui->exportButton,SIGNAL(clicked()),SLOT(exportOpen()));
     connect(ui->songsTracksList,SIGNAL(currentRowChanged(int)),SLOT(setTrack(int)));
+    connect(ui->tempoBox,SIGNAL(valueChanged(int)),SLOT(setTempo(int)));
     ui->exportButton->setDisabled(true);
-    ui->playButton->setDisabled(true);
 
     //Connect the Channels page widgets.
     connect(ui->gen1TypeButton,SIGNAL(clicked()),type_sigmap,SLOT(map()));
@@ -130,6 +130,8 @@ void SoundbenchMain::delayedConstructor() {
     connect(ui->button96Sampling,SIGNAL(clicked()),rate_sigmap,SLOT(map()));
     connect(ui->button176Sampling,SIGNAL(clicked()),rate_sigmap,SLOT(map()));
     connect(ui->button192Sampling,SIGNAL(clicked()),rate_sigmap,SLOT(map()));
+    connect(ui->polyphonyBox,SIGNAL(valueChanged(int)),SLOT(setPoly(int)));
+    ui->polyphonyBox->setValue(sb::default_poly);
 
     //Connect the sigmaps.
     connect(sett_sigmap,SIGNAL(mapped(int)),SLOT(setGenSett(int)));

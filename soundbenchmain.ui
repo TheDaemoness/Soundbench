@@ -241,6 +241,10 @@ QSpinBox:hover {
 QSpinBox:focus {
 	border-image: url(:/spinbox/spinbox_frame_edit.png);
 }
+QSpinBox:disabled{
+	border-image: url(:/spinbox/spinbox_frame_disabled.png);
+	color: gray;
+}
 QSpinBox::up-button {
 	height: 11px;
 	width: 20px;
@@ -257,11 +261,18 @@ QSpinBox::up-button:hover {
 QSpinBox::up-button:pressed {
 	border-image: url(:/spinbox/spinbox_upper_pressed.png);
 }
+QSpinBox::up-button:disabled {
+	border-image: url(:/spinbox/spinbox_upper_disabled.png);
+}
+
 QSpinBox::down-button:hover {
 	border-image: url(:/spinbox/spinbox_lower_hover.png);
 }
 QSpinBox::down-button:pressed {
 	border-image: url(:/spinbox/spinbox_lower_pressed.png);
+}
+QSpinBox::down-button:disabled {
+	border-image: url(:/spinbox/spinbox_lower_disabled.png);
 }
 
 QPushButton {
@@ -411,7 +422,7 @@ QTabBar::tab:selected {
 }</string>
     </property>
     <property name="currentIndex">
-     <number>1</number>
+     <number>7</number>
     </property>
     <widget class="QWidget" name="tabSelect">
      <attribute name="title">
@@ -523,68 +534,16 @@ QTabBar::tab:selected {
         <height>25</height>
        </rect>
       </property>
+      <property name="toolTip">
+       <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Coming in version 0.3.0.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+      </property>
       <property name="text">
        <string>Record</string>
       </property>
      </widget>
-     <widget class="QLabel" name="inputSwitchingLabel">
-      <property name="geometry">
-       <rect>
-        <x>800</x>
-        <y>50</y>
-        <width>221</width>
-        <height>20</height>
-       </rect>
-      </property>
-      <property name="toolTip">
-       <string>Automatically switch to a MIDI input if one becomes available (or not).
-Coming in version 0.3.0.</string>
-      </property>
-      <property name="text">
-       <string>Automatic Input Switching</string>
-      </property>
-      <property name="alignment">
-       <set>Qt::AlignCenter</set>
-      </property>
-     </widget>
-     <widget class="QRadioButton" name="radioButton">
-      <property name="geometry">
-       <rect>
-        <x>820</x>
-        <y>70</y>
-        <width>91</width>
-        <height>22</height>
-       </rect>
-      </property>
-      <property name="text">
-       <string>Disabled</string>
-      </property>
-      <property name="checked">
-       <bool>true</bool>
-      </property>
-     </widget>
-     <widget class="QRadioButton" name="autoInputEnabled">
-      <property name="enabled">
-       <bool>false</bool>
-      </property>
-      <property name="geometry">
-       <rect>
-        <x>920</x>
-        <y>70</y>
-        <width>81</width>
-        <height>22</height>
-       </rect>
-      </property>
-      <property name="text">
-       <string>Enabled</string>
-      </property>
-      <property name="checked">
-       <bool>false</bool>
-      </property>
-     </widget>
      <widget class="QPushButton" name="playButton">
       <property name="enabled">
-       <bool>true</bool>
+       <bool>false</bool>
       </property>
       <property name="geometry">
        <rect>
@@ -600,7 +559,7 @@ Coming in version 0.3.0.</string>
        </font>
       </property>
       <property name="toolTip">
-       <string>Play the specified tune.</string>
+       <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Coming in version 0.3.0.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
       </property>
       <property name="styleSheet">
        <string notr="true"/>
@@ -651,7 +610,7 @@ Coming in version 0.3.0.</string>
        <set>Qt::AlignCenter</set>
       </property>
      </widget>
-     <widget class="QLabel" name="envelopesComingSoon_2">
+     <widget class="QLabel" name="iosettingsComingSoon">
       <property name="geometry">
        <rect>
         <x>400</x>
@@ -670,6 +629,53 @@ Coming in version 0.3.0.</string>
       </property>
       <property name="text">
        <string>(Quick I/O settings coming in version 0.3.0)</string>
+      </property>
+      <property name="alignment">
+       <set>Qt::AlignCenter</set>
+      </property>
+     </widget>
+     <widget class="QSpinBox" name="tempoBox">
+      <property name="enabled">
+       <bool>false</bool>
+      </property>
+      <property name="geometry">
+       <rect>
+        <x>921</x>
+        <y>61</y>
+        <width>61</width>
+        <height>21</height>
+       </rect>
+      </property>
+      <property name="toolTip">
+       <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;br/&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+      </property>
+      <property name="alignment">
+       <set>Qt::AlignCenter</set>
+      </property>
+      <property name="minimum">
+       <number>12</number>
+      </property>
+      <property name="maximum">
+       <number>360</number>
+      </property>
+      <property name="singleStep">
+       <number>12</number>
+      </property>
+      <property name="value">
+       <number>120</number>
+      </property>
+     </widget>
+     <widget class="QLabel" name="tempoLabel">
+      <property name="geometry">
+       <rect>
+        <x>860</x>
+        <y>61</y>
+        <width>61</width>
+        <height>20</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>Tempo</string>
       </property>
       <property name="alignment">
        <set>Qt::AlignCenter</set>
@@ -1090,83 +1096,7 @@ p, li { white-space: pre-wrap; }
      <attribute name="title">
       <string>Triggers</string>
      </attribute>
-     <widget class="QLabel" name="effectALabel">
-      <property name="geometry">
-       <rect>
-        <x>100</x>
-        <y>330</y>
-        <width>131</width>
-        <height>25</height>
-       </rect>
-      </property>
-      <property name="styleSheet">
-       <string notr="true"/>
-      </property>
-      <property name="text">
-       <string>Effect A</string>
-      </property>
-      <property name="alignment">
-       <set>Qt::AlignCenter</set>
-      </property>
-     </widget>
-     <widget class="QLabel" name="effectBLabel">
-      <property name="geometry">
-       <rect>
-        <x>345</x>
-        <y>330</y>
-        <width>126</width>
-        <height>25</height>
-       </rect>
-      </property>
-      <property name="styleSheet">
-       <string notr="true"/>
-      </property>
-      <property name="text">
-       <string>Effect B</string>
-      </property>
-      <property name="alignment">
-       <set>Qt::AlignCenter</set>
-      </property>
-     </widget>
-     <widget class="QLabel" name="effectCLabel">
-      <property name="geometry">
-       <rect>
-        <x>590</x>
-        <y>330</y>
-        <width>121</width>
-        <height>25</height>
-       </rect>
-      </property>
-      <property name="styleSheet">
-       <string notr="true"/>
-      </property>
-      <property name="text">
-       <string>Effect C</string>
-      </property>
-      <property name="alignment">
-       <set>Qt::AlignCenter</set>
-      </property>
-     </widget>
-     <widget class="QLabel" name="effectDLabel">
-      <property name="geometry">
-       <rect>
-        <x>830</x>
-        <y>330</y>
-        <width>131</width>
-        <height>25</height>
-       </rect>
-      </property>
-      <property name="styleSheet">
-       <string notr="true"/>
-      </property>
-      <property name="text">
-       <string>Effect D</string>
-      </property>
-      <property name="alignment">
-       <set>Qt::AlignCenter</set>
-      </property>
-     </widget>
-     <widget class="QGraphicsView" name="mixerBackdrop">
+     <widget class="QGraphicsView" name="triggerBackdrop">
       <property name="geometry">
        <rect>
         <x>0</x>
@@ -1181,7 +1111,7 @@ p, li { white-space: pre-wrap; }
 }</string>
       </property>
      </widget>
-     <widget class="QLabel" name="mixerEffectsComingSoon">
+     <widget class="QLabel" name="triggersComingSoon">
       <property name="geometry">
        <rect>
         <x>0</x>
@@ -1199,7 +1129,7 @@ p, li { white-space: pre-wrap; }
        </font>
       </property>
       <property name="text">
-       <string>(Coming in version 0.6.0)</string>
+       <string>(Coming in version 0.8.0)</string>
       </property>
       <property name="alignment">
        <set>Qt::AlignCenter</set>
@@ -1243,7 +1173,7 @@ p, li { white-space: pre-wrap; }
        </font>
       </property>
       <property name="text">
-       <string>(Coming in version 0.8.0)</string>
+       <string>(Coming in version 0.6.0)</string>
       </property>
       <property name="alignment">
        <set>Qt::AlignCenter</set>
@@ -1254,38 +1184,6 @@ p, li { white-space: pre-wrap; }
      <attribute name="title">
       <string>Settings</string>
      </attribute>
-     <widget class="QLabel" name="polyphonyLabel">
-      <property name="geometry">
-       <rect>
-        <x>230</x>
-        <y>315</y>
-        <width>211</width>
-        <height>41</height>
-       </rect>
-      </property>
-      <property name="font">
-       <font>
-        <family>Ubuntu</family>
-       </font>
-      </property>
-      <property name="toolTip">
-       <string>This is the maximum number of notes that can be played at once.</string>
-      </property>
-      <property name="styleSheet">
-       <string notr="true"/>
-      </property>
-      <property name="text">
-       <string>&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.0//EN&quot; &quot;http://www.w3.org/TR/REC-html40/strict.dtd&quot;&gt;
-&lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;style type=&quot;text/css&quot;&gt;
-p, li { white-space: pre-wrap; }
-&lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:'Ubuntu'; font-size:11pt; font-weight:400; font-style:normal;&quot;&gt;
-&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;Polyphony settings&lt;/p&gt;
-&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;Coming in version 0.2.0&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
-      </property>
-      <property name="alignment">
-       <set>Qt::AlignCenter</set>
-      </property>
-     </widget>
      <widget class="QLabel" name="midiComingSoonLabel">
       <property name="geometry">
        <rect>
@@ -1545,12 +1443,54 @@ p, li { white-space: pre-wrap; }
        <set>Qt::AlignCenter</set>
       </property>
      </widget>
+     <widget class="QLabel" name="polyphonyLabel">
+      <property name="geometry">
+       <rect>
+        <x>230</x>
+        <y>310</y>
+        <width>211</width>
+        <height>20</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>Maximum Voices</string>
+      </property>
+      <property name="alignment">
+       <set>Qt::AlignCenter</set>
+      </property>
+     </widget>
+     <widget class="QSpinBox" name="polyphonyBox">
+      <property name="geometry">
+       <rect>
+        <x>310</x>
+        <y>332</y>
+        <width>51</width>
+        <height>21</height>
+       </rect>
+      </property>
+      <property name="alignment">
+       <set>Qt::AlignCenter</set>
+      </property>
+      <property name="minimum">
+       <number>1</number>
+      </property>
+      <property name="maximum">
+       <number>256</number>
+      </property>
+      <property name="singleStep">
+       <number>1</number>
+      </property>
+      <property name="value">
+       <number>16</number>
+      </property>
+     </widget>
      <zorder>settingsBackdrop</zorder>
-     <zorder>polyphonyLabel</zorder>
      <zorder>midiComingSoonLabel</zorder>
      <zorder>samplingRateLabe</zorder>
      <zorder>samplingrateButtons</zorder>
      <zorder>emitterComingSoonLabel</zorder>
+     <zorder>polyphonyLabel</zorder>
+     <zorder>polyphonyBox</zorder>
     </widget>
     <widget class="QWidget" name="tabAbout">
      <attribute name="title">
@@ -1686,7 +1626,7 @@ p, li { white-space: pre-wrap; }
 &lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;style type=&quot;text/css&quot;&gt;
 p, li { white-space: pre-wrap; }
 &lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:'Ubuntu'; font-size:10pt; font-weight:400; font-style:normal;&quot;&gt;
-&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-family:'Cantarell'; font-size:11pt; font-weight:600;&quot;&gt;Special thanks to the developers of PortMedia, PulseAudio, The JACK Audio Connection Kit, and the Qt Framework.&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-family:'Cantarell'; font-size:11pt; font-weight:600;&quot;&gt;Special thanks to the developers of all the libraries we used. We couldn't have done it without you!&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
       </property>
       <property name="alignment">
        <set>Qt::AlignCenter</set>

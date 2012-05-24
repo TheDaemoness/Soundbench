@@ -29,10 +29,10 @@ namespace sb {
 
     struct Blueprint {
         typedef std::map<moduleParam,ParameterValue> ModuleDataType;
-        enum gener_type {NoGener, generSampler, generBasic, generAdditive, generModal, generWaveguide} gener[sb::channelcount];
-        enum fx_type {NoFx, fxFIR} eff[sb::channelcount][sb::fxcount];
-        ModuleDataType gener_data[sb::channelcount];
-        ModuleDataType eff_data[sb::channelcount][sb::fxcount];
+        enum gener_type {NoGener, generSampler, generBasic, generAdditive, generModal, generWaveguide} gener[sb::internchannels];
+        enum fx_type {NoFx, fxFIR} eff[sb::internchannels][sb::fxcount];
+        ModuleDataType gener_data[sb::internchannels];
+        ModuleDataType eff_data[sb::internchannels][sb::fxcount];
     };
 
 }

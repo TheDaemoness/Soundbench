@@ -93,7 +93,7 @@ namespace sb {
             wri->tick();
         }
 
-        std::cerr << "Wrote " << sampcount << " samples to the file (appx. " << static_cast<float>(sampcount) / curr_srate << " seconds).\n";
+        std::cerr << "Wrote " << sampcount << " samples to the file (appx. " << static_cast<float>(sampcount)*2 / curr_srate << " seconds).\n";
         wri->close();
         return;
     }

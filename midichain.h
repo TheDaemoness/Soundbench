@@ -35,10 +35,10 @@ namespace sb {
             friend class PlayerStartNode;
 
             MIDIEventNode* next;
-            uint32_t delae;
+            uint64_t delae;
             static Synth* synref; //In main.cpp
         public:
-            explicit MIDIEventNode(uint32_t tiim = 0) {
+            explicit MIDIEventNode(uint64_t tiim = 0) {
                 delae = tiim;
                 next = nullptr;
             }
@@ -95,7 +95,7 @@ namespace sb {
 
         class DelayNode : public MIDIEventNode { //This is mostly a placeholder for unimplemented and unsupported events.
         public:
-            explicit DelayNode(uint32_t taim = 0) : MIDIEventNode(taim) {}
+            explicit DelayNode(uint64_t taim = 0) : MIDIEventNode(taim) {}
             void doEvent() {}
         };
 
@@ -103,7 +103,7 @@ namespace sb {
             int halfsteps;
             sbSample amp;
         public:
-            explicit NoteOnEventNode(int notedist, sbSample ampe = 1.0, uint16_t beet = 0, MIDIEventNode* nexte = nullptr) : MIDIEventNode(beet) {
+            explicit NoteOnEventNode(int notedist, sbSample ampe = 1.0, uint64_t beet = 0, MIDIEventNode* nexte = nullptr) : MIDIEventNode(beet) {
                 next = nexte;
                 halfsteps = notedist;
                 amp = ampe;
@@ -116,7 +116,7 @@ namespace sb {
         class NoteOffEventNode : public MIDIEventNode {
             int halfsteps;
         public:
-            explicit NoteOffEventNode(int notedist, uint16_t delai = 0, MIDIEventNode* nexte = nullptr) : MIDIEventNode(delai) {
+            explicit NoteOffEventNode(int notedist, uint64_t delai = 0, MIDIEventNode* nexte = nullptr) : MIDIEventNode(delai) {
                 next = nexte;
                 halfsteps = notedist;
             }
@@ -128,7 +128,7 @@ namespace sb {
         class HoldPedalEventNode : public MIDIEventNode {
             uint8_t pressure;
         public:
-            explicit HoldPedalEventNode(uint8_t press, uint16_t delai = 0, MIDIEventNode* nexte = nullptr) : MIDIEventNode(delai) {
+            explicit HoldPedalEventNode(uint8_t press, uint64_t delai = 0, MIDIEventNode* nexte = nullptr) : MIDIEventNode(delai) {
                 next = nexte;
                 pressure = press;
             }
@@ -143,7 +143,7 @@ namespace sb {
         class SustenutoEventNode : public MIDIEventNode {
             uint8_t pressure;
         public:
-            explicit SustenutoEventNode(uint8_t press, uint16_t delai = 0, MIDIEventNode* nexte = nullptr) : MIDIEventNode(delai) {
+            explicit SustenutoEventNode(uint8_t press, uint64_t delai = 0, MIDIEventNode* nexte = nullptr) : MIDIEventNode(delai) {
                 next = nexte;
                 pressure = press;
             }

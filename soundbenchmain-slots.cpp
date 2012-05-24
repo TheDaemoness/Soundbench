@@ -34,6 +34,16 @@ void SoundbenchMain::importOpen() {
     ui->exportButton->setEnabled(true);
     ui->songsTracksList->setCurrentRow(0);
 
+    ui->tempoBox->setValue(plai->getTempo());
+    if (plai->getTempo()) {
+        ui->tempoBox->setEnabled(true);
+        ui->tempoBox->setToolTip("Change the starting tempo of the current track.");
+    }
+    else {
+        ui->tempoBox->setDisabled(true);
+        ui->tempoBox->setToolTip("This MIDI file does not represent time in terms of beats, and thus the tempo box has been disabled.");
+    }
+
     em->start();
 }
 
@@ -53,8 +63,15 @@ void SoundbenchMain::exportOpen() {
 
     plai->setFile(chosenfile.toStdString());
     plai->writeFile();
+    syn->reset();
     met->startMeter();
     em->start();
+}
+
+void SoundbenchMain::setTempo(int tiem) {
+    std::cerr << "Tempo: " << tiem << '\n';
+    plai->setTempo(tiem);
+    plai->loadTrack(ui->songsTracksList->currentRow());
 }
 
 void SoundbenchMain::testSynth(bool b) {
@@ -127,7 +144,13 @@ void SoundbenchMain::setGenSett(int which) {
 }
 
 void SoundbenchMain::setTrack(int e) {
-    met->setProgress(500);
     plai->loadTrack(static_cast<uint16_t>(e));
+    ui->tempoBox->setValue(plai->getTempo());
     met->startMeter();
+}
+
+void SoundbenchMain::setPoly(int tracks) {
+    stopAndReset();
+    syn->setPolyphony(tracks);
+    em->start();
 }

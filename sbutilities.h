@@ -125,7 +125,7 @@ namespace sb {
     const float pi = 3.14159265358979323846264338327950288f;
 
     const size_t default_poly = 16;
-    const unsigned char channelcount = 4;
+    const unsigned char internchannels = 4;
     const unsigned char fxcount = 4;
 
     const size_t sampling_rates[] = {44100,48000,88200,96000,176400,192000};

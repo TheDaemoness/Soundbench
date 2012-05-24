@@ -72,6 +72,9 @@ namespace sb {
             MidiFileItem read();
             bool close();
 
+            uint16_t getTempo();
+            bool setTempo(uint16_t);
+
             inline uint16_t getTrackCount() {
                 return (filetype?tracks.size():1);
             }

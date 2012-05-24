@@ -80,14 +80,13 @@ namespace sb {
                 for(uint32_t i = 0; i < evlen; ++i)
                     returnitem.meta_data.push_back(river.get());
 
-                if (returnitem.meta == MetaTempo) {
+                if (returnitem.meta == MetaTempo && ticks_per_beat != 0) {
                     factor = 0;
                     for(int i = 0; i < 3; i++) {
                         factor <<= 8;
                         factor += returnitem.meta_data[i];
                     }
                     factor /= ticks_per_beat;
-                    std::cerr << "Timing changed to " << factor << " microseconds per tick.\n";
                 }
                 if (returnitem.meta == MetaEndOfTrack) {
                     eot_reached = true;

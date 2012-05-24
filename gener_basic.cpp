@@ -111,7 +111,7 @@ namespace sb {
         //Cummulate all the samples from each active wave into the same float.
         sample[0] = 0.0f;
         for (size_t i = 0; i < ocean.size(); ++i)
-            sample[0] += (ocean[i].first?ocean[i].second->tick():0.0);
+            sample[0] += (ocean[i].first?ocean[i].second->tick():0.0)*gen_amp;
 
         //Bring the volume back in range.
         if (notes > 0)
