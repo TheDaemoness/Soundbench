@@ -32,6 +32,7 @@ namespace sb {
         }
         dev.device = Pa_GetDefaultOutputDevice();
         if (dev.device == paNoDevice) {
+            std::cerr << "No default device was found.\n";
             std::__throw_runtime_error("emitter::backend::portaudio - No default device");
         }
 
@@ -97,8 +98,8 @@ namespace sb {
                 std::cerr << "Problem when closing the output stream: " << Pa_GetErrorText(e) << ".\n";
                 std::__throw_runtime_error((std::string("emitter::backend::portaudio - Couldn't close the output stream: ")+Pa_GetErrorText(e)).c_str());
             }
+            river = nullptr;
         }
-        river = nullptr;
         running = false;
     }
 

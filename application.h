@@ -27,6 +27,7 @@
 class SoundbenchApp : public QApplication
 {
 public:
+    /*
     bool notify(QObject* obj, QEvent* evnt) {
         try {
             return QApplication::notify(obj, evnt);
@@ -44,10 +45,11 @@ public:
             return true;
         }
     }
+    */
     enum SoundbenchFlags {
         Default = 0,
         NoRTAudio = 1,
-        NoMIDI = 2
+        NoRTMidi = 2
     };
 
     explicit SoundbenchApp(int argc, char** argv);
@@ -55,12 +57,16 @@ public:
     inline int run() {
         if (sb != nullptr)
             sb->show();
-        return this->exec();
+        else
+            std::cerr << "Tried run Soundbench uninitialized.\n";
+        return exec();
     }
 
     void newSoundbench(int flags = 0);
     void endSoundbench() {
-        delete sb;
+        if (sb != nullptr)
+            delete sb;
+        sb = nullptr;
     }
 private:
     void exceptionSoundbench(sbException& e);

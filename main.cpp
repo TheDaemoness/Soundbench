@@ -20,22 +20,15 @@
 
 #include "application.h"
 
-#ifdef Q_WS_X11
-#include <X11/Xlib.h>
-#endif
-
 size_t sb::curr_srate;
 sb::Synth* sb::midi::MIDIEventNode::synref;
 
 int main(int argc, char *argv[])
 {
-#ifdef Q_WS_X11
-    XInitThreads();
-#endif
 
     SoundbenchApp a(argc, argv);
     a.newSoundbench(SoundbenchApp::Default);
-    std::clog << "Soundbench loaded.\n";
+    std::cerr << "Soundbench loaded.\n";
     return a.run();
 }
 

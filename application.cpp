@@ -26,7 +26,7 @@ SoundbenchApp::SoundbenchApp(int argc, char** argv) : QApplication(argc,argv) {
 
 void SoundbenchApp::newSoundbench(int flags) {
     try {
-        if (flags == 0) {
+        if (flags == 0 && sb == nullptr) {
             sb = new SoundbenchMain;
             sb->delayedConstructor();
         }
@@ -46,7 +46,8 @@ void SoundbenchApp::newSoundbench(int flags) {
 }
 
 SoundbenchApp::~SoundbenchApp() {
-    delete sb;
+    if (sb != nullptr)
+        delete sb;
 }
 
 void SoundbenchApp::exceptionSoundbench(sbException& e) {
