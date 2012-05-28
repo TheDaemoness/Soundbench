@@ -38,6 +38,12 @@
 #define IS_SOUNDBENCH
 #endif
 
+#if defined(_POSIX_VERSION) | defined(__CYGWIN__)
+#define SB_ENV_POSIX
+#elif defined(_WIN32)
+#define SB_ENX_WNDOS
+#endif
+
 #define SBVERSION "Development Branch"
 
 typedef float sbSample;

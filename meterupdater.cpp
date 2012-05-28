@@ -30,7 +30,7 @@ MeterUpdater::MeterUpdater(QProgressBar* bare, QObject *parent) :
     totaltime = 0;
 
     nolimit = false;
-#ifndef _WIN32
+#ifdef SB_ENV_POSIX
     getrlimit64(RLIMIT_CPU,&rimit);
     if (rimit.rlim_cur == RLIM_INFINITY) {
         std::clog << "No soft limit on CPU usage. Checking for hard limit...\n";
@@ -53,7 +53,7 @@ MeterUpdater::MeterUpdater(QProgressBar* bare, QObject *parent) :
 #endif
 }
 
-#ifndef _WIN32
+#ifdef SB_ENV_POSIX
 void MeterUpdater::update() {
     getrusage(RUSAGE_SELF,&ruse);
     time = ruse.ru_utime.tv_usec + ruse.ru_utime.tv_sec*1000000;

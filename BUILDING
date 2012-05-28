@@ -4,6 +4,7 @@ To build Soundbench, you have to make absolutely sure you have the following:
 	libportaudio
 	libsndfile
 
+
 ===BUILDING ON *NIX===
 All you need to do is open a terminal and type the following:
 	cd path/to/the/code
@@ -11,6 +12,7 @@ All you need to do is open a terminal and type the following:
 	make
 
 Your executable will be in the same directory and will be named "Soundbench". Have fun!
+
 
 ===ON BUILDING WITH CLANG===
 If you're going to build Soundbench with clang, then as at the time of writing qmake doesn't have a spec file for clang++, you will have to use few extra steps.
@@ -30,3 +32,9 @@ Go back to your terminal (assuming it's still open) and type 'make'. If it's not
 	make
 
 Your project should be now built! Congrats!
+
+
+===BUILDING ON WINDOWS===
+We highly recommend using Cygwin, as some parts of this program aren't fully functional without the POSIX APIs.
+
+Instructions on how to build on Windows will be provided soon.

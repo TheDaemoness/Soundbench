@@ -76,4 +76,6 @@ RESOURCES += sbMainResources.qrc
 unix: LIBS += -L/usr/lib/ -lportaudio -lportaudiocpp -lsndfile
 
 OTHER_FILES += \
-    ProgrammingStyleRegulations.txt
+    ProgrammingStyleRegulations.txt \
+    BUILDING \
+    COPYING

@@ -23,10 +23,15 @@
 #include <QProgressBar>
 #include <queue>
 
-#ifndef _WIN32
+#include "sbutilities.h" //For the environment macros.
+
+#ifdef SB_ENV_POSIX
     #include <sys/time.h>
     #include <sys/resource.h>
 #else
+    #ifdef __GNUC__
+    #warning The CPU meter will not work properly as this program is being built without the POSIX APIs.
+    #endif
 #endif
 
 class MeterUpdater : public QObject
@@ -34,9 +39,15 @@ class MeterUpdater : public QObject
     Q_OBJECT
 public:
     explicit MeterUpdater(QProgressBar* bare, QObject *parent = 0);
+#ifdef SB_ENV_POSIX
     inline bool artificial_limit() {
         return !nolimit;
     }
+#else
+    inline bool artificial_limit() {
+        return true; //Better safe than sorry.
+    }
+#endif
     void reset() {
         while(!prevtime.empty())
             prevtime.pop();
@@ -52,7 +63,7 @@ public slots:
 private:
     QProgressBar* affectedbar;
 
-#ifndef _WIN32
+#ifdef SB_ENV_POSIX
     rusage ruse;
     rlimit64 rimit;
     timespec dust;
