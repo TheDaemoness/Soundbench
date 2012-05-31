@@ -18,24 +18,68 @@
 */
 
 #include "emitter.h"
+#include "warningpopup.h"
+#include "errorpopup.h"
 
 namespace sb {
 
     void Emitter::setEmitterType(emitter_type emt) {
         if (backend != nullptr) {
             delete backend;
+            backend = nullptr;
         }
-        if (emt == sb::PortAudio) {
-            std::clog << "Initializing PortAudio as the audio backend...\n";
-            backend = new portaudio_backend(syn, sample_rate,supported_rates,2);
-            std::clog << "PortAudio backend initialized.\n";
+
+        decltype(emt) used_backend = NoEmitter;
+        auto initFailed = [used_backend,emt,this]() {
+            return (used_backend != NoEmitter && backend == nullptr);
+        };
+
+        if (emt == JACK_O) {
+            used_backend = JACK_O;
+            std::cerr << "Would initialize a JACK as an audio backend, but it hasn't yet been implemented.\n";
         }
-        else
-            std::__throw_logic_error("emitter - Unimplemented backend.");
+        if (emt == PortAudio || initFailed()) {
+            used_backend = PortAudio;
+            if (supported_apis[sb::PortAudio]) {
+                std::cerr << "Initializing a PortAudio audio backend...\n";
+                backend = new portaudio_backend(syn, sample_rate,supported_rates,2);
+                std::cerr << "PortAudio backend initialized.\n";
+            }
+        }
+
+        if (backend != nullptr && used_backend != emt) {
+            //A different backend is in use.
+            WarningPopup* w = new WarningPopup;
+            w->setWarningText("Alternate Backend in Use");
+            w->setInfoText("Soundbench could not initialize the desired audio backend and is using an backend different from the one requested.");
+            w->exec();
+            bool noquite = w->fixed();
+            delete w;
+            if (!noquite) {
+                failure = true;
+                return;
+            }
+        }
+        else if (backend == nullptr && emt != NoEmitter && used_backend == NoEmitter) {
+            //A completely unknown backend was requested.
+            std::__throw_logic_error("A completely unknown audio backend was requested.\nTHIS IS A SEVERE INTERAL ERROR so if you see this in an official binary, please submit it as a bug report.");
+        }
+        else if (backend == nullptr && emt != NoEmitter) {
+            //All the backends failed.
+            ErrorPopup* er = new ErrorPopup;
+            er->setErrorText("All Audio Backends Failed");
+            er->setInfoText("All the audio backends failed to initialize. This is not necessarily Soundbench's problem, but may be that of your operating system.\n\nThis error may be ignored, but the program would run without real-time audio output.");
+
+            errs::fixes::Ignore ign;
+            ign.setComments("Run Soundbench without realtime audio support.\nSoundbench will not be able to output any sound save by writing it to a file.");
+            er->addFix(&ign);
+            delete er;
+        }
     }
 
     Emitter::Emitter(Synth* s) {
-        this->supported_apis[sb::PortAudio] = portaudio_backend::instantiable();
+        failure = false;
+        supported_apis[sb::PortAudio] = portaudio_backend::instantiable();
         syn = s;
         em_type = sb::PortAudio;
         sample_rate = sb::curr_srate;
@@ -47,7 +91,7 @@ namespace sb {
         curr_srate = s_rate;
         if (backend != nullptr)
             backend->setSamplingRate(s_rate);
-        std::clog << "Set sampling rate to " << curr_srate << " samples per second.\n";
+        std::cerr << "Set sampling rate to " << curr_srate << " samples per second.\n";
     }
 
     Emitter::~Emitter() {

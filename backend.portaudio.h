@@ -20,8 +20,9 @@
 #ifndef BACKEND_PORTAUDIO_H
 #define BACKEND_PORTAUDIO_H
 
-#include <portaudio.h>
+#ifndef NO_PORTAUDIO
 
+#include <portaudio.h>
 #include "backend.h"
 
 //NOTICE: Do not reimplement this class to use Pa_WriteStream. It uses the callback to take advantage of the high-priority thread it runs in.
@@ -47,5 +48,20 @@ namespace sb {
     };
 
 }
+
+#else
+
+class portaudio_backend : public em_backend {
+public:
+    static bool instantiable();
+    explicit portaudio_backend(sb::Synth*, size_t&,std::map<size_t,bool>&,size_t) {};
+    size_t returnSuggestedBufferSize() {return 0;}
+    ~portaudio_backend() {}
+    void start() {}
+    void stop() {}
+    void setSamplingRate(size_t) {}
+};
+
+#endif
 
 #endif // BACKEND_PORTAUDIO_H

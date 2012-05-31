@@ -46,7 +46,7 @@ void WarningPopup::setInfoText(std::string text) {
     ui->warningInfo->setText(text.c_str());
 }
 
-void WarningPopup::setFix(sb::errs::ProblemFix* feex) {
+void WarningPopup::setFix(sb::errs::fixes::ProblemFix* feex) {
     thefix = feex;
     fixexists = true;
     ui->fixButton->setEnabled(true);

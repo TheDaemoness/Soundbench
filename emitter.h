@@ -37,6 +37,10 @@ namespace sb {
         explicit Emitter(Synth*);
         ~Emitter();
 
+        bool failed() {
+            return failure;
+        }
+
         size_t getSampleRate() {
             return sample_rate;
         }
@@ -61,6 +65,7 @@ namespace sb {
         }
 
     private:
+        bool failure;
         emitter_type em_type;
         std::map<emitter_type,bool> supported_apis;
         std::map<size_t,bool> supported_rates;

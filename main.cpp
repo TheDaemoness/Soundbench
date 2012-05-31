@@ -25,7 +25,6 @@ sb::Synth* sb::midi::MIDIEventNode::synref;
 
 int main(int argc, char *argv[])
 {
-
     SoundbenchApp a(argc, argv);
     a.newSoundbench(SoundbenchApp::Default);
     std::cerr << "Soundbench loaded.\n";

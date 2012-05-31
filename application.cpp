@@ -54,7 +54,7 @@ void SoundbenchApp::exceptionSoundbench(sbException& e) {
     ErrorPopup* err = new ErrorPopup;
     err->setErrorText(e.errdata.first);
     err->setInfoText(e.errdata.second);
-    for(sb::errs::ProblemFix* f : e.fixlist)
+    for(sb::errs::fixes::ProblemFix* f : e.fixlist)
         err->addFix(f);
     err->exec();
     if (err->wasFixed()) {

@@ -37,7 +37,7 @@ public:
     ~WarningPopup();
     void setWarningText(std::string);
     void setInfoText(std::string);
-    void setFix(sb::errs::ProblemFix*);
+    void setFix(sb::errs::fixes::ProblemFix*);
     bool fixed() {
         return userchoice;
     }
@@ -52,7 +52,7 @@ private slots:
         this->close();
     }
     void warnFix() {
-        thefix->fixit();
+        thefix->runFix();
         userchoice = true;
         this->close();
     }
@@ -61,7 +61,7 @@ private:
     Ui::WarningPopup *ui;
     bool userchoice;
     bool fixexists;
-    sb::errs::ProblemFix* thefix;
+    sb::errs::fixes::ProblemFix* thefix;
 };
 
 #endif // WARNINGPOPUP_H

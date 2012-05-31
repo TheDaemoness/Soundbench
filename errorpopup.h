@@ -37,7 +37,7 @@ public:
     ~ErrorPopup();
     void setErrorText(std::string);
     void setInfoText(std::string);
-    void addFix(sb::errs::ProblemFix*, std::string desc = "", std::string comments = "");
+    void addFix(sb::errs::fixes::ProblemFix*, std::string desc = "", std::string comments = "");
     bool wasFixed() {
         return fixed;
     }
@@ -49,7 +49,7 @@ private:
     Ui::ErrorPopup *ui;
     char whichfix;
     bool fixed;
-    sb::errs::ProblemFix* fixes[fixcount];
+    sb::errs::fixes::ProblemFix* fixes[fixcount];
 };
 
 #endif // ERRORPOPUP_H

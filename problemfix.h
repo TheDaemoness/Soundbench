@@ -24,24 +24,48 @@
 namespace sb {
 
     namespace errs {
-        class ProblemFix {
-        public:
-            ProblemFix() {
-                fixed = false;
-            }
-            virtual const char* desc() {return "";}
-            virtual const char* comments() {return "";}
-            virtual ~ProblemFix() {}
-            virtual bool fixit() {
-                fixed = true;
-                return fixed;
-            }
-            bool wasFixed() {
-                return fixed;
-            }
-        private:
-            bool fixed;
-        };
+        namespace fixes {
+            class ProblemFix {
+            public:
+                ProblemFix() {
+                    comments = "";
+                    desc = "";
+                    fixed = false;
+                }
+                virtual const char* getDesc() {return desc.c_str();}
+                virtual const char* getComments() {return comments.c_str();}
+                virtual ~ProblemFix() {}
+                virtual bool runFix() {
+                    fixed = theFix();
+                    return fixed;
+                }
+                bool wasFixed() {
+                    return fixed;
+                }
+            protected:
+                virtual bool theFix() = 0;
+                std::string comments;
+                std::string desc;
+                bool fixed;
+            };
+
+            //The following should only be used with ErrorPopups
+            class Ignore : public ProblemFix {
+            public:
+                Ignore() {
+                    comments = "Ignore the problem and continue.";
+                    desc = "Ignore/Continue";
+                }
+                void setComments(std::string comm) {
+                    comments = comm;
+                }
+                virtual bool theFix() {
+                    return true;
+                }
+
+            };
+
+        }
     }
 }
 

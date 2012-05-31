@@ -44,19 +44,19 @@ ErrorPopup::ErrorPopup(QWidget *parent) :
 void ErrorPopup::takeAction() {
     close();
     if (ui->fix1Choice->isChecked())
-        fixed = fixes[0]->fixit();
+        fixed = fixes[0]->runFix();
     else if (ui->fix2Choice->isChecked())
-        fixed = fixes[1]->fixit();
+        fixed = fixes[1]->runFix();
     else if (ui->fix3Choice->isChecked())
-        fixed = fixes[2]->fixit();
+        fixed = fixes[2]->runFix();
     else if (ui->fix4Choice->isChecked())
-        fixed = fixes[3]->fixit();
+        fixed = fixes[3]->runFix();
     else if (ui->fix5Choice->isChecked())
-        fixed = fixes[4]->fixit();
+        fixed = fixes[4]->runFix();
     else if (ui->fix6Choice->isChecked())
-        fixed = fixes[5]->fixit();
+        fixed = fixes[5]->runFix();
     else if (ui->fix7Choice->isChecked())
-        fixed = fixes[6]->fixit();
+        fixed = fixes[6]->runFix();
 }
 
 void ErrorPopup::setErrorText(std::string txt) {
@@ -67,11 +67,11 @@ void ErrorPopup::setInfoText(std::string txt) {
     ui->infoText->setText(txt.c_str());
 }
 
-void ErrorPopup::addFix(sb::errs::ProblemFix* thefix, std::string desc, std::string comments) {
+void ErrorPopup::addFix(sb::errs::fixes::ProblemFix* thefix, std::string desc, std::string comments) {
     if (desc.empty())
-        desc = thefix->desc();
+        desc = thefix->getDesc();
     if (comments.empty())
-        comments = thefix->comments();
+        comments = thefix->getComments();
     unsigned char i = 0;
     for(;i < fixcount ; ++i) {
         if (fixes[i] == nullptr) {

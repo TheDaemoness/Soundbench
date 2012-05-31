@@ -54,13 +54,13 @@ const sbSample sbSampleZero = 0.0;
 class sbException {
 public:
     sbException(std::string type, std::string info = "",
-            sb::errs::ProblemFix* fix1 = nullptr,
-            sb::errs::ProblemFix* fix2 = nullptr,
-            sb::errs::ProblemFix* fix3 = nullptr,
-            sb::errs::ProblemFix* fix4 = nullptr,
-            sb::errs::ProblemFix* fix5 = nullptr,
-            sb::errs::ProblemFix* fix6 = nullptr,
-            sb::errs::ProblemFix* fix7 = nullptr) {
+            sb::errs::fixes::ProblemFix* fix1 = nullptr,
+            sb::errs::fixes::ProblemFix* fix2 = nullptr,
+            sb::errs::fixes::ProblemFix* fix3 = nullptr,
+            sb::errs::fixes::ProblemFix* fix4 = nullptr,
+            sb::errs::fixes::ProblemFix* fix5 = nullptr,
+            sb::errs::fixes::ProblemFix* fix6 = nullptr,
+            sb::errs::fixes::ProblemFix* fix7 = nullptr) {
         errdata.first = type;
         errdata.second = info;
         fixlist.push_back(fix1);
@@ -72,7 +72,7 @@ public:
         fixlist.push_back(fix7);
     }
     std::pair<std::string, std::string> errdata;
-    std::vector<sb::errs::ProblemFix*> fixlist;
+    std::vector<sb::errs::fixes::ProblemFix*> fixlist;
 };
 
 namespace sb {

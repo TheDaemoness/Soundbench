@@ -17,8 +17,9 @@
     Copyright 2012  Amaya S.
 */
 
-#include "backend.portaudio.h"
+#ifndef NO_PORTAUDIO
 
+#include "backend.portaudio.h"
 #include <chrono>
 
 namespace sb {
@@ -121,7 +122,15 @@ namespace sb {
     }
 
     bool portaudio_backend::instantiable() {
-        return true; //I know. I know. This isn't quite fair.
+        return true;
     }
 
 }
+
+#else
+
+    bool portaudio_backend::instantiable() {
+        return false; //No compiled PortAudio support.
+    }
+
+#endif

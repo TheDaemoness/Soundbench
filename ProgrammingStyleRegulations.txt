@@ -120,7 +120,7 @@ Guidelines may be bent or sometimes outright broken if the programmer thinks it'
 10.4. Please do not use UI elements that do not have stylesheets.
 10.4.1. Elements that have been styled: QButton, QRadioButton, QSlider, QTabWidget, QTextBrower, QTextBox, QLabel
 10.4.2. Exceptions to this rule: QListWidget, QTreeWidget, QTableWidget
-10.5. Do not use QComboBoxes. Unfortunately, their stylesheet parsers are laden with bugs and until they're fixed, they cannot be properly styled.
+10.5. Please do not use QComboBoxes until we're sure their stylesheets are fixed on GNOME.
 10.5.1. For shorter lists of options, use QRadioButtons in their own QWidget.
 10.5.2. For longer lists of options, please use a QListWidget.
 10.6. If a progress bar is needed, please create a pointer to the CpuMeter object used in SoundbenchMain and use the setProgress() slot.
