@@ -21,7 +21,34 @@
 
 namespace sb {
 
-    MidiRtIO::MidiRtIO() {
+    MidiRtIO::MidiRtIO(Synth* s) {
+        syn = s;
+        failure = false;
+
+        supported_apis[PortMIDI] = PortmidiFrontend::instantiable();
+
+        if(supported_apis[PortMIDI])
+            type = PortMIDI;
+        else {
+            std::cerr << "No real time MIDI frontends can be initialized on this computer.\n";
+            type = NoMIDI;
+        }
+
+        frnt = nullptr;
+        setFrontendType(type);
+    }
+
+    void MidiRtIO::setFrontendType(FrontendType type) {
+        if (type == PortMIDI) {
+            std::cerr << "Initializing a PortMIDI midi frontend...\n";
+            frnt = new PortmidiFrontend(syn);
+            std::cerr << "PortMIDI frontend initialized.\n";
+        }
+    }
+
+    MidiRtIO::~MidiRtIO() {
+        if (frnt != nullptr)
+            delete frnt;
     }
 
 }

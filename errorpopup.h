@@ -16,6 +16,7 @@
 
     Copyright 2012  Amaya S.
 */
+
 #ifndef ERRORPOPUP_H
 #define ERRORPOPUP_H
 

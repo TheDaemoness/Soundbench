@@ -23,7 +23,7 @@
 
 namespace sb {
 
-    void Emitter::setEmitterType(emitter_type emt) {
+    void Emitter::setEmitterType(EmitterType emt) {
         if (backend != nullptr) {
             delete backend;
             backend = nullptr;
@@ -89,6 +89,10 @@ namespace sb {
             em_type = sb::JACK_O;
         else if (supported_apis[sb::PortAudio])
             em_type = sb::PortAudio;
+        else {
+            std::cerr << "No real time audio backends can be initialized on this computer.\n";
+            em_type = NoEmitter;
+        }
 
         sample_rate = sb::curr_srate;
         backend = nullptr;

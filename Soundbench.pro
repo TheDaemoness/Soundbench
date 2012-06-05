@@ -5,7 +5,7 @@
 QMAKE_CXXFLAGS_WARN_ON += -Wall -Wextra -pedantic
 QMAKE_CXXFLAGS += -std=c++0x
 
-DEFINES += IS_SOUNDBENCH NO_JACK
+DEFINES += IS_SOUNDBENCH NO_JACK  #JACK support doesn't exist yet.
 
 TEMPLATE = app
 TARGET = 
@@ -41,7 +41,9 @@ HEADERS += architect.h \
     sfwriter.h \
     sampletable.h \
     midirtio.h \
-    backend.jack.h
+    backend.jack.h \
+    frontend.h \
+    frontend.portmidi.h
 
 FORMS += errorpopup.ui \
          gentypedialog.ui \
@@ -73,11 +75,30 @@ SOURCES += architect.cpp \
     player-write.cpp \
     sampletable.cpp \
     midirtio.cpp \
-    backend.jack.cpp
+    backend.jack.cpp \
+    frontend.portmidi.cpp \
+    frontend.portmidi-parse.cpp
 
 RESOURCES += sbMainResources.qrc
 
-unix: LIBS += -L/usr/lib/ -lportaudio -lportaudiocpp -lsndfile
+unix: LIBS += -L/usr/lib/  -lsndfile
+
+
+#Configuration switches to remove certain functionality and dependencies where necessary.
+!noPortAudio {
+    unix: LIBS += -lportaudio -lportaudiocpp
+}
+noPortAudio {
+    DEFINES += NO_PORTAUDIO
+}
+
+!noPortMidi{
+    unix: LIBS += -lportmidi
+}
+noPortMidi {
+    DEFINES += NO_MIDI
+}
+
 
 OTHER_FILES += \
     ProgrammingStyleRegulations.txt \

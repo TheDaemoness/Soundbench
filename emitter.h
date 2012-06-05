@@ -48,12 +48,12 @@ namespace sb {
         std::map<size_t,bool> getSupportedRates() {
             return supported_rates;
         }
-        std::map<emitter_type,bool> getSupportedAPIs() {
+        std::map<EmitterType,bool> getSupportedAPIs() {
             return supported_apis;
         }
 
         void setSamplingRate(size_t);
-        void setEmitterType(emitter_type);
+        void setEmitterType(EmitterType);
 
         void start() {
             backend->start();
@@ -67,8 +67,8 @@ namespace sb {
 
     private:
         bool failure;
-        emitter_type em_type;
-        std::map<emitter_type,bool> supported_apis;
+        EmitterType em_type;
+        std::map<EmitterType,bool> supported_apis;
         std::map<size_t,bool> supported_rates;
         EmitterBackend* backend;
         size_t sample_rate;

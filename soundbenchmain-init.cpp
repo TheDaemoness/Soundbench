@@ -44,10 +44,11 @@ void SoundbenchMain::delayedConstructor() {
     em = new sb::Emitter(syn);
     met = new CpuMeter(ui->cpuMeter,ui->cpuLabel);
     plai = new sb::Player(syn,ui->songsTracksList,met);
+    midin = new sb::MidiRtIO(syn);
 
     syn->volume() = static_cast<sbSample>(ui->volumeSlider->value())/ui->volumeSlider->maximum();
 
-    std::map<sb::emitter_type,bool> backend_apis = em->getSupportedAPIs(); //TODO: Deal with this.
+    std::map<sb::EmitterType,bool> backend_apis = em->getSupportedAPIs(); //TODO: Deal with this.
 
     type_sigmap->setMapping(ui->gen1TypeButton,1);
     type_sigmap->setMapping(ui->gen2TypeButton,2);

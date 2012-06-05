@@ -106,16 +106,16 @@ namespace sb {
         StereoRight
     };
 
-    enum emitter_type {
+    enum EmitterType {
         NoEmitter,
         PortAudio,
-        JACK_O //Not implemented. Will be implemented in 0.3.0
+        JACK_O //Not implemented.
     };
 
-    enum midi_type {
+    enum FrontendType {
         NoMIDI,
-        PortMIDI, //Not implemented. Will be implemented in 0.3.0
-        JACK_I //Not implemented. Will be implemented in 0.3.0
+        PortMIDI,
+        JACK_I //Not implemented.
     };
 
     enum SimpleWaveTypes {

@@ -1,5 +1,4 @@
 /*
-
     This file is part of Soundbench.
 
     Soundbench is free software: you can redistribute it and/or modify
@@ -18,34 +17,31 @@
     Copyright 2012  Amaya S.
 */
 
-#ifndef MIDI_H
-#define MIDI_H
+#ifndef FRONTEND_H
+#define FRONTEND_H
 
-#include "frontend.portmidi.h"
+#include "sbutilities.h"
+#include "synth.h"
 
 namespace sb {
 
-    class MidiRtIO {
+    class MidiFrontend {
     public:
-        inline bool failed() {
-            return failure;
+        explicit MidiFrontend(Synth* s) {
+            running = false;
+            syn = s;
         }
-
-        explicit MidiRtIO(Synth* s);
-        ~MidiRtIO();
-        void setFrontendType(FrontendType);
-
-        inline std::map<FrontendType,bool> getSupportedAPIs() {
-            return supported_apis;
+        virtual ~MidiFrontend() {}
+        virtual void stop() = 0;
+        virtual void start() = 0;
+        virtual bool isRunning() {
+            return running;
         }
-    private:
-        Synth* syn;
-        bool failure;
-        MidiFrontend* frnt;
-        FrontendType type;
-        std::map<FrontendType,bool> supported_apis;
+    protected:
+        bool running;
+        sb::Synth* syn;
     };
 
 }
 
-#endif // MIDI_H
+#endif // FRONTEND_H

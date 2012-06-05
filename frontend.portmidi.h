@@ -1,5 +1,4 @@
 /*
-
     This file is part of Soundbench.
 
     Soundbench is free software: you can redistribute it and/or modify
@@ -18,34 +17,39 @@
     Copyright 2012  Amaya S.
 */
 
-#ifndef MIDI_H
-#define MIDI_H
+#ifndef FRONTEND_PORTMIDI_H
+#define FRONTEND_PORTMIDI_H
 
-#include "frontend.portmidi.h"
+#include "frontend.h"
 
 namespace sb {
 
-    class MidiRtIO {
+#ifndef NO_PORTMIDI
+#include <portmidi.h>
+
+    class PortmidiFrontend : public MidiFrontend {
     public:
-        inline bool failed() {
-            return failure;
-        }
-
-        explicit MidiRtIO(Synth* s);
-        ~MidiRtIO();
-        void setFrontendType(FrontendType);
-
-        inline std::map<FrontendType,bool> getSupportedAPIs() {
-            return supported_apis;
-        }
+        static bool instantiable();
+        PortmidiFrontend(Synth* s);
+        ~PortmidiFrontend();
+        void start();
+        void stop();
+        static PmTimestamp callback(void* data);
     private:
-        Synth* syn;
-        bool failure;
-        MidiFrontend* frnt;
-        FrontendType type;
-        std::map<FrontendType,bool> supported_apis;
+        PortMidiStream* river;
+        std::chrono::time_point<std::chrono::high_resolution_clock> starttime;
     };
+
+#else
+    class PortmidiFrontend {
+    public:
+        static bool instantiable();
+        PortmidiFrontend(Synth* s) {};
+        void start() {};
+        void stop() {};
+    };
+#endif
 
 }
 
-#endif // MIDI_H
+#endif // FRONTEND_PORTMIDI_H

@@ -26,6 +26,7 @@
 #include "architect.h"
 #include "synth.h"
 #include "player.h"
+#include "midirtio.h"
 
 #include "gentypedialog.h"
 #include "settings_basicgen.h"
@@ -87,6 +88,7 @@ private:
     sb::Architect* arch;
     sb::Emitter* em;
     sb::Player* plai;
+    sb::MidiRtIO* midin;
 
     QSignalMapper *sett_sigmap, *type_sigmap, *rate_sigmap;
 

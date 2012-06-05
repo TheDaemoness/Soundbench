@@ -19,12 +19,12 @@
 
 #include "backend.jack.h"
 
-#ifndef NO_JACK
-//TODO: Implement this backend.
-#else
 namespace sb {
+#ifndef NO_JACK
+    //TODO: Implement this backend.
+#else
     bool JACKBackend::instantiable() {
         return false;
     }
-}
 #endif
+}
