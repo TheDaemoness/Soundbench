@@ -20,11 +20,10 @@
 #ifndef NO_PORTAUDIO
 
 #include "backend.portaudio.h"
-#include <chrono>
 
 namespace sb {
 
-    portaudio_backend::portaudio_backend(Synth* s, size_t& srate, std::map<size_t, bool>& srates, size_t chans) {
+    PortaudioBackend::PortaudioBackend(Synth* s, size_t& srate, std::map<size_t, bool>& srates, size_t chans) {
         running = false;
         int e;
         e = Pa_Initialize();
@@ -56,17 +55,17 @@ namespace sb {
         river = nullptr;
     }
 
-    int portaudio_backend::callback(const void*, void* output, unsigned long framecount, const PaStreamCallbackTimeInfo*, PaStreamCallbackFlags, void* syne) {
+    int PortaudioBackend::callback(const void*, void* output, unsigned long framecount, const PaStreamCallbackTimeInfo*, PaStreamCallbackFlags, void* syne) {
         sbSample* framepointer = reinterpret_cast<sbSample*>(output);
         for (size_t i = 0; i < framecount; framepointer += outchans, ++i)
             reinterpret_cast<Synth*>(syne)->tick(framepointer,outchans);
         return paContinue;
     }
 
-    void portaudio_backend::start() {
+    void PortaudioBackend::start() {
         int e = paNoError;
         if (river == nullptr)
-            e = Pa_OpenStream(&river,nullptr,&dev,sampling_rate,paFramesPerBufferUnspecified,paNoFlag,portaudio_backend::callback,reinterpret_cast<void*>(syn));
+            e = Pa_OpenStream(&river,nullptr,&dev,sampling_rate,paFramesPerBufferUnspecified,paNoFlag,PortaudioBackend::callback,reinterpret_cast<void*>(syn));
         if (e != paNoError) {
             std::cerr << "Problem when opening the output stream: " << Pa_GetErrorText(e) << ".\n";
             std::__throw_runtime_error((std::string("emitter::backend::portaudio - Couldn't open the output stream: ")+Pa_GetErrorText(e)).c_str());
@@ -79,12 +78,12 @@ namespace sb {
         running = true;
     }
 
-    void portaudio_backend::setSamplingRate(size_t neorate) {
+    void PortaudioBackend::setSamplingRate(size_t neorate) {
         stop();
         sampling_rate = neorate;
     }
 
-    void portaudio_backend::stop() {
+    void PortaudioBackend::stop() {
         int e;
         if(river != nullptr) {
             if (Pa_IsStreamActive(river)) {
@@ -104,7 +103,7 @@ namespace sb {
         running = false;
     }
 
-    size_t portaudio_backend::returnSuggestedBufferSize() {
+    size_t PortaudioBackend::returnSuggestedBufferSize() {
         PaDeviceIndex dev = Pa_GetDefaultOutputDevice();
         if (dev == paNoDevice)
             return sampling_rate/100;
@@ -116,12 +115,12 @@ namespace sb {
         return inf->defaultLowOutputLatency*sampling_rate;
     }
 
-    portaudio_backend::~portaudio_backend() {
+    PortaudioBackend::~PortaudioBackend() {
         stop();
         Pa_Terminate();
     }
 
-    bool portaudio_backend::instantiable() {
+    bool PortaudioBackend::instantiable() {
         return true;
     }
 
@@ -129,7 +128,7 @@ namespace sb {
 
 #else
 
-    bool portaudio_backend::instantiable() {
+    bool PortaudioBackend::instantiable() {
         return false; //No compiled PortAudio support.
     }
 

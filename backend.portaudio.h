@@ -29,12 +29,12 @@
 
 namespace sb {
 
-    class portaudio_backend : public em_backend {
+    class PortaudioBackend : public EmitterBackend {
     public:
         static bool instantiable();
-        explicit portaudio_backend(sb::Synth*, size_t&,std::map<size_t,bool>&,size_t);
+        explicit PortaudioBackend(sb::Synth*, size_t&,std::map<size_t,bool>&,size_t);
         size_t returnSuggestedBufferSize();
-        ~portaudio_backend();
+        ~PortaudioBackend();
         void start();
         void stop();
         void setSamplingRate(size_t);
@@ -51,12 +51,12 @@ namespace sb {
 
 #else
 
-class portaudio_backend : public em_backend {
+class PortaudioBackend : public EmitterBackend {
 public:
     static bool instantiable();
-    explicit portaudio_backend(sb::Synth*, size_t&,std::map<size_t,bool>&,size_t) {};
+    explicit PortaudioBackend(sb::Synth*, size_t&,std::map<size_t,bool>&,size_t) {};
     size_t returnSuggestedBufferSize() {return 0;}
-    ~portaudio_backend() {}
+    ~PortaudioBackend() {}
     void start() {}
     void stop() {}
     void setSamplingRate(size_t) {}

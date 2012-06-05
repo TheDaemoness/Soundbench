@@ -3,7 +3,9 @@
 #######################################################################
 
 QMAKE_CXXFLAGS_WARN_ON += -Wall -Wextra -pedantic
-QMAKE_CXXFLAGS += -std=c++0x -D IS_SOUNDBENCH
+QMAKE_CXXFLAGS += -std=c++0x
+
+DEFINES += IS_SOUNDBENCH NO_JACK
 
 TEMPLATE = app
 TARGET = 
@@ -38,7 +40,8 @@ HEADERS += architect.h \
     midifio.h \
     sfwriter.h \
     sampletable.h \
-    midirtio.h
+    midirtio.h \
+    backend.jack.h
 
 FORMS += errorpopup.ui \
          gentypedialog.ui \
@@ -69,7 +72,8 @@ SOURCES += architect.cpp \
     player-load.cpp \
     player-write.cpp \
     sampletable.cpp \
-    midirtio.cpp
+    midirtio.cpp \
+    backend.jack.cpp
 
 RESOURCES += sbMainResources.qrc
 

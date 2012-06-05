@@ -17,35 +17,35 @@
     Copyright 2012  Amaya S.
 */
 
-#ifndef BACKEND_H
-#define BACKEND_H
+#ifndef BACKEND_JACK_H
+#define BACKEND_JACK_H
 
-#include "sbutilities.h"
-#include "synth.h"
+#include "backend.h"
 
-//I'd have liked to keep the Synth and backend class of objects separate, but it ends up being a lot easier to maintain the required performance this way.
-
+#ifndef NO_JACK
 namespace sb {
-
-    class EmitterBackend {
+    class JACKBackend {
     public:
-        EmitterBackend() {
-            running = false;
-        }
-        virtual ~EmitterBackend() {}
-        virtual void stop() = 0;
-        virtual void start() = 0;
-        virtual void setSamplingRate(size_t) = 0;
-        virtual bool isRunning() {
-            return running;
-        }
-
-    protected:
-        size_t sampling_rate;
-        sb::Synth* syn;
-        bool running;
+        static bool instantiable();
+        explicit JACKBackend(sb::Synth*, size_t&,std::map<size_t,bool>&,size_t);
+        void start();
+        void stop();
+        void setSamplingRate(size_t);
+        size_t returnSuggestedBufferSize() {return 0;}
     };
-
 }
+#else
+namespace sb {
+    class JACKBackend {
+    public:
+        static bool instantiable();
+        explicit JACKBackend(sb::Synth*, size_t&,std::map<size_t,bool>&,size_t) {};
+        void start() {};
+        void stop() {};
+        void setSamplingRate(size_t) {};
+        size_t returnSuggestedBufferSize() {return 0;}
+    };
+}
+#endif
 
-#endif // BACKEND_H
+#endif // BACKEND_JACK_H

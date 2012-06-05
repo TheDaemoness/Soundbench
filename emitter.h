@@ -24,6 +24,7 @@
 //local
 #include "sbutilities.h"
 #include "backend.portaudio.h"
+#include "backend.jack.h"
 
 //libstdc++11
 #include <vector>
@@ -69,7 +70,7 @@ namespace sb {
         emitter_type em_type;
         std::map<emitter_type,bool> supported_apis;
         std::map<size_t,bool> supported_rates;
-        em_backend* backend;
+        EmitterBackend* backend;
         size_t sample_rate;
         Synth* syn;
     };
