@@ -40,10 +40,10 @@ HEADERS += architect.h \
     midifio.h \
     sfwriter.h \
     sampletable.h \
-    midirtio.h \
     backend.jack.h \
     frontend.h \
-    frontend.portmidi.h
+    frontend.portmidi.h \
+    noteinput.h
 
 FORMS += errorpopup.ui \
          gentypedialog.ui \
@@ -74,10 +74,10 @@ SOURCES += architect.cpp \
     player-load.cpp \
     player-write.cpp \
     sampletable.cpp \
-    midirtio.cpp \
     backend.jack.cpp \
     frontend.portmidi.cpp \
-    frontend.portmidi-parse.cpp
+    frontend.portmidi-parse.cpp \
+    noteinput.cpp
 
 RESOURCES += sbMainResources.qrc
 

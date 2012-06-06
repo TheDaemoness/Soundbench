@@ -25,14 +25,14 @@
 
 namespace sb {
 
-    class MidiRtIO {
+    class NoteInput {
     public:
         inline bool failed() {
             return failure;
         }
 
-        explicit MidiRtIO(Synth* s);
-        ~MidiRtIO();
+        explicit NoteInput(Synth* s);
+        ~NoteInput();
         void setFrontendType(FrontendType);
 
         inline std::map<FrontendType,bool> getSupportedAPIs() {

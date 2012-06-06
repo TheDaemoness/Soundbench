@@ -17,11 +17,11 @@
     Copyright 2012  Amaya S.
 */
 
-#include "midirtio.h"
+#include "noteinput.h"
 
 namespace sb {
 
-    MidiRtIO::MidiRtIO(Synth* s) {
+    NoteInput::NoteInput(Synth* s) {
         syn = s;
         failure = false;
 
@@ -38,7 +38,7 @@ namespace sb {
         setFrontendType(type);
     }
 
-    void MidiRtIO::setFrontendType(FrontendType type) {
+    void NoteInput::setFrontendType(FrontendType type) {
         if (type == PortMIDI) {
             std::cerr << "Initializing a PortMIDI midi frontend...\n";
             frnt = new PortmidiFrontend(syn);
@@ -46,7 +46,7 @@ namespace sb {
         }
     }
 
-    MidiRtIO::~MidiRtIO() {
+    NoteInput::~NoteInput() {
         if (frnt != nullptr)
             delete frnt;
     }
