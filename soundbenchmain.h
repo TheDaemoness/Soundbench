@@ -26,7 +26,7 @@
 #include "architect.h"
 #include "synth.h"
 #include "player.h"
-#include "midirtio.h"
+#include "noteinput.h"
 
 #include "gentypedialog.h"
 #include "settings_basicgen.h"

@@ -99,7 +99,7 @@ namespace sb {
         return valu;
     }
 
-    enum channel_mapping {
+    enum ChannelMapping {
         Mono,
         Stereo,
         StereoLeft,
