@@ -31,10 +31,6 @@ namespace sb {
             std::__throw_runtime_error((std::string("emitter::backend::portaudio - ")+Pa_GetErrorText(e)).c_str());
         }
         dev.device = Pa_GetDefaultOutputDevice();
-        if (dev.device == paNoDevice) {
-            std::cerr << "No default device was found.\n";
-            std::__throw_runtime_error("emitter::backend::portaudio - No default device");
-        }
 
         dev.channelCount = chans;
         dev.sampleFormat = paFloat32;
@@ -121,6 +117,14 @@ namespace sb {
     }
 
     bool PortaudioBackend::instantiable() {
+        PaError e = Pa_Initialize();
+        if (e != paNoError)
+            return false;
+        if(Pa_GetDeviceCount() == 0 || Pa_GetDefaultOutputDevice() == paNoDevice) {
+            Pa_Terminate();
+            return false;
+        }
+        Pa_Terminate();
         return true;
     }
 
