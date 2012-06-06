@@ -41,13 +41,13 @@ namespace sb {
         dev.suggestedLatency = Pa_GetDeviceInfo(dev.device)->defaultLowOutputLatency;
         dev.hostApiSpecificStreamInfo = nullptr;
 
-        for(size_t i = 0; i < sampling_rate_count; ++i)
-            srates[sampling_rates[i]] = (Pa_IsFormatSupported(nullptr,&dev,sampling_rates[i]) == paFormatIsSupported);
+        for(size_t i = 0; i < SupportedRatesCount; ++i)
+            srates[SupportedRates[i]] = (Pa_IsFormatSupported(nullptr,&dev,SupportedRates[i]) == paFormatIsSupported);
 
-        if (!srates[sampling_rates[1]]) {
-            for (size_t i = 0; i < sampling_rate_count; ++i) {
-                if(srates[sampling_rates[i]])
-                    srate = sampling_rates[i];
+        if (!srates[SupportedRates[1]]) {
+            for (size_t i = 0; i < SupportedRatesCount; ++i) {
+                if(srates[SupportedRates[i]])
+                    srate = SupportedRates[i];
             }
         }
         sampling_rate = srate;
@@ -56,9 +56,9 @@ namespace sb {
     }
 
     int PortaudioBackend::callback(const void*, void* output, unsigned long framecount, const PaStreamCallbackTimeInfo*, PaStreamCallbackFlags, void* syne) {
-        sbSample* framepointer = reinterpret_cast<sbSample*>(output);
-        for (size_t i = 0; i < framecount; framepointer += outchans, ++i)
-            reinterpret_cast<Synth*>(syne)->tick(framepointer,outchans);
+        SbSample* framepointer = reinterpret_cast<SbSample*>(output);
+        for (size_t i = 0; i < framecount; framepointer += OutChannels, ++i)
+            reinterpret_cast<Synth*>(syne)->tick(framepointer,OutChannels);
         return paContinue;
     }
 

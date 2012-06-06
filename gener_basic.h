@@ -24,24 +24,24 @@
 
 namespace sb {
 
-    class BasicGen : public genBase {
+    class BasicGen : public GenBase {
     private:
         typedef std::pair<bool,waveBase*> BoolWavePair;
 
         std::vector<BoolWavePair> ocean;
         SimpleWaveTypes curr_wav;
-        sbSample gen_amp;
+        SbSample gen_amp;
         int16_t notebias;
         uint8_t notes;
     public:
-        explicit BasicGen(size_t srate, size_t cracker = default_poly);
+        explicit BasicGen(size_t srate, size_t cracker = DefaultPolyphony);
         ~BasicGen() {
             for(auto i : ocean)
                 delete i.second;
         }
 
         void ctrl(moduleParam arg, ParameterValue val);
-        void noteOn(int halfsteps, sbSample amp, size_t pos);
+        void noteOn(int halfsteps, SbSample amp, size_t pos);
         void noteOff(size_t pos);
         void reset();
         void setPolymorphism(size_t poly);

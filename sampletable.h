@@ -28,13 +28,13 @@ namespace sb {
     public:
         explicit PeriodicSampleTable(waveBase* wav = nullptr, bool autodelete = true) {
             if (wav == nullptr) {
-                samples.resize(curr_srate,0.0);
+                samples.resize(SampleRate,0.0);
                 return;
             }
 
-            samples.reserve(curr_srate);
-            float factor = pi*2/curr_srate;
-            for (uint32_t i = 0; i < curr_srate; ++i)
+            samples.reserve(SampleRate);
+            float factor = Pi*2/SampleRate;
+            for (uint32_t i = 0; i < SampleRate; ++i)
                 samples.push_back(wav->getRaw(factor*i));
 
             if (autodelete)
@@ -42,7 +42,7 @@ namespace sb {
         }
 
     protected:
-        std::vector<sbSample> samples;
+        std::vector<SbSample> samples;
     };
 
 }

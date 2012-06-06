@@ -25,7 +25,7 @@ namespace sb {
         notes = 0;
         notebias = 0;
         sample_rate = srate;
-        gen_amp = sbSampleMax;
+        gen_amp = SbSampleMax;
         ocean.reserve(cracker);
         for (size_t i = 0; i < cracker; ++i)
             ocean.push_back(std::make_pair(false,new Sine(sample_rate)));
@@ -38,15 +38,15 @@ namespace sb {
                 delete i.second;
 
                 if (static_cast<SimpleWaveTypes>(val.value) == TriangleWave)
-                    i.second = new Triangle(curr_srate);
+                    i.second = new Triangle(SampleRate);
                 else if (static_cast<SimpleWaveTypes>(val.value) == SquareWave)
-                    i.second = new Square(curr_srate);
+                    i.second = new Square(SampleRate);
                 else if (static_cast<SimpleWaveTypes>(val.value) == SawtoothWave)
-                    i.second = new Sawtooth(curr_srate);
+                    i.second = new Sawtooth(SampleRate);
                 else if (static_cast<SimpleWaveTypes>(val.value) == OvalWave)
-                    i.second = new Oval(curr_srate);
+                    i.second = new Oval(SampleRate);
                 else
-                    i.second = new Sine(curr_srate);
+                    i.second = new Sine(SampleRate);
             }
             break;
         case genBasic_amplutide:
@@ -57,14 +57,14 @@ namespace sb {
             break;
         case genBasic_phase:
             for (BoolWavePair& i : ocean)
-                i.second->setOffset(val.sample*2*pi);
+                i.second->setOffset(val.sample*2*Pi);
             break;
         default:
             //Ignore it. The blueprints have values for other generators too.
             break;
         }
     }
-    void BasicGen::noteOn(int halfsteps, sbSample ampl, size_t pos) {
+    void BasicGen::noteOn(int halfsteps, SbSample ampl, size_t pos) {
         if(pos >= ocean.size())
             return;
         ocean[pos].second->setFrequency(getFrequencyFromNote(halfsteps + notebias));
@@ -95,15 +95,15 @@ namespace sb {
         for (BoolWavePair& i : ocean) {
             i.first = false;
             if (curr_wav == TriangleWave)
-                i.second = new Triangle(curr_srate);
+                i.second = new Triangle(SampleRate);
             else if (curr_wav == SquareWave)
-                i.second = new Square(curr_srate);
+                i.second = new Square(SampleRate);
             else if (curr_wav == SawtoothWave)
-                i.second = new Sawtooth(curr_srate);
+                i.second = new Sawtooth(SampleRate);
             else if (curr_wav == OvalWave)
-                i.second = new Oval(curr_srate);
+                i.second = new Oval(SampleRate);
             else
-                i.second = new Sine(curr_srate);
+                i.second = new Sine(SampleRate);
         }
 
     }

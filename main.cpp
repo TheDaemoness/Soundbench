@@ -20,7 +20,7 @@
 
 #include "application.h"
 
-size_t sb::curr_srate;
+size_t sb::SampleRate;
 sb::Synth* sb::midi::MIDIEventNode::synref;
 
 int main(int argc, char *argv[])

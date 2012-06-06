@@ -41,38 +41,38 @@ namespace sb {
     class Synth {
     public:
         Synth();
-        void noteOn(int halfsteps, sbSample amp);
+        void noteOn(int halfsteps, SbSample amp);
         void noteOff(int halfsteps);
         void pedal(SupportedPedals which, bool val = true);
         void reset();
-        void tick(sbSample* frame, size_t chans);
+        void tick(SbSample* frame, size_t chans);
         void setPolyphony(uint8_t);
 
-        inline sbSample& volume() {return vol;}
+        inline SbSample& volume() {return vol;}
         friend class Architect;
 
     private:
         struct NoteInfo {
             NoteInfo() {
                 noteoffset = 0;
-                amp = sbSampleZero;
+                amp = SbSampleZero;
                 pedal = NoPedal;
             }
 
             int8_t noteoffset;
-            sbSample amp;
+            SbSample amp;
             SupportedPedals pedal; //For any pedals that affect this note.
         };
 
-        sbSample buffer[internchannels][outchans];
-        genBase* gener[internchannels];
-        fxBase* eff[internchannels][fxcount];
+        SbSample buffer[InternalChannels][OutChannels];
+        GenBase* gener[InternalChannels];
+        FxBase* eff[InternalChannels][FxPerChannel];
         std::vector<NoteInfo> notes;
-        sbSample prevsample[outchans];
+        SbSample prevsample[OutChannels];
 
         bool holdped, sustped;
 
-        sbSample vol;
+        SbSample vol;
         uint8_t currentpoly;
         size_t inactivechans;
     };

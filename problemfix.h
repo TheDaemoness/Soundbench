@@ -22,7 +22,6 @@
 #define PROBLEMFIX_H
 
 namespace sb {
-
     namespace errs {
         namespace fixes {
             class ProblemFix {
@@ -49,7 +48,7 @@ namespace sb {
                 bool fixed;
             };
 
-            //The following should only be used with ErrorPopups
+            //The following should only be used with ErrorPopups.
             class Ignore : public ProblemFix {
             public:
                 Ignore() {
@@ -62,9 +61,7 @@ namespace sb {
                 virtual bool theFix() {
                     return true;
                 }
-
             };
-
         }
     }
 }

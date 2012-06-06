@@ -22,8 +22,8 @@
 namespace sb {
     bool SoundFileWriter::open(std::string name, ExportableFiles ex) {
         SF_INFO params;
-        params.samplerate = curr_srate;
-        params.channels = outchans;
+        params.samplerate = SampleRate;
+        params.channels = OutChannels;
         params.format = SF_FORMAT_PCM_32;
         if (ex == FileWAV)
             params.format |= SF_FORMAT_WAV;
@@ -43,14 +43,14 @@ namespace sb {
         }
         return true;
     }
-    void SoundFileWriter::put(sbSample* samp, size_t len) {
+    void SoundFileWriter::put(SbSample* samp, size_t len) {
         for (size_t i = 0; i < len; ++i)
             samples.push_back(samp[i]);
         needsflush = true;
     }
 
     void SoundFileWriter::tick() {
-        sbSample tmp[2];
+        SbSample tmp[2];
         syn->tick(tmp,2);
         samples.push_back(tmp[0]);
         samples.push_back(tmp[1]);
@@ -60,9 +60,9 @@ namespace sb {
     bool SoundFileWriter::flush() {
         if (filehandel == nullptr)
             return false;
-        sbSample tmp[2];
+        SbSample tmp[2];
         bool flipper = false;
-        for(sbSample s : samples) {
+        for(SbSample s : samples) {
             if (flipper) {
                 tmp[1] = s;
                 sf_writef_float(filehandel,tmp,2);

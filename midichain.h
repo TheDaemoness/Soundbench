@@ -101,9 +101,9 @@ namespace sb {
 
         class NoteOnEventNode : public MIDIEventNode {
             int halfsteps;
-            sbSample amp;
+            SbSample amp;
         public:
-            explicit NoteOnEventNode(int notedist, sbSample ampe = 1.0, uint64_t beet = 0, MIDIEventNode* nexte = nullptr) : MIDIEventNode(beet) {
+            explicit NoteOnEventNode(int notedist, SbSample ampe = 1.0, uint64_t beet = 0, MIDIEventNode* nexte = nullptr) : MIDIEventNode(beet) {
                 next = nexte;
                 halfsteps = notedist;
                 amp = ampe;

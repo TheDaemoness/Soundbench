@@ -50,7 +50,7 @@ namespace sb {
         }
 
         bool open(std::string name, ExportableFiles ex);
-        void put(sbSample* samp, size_t len = 1);
+        void put(SbSample* samp, size_t len = 1);
         void tick();
         bool flush();
         inline bool is_open() {
@@ -67,7 +67,7 @@ namespace sb {
             close();
         }
     private:
-        std::deque<sbSample> samples;
+        std::deque<SbSample> samples;
         bool emstate, needsflush;
         SNDFILE* filehandel;
         Synth* syn;

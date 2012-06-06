@@ -46,10 +46,10 @@
 
 #define SBVERSION "Development Branch"
 
-typedef float sbSample;
-const sbSample sbSampleMin = -1.0;
-const sbSample sbSampleMax = 1.0;
-const sbSample sbSampleZero = 0.0;
+typedef float SbSample;
+const SbSample SbSampleMin = -1.0;
+const SbSample SbSampleMax = 1.0;
+const SbSample SbSampleZero = 0.0;
 
 class sbException {
 public:
@@ -77,7 +77,7 @@ public:
 
 namespace sb {
     union ParameterValue { //For all you C++ programmers out there who don't know what this is... it's a C-style space-saver. ;)
-        sbSample sample;
+        SbSample sample;
         int64_t value;
         void* other;
     };
@@ -93,7 +93,7 @@ namespace sb {
         valu.value = static_cast<int64_t>(i);
         return valu;
     }
-    inline ParameterValue makeParamfromSample(sbSample i) {
+    inline ParameterValue makeParamfromSample(SbSample i) {
         ParameterValue valu;
         valu.sample = i;
         return valu;
@@ -126,16 +126,16 @@ namespace sb {
         OvalWave = 5
     };
 
-    extern size_t curr_srate;
-    const size_t outchans = 2;
-    const float pi = 3.14159265358979323846264338327950288f;
+    extern size_t SampleRate;
+    const size_t OutChannels = 2;
+    const float Pi = 3.14159265358979323846264338327950288f;
 
-    const size_t default_poly = 16;
-    const unsigned char internchannels = 4;
-    const unsigned char fxcount = 4;
+    const size_t DefaultPolyphony = 16;
+    const unsigned char InternalChannels = 4;
+    const unsigned char FxPerChannel = 4;
 
-    const size_t sampling_rates[] = {44100,48000,88200,96000,176400,192000};
-    const size_t sampling_rate_count = 6;
+    const size_t SupportedRates[] = {44100,48000,88200,96000,176400,192000};
+    const size_t SupportedRatesCount = 6;
 
     inline float getFrequencyFromNote(int8_t delta, float A4 = 440.00) {
         return A4*std::pow(pow(2.0,1.0/12),delta);

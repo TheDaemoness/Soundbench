@@ -68,7 +68,7 @@ namespace sb {
             case midi::NoteOn:
                 if (miditem.params.second != 0)
                 chiter->attachNext(new midi::NoteOnEventNode(miditem.params.first-69, /*69 is the MIDI number for A4*/
-                                                             static_cast<sbSample>(miditem.params.second)/127,
+                                                             static_cast<SbSample>(miditem.params.second)/127,
                                                              miditem.delay));
                 else
                     chiter->attachNext(new midi::NoteOffEventNode(miditem.params.first-69, miditem.delay));

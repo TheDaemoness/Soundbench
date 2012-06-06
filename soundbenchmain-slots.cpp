@@ -95,12 +95,12 @@ void SoundbenchMain::silence() {
 }
 
 void SoundbenchMain::setMasterVolume(int) {
-    syn->volume() = static_cast<sbSample>(ui->volumeSlider->value())/ui->volumeSlider->maximum();
+    syn->volume() = static_cast<SbSample>(ui->volumeSlider->value())/ui->volumeSlider->maximum();
 }
 
 void SoundbenchMain::setSampleRate(int which) {
     ui->playButton->setChecked(false);
-    em->setSamplingRate(sb::sampling_rates[which]);
+    em->setSamplingRate(sb::SupportedRates[which]);
     arch->buildSynth(syn,blu);
     em->start();
 }

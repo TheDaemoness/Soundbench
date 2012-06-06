@@ -25,11 +25,11 @@ namespace sb {
     }
 
     void Architect::planAllDefaults(Blueprint* blu) {
-        for (size_t i = 0; i < internchannels; ++i)
+        for (size_t i = 0; i < InternalChannels; ++i)
             planDefaultBasicGen(blu, i);
-        for (size_t ac = 0; ac < sb::internchannels; ++ac) {
+        for (size_t ac = 0; ac < sb::InternalChannels; ++ac) {
             blu->gener[ac] = Blueprint::NoGener;
-            for (size_t ed = 0; ed < sb::fxcount; ++ed)
+            for (size_t ed = 0; ed < sb::FxPerChannel; ++ed)
                 blu->eff[ac][ed] = Blueprint::NoFx; //Indeed.
         }
     }
@@ -42,7 +42,7 @@ namespace sb {
 
     void Architect::buildSynth(Synth* syn, Blueprint* blu) {
         syn->inactivechans = 0;
-        for (size_t ous = 0; ous < internchannels; ++ous) {
+        for (size_t ous = 0; ous < InternalChannels; ++ous) {
             switch (blu->gener[ous]) {
             default:
                 std::cerr << "Unimplemented generator type requested. Defaulting to no generator.\n";
@@ -51,10 +51,10 @@ namespace sb {
                 ++(syn->inactivechans);
                 break;
             case Blueprint::generBasic:
-                syn->gener[ous] = new BasicGen(sb::curr_srate);
+                syn->gener[ous] = new BasicGen(sb::SampleRate);
                 break;
             }
-            for (size_t effous = 0; effous < fxcount; ++effous) {
+            for (size_t effous = 0; effous < FxPerChannel; ++effous) {
                 switch (blu->eff[ous][effous]) {
                     default:
                         std::cerr << "Unimplemented effect type requested. Defaulting to no effect.\n";
@@ -67,7 +67,7 @@ namespace sb {
                 if(syn->gener[ous] != nullptr)
                     syn->gener[ous]->ctrl(dat.first,dat.second);
             }
-            for (uint8_t parrot = 0; parrot < syn->currentpoly && syn->currentpoly != default_poly; ++parrot) {
+            for (uint8_t parrot = 0; parrot < syn->currentpoly && syn->currentpoly != DefaultPolyphony; ++parrot) {
                 if(syn->gener[parrot] != nullptr)
                     syn->gener[parrot]->setPolymorphism(parrot);
             }

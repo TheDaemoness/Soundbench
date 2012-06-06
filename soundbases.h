@@ -34,10 +34,10 @@ namespace sb {
         genBasic_notebias
     };
 
-    class soundBase {
+    class SoundBase {
     public:
-        soundBase()  {}
-        virtual ~soundBase()  {}
+        SoundBase()  {}
+        virtual ~SoundBase()  {}
 
         virtual void tick(float* sample, size_t chans) = 0;
         virtual void ctrl(moduleParam arg, ParameterValue val) = 0; //See the documentation for notes about this function.
@@ -47,14 +47,14 @@ namespace sb {
     };
 
 
-    class genBase : public soundBase {
+    class GenBase : public SoundBase {
     public:
-        virtual void noteOn(int halfsteps, sbSample amp, size_t pos) = 0;
+        virtual void noteOn(int halfsteps, SbSample amp, size_t pos) = 0;
         virtual void noteOff(size_t pos) = 0;
         virtual void setPolymorphism(size_t) = 0;
     };
 
-    class fxBase : public soundBase {
+    class FxBase : public SoundBase {
     };
 
 }

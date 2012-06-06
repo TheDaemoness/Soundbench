@@ -19,9 +19,7 @@
 
 #include <soundbenchmain.h>
 
-SoundbenchMain::SoundbenchMain(QWidget *parent) :
-    QMainWindow(parent)
-{
+SoundbenchMain::SoundbenchMain(QWidget *parent) : QMainWindow(parent) {
     arch = new sb::Architect;
     blu = new sb::Blueprint;
     em = nullptr;
@@ -37,7 +35,7 @@ SoundbenchMain::SoundbenchMain(QWidget *parent) :
 }
 
 void SoundbenchMain::delayedConstructor() {
-    sb::curr_srate = sb::sampling_rates[1];
+    sb::SampleRate = sb::SupportedRates[1];
 
     syn = new sb::Synth;
     arch->buildSynth(syn,blu);
@@ -46,7 +44,7 @@ void SoundbenchMain::delayedConstructor() {
     plai = new sb::Player(syn,ui->songsTracksList,met);
     midin = new sb::MidiRtIO(syn);
 
-    syn->volume() = static_cast<sbSample>(ui->volumeSlider->value())/ui->volumeSlider->maximum();
+    syn->volume() = static_cast<SbSample>(ui->volumeSlider->value())/ui->volumeSlider->maximum();
 
     std::map<sb::EmitterType,bool> backend_apis = em->getSupportedAPIs(); //TODO: Deal with this.
 
@@ -68,33 +66,33 @@ void SoundbenchMain::delayedConstructor() {
     rate_sigmap->setMapping(ui->button192Sampling,5);
 
     //Check off the sampling rate being used.
-    if (em->getSampleRate() == sb::sampling_rates[0])
+    if (em->getSampleRate() == sb::SupportedRates[0])
         ui->button441Sampling->setChecked(true);
-    else if (em->getSampleRate() == sb::sampling_rates[1])
+    else if (em->getSampleRate() == sb::SupportedRates[1])
         ui->button48Sampling->setChecked(true);
-    else if (em->getSampleRate() == sb::sampling_rates[2])
+    else if (em->getSampleRate() == sb::SupportedRates[2])
         ui->button882Sampling->setChecked(true);
-    else if (em->getSampleRate() == sb::sampling_rates[3])
+    else if (em->getSampleRate() == sb::SupportedRates[3])
         ui->button96Sampling->setChecked(true);
-    else if (em->getSampleRate() == sb::sampling_rates[4])
+    else if (em->getSampleRate() == sb::SupportedRates[4])
         ui->button176Sampling->setChecked(true);
-    else if (em->getSampleRate() == sb::sampling_rates[5])
+    else if (em->getSampleRate() == sb::SupportedRates[5])
         ui->button192Sampling->setChecked(true);
 
     //Disable the sampling rates that the platform does not support. I'm looking at you, 192k...
     for(std::pair<const size_t,bool> elem : em->getSupportedRates()) {
         if(!elem.second) {
-            if(elem.first == sb::sampling_rates[0])
+            if(elem.first == sb::SupportedRates[0])
                 ui->button441Sampling->setEnabled(false);
-            else if (elem.first == sb::sampling_rates[1])
+            else if (elem.first == sb::SupportedRates[1])
                 ui->button48Sampling->setEnabled(false);
-            else if (elem.first == sb::sampling_rates[2])
+            else if (elem.first == sb::SupportedRates[2])
                 ui->button882Sampling->setEnabled(false);
-            else if (elem.first == sb::sampling_rates[3])
+            else if (elem.first == sb::SupportedRates[3])
                 ui->button96Sampling->setEnabled(false);
-            else if (elem.first == sb::sampling_rates[4])
+            else if (elem.first == sb::SupportedRates[4])
                 ui->button176Sampling->setEnabled(false);
-            else if (elem.first == sb::sampling_rates[5])
+            else if (elem.first == sb::SupportedRates[5])
                 ui->button192Sampling->setEnabled(false);
             }
         }
@@ -132,7 +130,7 @@ void SoundbenchMain::delayedConstructor() {
     connect(ui->button176Sampling,SIGNAL(clicked()),rate_sigmap,SLOT(map()));
     connect(ui->button192Sampling,SIGNAL(clicked()),rate_sigmap,SLOT(map()));
     connect(ui->polyphonyBox,SIGNAL(valueChanged(int)),SLOT(setPoly(int)));
-    ui->polyphonyBox->setValue(sb::default_poly);
+    ui->polyphonyBox->setValue(sb::DefaultPolyphony);
 
     //Connect the sigmaps.
     connect(sett_sigmap,SIGNAL(mapped(int)),SLOT(setGenSett(int)));

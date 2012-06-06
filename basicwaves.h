@@ -38,7 +38,7 @@ namespace sb {
         void setFrequency(double new_freq) {
             frequency = new_freq;
         }
-        void setAmplitude(sbSample new_amp) {
+        void setAmplitude(SbSample new_amp) {
             amplitude = new_amp;
         }
         void setOffset(float phase) {
@@ -48,51 +48,51 @@ namespace sb {
         void reset() {
             samp_pos = -1;
         }
-        virtual sbSample tick() {
+        virtual SbSample tick() {
             ++samp_pos;
             float rad = (frequency/sample_rate)*samp_pos;
             return getRaw(rad + rad_offset);
         }
 
-        virtual sbSample getRaw(float radians) = 0;
+        virtual SbSample getRaw(float radians) = 0;
 
     protected:
         size_t samp_pos; //WARNING: samp_pos is in samples, and it must start at -1!
         int sample_rate;
         double frequency;
         float rad_offset;
-        sbSample amplitude;
+        SbSample amplitude;
     };
 
     class Sine : public waveBase {
     public:
         explicit Sine (int sample_r);
-        sbSample getRaw(float radians);
+        SbSample getRaw(float radians);
 
     };
 
     class Sawtooth : public waveBase {
     public:
         explicit Sawtooth (int sample_r);
-        sbSample getRaw(float radians);
+        SbSample getRaw(float radians);
     };
 
     class Square : public waveBase {
     public:
         explicit Square (int sample_r);
-        sbSample getRaw(float radians);
+        SbSample getRaw(float radians);
     };
 
     class Triangle : public waveBase {
     public:
         explicit Triangle (int sample_r);
-        sbSample getRaw(float radians);
+        SbSample getRaw(float radians);
     };
 
     class Oval : public waveBase {
     public:
         explicit Oval (int sample_r);
-        sbSample getRaw(float radians);
+        SbSample getRaw(float radians);
     };
 
 }

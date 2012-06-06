@@ -94,16 +94,16 @@ namespace sb {
             em_type = NoEmitter;
         }
 
-        sample_rate = sb::curr_srate;
+        sample_rate = sb::SampleRate;
         backend = nullptr;
         setEmitterType(em_type);
     }
 
     void Emitter::setSamplingRate(size_t s_rate) {
-        curr_srate = s_rate;
+        SampleRate = s_rate;
         if (backend != nullptr)
             backend->setSamplingRate(s_rate);
-        std::cerr << "Set sampling rate to " << curr_srate << " samples per second.\n";
+        std::cerr << "Set sampling rate to " << SampleRate << " samples per second.\n";
     }
 
     Emitter::~Emitter() {

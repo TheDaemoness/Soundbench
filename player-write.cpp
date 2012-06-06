@@ -66,7 +66,7 @@ namespace sb {
         emit progressed(0);
 
         //Microseconds per sample: (microseconds / second) / (samples / second)
-        uint16_t factor = 1000000 / curr_srate;
+        uint16_t factor = 1000000 / SampleRate;
         nody = first;
         bool cont = true;
         uint32_t evnum = 0, prevnum = 0;
@@ -93,7 +93,7 @@ namespace sb {
             wri->tick();
         }
 
-        std::cerr << "Wrote " << sampcount << " samples to the file (appx. " << static_cast<float>(sampcount)*2 / curr_srate << " seconds).\n";
+        std::cerr << "Wrote " << sampcount << " samples to the file (appx. " << static_cast<float>(sampcount)*2 / SampleRate << " seconds).\n";
         wri->close();
         return;
     }

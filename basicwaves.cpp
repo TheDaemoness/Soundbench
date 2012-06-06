@@ -29,35 +29,35 @@ namespace sb {
     Oval::Oval(int sample_r) : Oval::waveBase(sample_r) {}
 
 
-    sbSample Sine::getRaw(float x) {
+    SbSample Sine::getRaw(float x) {
         //TODO: Fast sine approximation with at least -150 dB SNR.
         return std::sin(x);
     }
 
-    sbSample Sawtooth::getRaw(float rads) {
-        return std::fmod(rads+pi,2.0f*pi)/pi - 1.0;
+    SbSample Sawtooth::getRaw(float rads) {
+        return std::fmod(rads+Pi,2.0f*Pi)/Pi - 1.0;
     }
 
-    sbSample Square::getRaw(float rads) {
-        rads = std::fmod(rads,2.0f*pi);
-        return (rads < pi?1.0:-1.0);
+    SbSample Square::getRaw(float rads) {
+        rads = std::fmod(rads,2.0f*Pi);
+        return (rads < Pi?1.0:-1.0);
     }
 
-    sbSample Triangle::getRaw(float rads) {
+    SbSample Triangle::getRaw(float rads) {
         //TODO: IS THERE ANY COMPUTATIONALLY CHEAPER WAY OF CALCULATING A TRIANGLE WAVE?!
-        rads = std::fmod(rads,2.0f*pi);
-        if (rads < 2.0*pi/4.0)
-            return rads*4.0/(2.0*pi);
-        else if ((rads >= 2.0*pi/4.0) && (rads < 6.0*pi/4.0))
-            return 1.0 - (rads-2.0*pi/4.0)*4.0/(2.0*pi);
+        rads = std::fmod(rads,2.0f*Pi);
+        if (rads < 2.0*Pi/4.0)
+            return rads*4.0/(2.0*Pi);
+        else if ((rads >= 2.0*Pi/4.0) && (rads < 6.0*Pi/4.0))
+            return 1.0 - (rads-2.0*Pi/4.0)*4.0/(2.0*Pi);
         else
-            return (rads-6.0*pi/4.0)*4.0/(2.0*pi)-1.0;
+            return (rads-6.0*Pi/4.0)*4.0/(2.0*Pi)-1.0;
     }
 
-    sbSample Oval::getRaw(float rads) {
-        rads = std::fmod(rads,2.0f*pi);
-        bool invert = rads > pi;
-        rads = std::fmod(rads,pi);
-        return (invert?-2.0:2.0)/pi*std::sqrt(pi*rads-rads*rads);
+    SbSample Oval::getRaw(float rads) {
+        rads = std::fmod(rads,2.0f*Pi);
+        bool invert = rads > Pi;
+        rads = std::fmod(rads,Pi);
+        return (invert?-2.0:2.0)/Pi*std::sqrt(Pi*rads-rads*rads);
     }
 }

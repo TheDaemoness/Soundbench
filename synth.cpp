@@ -23,15 +23,15 @@ namespace sb {
 
     Synth::Synth() {
         inactivechans = 0;
-        currentpoly = default_poly;
-        notes.resize(default_poly);
-        for (size_t i = 0; i < default_poly; ++i) {
+        currentpoly = DefaultPolyphony;
+        notes.resize(DefaultPolyphony);
+        for (size_t i = 0; i < DefaultPolyphony; ++i) {
             notes[i].amp = 0.0;
             notes[i].noteoffset = 0;
             notes[i].pedal = NoPedal;
         }
-        for (size_t i = 0; i < outchans; ++i)
-            prevsample[i] = sbSampleZero;
+        for (size_t i = 0; i < OutChannels; ++i)
+            prevsample[i] = SbSampleZero;
         holdped = false;
         sustped = false;
     }
@@ -43,18 +43,18 @@ namespace sb {
         notes.resize(poly);
     }
 
-    void Synth::noteOn(int halfsteps, sbSample amp) {
-        if (amp <= sbSampleZero)
+    void Synth::noteOn(int halfsteps, SbSample amp) {
+        if (amp <= SbSampleZero)
             return;
         for (size_t i = 0; i < notes.size(); ++i) {
-            if (notes[i].amp == sbSampleZero && notes[i].pedal == NoPedal) {
+            if (notes[i].amp == SbSampleZero && notes[i].pedal == NoPedal) {
                 notes[i].noteoffset = halfsteps;
                 notes[i].amp = amp;
                 if(holdped)
                     notes[i].pedal = Hold;
                 else
                     notes[i].pedal = NoPedal;
-                for (size_t ation = 0; ation < internchannels; ++ation) {
+                for (size_t ation = 0; ation < InternalChannels; ++ation) {
                     if (gener[ation] != nullptr)
                         gener[ation]->noteOn(halfsteps,amp,i);
                 }
@@ -65,10 +65,10 @@ namespace sb {
 
     void Synth::noteOff(int halfsteps) {
         for (size_t i = 0; i < notes.size(); ++i) {
-            if (notes[i].noteoffset == halfsteps && notes[i].amp != sbSampleZero) {
-                notes[i].amp = sbSampleZero;
+            if (notes[i].noteoffset == halfsteps && notes[i].amp != SbSampleZero) {
+                notes[i].amp = SbSampleZero;
                 if (notes[i].pedal == NoPedal) {
-                    for (size_t al = 0; (al < internchannels); ++al) {
+                    for (size_t al = 0; (al < InternalChannels); ++al) {
                         if (gener[al] != nullptr)
                             gener[al]->noteOff(i);
                     }
@@ -84,7 +84,7 @@ namespace sb {
             else if (which == Sustenuto)
                 sustped = true;
             for (size_t i = 0; i < notes.size(); ++i) {
-                if (notes[i].amp != sbSampleZero || notes[i].pedal == Sustenuto)
+                if (notes[i].amp != SbSampleZero || notes[i].pedal == Sustenuto)
                     notes[i].pedal = which;
             }
         }
@@ -96,8 +96,8 @@ namespace sb {
             for (size_t i = 0; i < notes.size(); ++i) {
                 if (notes[i].pedal == which) {
                     notes[i].pedal = NoPedal;
-                    if (notes[i].amp == sbSampleZero) {
-                        for (size_t al = 0; al < internchannels; ++al) {
+                    if (notes[i].amp == SbSampleZero) {
+                        for (size_t al = 0; al < InternalChannels; ++al) {
                             if (gener[al] != nullptr)
                                 gener[al]->noteOff(i);
                         }
@@ -110,16 +110,16 @@ namespace sb {
 
     void Synth::reset() {
         for (size_t i = 0; i < notes.size(); ++i) {
-            if(notes[i].amp != sbSampleZero) {
-                notes[i].amp = sbSampleZero;
+            if(notes[i].amp != SbSampleZero) {
+                notes[i].amp = SbSampleZero;
                 notes[i].pedal = NoPedal;
-                for (size_t able = 0; able < internchannels; ++able) {
+                for (size_t able = 0; able < InternalChannels; ++able) {
                     if (gener[able] != nullptr)
                         gener[able]->noteOff(i);
                 }
             }
         }
-        for (size_t ec = 0; ec < internchannels; ++ec) { //Loop per internal channel.
+        for (size_t ec = 0; ec < InternalChannels; ++ec) { //Loop per internal channel.
             if (gener[ec] != nullptr)
                 gener[ec]->reset();
             /*for (size_t tive = 0; tive < fxcount; ++tive) { //Loop per effect.
@@ -129,27 +129,27 @@ namespace sb {
         }
     }
 
-    void Synth::tick(sbSample* frames, size_t chans) {
-        for (size_t ic = 0; ic < internchannels; ++ic) { //Loop per internal channel.
+    void Synth::tick(SbSample* frames, size_t chans) {
+        for (size_t ic = 0; ic < InternalChannels; ++ic) { //Loop per internal channel.
             if (gener[ic] != nullptr)
                 gener[ic]->tick(buffer[ic], chans);
             else {
                 for (size_t i = 0; i < chans; ++i)
-                    buffer[ic][i] = sbSampleZero;
+                    buffer[ic][i] = SbSampleZero;
             }
-            for (size_t ient = 0; ient < fxcount; ++ient) { //Loop per effect.
+            for (size_t ient = 0; ient < FxPerChannel; ++ient) { //Loop per effect.
                 if (eff[ic][ient] != nullptr)
                     eff[ic][ient]->tick(buffer[ient],chans);
             }
             for (size_t acid = 0; acid < chans; ++acid) { //Loop per outbound channel.
                 if (!ic)
-                    frames[acid] = sbSampleZero;
+                    frames[acid] = SbSampleZero;
                 frames[acid] += buffer[ic][acid]; //What an incorrect name that'd be.
             }
         }
-        if (inactivechans != internchannels) {
+        if (inactivechans != InternalChannels) {
             for (size_t out = 0; out < chans; ++out) {
-                frames[out] /= (internchannels-inactivechans); //Correctly average the signal from the running channels.
+                frames[out] /= (InternalChannels-inactivechans); //Correctly average the signal from the running channels.
                 frames[out] *= vol; //Apply the master volume.
 
                 //Smooth the samples slightly to reduce clicking.

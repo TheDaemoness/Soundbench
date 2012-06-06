@@ -27,7 +27,6 @@
 class SoundbenchApp : public QApplication
 {
 public:
-    /*
     bool notify(QObject* obj, QEvent* evnt) {
         try {
             return QApplication::notify(obj, evnt);
@@ -45,7 +44,6 @@ public:
             return true;
         }
     }
-    */
     enum SoundbenchFlags {
         Default = 0,
         NoRTAudio = 1,
