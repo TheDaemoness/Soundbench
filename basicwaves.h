@@ -25,16 +25,16 @@
 
 namespace sb {
 
-    class waveBase
+    class WaveBase
     {
     public:
-        explicit waveBase(int sample_r) {
+        explicit WaveBase(int sample_r) {
             samp_pos = -1;
             sample_rate = sample_r;
             rad_offset = 0.0f;
         }
 
-        virtual ~waveBase() {}
+        virtual ~WaveBase() {}
 
         void setFrequency(double new_freq) {
             frequency = new_freq;
@@ -65,32 +65,32 @@ namespace sb {
         SbSample amplitude;
     };
 
-    class Sine : public waveBase {
+    class Sine : public WaveBase {
     public:
         explicit Sine (int sample_r);
         SbSample getRaw(float radians);
 
     };
 
-    class Sawtooth : public waveBase {
+    class Sawtooth : public WaveBase {
     public:
         explicit Sawtooth (int sample_r);
         SbSample getRaw(float radians);
     };
 
-    class Square : public waveBase {
+    class Square : public WaveBase {
     public:
         explicit Square (int sample_r);
         SbSample getRaw(float radians);
     };
 
-    class Triangle : public waveBase {
+    class Triangle : public WaveBase {
     public:
         explicit Triangle (int sample_r);
         SbSample getRaw(float radians);
     };
 
-    class Oval : public waveBase {
+    class Oval : public WaveBase {
     public:
         explicit Oval (int sample_r);
         SbSample getRaw(float radians);

@@ -80,6 +80,7 @@ namespace sb {
         SbSample sample;
         int64_t value;
         void* other;
+        float decim;
     };
     template <typename T>
     inline ParameterValue makeParamfromPointer(T* ptr) {
@@ -96,6 +97,11 @@ namespace sb {
     inline ParameterValue makeParamfromSample(SbSample i) {
         ParameterValue valu;
         valu.sample = i;
+        return valu;
+    }
+    inline ParameterValue makeParamfromFloat(float i) {
+        ParameterValue valu;
+        valu.decim = i;
         return valu;
     }
 

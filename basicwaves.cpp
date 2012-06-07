@@ -22,11 +22,11 @@
 
 namespace sb {
 
-    Sine::Sine(int sample_r) : Sine::waveBase(sample_r) {}
-    Sawtooth::Sawtooth(int sample_r) : Sawtooth::waveBase(sample_r) {}
-    Square::Square(int sample_r) : Square::waveBase(sample_r) {}
-    Triangle::Triangle(int sample_r) : Triangle::waveBase(sample_r) {}
-    Oval::Oval(int sample_r) : Oval::waveBase(sample_r) {}
+    Sine::Sine(int sample_r) : Sine::WaveBase(sample_r) {}
+    Sawtooth::Sawtooth(int sample_r) : Sawtooth::WaveBase(sample_r) {}
+    Square::Square(int sample_r) : Square::WaveBase(sample_r) {}
+    Triangle::Triangle(int sample_r) : Triangle::WaveBase(sample_r) {}
+    Oval::Oval(int sample_r) : Oval::WaveBase(sample_r) {}
 
 
     SbSample Sine::getRaw(float x) {

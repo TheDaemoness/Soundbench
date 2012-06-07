@@ -21,25 +21,34 @@
 
 namespace sb {
     SbSample Trapezoid::tick() {
-        if (up && level < SbSampleMax)
+        if((up && top) || (!up && bottom))
+            return level;
+
+        if (up && !top)
             level += rate;
-        else if (!up && level > SbSampleZero)
+        else if (!up && !bottom)
             level -= rate;
 
         //Deal with potential overshooting.
-        if (level > SbSampleMax)
+        if (level > SbSampleMax) {
+            top = true;
             level = SbSampleMax;
-        else if (level < SbSampleZero)
+        }
+        else if (level < SbSampleZero) {
+            bottom = true;
             level = SbSampleZero;
+        }
 
         return level;
     }
     void Trapezoid::attack() {
         up = true;
-        rate = timeup/SampleRate*SbSampleMax;
+        rate = 1.0/(timeup*SampleRate)*SbSampleMax;
+        top = false;
     }
     void Trapezoid::release() {
         up = false;
-        rate = timedown/SampleRate*SbSampleMax;
+        rate = 1.0/(timedown*SampleRate)*SbSampleMax;
+        bottom = false;
     }
 }

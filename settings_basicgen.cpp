@@ -31,6 +31,8 @@ BasicGenerSettings::BasicGenerSettings(size_t chan, sb::Blueprint* blu, QWidget 
     ui->ampBox->setValue(blu->gener_data[chan][sb::GenBasicAmp].sample);
     ui->phaseBox->setValue(blu->gener_data[chan][sb::GenBasicPhase].sample);
     ui->noteBiasBox->setValue(blu->gener_data[chan][sb::GenBasicNoteBias].value);
+    ui->noteBiasBox->setValue(blu->gener_data[chan][sb::GenerAttackTime].decim);
+    ui->noteBiasBox->setValue(blu->gener_data[chan][sb::GenerReleaseTime].decim);
 
     if (static_cast<sb::SimpleWaveTypes>(blu->gener_data[chan][sb::GenBasicWave].value) == sb::TriangleWave)
         ui->triangleWave->setChecked(true);
@@ -51,6 +53,8 @@ void BasicGenerSettings::affect() {
     affectedblu->gener_data[affectedchan][sb::GenBasicAmp] = sb::makeParamfromSample(ui->ampBox->value());
     affectedblu->gener_data[affectedchan][sb::GenBasicPhase] = sb::makeParamfromSample(ui->phaseBox->value());
     affectedblu->gener_data[affectedchan][sb::GenBasicNoteBias] = sb::makeParamfromInt(ui->noteBiasBox->value());
+    affectedblu->gener_data[affectedchan][sb::GenerAttackTime] = sb::makeParamfromFloat(ui->attackBox->value());
+    affectedblu->gener_data[affectedchan][sb::GenerReleaseTime] = sb::makeParamfromFloat(ui->releaseBox->value());
     if (ui->sineWave->isChecked())
         affectedblu->gener_data[affectedchan][sb::GenBasicWave] = sb::makeParamfromInt(sb::SineWave);
     else if (ui->triangleWave->isChecked())

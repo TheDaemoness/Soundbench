@@ -26,9 +26,7 @@ namespace sb {
 
     class BasicGen : public GenBase {
     private:
-        typedef std::pair<bool,waveBase*> BoolWavePair;
-
-        std::vector<BoolWavePair> ocean;
+        std::vector<WaveBase*> ocean;
         SimpleWaveTypes curr_wav;
         SbSample gen_amp;
         int16_t notebias;
@@ -37,7 +35,7 @@ namespace sb {
         explicit BasicGen(size_t srate, size_t cracker = DefaultPolyphony);
         ~BasicGen() {
             for(auto i : ocean)
-                delete i.second;
+                delete i;
         }
 
         void ctrl(ModuleParams arg, ParameterValue val);

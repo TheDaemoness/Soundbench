@@ -38,6 +38,8 @@ namespace sb {
         blu->gener_data[chan_index][GenBasicWave] = makeParamfromInt(SineWave);
         blu->gener_data[chan_index][GenBasicAmp] = makeParamfromSample(1.0);
         blu->gener_data[chan_index][GenBasicPhase] = makeParamfromInt(0);
+        blu->gener_data[chan_index][GenerAttackTime] = makeParamfromFloat(0.1);
+        blu->gener_data[chan_index][GenerReleaseTime] = makeParamfromFloat(0.5);
     }
 
     void Architect::buildSynth(Synth* syn, Blueprint* blu) {

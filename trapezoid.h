@@ -22,22 +22,27 @@
 
 #include "sbutilities.h"
 
+//This is a high-performance trapezoidal envelope.
+
 namespace sb {
     class Trapezoid {
     public:
         Trapezoid() {
-            up = false;
-            level = SbSampleZero;
+            reset();
+            top = true;
+            bottom = true;
         }
-        inline void setTimeUp(float ups) {
+        inline void setAttackTime(float ups) {
             timeup = ups;
         }
-        inline void setTimeDown(float downs) {
+        inline void setReleaseTime(float downs) {
             timedown = downs;
         }
         inline void reset() {
             level = SbSampleZero;
             up = true;
+            top = false;
+            bottom = false;
         }
         SbSample getLevel() {
             return level;
@@ -49,7 +54,7 @@ namespace sb {
     private:
         float timeup, timedown, rate;
         SbSample level;
-        bool up;
+        bool up, top, bottom;
     };
 }
 

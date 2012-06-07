@@ -26,7 +26,7 @@ namespace sb {
 
     class PeriodicSampleTable {
     public:
-        explicit PeriodicSampleTable(waveBase* wav = nullptr, bool autodelete = true) {
+        explicit PeriodicSampleTable(WaveBase* wav = nullptr, bool autodelete = true) {
             if (wav == nullptr) {
                 samples.resize(SampleRate,0.0);
                 return;
