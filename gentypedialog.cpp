@@ -20,7 +20,7 @@
 #include "gentypedialog.h"
 #include "ui_gentypedialog.h"
 
-GenTypeDialog::GenTypeDialog(sb::Blueprint::gener_type* tochange, sb::Blueprint::ModuleDataType* tofill, QLabel* text, QPushButton* butt, QWidget *parent) :
+GenTypeDialog::GenTypeDialog(sb::GenerType* tochange, sb::Blueprint::ModuleDataType* tofill, QLabel* text, QPushButton* butt, QWidget *parent) :
     QDialog(parent),
     ui(new Ui::GenTypeDialog)
 {
@@ -29,17 +29,17 @@ GenTypeDialog::GenTypeDialog(sb::Blueprint::gener_type* tochange, sb::Blueprint:
     affectedargs = tofill;
     affectedlabel = text;
     affectedbutt = butt;
-    if(*affectedgen == sb::Blueprint::NoGener)
+    if(*affectedgen == sb::NoGener)
         ui->disabledButton->setChecked(true);
-    else if(*affectedgen == sb::Blueprint::generSampler)
+    else if(*affectedgen == sb::GenerSampler)
         ui->sampleButton->setChecked(true);
-    else if(*affectedgen == sb::Blueprint::generBasic)
+    else if(*affectedgen == sb::GenerBasic)
         ui->basicButton->setChecked(true);
-    else if(*affectedgen == sb::Blueprint::generAdditive)
+    else if(*affectedgen == sb::GenerAdditive)
         ui->additiveButton->setChecked(true);
-    else if(*affectedgen == sb::Blueprint::generModal)
+    else if(*affectedgen == sb::GenerModal)
         ui->modalButton->setChecked(true);
-    else if(*affectedgen == sb::Blueprint::generWaveguide)
+    else if(*affectedgen == sb::GenerWaveguide)
         ui->waveguideButton->setChecked(true);
     connect(ui->applyButton,SIGNAL(clicked()),SLOT(apply()));
     connect(ui->cancelButton,SIGNAL(clicked()),SLOT(close()));
@@ -53,28 +53,28 @@ void GenTypeDialog::apply() {
         affectedbutt->setEnabled(false);
         affectedbutt->setToolTip("Disabled generators have no settings.");
         affectedlabel->setText("Disabled");
-        *affectedgen = sb::Blueprint::NoGener;
+        *affectedgen = sb::NoGener;
     }
     else if(ui->sampleButton->isChecked()) {
         affectedlabel->setText("Sampler");
-        *affectedgen = sb::Blueprint::generSampler;
+        *affectedgen = sb::GenerSampler;
     }
     else if(ui->basicButton->isChecked()) {
         affectedlabel->setText("Basic");
-        *affectedgen = sb::Blueprint::generBasic;
+        *affectedgen = sb::GenerBasic;
         //TODO: sb::Architect should have something to deal with basic settings.
     }
     else if(ui->additiveButton->isChecked()) {
         affectedlabel->setText("Additive");
-        *affectedgen = sb::Blueprint::generAdditive;
+        *affectedgen = sb::GenerAdditive;
     }
     else if(ui->modalButton->isChecked()) {
         affectedlabel->setText("Modal");
-        *affectedgen = sb::Blueprint::generModal;
+        *affectedgen = sb::GenerModal;
     }
     else if(ui->waveguideButton->isChecked()) {
         affectedlabel->setText("Banded Waveguide");
-        *affectedgen = sb::Blueprint::generWaveguide;
+        *affectedgen = sb::GenerWaveguide;
     }
     this->close();
 }

@@ -81,6 +81,7 @@ namespace sb {
 
     Emitter::Emitter(Synth* s) {
         failure = false;
+        std::cerr << "Determining which audio backends will initialize...\n";
         supported_apis[sb::PortAudio] = PortaudioBackend::instantiable();
         supported_apis[sb::JACK_O] = JACKBackend::instantiable();
         syn = s;

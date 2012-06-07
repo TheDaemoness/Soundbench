@@ -20,19 +20,12 @@
 #ifndef MODULES_H
 #define MODULES_H
 
-#include "sbutilities.h"
+#include "trapezoid.h"
 #include "basicwaves.h"
 
 #include <cstring>
 
 namespace sb {
-
-    enum moduleParam {
-        genBasic_wave,
-        genBasic_amplutide,
-        genBasic_phase,
-        genBasic_notebias
-    };
 
     class SoundBase {
     public:
@@ -40,9 +33,10 @@ namespace sb {
         virtual ~SoundBase()  {}
 
         virtual void tick(float* sample, size_t chans) = 0;
-        virtual void ctrl(moduleParam arg, ParameterValue val) = 0; //See the documentation for notes about this function.
+        virtual void ctrl(ModuleParams arg, ParameterValue val) = 0; //See the documentation for notes about this function.
         virtual void reset() = 0;
     protected:
+        Trapezoid envelope;
         size_t sample_rate;
     };
 

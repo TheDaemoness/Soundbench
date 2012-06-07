@@ -17,27 +17,40 @@
     Copyright 2012  Amaya S.
 */
 
-#ifndef ARCHITECT_H
-#define ARCHITECT_H
+#ifndef TRAPEZOID_H
+#define TRAPEZOID_H
 
-#include "blueprint.h"
-#include "gener_basic.h"
-#include "synth.h"
+#include "sbutilities.h"
 
 namespace sb {
-    class Architect
-    {
+    class Trapezoid {
     public:
-        Architect();
-        //Planning functions.
-        void planAllDefaults(Blueprint*);
-        void planDefaultBasicGen(Blueprint*,size_t chan_index = 0);
+        Trapezoid() {
+            up = false;
+            level = SbSampleZero;
+        }
+        inline void setTimeUp(float ups) {
+            timeup = ups;
+        }
+        inline void setTimeDown(float downs) {
+            timedown = downs;
+        }
+        inline void reset() {
+            level = SbSampleZero;
+            up = true;
+        }
+        SbSample getLevel() {
+            return level;
+        }
 
-        //Building functions
-        void buildSynth(Synth*,Blueprint* blu = nullptr);
-
+        SbSample tick();
+        void attack();
+        void release();
     private:
+        float timeup, timedown, rate;
+        SbSample level;
+        bool up;
     };
 }
 
-#endif // ARCHITECT_H
+#endif // TRAPEZOID_H

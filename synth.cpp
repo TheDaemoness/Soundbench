@@ -30,8 +30,6 @@ namespace sb {
             notes[i].noteoffset = 0;
             notes[i].pedal = NoPedal;
         }
-        for (size_t i = 0; i < OutChannels; ++i)
-            prevsample[i] = SbSampleZero;
         holdped = false;
         sustped = false;
     }
@@ -151,11 +149,6 @@ namespace sb {
             for (size_t out = 0; out < chans; ++out) {
                 frames[out] /= (InternalChannels-inactivechans); //Correctly average the signal from the running channels.
                 frames[out] *= vol; //Apply the master volume.
-
-                //Smooth the samples slightly to reduce clicking.
-                frames[out] += prevsample[out];
-                frames[out] /= 2;
-                prevsample[out] = frames[out];
             }
         }
     }

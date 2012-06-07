@@ -68,7 +68,6 @@ namespace sb {
         GenBase* gener[InternalChannels];
         FxBase* eff[InternalChannels][FxPerChannel];
         std::vector<NoteInfo> notes;
-        SbSample prevsample[OutChannels];
 
         bool holdped, sustped;
 

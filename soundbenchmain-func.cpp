@@ -21,7 +21,7 @@
 
 void SoundbenchMain::genSetts(size_t i) {
 
-    if (blu->gener[i] == sb::Blueprint::generBasic) {
+    if (blu->gener[i] == sb::GenerBasic) {
         stopAndReset();
         gsd.basic = new BasicGenerSettings(i,blu);
         gsd.basic->exec();

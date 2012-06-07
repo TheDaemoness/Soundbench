@@ -17,7 +17,6 @@
     Copyright 2012  Amaya S.
 */
 
-
 #ifndef PLAYER_H
 #define PLAYER_H
 

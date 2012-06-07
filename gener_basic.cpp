@@ -30,9 +30,9 @@ namespace sb {
         for (size_t i = 0; i < cracker; ++i)
             ocean.push_back(std::make_pair(false,new Sine(sample_rate)));
     }
-    void BasicGen::ctrl(moduleParam arg, ParameterValue val) {
+    void BasicGen::ctrl(ModuleParams arg, ParameterValue val) {
         switch (arg) {
-        case genBasic_wave:
+        case GenBasicWave:
             curr_wav = static_cast<SimpleWaveTypes>(val.value);
             for (BoolWavePair& i : ocean) {
                 delete i.second;
@@ -49,13 +49,13 @@ namespace sb {
                     i.second = new Sine(SampleRate);
             }
             break;
-        case genBasic_amplutide:
+        case GenBasicAmp:
             gen_amp = val.sample;
             break;
-        case genBasic_notebias:
+        case GenBasicNoteBias:
             notebias = val.value;
             break;
-        case genBasic_phase:
+        case GenBasicPhase:
             for (BoolWavePair& i : ocean)
                 i.second->setOffset(val.sample*2*Pi);
             break;

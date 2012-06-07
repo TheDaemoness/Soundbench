@@ -40,7 +40,7 @@ namespace sb {
                 delete i.second;
         }
 
-        void ctrl(moduleParam arg, ParameterValue val);
+        void ctrl(ModuleParams arg, ParameterValue val);
         void noteOn(int halfsteps, SbSample amp, size_t pos);
         void noteOff(size_t pos);
         void reset();

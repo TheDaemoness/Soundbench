@@ -17,35 +17,38 @@
     Copyright 2012  Amaya S.
 */
 
-#ifndef GENTYPEDIALOG_H
-#define GENTYPEDIALOG_H
+#ifndef PRESETENUMS_H
+#define PRESETENUMS_H
 
-#include <QDialog>
-#include <QLabel>
+namespace sb {
+    enum GenerType {
+        NoGener = 0,
+        GenerSampler = 1,
+        GenerBasic = 2,
+        GenerAdditive = 3,
+        GenerModal = 4,
+        GenerWaveguide = 5
+    };
+    enum FxType {
+        NoFx = 0
+    };
 
-#include "blueprint.h"
+    enum ModuleParams {
+        GenerAttackTime = 0,
+        GenerReleaseTime = 1,
+        GenBasicWave = 2,
+        GenBasicAmp = 3,
+        GenBasicPhase = 4,
+        GenBasicNoteBias = 5
+    };
 
-namespace Ui {
-    class GenTypeDialog;
+    enum SimpleWaveTypes {
+        SineWave = 1,
+        TriangleWave = 2,
+        SquareWave = 3,
+        SawtoothWave = 4,
+        OvalWave = 5
+    };
 }
 
-class GenTypeDialog : public QDialog
-{
-    Q_OBJECT
-
-public:
-    explicit GenTypeDialog(sb::GenerType*, sb::Blueprint::ModuleDataType*, QLabel*, QPushButton*, QWidget* parent = 0);
-    ~GenTypeDialog();
-
-private slots:
-    void apply();
-
-private:
-    QLabel* affectedlabel;
-    sb::GenerType* affectedgen;
-    sb::Blueprint::ModuleDataType* affectedargs;
-    QPushButton* affectedbutt; //Shh...
-    Ui::GenTypeDialog *ui;
-};
-
-#endif // GENTYPEDIALOG_H
+#endif // PRESETENUMS_H

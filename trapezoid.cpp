@@ -17,35 +17,29 @@
     Copyright 2012  Amaya S.
 */
 
-#ifndef GENTYPEDIALOG_H
-#define GENTYPEDIALOG_H
+#include "trapezoid.h"
 
-#include <QDialog>
-#include <QLabel>
+namespace sb {
+    SbSample Trapezoid::tick() {
+        if (up && level < SbSampleMax)
+            level += rate;
+        else if (!up && level > SbSampleZero)
+            level -= rate;
 
-#include "blueprint.h"
+        //Deal with potential overshooting.
+        if (level > SbSampleMax)
+            level = SbSampleMax;
+        else if (level < SbSampleZero)
+            level = SbSampleZero;
 
-namespace Ui {
-    class GenTypeDialog;
+        return level;
+    }
+    void Trapezoid::attack() {
+        up = true;
+        rate = timeup/SampleRate*SbSampleMax;
+    }
+    void Trapezoid::release() {
+        up = false;
+        rate = timedown/SampleRate*SbSampleMax;
+    }
 }
-
-class GenTypeDialog : public QDialog
-{
-    Q_OBJECT
-
-public:
-    explicit GenTypeDialog(sb::GenerType*, sb::Blueprint::ModuleDataType*, QLabel*, QPushButton*, QWidget* parent = 0);
-    ~GenTypeDialog();
-
-private slots:
-    void apply();
-
-private:
-    QLabel* affectedlabel;
-    sb::GenerType* affectedgen;
-    sb::Blueprint::ModuleDataType* affectedargs;
-    QPushButton* affectedbutt; //Shh...
-    Ui::GenTypeDialog *ui;
-};
-
-#endif // GENTYPEDIALOG_H

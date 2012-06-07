@@ -118,14 +118,6 @@ namespace sb {
         JACK_I //Not implemented.
     };
 
-    enum SimpleWaveTypes {
-        SineWave = 1,
-        TriangleWave = 2,
-        SquareWave = 3,
-        SawtoothWave = 4,
-        OvalWave = 5
-    };
-
     extern size_t SampleRate;
     const size_t OutChannels = 2;
     const float Pi = 3.14159265358979323846264338327950288f;

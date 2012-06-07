@@ -43,7 +43,9 @@ HEADERS += architect.h \
     backend.jack.h \
     frontend.h \
     frontend.portmidi.h \
-    noteinput.h
+    noteinput.h \
+    trapezoid.h \
+    presetenums.h
 
 FORMS += errorpopup.ui \
          gentypedialog.ui \
@@ -77,7 +79,8 @@ SOURCES += architect.cpp \
     backend.jack.cpp \
     frontend.portmidi.cpp \
     frontend.portmidi-parse.cpp \
-    noteinput.cpp
+    noteinput.cpp \
+    trapezoid.cpp
 
 RESOURCES += sbMainResources.qrc
 

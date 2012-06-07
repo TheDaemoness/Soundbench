@@ -25,6 +25,7 @@ namespace sb {
         syn = s;
         failure = false;
 
+        std::cerr << "Determining which note input frontends will initialize...\n";
         supported_apis[PortMIDI] = PortmidiFrontend::instantiable();
 
         if(supported_apis[PortMIDI])

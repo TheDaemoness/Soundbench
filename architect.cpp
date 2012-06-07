@@ -28,16 +28,16 @@ namespace sb {
         for (size_t i = 0; i < InternalChannels; ++i)
             planDefaultBasicGen(blu, i);
         for (size_t ac = 0; ac < sb::InternalChannels; ++ac) {
-            blu->gener[ac] = Blueprint::NoGener;
+            blu->gener[ac] = NoGener;
             for (size_t ed = 0; ed < sb::FxPerChannel; ++ed)
-                blu->eff[ac][ed] = Blueprint::NoFx; //Indeed.
+                blu->eff[ac][ed] = NoFx; //Indeed.
         }
     }
 
     void Architect::planDefaultBasicGen(Blueprint* blu, size_t chan_index) {
-        blu->gener_data[chan_index][genBasic_wave] = makeParamfromInt(SineWave);
-        blu->gener_data[chan_index][genBasic_amplutide] = makeParamfromSample(1.0);
-        blu->gener_data[chan_index][genBasic_phase] = makeParamfromInt(0);
+        blu->gener_data[chan_index][GenBasicWave] = makeParamfromInt(SineWave);
+        blu->gener_data[chan_index][GenBasicAmp] = makeParamfromSample(1.0);
+        blu->gener_data[chan_index][GenBasicPhase] = makeParamfromInt(0);
     }
 
     void Architect::buildSynth(Synth* syn, Blueprint* blu) {
@@ -46,11 +46,11 @@ namespace sb {
             switch (blu->gener[ous]) {
             default:
                 std::cerr << "Unimplemented generator type requested. Defaulting to no generator.\n";
-            case Blueprint::NoGener:
+            case NoGener:
                 syn->gener[ous] = nullptr;
                 ++(syn->inactivechans);
                 break;
-            case Blueprint::generBasic:
+            case GenerBasic:
                 syn->gener[ous] = new BasicGen(sb::SampleRate);
                 break;
             }
@@ -58,12 +58,12 @@ namespace sb {
                 switch (blu->eff[ous][effous]) {
                     default:
                         std::cerr << "Unimplemented effect type requested. Defaulting to no effect.\n";
-                    case Blueprint::NoFx:
+                    case NoFx:
                         syn->eff[ous][effous] = nullptr;
                     break;
                 }
             }
-            for (std::pair<const sb::moduleParam,ParameterValue> dat : blu->gener_data[ous]) { //Humbug.
+            for (std::pair<const sb::ModuleParams,ParameterValue> dat : blu->gener_data[ous]) { //Humbug.
                 if(syn->gener[ous] != nullptr)
                     syn->gener[ous]->ctrl(dat.first,dat.second);
             }
