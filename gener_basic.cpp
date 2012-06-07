@@ -35,7 +35,7 @@ namespace sb {
         switch (arg) {
         case GenBasicWave:
             curr_wav = static_cast<SimpleWaveTypes>(val.value);
-            for (auto i : ocean) {
+            for (auto& i : ocean) {
                 delete i;
 
                 if (static_cast<SimpleWaveTypes>(val.value) == TriangleWave)
@@ -105,7 +105,7 @@ namespace sb {
         envelope.resize(poly);
         ocean.resize(poly);
 
-        for (auto i : ocean) {
+        for (auto& i : ocean) {
             if (curr_wav == TriangleWave)
                 i = new Triangle(SampleRate);
             else if (curr_wav == SquareWave)
