@@ -18,3 +18,38 @@
 */
 
 #include "sampletable.h"
+
+namespace sb {
+    PeriodicSampleTable::PeriodicSampleTable(WaveBase* wav, bool autodelete) {
+        if (wav == nullptr) {
+            samples.resize(SampleRate,0.0);
+            return;
+        }
+
+        samples.reserve(SampleRate);
+        float factor = Pi*2/SampleRate;
+        for (uint32_t i = 0; i < SampleRate; ++i)
+            samples.push_back(wav->getRaw(factor*i));
+
+        if (autodelete)
+            delete wav;
+    }
+
+    void PeriodicSampleTable::setWave(float freq, SbSample amp, size_t pos){
+        if (pos >= iters.size())
+            return;
+        iters[pos].setSpeed(freq);
+        amps[pos] = amp;
+    }
+
+    SbSample PeriodicSampleTable::tick(size_t pos) {
+        float num = iters[pos].tick();
+        if (num > samples.size()) {
+            do {
+                num -= samples.size();
+            } while (num > samples.size());
+            iters[pos].setPos(num);
+        }
+        return samples[static_cast<size_t>(num)]*amps[static_cast<size_t>(num)];
+    }
+}

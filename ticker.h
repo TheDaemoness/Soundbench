@@ -17,36 +17,35 @@
     Copyright 2012  Amaya S.
 */
 
-#ifndef SAMPLETABLE_H
-#define SAMPLETABLE_H
+#ifndef TICKER_H
+#define TICKER_H
 
-#include "basicwaves.h"
-#include "ticker.h"
+#include "sbutilities.h"
 
 namespace sb {
-
-    class PeriodicSampleTable {
+    class Ticker {
+    private:
+        float pos;
+        float speed;
     public:
-        explicit PeriodicSampleTable(WaveBase* wav = nullptr, bool autodelete = true);
-        void setWaveCount (size_t its) {
-            iters.resize(its);
-            amps.resize(its);
+        Ticker() {
+            pos = 0;
+            speed = 0;
         }
-        void setWave(float freq, SbSample amp, size_t pos);
-        void reset() {
-            for(Ticker& ti : iters) {
-                ti.setPos(0);
-                ti.setSpeed(0);
-            }
+        void setPos(float p) {
+            pos = p;
         }
-        SbSample tick(size_t pos = 0);
-
-    protected:
-        std::vector<SbSample> samples;
-        std::vector<Ticker> iters;
-        std::vector<SbSample> amps;
+        void setSpeed(float s) {
+            speed = s;
+        }
+        float tick() {
+            pos += speed;
+            return pos;
+        }
+        float getValue() {
+            return pos;
+        }
     };
-
 }
 
-#endif //SAMPLETABLE_H
+#endif // TICKER_H

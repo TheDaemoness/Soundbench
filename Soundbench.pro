@@ -45,7 +45,8 @@ HEADERS += architect.h \
     frontend.portmidi.h \
     noteinput.h \
     trapezoid.h \
-    presetenums.h
+    presetenums.h \
+    ticker.h
 
 FORMS += errorpopup.ui \
          gentypedialog.ui \
@@ -84,19 +85,20 @@ SOURCES += architect.cpp \
 
 RESOURCES += sbMainResources.qrc
 
-unix: LIBS += -L/usr/lib/  -lsndfile
+unix: LIBS += -L/usr/lib/
 
+LIBS += -lsndfile
 
 #Configuration switches to remove certain functionality and dependencies where necessary.
 !noPortAudio {
-    unix: LIBS += -lportaudio -lportaudiocpp
+    LIBS += -lportaudio -lportaudiocpp
 }
 noPortAudio {
     DEFINES += NO_PORTAUDIO
 }
 
 !noPortMidi{
-    unix: LIBS += -lportmidi
+    LIBS += -lportmidi
 }
 noPortMidi {
     DEFINES += NO_MIDI
