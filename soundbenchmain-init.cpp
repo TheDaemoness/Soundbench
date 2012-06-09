@@ -101,7 +101,6 @@ void SoundbenchMain::delayedConstructor() {
     connect(ui->silenceButton,SIGNAL(clicked()),SLOT(silence()));
     connect(ui->volumeSlider,SIGNAL(valueChanged(int)),SLOT(setMasterVolume(int)));
     connect(ui->playButton,SIGNAL(toggled(bool)),SLOT(playSynth(bool)));
-    connect(ui->mainTabs,SIGNAL(currentChanged(int)),SLOT(closePopups()));
 
     //Conncet the Player page widgets and disable a few buttons.
     connect(ui->holdA4Button,SIGNAL(toggled(bool)),SLOT(testSynth(bool)));

@@ -83,7 +83,8 @@ SOURCES += architect.cpp \
     noteinput.cpp \
     trapezoid.cpp
 
-RESOURCES += sbMainResources.qrc
+RESOURCES += \
+    resources.qrc
 
 unix: LIBS += -L/usr/lib/
 
@@ -107,5 +108,5 @@ noPortMidi {
 
 OTHER_FILES += \
     ProgrammingStyleRegulations.txt \
-    BUILDING \
-    COPYING
+    COPYING \
+    README

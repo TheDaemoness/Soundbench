@@ -88,7 +88,7 @@ namespace sb {
 
     public slots:
         void writeFile();
-        void loadFile();
+        bool loadFile();
     };
 }
 

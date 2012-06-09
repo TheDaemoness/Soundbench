@@ -81,6 +81,5 @@
         <file>warning_popup.png</file>
         <file>gentype_popup.png</file>
         <file>basicgener_backdrop.png</file>
-        <file>eventlist_popup.png</file>
     </qresource>
 </RCC>

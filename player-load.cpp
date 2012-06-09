@@ -21,24 +21,30 @@
 #include "player.h"
 
 namespace sb {
-    void Player::loadFile() {
+    bool Player::loadFile() {
         reed->close();
         affectedlist->clear();
 
-        if(!reed->readerOpen(fi))
-            return; //Failed.
+        if(!reed->readerOpen(fi)) {
+            std::cerr << "Aborted reading.\n";
+            return false;
+        }
 
         if(reed->getFileType() == midi::SingleTrack)
-            return;
+            return true;
         else {
             for(uint16_t i = (reed->getFileType() == midi::MultiTrack?1:0), e = reed->getTrackCount(); i < e; ++i)
                 affectedlist->addItem(reed->getTrackName(i).c_str());
-            if (reed->getFileType() == midi::MultiTrack)
-                loadTrack(1);
-            else
-                loadTrack(0);
+            if (reed->getFileType() == midi::MultiTrack) {
+                if(!loadTrack(1))
+                    return false;
+            }
+            else {
+                if(!loadTrack(0))
+                    return false;
+            }
             affectedlist->setCurrentRow(0);
-            return;
+            return true;
         }
     }
 

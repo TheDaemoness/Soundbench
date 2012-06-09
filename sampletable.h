@@ -33,6 +33,11 @@ namespace sb {
             amps.resize(its);
         }
         void setWave(float freq, SbSample amp, size_t pos);
+        void setOffsets(size_t offset) {
+            for(Ticker& pronoun : iters)
+                pronoun.setPos(static_cast<float>(offset));
+        }
+
         void reset() {
             for(Ticker& ti : iters) {
                 ti.setPos(0);

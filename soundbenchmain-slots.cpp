@@ -26,11 +26,13 @@ void SoundbenchMain::importOpen() {
 
     if (!chosenfile.size()) {
         em->start();
-        met->startMeter();
         return;
     }
     plai->setFile(chosenfile.toStdString());
-    plai->loadFile();
+    if(!plai->loadFile()) {
+        em->start();
+        return;
+    }
     ui->exportButton->setEnabled(true);
     ui->songsTracksList->setCurrentRow(0);
 
@@ -103,11 +105,6 @@ void SoundbenchMain::setSampleRate(int which) {
     em->setSamplingRate(sb::SupportedRates[which]);
     arch->buildSynth(syn,blu);
     em->start();
-}
-
-void SoundbenchMain::closePopups() {
-    /*The purpose of this is to close all the popups that do not block the interface.
-        All non-blocking popups take care of freeing themselves.*/
 }
 
 void SoundbenchMain::setGenType(int which) {

@@ -1,9 +1,12 @@
 To build Soundbench, you have to make absolutely sure you have the following:
-	A C++11 compliant compiler (we recommend clang++)
+        A (mostly) C++11 compliant compiler. The following compilers have been tested and are known to work:
+            g++ 4.6.3
+            clang++ 3.1
+        qmake
 	libqt4
 	libportaudio
 	libsndfile
-
+        libportmidi
 
 ===BUILDING ON *NIX===
 All you need to do is open a terminal and type the following:
@@ -38,3 +41,13 @@ Your project should be now built! Congrats!
 We highly recommend using Cygwin, as some parts of this program aren't fully functional without the POSIX APIs.
 
 Instructions on how to build on Windows will be provided soon.
+
+
+===CONFIGURATIONS===
+Soundbench does have a few configurations that allow the user to disable one or more features in exchange for a removed dependency.
+
+noPortAudio
+Remove PortAudio. As of alpha version 0.2.1, this will disable all real-time audio output as there is no alternative audio backend.
+
+noPortMidi
+Remove PortMidi. As of the 0.3.0 development branch, this will disable all real-time Midi input, as there is no alternative note input frontend.

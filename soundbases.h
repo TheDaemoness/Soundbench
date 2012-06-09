@@ -46,6 +46,7 @@ namespace sb {
         virtual void noteOn(int halfsteps, SbSample amp, size_t pos) = 0;
         virtual void noteOff(size_t pos) = 0;
         virtual void setPolymorphism(size_t) = 0;
+        virtual bool finished(size_t pos) = 0;
     };
 
     class FxBase : public SoundBase {

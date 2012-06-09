@@ -49,10 +49,6 @@ public:
     ~SoundbenchMain();
     void delayedConstructor();
 
-    void updateCPU(double use) {
-        ui->cpuMeter->setValue(use*1000);
-    }
-
 public slots:
     //void disableRtAu();
     //void disableMidi();
@@ -66,7 +62,6 @@ private slots:
     void silence();
     void setMasterVolume(int);
     void setSampleRate(int);
-    void closePopups();
     void setGenType(int);
     void setGenSett(int);
     void setTrack(int);

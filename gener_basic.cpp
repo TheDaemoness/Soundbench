@@ -26,29 +26,34 @@ namespace sb {
         notebias = 0;
         sample_rate = srate;
         gen_amp = SbSampleMax;
-        ocean.reserve(cracker);
+        currpoly = cracker;
+
+        ocean = new PeriodicSampleTable(new Sine(SampleRate));
+        ocean->setWaveCount(cracker);
         envelope.resize(cracker);
-        for (size_t i = 0; i < cracker; ++i)
-            ocean.push_back(new Sine(sample_rate));
     }
     void BasicGen::ctrl(ModuleParams arg, ParameterValue val) {
         switch (arg) {
         case GenBasicWave:
+            if (curr_wav == static_cast<SimpleWaveTypes>(val.value))
+                break;
             curr_wav = static_cast<SimpleWaveTypes>(val.value);
-            for (auto& i : ocean) {
-                delete i;
+            delete ocean;
 
-                if (static_cast<SimpleWaveTypes>(val.value) == TriangleWave)
-                    i = new Triangle(SampleRate);
-                else if (static_cast<SimpleWaveTypes>(val.value) == SquareWave)
-                    i = new Square(SampleRate);
-                else if (static_cast<SimpleWaveTypes>(val.value) == SawtoothWave)
-                    i = new Sawtooth(SampleRate);
-                else if (static_cast<SimpleWaveTypes>(val.value) == OvalWave)
-                    i = new Oval(SampleRate);
-                else
-                    i = new Sine(SampleRate);
-            }
+            WaveBase* w;
+            if (static_cast<SimpleWaveTypes>(val.value) == TriangleWave)
+                w = new Triangle(SampleRate);
+            else if (static_cast<SimpleWaveTypes>(val.value) == SquareWave)
+                w = new Square(SampleRate);
+            else if (static_cast<SimpleWaveTypes>(val.value) == SawtoothWave)
+                w = new Sawtooth(SampleRate);
+            else if (static_cast<SimpleWaveTypes>(val.value) == OvalWave)
+                w = new Oval(SampleRate);
+            else
+                w = new Sine(SampleRate);
+            ocean = new PeriodicSampleTable(w, true);
+            ocean->setWaveCount(currpoly);
+            ocean->setOffsets(offset);
             break;
         case GenBasicAmp:
             gen_amp = val.sample;
@@ -57,8 +62,8 @@ namespace sb {
             notebias = val.value;
             break;
         case GenBasicPhase:
-            for (auto i : ocean)
-                i->setOffset(val.sample*2*Pi);
+            offset = val.sample/SbSampleMax*SampleRate;
+            ocean->setOffsets(offset);
             break;
         case GenerAttackTime:
             for(Trapezoid& trap : envelope)
@@ -74,56 +79,37 @@ namespace sb {
         }
     }
     void BasicGen::noteOn(int halfsteps, SbSample ampl, size_t pos) {
-        if(pos >= ocean.size())
+        if(pos >= envelope.size())
             return;
-        ocean[pos]->setFrequency(getFrequencyFromNote(halfsteps + notebias));
-        ocean[pos]->setAmplitude(ampl);
+        ocean->setWave(getFrequencyFromNote(halfsteps+notebias),ampl,pos);
         envelope[pos].attack();
         ++notes;
     }
     void BasicGen::noteOff(size_t pos) {
-        if(pos >= ocean.size())
+        if(pos >= envelope.size())
             return;
         envelope[pos].release();
         --notes;
     }
     void BasicGen::reset() {
-        for (auto& i : ocean) {
-            i->reset();
-        }
+        ocean->setOffsets(offset);
         for(Trapezoid trap : envelope)
             trap.reset();
     }
     void BasicGen::setPolymorphism(size_t poly) {
-        if (ocean.size() == poly)
+        if (currpoly == poly)
             return;
-        for (auto i : ocean)
-            delete i;
-        for (Trapezoid& trap : envelope)
-            trap.reset();
-
+        currpoly = poly;
+        reset();
         envelope.resize(poly);
-        ocean.resize(poly);
-
-        for (auto& i : ocean) {
-            if (curr_wav == TriangleWave)
-                i = new Triangle(SampleRate);
-            else if (curr_wav == SquareWave)
-                i = new Square(SampleRate);
-            else if (curr_wav == SawtoothWave)
-                i = new Sawtooth(SampleRate);
-            else if (curr_wav == OvalWave)
-                i = new Oval(SampleRate);
-            else
-                i = new Sine(SampleRate);
-        }
+        ocean->setWaveCount(poly);
     }
     void BasicGen::tick(float *sample, size_t chans) {
         //Cummulate all the samples from each active wave into the same float.
         sample[0] = 0.0f;
-        for (size_t i = 0; i < ocean.size(); ++i) {
+        for (size_t i = 0; i < currpoly; ++i) {
             if (envelope[i].tick() != SbSampleZero) {
-                sample[0] += (ocean[i]?ocean[i]->tick():0.0)*gen_amp*envelope[i].getLevel();
+                sample[0] += ocean->tick(i)*gen_amp*envelope[i].getLevel();
             }
         }
 

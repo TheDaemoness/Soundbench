@@ -21,21 +21,25 @@
 #define CHAINS_H
 
 #include "soundbases.h"
+#include "sampletable.h"
 
 namespace sb {
 
     class BasicGen : public GenBase {
     private:
-        std::vector<WaveBase*> ocean;
+        PeriodicSampleTable* ocean;
         SimpleWaveTypes curr_wav;
         SbSample gen_amp;
         int16_t notebias;
-        uint8_t notes;
+        uint8_t notes, currpoly;
+        size_t offset;
     public:
         explicit BasicGen(size_t srate, size_t cracker = DefaultPolyphony);
         ~BasicGen() {
-            for(auto i : ocean)
-                delete i;
+            delete ocean;
+        }
+        bool finished(size_t pos) {
+            return envelope[pos].getLevel() == SbSampleZero;
         }
 
         void ctrl(ModuleParams arg, ParameterValue val);

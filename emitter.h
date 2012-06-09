@@ -56,13 +56,16 @@ namespace sb {
         void setEmitterType(EmitterType);
 
         void start() {
-            backend->start();
+            if (backend != nullptr)
+                backend->start();
         }
         void stop() {
-            backend->stop();
+            if (backend != nullptr)
+                backend->stop();
         }
         bool isRunning() {
-            return backend->isRunning();
+            if (backend != nullptr)
+                return backend->isRunning();
         }
 
     private:

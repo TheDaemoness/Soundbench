@@ -25,12 +25,10 @@ namespace sb {
             samples.resize(SampleRate,0.0);
             return;
         }
-
         samples.reserve(SampleRate);
-        float factor = Pi*2/SampleRate;
+        float factor = Pi*2.0/SampleRate;
         for (uint32_t i = 0; i < SampleRate; ++i)
             samples.push_back(wav->getRaw(factor*i));
-
         if (autodelete)
             delete wav;
     }
@@ -44,12 +42,10 @@ namespace sb {
 
     SbSample PeriodicSampleTable::tick(size_t pos) {
         float num = iters[pos].tick();
-        if (num > samples.size()) {
-            do {
-                num -= samples.size();
-            } while (num > samples.size());
+        if (num >= samples.size()) {
+            num = std::fmod(num,samples.size());
             iters[pos].setPos(num);
         }
-        return samples[static_cast<size_t>(num)]*amps[static_cast<size_t>(num)];
+        return samples[static_cast<size_t>(num)]*amps[pos];
     }
 }

@@ -28,6 +28,8 @@ namespace sb {
             delete backend;
             backend = nullptr;
         }
+        if (emt == NoEmitter)
+            return;
 
         decltype(emt) used_backend = NoEmitter;
         auto initFailed = [used_backend,emt,this]() {
