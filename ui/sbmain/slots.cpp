@@ -133,7 +133,7 @@ void SoundbenchMain::setGenType(int which) {
 
 void SoundbenchMain::setGenSett(int which) {
     stopAndReset();
-    genSetts(which);
+    genSetts(which-1);
     arch->buildSynth(syn,blu);
     syn->reset();
     em->start();

@@ -20,7 +20,6 @@
 #include "soundbenchmain.h"
 
 void SoundbenchMain::genSetts(size_t i) {
-
     if (blu->gener[i] == sb::GenerBasic) {
         stopAndReset();
         gsd.basic = new BasicGenerSettings(i,blu);
@@ -28,7 +27,7 @@ void SoundbenchMain::genSetts(size_t i) {
         delete gsd.basic;
     }
     else
-        std::cerr << "Please rebuild Soundbench with the appropriate generator settings buttons *disabled*.\n\n";
+        std::cerr << "A request for an unimplemented generator's settings was made. Ignoring...\n";
 }
 
 SoundbenchMain::~SoundbenchMain() {
