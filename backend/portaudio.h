@@ -24,20 +24,22 @@
 
 //NOTICE: Do not reimplement this class to use Pa_WriteStream. It uses the callback to take advantage of the high-priority thread it runs in.
 
+namespace sb {
 #ifndef NO_PORTAUDIO
 
 #include <portaudio.h>
-namespace sb {
-
     class PortaudioBackend : public EmitterBackend {
     public:
         static bool instantiable();
+        static bool pa_inited;
         explicit PortaudioBackend(sb::Synth*, size_t&, std::map<size_t,bool>&, size_t);
         size_t returnSuggestedBufferSize();
         ~PortaudioBackend();
+
         void start();
         void stop();
         void setSamplingRate(size_t);
+
         static int callback(const void*, void*, unsigned long, const PaStreamCallbackTimeInfo*, PaStreamCallbackFlags, void*);
 
     private:
@@ -47,21 +49,20 @@ namespace sb {
 
     };
 
-}
-
 #else
 
-class PortaudioBackend : public EmitterBackend {
-public:
-    static bool instantiable();
-    explicit PortaudioBackend(sb::Synth*, size_t&,std::map<size_t,bool>&,size_t) {};
-    size_t returnSuggestedBufferSize() {return 0;}
-    ~PortaudioBackend() {}
-    void start() {}
-    void stop() {}
-    void setSamplingRate(size_t) {}
-};
+    class PortaudioBackend : public EmitterBackend {
+    public:
+        static bool instantiable();
+        explicit PortaudioBackend(sb::Synth*, size_t&,std::map<size_t,bool>&,size_t) {};
+        size_t returnSuggestedBufferSize() {return 0;}
+        ~PortaudioBackend() {}
+        void start() {}
+        void stop() {}
+        void setSamplingRate(size_t) {}
+    };
 
 #endif
+}
 
 #endif // BACKEND_PORTAUDIO_H

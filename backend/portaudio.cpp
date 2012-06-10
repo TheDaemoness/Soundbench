@@ -17,21 +17,24 @@
     Copyright 2012  Amaya S.
 */
 
-#ifndef NO_PORTAUDIO
-
 #include "backend/portaudio.h"
 
-namespace sb {
+#ifndef NO_PORTAUDIO
 
+namespace sb {
+    bool PortaudioBackend::pa_inited = false;
     PortaudioBackend::PortaudioBackend(Synth* s, size_t& srate, std::map<size_t, bool>& srates, size_t chans) {
         running = false;
         int e;
-        e = Pa_Initialize();
-        if (e != paNoError) {
-            std::__throw_runtime_error((std::string("emitter::backend::portaudio - ")+Pa_GetErrorText(e)).c_str());
+        if (!pa_inited) {
+            e = Pa_Initialize();
+            if (e != paNoError) {
+                std::cerr << "Unexpected initialization failure.\n";
+                return;
+            }
         }
-        dev.device = Pa_GetDefaultOutputDevice();
 
+        dev.device = Pa_GetDefaultOutputDevice();
         dev.channelCount = chans;
         dev.sampleFormat = paFloat32;
         dev.suggestedLatency = Pa_GetDeviceInfo(dev.device)->defaultLowOutputLatency;
@@ -49,6 +52,7 @@ namespace sb {
         sampling_rate = srate;
         syn = s;
         river = nullptr;
+        ready = true;
     }
 
     int PortaudioBackend::callback(const void*, void* output, unsigned long framecount, const PaStreamCallbackTimeInfo*, PaStreamCallbackFlags, void* syne) {
@@ -69,9 +73,11 @@ namespace sb {
         e = Pa_StartStream(river);
         if (e != paNoError) {
             std::cerr << "Problem when starting the output stream: " << Pa_GetErrorText(e) << ".\n";
-            std::__throw_runtime_error((std::string("emitter::backend::portaudio - Couldn't start the output stream: ")+Pa_GetErrorText(e)).c_str());
+            stop();
+            running = false;
         }
-        running = true;
+        else
+            running = true;
     }
 
     void PortaudioBackend::setSamplingRate(size_t neorate) {
@@ -84,16 +90,12 @@ namespace sb {
         if(river != nullptr) {
             if (Pa_IsStreamActive(river)) {
                 e = Pa_StopStream(river);
-                if (e != paNoError) {
+                if (e != paNoError)
                     std::cerr << "Problem when stopping the output stream: " << Pa_GetErrorText(e) << ".\n";
-                    std::__throw_runtime_error((std::string("emitter::backend::portaudio - Couldn't stop the output stream: ")+Pa_GetErrorText(e)).c_str());
-                }
             }
             e = Pa_CloseStream(river);
-            if (e != paNoError) {
+            if (e != paNoError)
                 std::cerr << "Problem when closing the output stream: " << Pa_GetErrorText(e) << ".\n";
-                std::__throw_runtime_error((std::string("emitter::backend::portaudio - Couldn't close the output stream: ")+Pa_GetErrorText(e)).c_str());
-            }
             river = nullptr;
         }
         running = false;
@@ -114,6 +116,7 @@ namespace sb {
     PortaudioBackend::~PortaudioBackend() {
         stop();
         Pa_Terminate();
+        pa_inited = false;
     }
 
     bool PortaudioBackend::instantiable() {
@@ -124,7 +127,7 @@ namespace sb {
             Pa_Terminate();
             return false;
         }
-        Pa_Terminate();
+        pa_inited = true;
         return true;
     }
 
@@ -132,8 +135,8 @@ namespace sb {
 
 #else
 
-    bool PortaudioBackend::instantiable() {
-        return false; //No compiled PortAudio support.
-    }
+bool PortaudioBackend::instantiable() {
+    return false; //No compiled PortAudio support.
+}
 
 #endif

@@ -31,16 +31,25 @@ namespace sb {
     public:
         EmitterBackend() {
             running = false;
+            ready = false;
+            sampling_rate = SampleRate;
         }
         virtual ~EmitterBackend() {}
         virtual void stop() = 0;
         virtual void start() = 0;
-        virtual void setSamplingRate(size_t) = 0;
+
+        virtual void setSamplingRate(size_t newrate) {
+            sampling_rate = newrate;
+        }
         virtual bool isRunning() {
             return running;
         }
+        virtual bool isReady() {
+            return ready;
+        }
 
     protected:
+        bool ready;
         size_t sampling_rate;
         sb::Synth* syn;
         bool running;

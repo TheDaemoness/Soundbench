@@ -21,7 +21,7 @@
 #define PLAYER_H
 
 #include "midichain.h"
-#include "midifio.h"
+#include "midifio/midifio.h"
 #include "cpumeter.h"
 #include "sfwriter.h"
 

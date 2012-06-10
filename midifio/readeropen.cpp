@@ -152,7 +152,7 @@ namespace sb {
                         return false;
                 }
             }
-            tracks.push_back(river.tellg()-4L);
+            tracks.push_back(static_cast<size_t>(river.tellg()-4L));
 
             //Index all the tracks.
             if (filetype != 0) {
@@ -181,8 +181,7 @@ namespace sb {
                     }
                     //TODO: For future versions, have a way of checking for an end-of-track event.
                     if(!river.eof())
-                        tracks.push_back(river.tellg()-4L);
-
+                        tracks.push_back(static_cast<size_t>(river.tellg()-4L));
                 }
             }
 

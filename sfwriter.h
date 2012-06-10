@@ -24,7 +24,7 @@
 
 #include <deque>
 
-#include "emitter.h"
+#include "emitter/emitter.h"
 #include "synth.h"
 
 namespace sb {

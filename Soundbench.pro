@@ -15,16 +15,16 @@ unix: INCLUDEPATH += /usr/include/
 
 # Input
 HEADERS += architect.h \
-           backend/portaudio.h \
-           basicwaves.h \
-           blueprint.h \
-           common.h \
-           emitter.h \
-           errorpopup.h \
-           gentypedialog.h \
-           ui/sbmain/soundbenchmain.h \
-           synth.h \
-           warningpopup.h \
+    backend/portaudio.h \
+    basicwaves.h \
+    blueprint.h \
+    common.h \
+    emitter/emitter.h \
+    errorpopup.h \
+    gentypedialog.h \
+    ui/sbmain/soundbenchmain.h \
+    synth.h \
+    warningpopup.h \
     application.h \
     meterupdater.h \
     player/player.h \
@@ -37,7 +37,7 @@ HEADERS += architect.h \
     soundbases.h \
     gener/basic.h \
     cpumeter.h \
-    midifio.h \
+    midifio/midifio.h \
     sfwriter.h \
     sampletable.h \
     backend/jack.h \
@@ -49,19 +49,20 @@ HEADERS += architect.h \
     ticker.h
 
 FORMS += errorpopup.ui \
-         gentypedialog.ui \
-         ui/sbmain/soundbenchmain.ui \
-         warningpopup.ui \
+    gentypedialog.ui \
+    ui/sbmain/soundbenchmain.ui \
+    warningpopup.ui \
     ui/settings/basicgen.ui
 
-SOURCES += architect.cpp \
-           backend/portaudio.cpp \
-           basicwaves.cpp \
-           emitter.cpp \
-           errorpopup.cpp \
-           gentypedialog.cpp \
-           main.cpp \
-           warningpopup.cpp \
+SOURCES += emitter/initportaudio.cpp \
+    architect.cpp \
+    backend/portaudio.cpp \
+    basicwaves.cpp \
+    emitter/emitter.cpp \
+    errorpopup.cpp \
+    gentypedialog.cpp \
+    main.cpp \
+    warningpopup.cpp \
     synth.cpp \
     application.cpp \
     meterupdater.cpp \
@@ -81,7 +82,8 @@ SOURCES += architect.cpp \
     frontend/portmidi.cpp \
     frontend/portmidi-parse.cpp \
     noteinput.cpp \
-    trapezoid.cpp
+    trapezoid.cpp \
+    emitter/initsomething.cpp
 
 RESOURCES += \
     resources.qrc

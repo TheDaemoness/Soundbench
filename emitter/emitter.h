@@ -38,10 +38,6 @@ namespace sb {
         explicit Emitter(Synth*);
         ~Emitter();
 
-        bool failed() {
-            return failure;
-        }
-
         size_t getSampleRate() {
             return sample_rate;
         }
@@ -69,8 +65,11 @@ namespace sb {
         }
 
     private:
-        bool failure;
-        EmitterType em_type;
+        bool initSomeBackend(EmitterType notthisone = NoEmitter);
+        bool initPortAudio();
+        bool initJACK();
+
+        EmitterType em_type, used_backend;
         std::map<EmitterType,bool> supported_apis;
         std::map<size_t,bool> supported_rates;
         EmitterBackend* backend;

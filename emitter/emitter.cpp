@@ -30,25 +30,16 @@ namespace sb {
         }
         if (emt == NoEmitter)
             return;
-
-        decltype(emt) used_backend = NoEmitter;
-        auto initFailed = [used_backend,emt,this]() {
-            return (used_backend != NoEmitter && backend == nullptr);
-        };
+        used_backend = NoEmitter;
 
         if (emt == JACK_O) {
             used_backend = JACK_O;
             std::cerr << "Would initialize a JACK as an audio backend, but it hasn't yet been implemented.\n";
+            initSomeBackend(JACK_O);
         }
-        if (emt == PortAudio || initFailed()) {
-            used_backend = PortAudio;
-            if (supported_apis[sb::PortAudio]) {
-                std::cerr << "Initializing a PortAudio audio backend...\n";
-                backend = new PortaudioBackend(syn, sample_rate,supported_rates,2);
-                std::cerr << "PortAudio backend initialized.\n";
-            }
-            else
-                std::cerr << "Cannot initialize the PortAudio audio backend.\n";
+        else if (emt == PortAudio) {
+            if(!initPortAudio())
+                initSomeBackend(PortAudio);
         }
 
         if (backend != nullptr && used_backend != emt) {
@@ -60,7 +51,8 @@ namespace sb {
             bool noquite = w->fixed();
             delete w;
             if (!noquite) {
-                failure = true;
+                delete backend;
+                backend = nullptr;
                 return;
             }
         }
@@ -82,7 +74,6 @@ namespace sb {
     }
 
     Emitter::Emitter(Synth* s) {
-        failure = false;
         std::cerr << "Determining which audio backends will initialize...\n";
         supported_apis[sb::PortAudio] = PortaudioBackend::instantiable();
         supported_apis[sb::JACK_O] = JACKBackend::instantiable();
