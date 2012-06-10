@@ -18,7 +18,7 @@
 */
 
 #include "ui/settings/basicgen.h"
-#include "ui_basicgenersettings.h"
+#include "ui_basicgen.h"
 
 BasicGenerSettings::BasicGenerSettings(size_t chan, sb::Blueprint* blu, QWidget *parent) :
     QDialog(parent),
