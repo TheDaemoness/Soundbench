@@ -17,39 +17,14 @@
     Copyright 2012  Amaya S.
 */
 
-#ifndef FRONTEND_PORTMIDI_H
-#define FRONTEND_PORTMIDI_H
-
-#include "frontend.h"
+#include "backend/jack.h"
 
 namespace sb {
-
-#ifndef NO_PORTMIDI
-#include <portmidi.h>
-
-    class PortmidiFrontend : public MidiFrontend {
-    public:
-        static bool instantiable();
-        PortmidiFrontend(Synth* s);
-        ~PortmidiFrontend();
-        void start();
-        void stop();
-        static PmTimestamp callback(void* data);
-    private:
-        PortMidiStream* river;
-        std::chrono::time_point<std::chrono::high_resolution_clock> starttime;
-    };
-
+#ifndef NO_JACK
+    //TODO: Implement this backend.
 #else
-    class PortmidiFrontend {
-    public:
-        static bool instantiable();
-        PortmidiFrontend(Synth* s) {};
-        void start() {};
-        void stop() {};
-    };
+    bool JACKBackend::instantiable() {
+        return false;
+    }
 #endif
-
 }
-
-#endif // FRONTEND_PORTMIDI_H

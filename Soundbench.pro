@@ -15,34 +15,34 @@ unix: INCLUDEPATH += /usr/include/
 
 # Input
 HEADERS += architect.h \
-           backend.portaudio.h \
+           backend/portaudio.h \
            basicwaves.h \
            blueprint.h \
            common.h \
            emitter.h \
            errorpopup.h \
            gentypedialog.h \
-           soundbenchmain.h \
+           ui/sbmain/soundbenchmain.h \
            synth.h \
            warningpopup.h \
     application.h \
     meterupdater.h \
-    player.h \
+    player/player.h \
     midichain.h \
     problemfix.h \
-    backend.h \
+    backend/base.h \
     sbutilities.h \
     midienums.h \
-    settings_basicgen.h \
+    ui/settings/basicgen.h \
     soundbases.h \
-    gener_basic.h \
+    gener/basic.h \
     cpumeter.h \
     midifio.h \
     sfwriter.h \
     sampletable.h \
-    backend.jack.h \
-    frontend.h \
-    frontend.portmidi.h \
+    backend/jack.h \
+    frontend/base.h \
+    frontend/portmidi.h \
     noteinput.h \
     trapezoid.h \
     presetenums.h \
@@ -50,12 +50,12 @@ HEADERS += architect.h \
 
 FORMS += errorpopup.ui \
          gentypedialog.ui \
-         soundbenchmain.ui \
+         ui/sbmain/soundbenchmain.ui \
          warningpopup.ui \
-    basicgenersettings.ui
+    ui/settings/basicgen.ui
 
 SOURCES += architect.cpp \
-           backend.portaudio.cpp \
+           backend/portaudio.cpp \
            basicwaves.cpp \
            emitter.cpp \
            errorpopup.cpp \
@@ -65,21 +65,21 @@ SOURCES += architect.cpp \
     synth.cpp \
     application.cpp \
     meterupdater.cpp \
-    soundbenchmain-slots.cpp \
-    soundbenchmain-func.cpp \
-    settings_basicgen.cpp \
-    gener_basic.cpp \
-    soundbenchmain-init.cpp \
-    midifio-read.cpp \
-    midifio-readeropen.cpp \
-    midifio-misc.cpp \
+    ui/sbmain/slots.cpp \
+    ui/sbmain/func.cpp \
+    ui/settings/basicgen.cpp \
+    gener/basic.cpp \
+    ui/sbmain/init.cpp \
+    midifio/read.cpp \
+    midifio/readeropen.cpp \
+    midifio/misc.cpp \
     sfwriter.cpp \
-    player-load.cpp \
-    player-write.cpp \
+    player/load.cpp \
+    player/write.cpp \
     sampletable.cpp \
-    backend.jack.cpp \
-    frontend.portmidi.cpp \
-    frontend.portmidi-parse.cpp \
+    backend/jack.cpp \
+    frontend/portmidi.cpp \
+    frontend/portmidi-parse.cpp \
     noteinput.cpp \
     trapezoid.cpp
 

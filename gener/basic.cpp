@@ -17,7 +17,7 @@
     Copyright 2012  Amaya S.
 */
 
-#include "gener_basic.h"
+#include "gener/basic.h"
 
 namespace sb {
 

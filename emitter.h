@@ -23,8 +23,8 @@
 
 //local
 #include "sbutilities.h"
-#include "backend.portaudio.h"
-#include "backend.jack.h"
+#include "backend/portaudio.h"
+#include "backend/jack.h"
 
 //libstdc++11
 #include <vector>

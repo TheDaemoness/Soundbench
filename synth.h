@@ -20,7 +20,7 @@
 #ifndef SYNTH_H
 #define SYNTH_H
 
-#include "gener_basic.h"
+#include "gener/basic.h"
 #include <chrono>
 
 namespace sb {

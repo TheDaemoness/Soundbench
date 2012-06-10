@@ -21,7 +21,7 @@
 #ifndef MIDI_H
 #define MIDI_H
 
-#include "frontend.portmidi.h"
+#include "frontend/portmidi.h"
 
 namespace sb {
 

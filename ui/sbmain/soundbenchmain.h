@@ -25,11 +25,11 @@
 #include "emitter.h"
 #include "architect.h"
 #include "synth.h"
-#include "player.h"
+#include "player/player.h"
 #include "noteinput.h"
 
 #include "gentypedialog.h"
-#include "settings_basicgen.h"
+#include "ui/settings/basicgen.h"
 #include "cpumeter.h"
 
 #include <QSignalMapper>

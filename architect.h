@@ -21,7 +21,7 @@
 #define ARCHITECT_H
 
 #include "blueprint.h"
-#include "gener_basic.h"
+#include "gener/basic.h"
 #include "synth.h"
 
 namespace sb {

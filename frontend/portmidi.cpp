@@ -17,7 +17,7 @@
     Copyright 2012  Amaya S.
 */
 
-#include "frontend.portmidi.h"
+#include "frontend/portmidi.h"
 #include <chrono>
 
 namespace sb {

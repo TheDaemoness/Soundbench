@@ -45,7 +45,7 @@ Guidelines may be bent or sometimes outright broken if the programmer thinks it'
 3.7.3. blu: A pointer to a Blueprint object.
 
 
-4. Files
+4. Files and Directories
 
 4.1. One should be able to tell what a file contains just by looking at its name.
 4.1.1* Header and source files should ideally be named after the class they contain if they contain only one.
@@ -56,15 +56,17 @@ Guidelines may be bent or sometimes outright broken if the programmer thinks it'
 4.6* Headers should only declare one class at a time unless the classes are derived from each other and have similar purposes.
 4.7* When possible, header and source file names should match.
 4.8. If splitting implementations or declaractions over several files, there are a few naming rules to follow:
-4.8.1. If a header exists primarily to declare a derived class from a class that has its own header file, the file should have the name:
-    <header of the original class>.<abbreviated class name or recognizable purpose>.h
-    Example: backend.portaudio.h
-4.8.2. If a header exists primariy to declare a class that is easily categorizable or a derived class from a class without its own header file, the file should have the name:
-    <category or abbreviated original class name>_<abbreviated class name or recognizable purpose>.h
-    Example: gener_basic.h
+4.8.1. If a header exists primarily to declare a derived class from a class that has its own header file, the file should be in a subdirectory and have a name as such:
+    <categorization>/<abbreviated class name>.h
+    Example: backend/portaudio.h
+4.8.2. If a header exists primariy to declare a class that is easily categorizable, the file should be in a subdirectory and have a name as such:
+    <categorization>/<abbreviated class name>.h
+    Example: gener/basic.h
 4.8.3. If the implementation of a class has to be split over several files, the implementation files should have the name:
-    <header declaring the class>-<portion of the class being defined>.cpp
-    Example: midifile-open.cpp
+    <abbreviated class name>/<portion of the class being defined>.cpp
+    Example: midifile/open.cpp
+4.8.4. Directories are nested as so:
+    <categorization>/<abbreviated class name>/<part of class being implemented>
 
 
 5. Namespaces

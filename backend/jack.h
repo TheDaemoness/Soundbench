@@ -17,14 +17,35 @@
     Copyright 2012  Amaya S.
 */
 
-#include "backend.jack.h"
+#ifndef BACKEND_JACK_H
+#define BACKEND_JACK_H
 
-namespace sb {
+#include "backend/base.h"
+
 #ifndef NO_JACK
-    //TODO: Implement this backend.
-#else
-    bool JACKBackend::instantiable() {
-        return false;
-    }
-#endif
+namespace sb {
+    class JACKBackend {
+    public:
+        static bool instantiable();
+        explicit JACKBackend(sb::Synth*, size_t&,std::map<size_t,bool>&,size_t);
+        void start();
+        void stop();
+        void setSamplingRate(size_t);
+        size_t returnSuggestedBufferSize() {return 0;}
+    };
 }
+#else
+namespace sb {
+    class JACKBackend {
+    public:
+        static bool instantiable();
+        explicit JACKBackend(sb::Synth*, size_t&,std::map<size_t,bool>&,size_t) {};
+        void start() {};
+        void stop() {};
+        void setSamplingRate(size_t) {};
+        size_t returnSuggestedBufferSize() {return 0;}
+    };
+}
+#endif
+
+#endif // BACKEND_JACK_H

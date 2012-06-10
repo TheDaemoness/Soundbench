@@ -17,7 +17,7 @@
     Copyright 2012  Amaya S.
 */
 
-#include "settings_basicgen.h"
+#include "ui/settings/basicgen.h"
 #include "ui_basicgenersettings.h"
 
 BasicGenerSettings::BasicGenerSettings(size_t chan, sb::Blueprint* blu, QWidget *parent) :

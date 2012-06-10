@@ -22,7 +22,7 @@
 
 #include <QApplication>
 
-#include "soundbenchmain.h"
+#include "ui/sbmain/soundbenchmain.h"
 
 class SoundbenchApp : public QApplication
 {

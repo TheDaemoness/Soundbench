@@ -17,35 +17,39 @@
     Copyright 2012  Amaya S.
 */
 
-#ifndef BACKEND_JACK_H
-#define BACKEND_JACK_H
+#ifndef FRONTEND_PORTMIDI_H
+#define FRONTEND_PORTMIDI_H
 
-#include "backend.h"
+#include "frontend/base.h"
 
-#ifndef NO_JACK
 namespace sb {
-    class JACKBackend {
+
+#ifndef NO_PORTMIDI
+#include <portmidi.h>
+
+    class PortmidiFrontend : public MidiFrontend {
     public:
         static bool instantiable();
-        explicit JACKBackend(sb::Synth*, size_t&,std::map<size_t,bool>&,size_t);
+        PortmidiFrontend(Synth* s);
+        ~PortmidiFrontend();
         void start();
         void stop();
-        void setSamplingRate(size_t);
-        size_t returnSuggestedBufferSize() {return 0;}
+        static PmTimestamp callback(void* data);
+    private:
+        PortMidiStream* river;
+        std::chrono::time_point<std::chrono::high_resolution_clock> starttime;
     };
-}
+
 #else
-namespace sb {
-    class JACKBackend {
+    class PortmidiFrontend {
     public:
         static bool instantiable();
-        explicit JACKBackend(sb::Synth*, size_t&,std::map<size_t,bool>&,size_t) {};
+        PortmidiFrontend(Synth* s) {};
         void start() {};
         void stop() {};
-        void setSamplingRate(size_t) {};
-        size_t returnSuggestedBufferSize() {return 0;}
     };
-}
 #endif
 
-#endif // BACKEND_JACK_H
+}
+
+#endif // FRONTEND_PORTMIDI_H

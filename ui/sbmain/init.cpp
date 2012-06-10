@@ -17,7 +17,7 @@
     Copyright 2012  Amaya S.
 */
 
-#include <soundbenchmain.h>
+#include "ui/sbmain/soundbenchmain.h"
 
 SoundbenchMain::SoundbenchMain(QWidget *parent) : QMainWindow(parent) {
     arch = new sb::Architect;

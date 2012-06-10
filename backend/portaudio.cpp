@@ -19,7 +19,7 @@
 
 #ifndef NO_PORTAUDIO
 
-#include "backend.portaudio.h"
+#include "backend/portaudio.h"
 
 namespace sb {
 

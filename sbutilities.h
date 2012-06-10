@@ -38,10 +38,10 @@
 #define IS_SOUNDBENCH
 #endif
 
-#if defined(_POSIX_VERSION) | defined(__CYGWIN__)
+#if defined(_POSIX_VERSION) | defined(__CYGWIN__) | defined(__linux__) | (defined (__APPLE__) & defined (__MACH__))
 #define SB_ENV_POSIX
 #elif defined(_WIN32)
-#define SB_ENX_WNDOS
+#define SB_ENV_WNDOS
 #endif
 
 #define SBVERSION "Development Branch"
