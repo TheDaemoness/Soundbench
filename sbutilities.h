@@ -44,7 +44,8 @@
 #define SB_ENV_WNDOS
 #endif
 
-#define SBVERSION "Development Branch"
+#define SBVERSION "Development Version"
+#define SBVERSION_SERIES "0.3.x"
 
 typedef float SbSample;
 const SbSample SbSampleMin = -1.0;

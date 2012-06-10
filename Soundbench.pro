@@ -46,7 +46,8 @@ HEADERS += architect.h \
     noteinput.h \
     trapezoid.h \
     presetenums.h \
-    ticker.h
+    ticker.h \
+    printhelp.h
 
 FORMS += errorpopup.ui \
     gentypedialog.ui \

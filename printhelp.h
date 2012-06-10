@@ -17,29 +17,19 @@
     Copyright 2012  Amaya S.
 */
 
-#include "application.h"
-#include "printhelp.h"
+#ifndef PRINTHELP_H
+#define PRINTHELP_H
 
-size_t sb::SampleRate;
-sb::Synth* sb::midi::MIDIEventNode::synref;
+#include <iostream>
 
-int main(int argc, char *argv[])
-{
-    if (argc == 2) {
-        std::string arg = argv[1];
-        if (arg == "--version" || arg == "-v") {
-            std::cout << "Version: " << SBVERSION << '\n';
-            std::cout << "Series: " << SBVERSION_SERIES << '\n';
-            return 0;
-        }
-        else if (arg == "--help" || arg == "-h") {
-            printhelp();
-            return 0;
-        }
-    }
-    SoundbenchApp a(argc, argv);
-    a.newSoundbench(SoundbenchApp::Default);
-    std::cerr << "Soundbench loaded.\n";
-    return a.run();
+inline void printhelp() {
+    std::cout << "Quick Help\n";
+    std::cout << "For more information, please see the wiki and the in-program tooltips.\n\n";
+    std::cout << "Tab Contents\n"
+                 "\tSelect: Choose a preset.\n"
+                 "\tPlayer: Route input and output, and record and play MIDI files.\n"
+                 "\tChannels: Change the settings for the audio generators and effects.\n"
+                 "\tSettings: Change the sample rate and polyphony settings.\n";
 }
 
+#endif // PRINTHELP_H
