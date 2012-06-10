@@ -27,9 +27,9 @@ namespace sb {
     void Architect::planAllDefaults(Blueprint* blu) {
         for (size_t i = 0; i < InternalChannels; ++i)
             planDefaultBasicGen(blu, i);
-        for (size_t ac = 0; ac < sb::InternalChannels; ++ac) {
+        for (size_t ac = 0; ac < InternalChannels; ++ac) {
             blu->gener[ac] = NoGener;
-            for (size_t ed = 0; ed < sb::FxPerChannel; ++ed)
+            for (size_t ed = 0; ed < FxPerChannel; ++ed)
                 blu->eff[ac][ed] = NoFx; //Indeed.
         }
     }
@@ -46,8 +46,6 @@ namespace sb {
         syn->inactivechans = 0;
         for (size_t ous = 0; ous < InternalChannels; ++ous) {
             switch (blu->gener[ous]) {
-            default:
-                std::cerr << "Unimplemented generator type requested. Defaulting to no generator.\n";
             case NoGener:
                 syn->gener[ous] = nullptr;
                 ++(syn->inactivechans);
@@ -55,13 +53,20 @@ namespace sb {
             case GenerBasic:
                 syn->gener[ous] = new BasicGen(sb::SampleRate);
                 break;
+            default:
+                std::cerr << "Unimplemented generator type requested for channel " << ous+1 << ". Defaulting to no generator.\n";
+                syn->gener[ous] = nullptr;
+                ++(syn->inactivechans);
+                break;
             }
             for (size_t effous = 0; effous < FxPerChannel; ++effous) {
                 switch (blu->eff[ous][effous]) {
-                    default:
-                        std::cerr << "Unimplemented effect type requested. Defaulting to no effect.\n";
-                    case NoFx:
-                        syn->eff[ous][effous] = nullptr;
+                case NoFx:
+                    syn->eff[ous][effous] = nullptr;
+                    break;
+                default:
+                    std::cerr << "Unimplemented effect type requested for channel " << ous+1 <<  ", effect " << effous+1 << ". Defaulting to no effect.\n";
+                    syn->eff[ous][effous] = nullptr;
                     break;
                 }
             }

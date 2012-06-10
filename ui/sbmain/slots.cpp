@@ -110,16 +110,16 @@ void SoundbenchMain::setSampleRate(int which) {
 void SoundbenchMain::setGenType(int which) {
     switch (which) {
     case 1:
-        gtd = new GenTypeDialog(&blu->gener[1],&blu->gener_data[1],ui->gener1Label,ui->gen1SettButton);
+        gtd = new GenTypeDialog(&blu->gener[0],&blu->gener_data[0],ui->gener1Label,ui->gen1SettButton);
         break;
     case 2:
-        gtd = new GenTypeDialog(&blu->gener[2],&blu->gener_data[2],ui->gener2Label,ui->gen2SettButton);
+        gtd = new GenTypeDialog(&blu->gener[1],&blu->gener_data[1],ui->gener2Label,ui->gen2SettButton);
         break;
     case 3:
-        gtd = new GenTypeDialog(&blu->gener[3],&blu->gener_data[3],ui->gener3Label,ui->gen3SettButton);
+        gtd = new GenTypeDialog(&blu->gener[2],&blu->gener_data[2],ui->gener3Label,ui->gen3SettButton);
         break;
     case 4:
-        gtd = new GenTypeDialog(&blu->gener[4],&blu->gener_data[4],ui->gener4Label,ui->gen4SettButton);
+        gtd = new GenTypeDialog(&blu->gener[3],&blu->gener_data[3],ui->gener4Label,ui->gen4SettButton);
         break;
     default:
         return;
