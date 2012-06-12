@@ -188,7 +188,7 @@
    <string>Soundbench</string>
   </property>
   <property name="windowIcon">
-   <iconset resource="sbMainResources.qrc">
+   <iconset resource="../../resources.qrc">
     <normaloff>:/icons/sbicon.png</normaloff>:/icons/sbicon.png</iconset>
   </property>
   <property name="windowOpacity">
@@ -1730,64 +1730,13 @@ p, li { white-space: pre-wrap; }
      </widget>
     </widget>
    </widget>
-   <widget class="QLineEdit" name="presetName">
-    <property name="enabled">
-     <bool>false</bool>
-    </property>
-    <property name="geometry">
-     <rect>
-      <x>15</x>
-      <y>12</y>
-      <width>571</width>
-      <height>21</height>
-     </rect>
-    </property>
-    <property name="font">
-     <font>
-      <family>Ubuntu</family>
-      <pointsize>10</pointsize>
-     </font>
-    </property>
-    <property name="toolTip">
-     <string>&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.0//EN&quot; &quot;http://www.w3.org/TR/REC-html40/strict.dtd&quot;&gt;
-&lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;style type=&quot;text/css&quot;&gt;
-p, li { white-space: pre-wrap; }
-&lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:'Ubuntu'; font-size:10pt; font-weight:400; font-style:normal;&quot;&gt;
-&lt;p style=&quot;-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-family:'Cantarell';&quot;&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
-    </property>
-    <property name="styleSheet">
-     <string notr="true">QLineEdit {
-	border-image: url(:/textboxes/textbox_long_idle.png)
-}
-QLineEdit:disabled {
-	border-image: url(:/textboxes/textbox_long_disabled.png);
-	color: gray;
-}
-</string>
-    </property>
-    <property name="inputMethodHints">
-     <set>Qt::ImhEmailCharactersOnly</set>
-    </property>
-    <property name="text">
-     <string>Presets coming in version 0.3.0</string>
-    </property>
-    <property name="maxLength">
-     <number>256</number>
-    </property>
-    <property name="frame">
-     <bool>false</bool>
-    </property>
-    <property name="alignment">
-     <set>Qt::AlignCenter</set>
-    </property>
-   </widget>
    <widget class="QSlider" name="volumeSlider">
     <property name="geometry">
      <rect>
       <x>770</x>
       <y>10</y>
       <width>281</width>
-      <height>25</height>
+      <height>20</height>
      </rect>
     </property>
     <property name="cursor">
@@ -1808,7 +1757,7 @@ QSlider::groove:horizontal:pressed {
 }
 QSlider::handle:horizontal {
 	border-image: url(:/sliders/slider_idle.png);
-	width: 25px;
+	width: 20px;
 }
 QSlider::handle:hover:horizontal {
 	border-image: url(:/sliders/slider_hover.png);
@@ -1958,11 +1907,40 @@ This is just to quickly hear what a sound sounds like.</string>
      <bool>true</bool>
     </property>
    </widget>
+   <widget class="QLabel" name="presetLabel">
+    <property name="geometry">
+     <rect>
+      <x>15</x>
+      <y>10</y>
+      <width>581</width>
+      <height>26</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <pointsize>10</pointsize>
+      <weight>50</weight>
+      <italic>false</italic>
+      <bold>false</bold>
+     </font>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">QLabel {
+	color: gray;
+}</string>
+    </property>
+    <property name="text">
+     <string>(Presets coming in version 0.3.0)</string>
+    </property>
+    <property name="alignment">
+     <set>Qt::AlignCenter</set>
+    </property>
+   </widget>
   </widget>
  </widget>
  <layoutdefault spacing="6" margin="11"/>
  <resources>
-  <include location="sbMainResources.qrc"/>
+  <include location="../../resources.qrc"/>
  </resources>
  <connections/>
 </ui>

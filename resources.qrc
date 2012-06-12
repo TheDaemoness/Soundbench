@@ -13,15 +13,6 @@
         <file>grooveh_short_click.png</file>
         <file>grooveh_short_hover.png</file>
         <file>grooveh_short_idle.png</file>
-        <file>grooveh_square_click.png</file>
-        <file>grooveh_square_hover.png</file>
-        <file>grooveh_square_idle.png</file>
-        <file>groovev_square_click.png</file>
-        <file>groovev_square_hover.png</file>
-        <file>groovev_square_idle.png</file>
-        <file>slider_square_click.png</file>
-        <file>slider_square_hover.png</file>
-        <file>slider_square_idle.png</file>
     </qresource>
     <qresource prefix="/buttons">
         <file>button75_hover.png</file>
@@ -55,16 +46,6 @@
         <file>spinbox_upper_idle.png</file>
         <file>spinbox_upper_pressed.png</file>
         <file>spinbox_frame_disabled.png</file>
-    </qresource>
-    <qresource prefix="/textboxes">
-        <file>textbox_long_edit.png</file>
-        <file>textbox_long_idle.png</file>
-        <file>textbox_short_edit.png</file>
-        <file>textbox_short_hover.png</file>
-        <file>textbox_short_idle.png</file>
-        <file>textbox_long_hover.png</file>
-        <file>textbox_short_disabled.png</file>
-        <file>textbox_long_disabled.png</file>
     </qresource>
     <qresource prefix="/icons">
         <file>sbicon.png</file>
