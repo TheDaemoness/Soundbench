@@ -17,7 +17,9 @@
     Copyright 2012  Amaya S.
 */
 
-#include "application.h"
+#include <QApplication>
+
+#include "ui/sbmain/soundbenchmain.h"
 #include "printhelp.h"
 
 size_t sb::SampleRate;
@@ -25,7 +27,7 @@ sb::Synth* sb::midi::MIDIEventNode::synref;
 
 int main(int argc, char *argv[])
 {
-    SoundbenchApp a(argc, argv);
+    QApplication a(argc, argv);
     std::string arg;
     if (argc == 2) {
         arg = argv[1];
@@ -38,8 +40,13 @@ int main(int argc, char *argv[])
     std::cout << "Version Series: " << SBVERSION_SERIES << '\n';
     if (arg == "--version" || arg == "-v")
         return 0;
-    a.newSoundbench(SoundbenchApp::Default);
+
+    SoundbenchMain w;
+    w.delayedConstructor();
+
     std::cerr << "Soundbench loaded.\n";
-    return a.run();
+
+    w.show();
+    return a.exec();
 }
 

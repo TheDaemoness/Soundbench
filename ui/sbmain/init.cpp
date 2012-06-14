@@ -137,8 +137,6 @@ void SoundbenchMain::delayedConstructor() {
 
     ui->versionLabel->setText(SBVERSION);
 
-    show();
-
     em->start();
     met->startMeter();
 }

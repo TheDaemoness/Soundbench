@@ -25,7 +25,6 @@ HEADERS += architect.h \
     ui/sbmain/soundbenchmain.h \
     synth.h \
     warningpopup.h \
-    application.h \
     meterupdater.h \
     player/player.h \
     midichain.h \
@@ -64,7 +63,6 @@ SOURCES += emitter/initportaudio.cpp \
     main.cpp \
     warningpopup.cpp \
     synth.cpp \
-    application.cpp \
     meterupdater.cpp \
     ui/sbmain/slots.cpp \
     ui/sbmain/func.cpp \
