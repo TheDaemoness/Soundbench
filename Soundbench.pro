@@ -43,7 +43,6 @@ HEADERS += architect.h \
     backend/jack.h \
     frontend/base.h \
     frontend/portmidi.h \
-    noteinput.h \
     trapezoid.h \
     presetenums.h \
     ticker.h \
@@ -82,7 +81,6 @@ SOURCES += emitter/initportaudio.cpp \
     backend/jack.cpp \
     frontend/portmidi.cpp \
     frontend/portmidi-parse.cpp \
-    noteinput.cpp \
     trapezoid.cpp \
     emitter/initsomething.cpp
 

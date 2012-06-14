@@ -24,7 +24,8 @@
 #include "midifio/midifio.h"
 #include "cpumeter.h"
 #include "sfwriter.h"
-#include "noteinput.h"
+
+#include "frontend/portmidi.h"
 
 #include <deque>
 #include <cstdio>
@@ -44,7 +45,7 @@ namespace sb {
         midi::MidiFIO* reed;
         midi::PlayerStartNode* first;
         SoundFileWriter* wri;
-        NoteInput* midin;
+        MidiFrontend* midin;
 
         QListWidget* affectedlist;
         CpuMeter* affectedmet;
@@ -58,7 +59,6 @@ namespace sb {
             reed = new midi::MidiFIO;
             first = new midi::PlayerStartNode(syn);
             wri = new SoundFileWriter(syn);
-            midin = new NoteInput(syn);
 
             connect(this,SIGNAL(progressed(int)),affectedmet,SLOT(setProgress(int)));
         }
@@ -67,7 +67,6 @@ namespace sb {
             delete first;
             delete reed;
             delete wri;
-            delete midin;
         }
 
         bool loadTrack(uint16_t track);
