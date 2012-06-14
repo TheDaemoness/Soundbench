@@ -83,7 +83,6 @@ private:
     sb::Architect* arch;
     sb::Emitter* em;
     sb::Player* plai;
-    sb::NoteInput* midin;
 
     QSignalMapper *sett_sigmap, *type_sigmap, *rate_sigmap;
 

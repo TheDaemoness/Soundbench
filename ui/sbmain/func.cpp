@@ -34,8 +34,7 @@ SoundbenchMain::~SoundbenchMain() {
 
     delete arch;
     delete plai;
-    if (em != nullptr)
-        delete em;
+    delete em;
     if (syn != nullptr)
         delete syn;
     delete blu;

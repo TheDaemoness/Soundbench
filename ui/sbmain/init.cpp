@@ -42,7 +42,6 @@ void SoundbenchMain::delayedConstructor() {
     em = new sb::Emitter(syn);
     met = new CpuMeter(ui->cpuMeter,ui->cpuLabel);
     plai = new sb::Player(syn,ui->songsTracksList,met);
-    midin = new sb::NoteInput(syn);
 
     syn->volume() = static_cast<SbSample>(ui->volumeSlider->value())/ui->volumeSlider->maximum();
 

@@ -24,6 +24,7 @@
 #include "midifio/midifio.h"
 #include "cpumeter.h"
 #include "sfwriter.h"
+#include "noteinput.h"
 
 #include <deque>
 #include <cstdio>
@@ -36,12 +37,14 @@ namespace sb {
         Q_OBJECT
     private:
         bool isready;
-        midi::MidiFIO* reed;
-        midi::PlayerStartNode* first;
         std::deque<midi::MIDIEventNode> nodes;
         time_t midiclocklen;
-        SoundFileWriter* wri;
         std::string fi;
+
+        midi::MidiFIO* reed;
+        midi::PlayerStartNode* first;
+        SoundFileWriter* wri;
+        NoteInput* midin;
 
         QListWidget* affectedlist;
         CpuMeter* affectedmet;
@@ -63,6 +66,7 @@ namespace sb {
             delete first;
             delete reed;
             delete wri;
+            delete midin;
         }
 
         bool loadTrack(uint16_t track);

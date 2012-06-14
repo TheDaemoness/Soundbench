@@ -25,19 +25,19 @@ sb::Synth* sb::midi::MIDIEventNode::synref;
 
 int main(int argc, char *argv[])
 {
+    SoundbenchApp a(argc, argv);
+    std::string arg;
     if (argc == 2) {
-        std::string arg = argv[1];
-        if (arg == "--version" || arg == "-v") {
-            std::cout << "Version: " << SBVERSION << '\n';
-            std::cout << "Series: " << SBVERSION_SERIES << '\n';
-            return 0;
-        }
-        else if (arg == "--help" || arg == "-h") {
+        arg = argv[1];
+        if (arg == "--help" || arg == "-h") {
             printhelp();
             return 0;
         }
     }
-    SoundbenchApp a(argc, argv);
+    std::cout << "Soundbench Version: " << SBVERSION << '\n';
+    std::cout << "Version Series: " << SBVERSION_SERIES << '\n';
+    if (arg == "--version" || arg == "-v")
+        return 0;
     a.newSoundbench(SoundbenchApp::Default);
     std::cerr << "Soundbench loaded.\n";
     return a.run();

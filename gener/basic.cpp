@@ -93,8 +93,9 @@ namespace sb {
     }
     void BasicGen::reset() {
         ocean->setOffsets(offset);
-        for(Trapezoid trap : envelope)
+        for(Trapezoid& trap : envelope) {
             trap.reset();
+        }
     }
     void BasicGen::setPolymorphism(size_t poly) {
         if (currpoly == poly)

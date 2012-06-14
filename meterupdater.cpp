@@ -33,18 +33,17 @@ MeterUpdater::MeterUpdater(QProgressBar* bare, QObject *parent) :
 #ifdef SB_ENV_POSIX
     getrlimit64(RLIMIT_CPU,&rimit);
     if (rimit.rlim_cur == RLIM_INFINITY) {
-        std::clog << "No soft limit on CPU usage. Checking for hard limit...\n";
         if (rimit.rlim_max == RLIM_INFINITY) {
-            std::clog << "No hard limit on CPU usage. Using true CPU time as upper bound of CPU meter.\n";
+            std::clog << "Using the true CPU time as the upper bound of CPU meter.\n";
             nolimit = true;
         }
         else {
-            std::clog << "Using hard limit on CPU usage as upper bound of CPU meter.\n";
+            std::clog << "Using the hard limit on CPU usage as the upper bound of CPU meter.\n";
             usehlimit = true;
         }
     }
     else {
-        std::clog << "Using soft limit on CPU usage as upper bound of CPU meter.\n";
+        std::clog << "Using the soft limit on CPU usage as the upper bound of CPU meter.\n";
         usehlimit = false;
     }
     if (!nolimit)

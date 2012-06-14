@@ -29,8 +29,6 @@ namespace sb {
     public:
         Trapezoid() {
             reset();
-            top = true;
-            bottom = true;
         }
         inline void setAttackTime(float ups) {
             timeup = ups;
@@ -41,8 +39,8 @@ namespace sb {
         inline void reset() {
             level = SbSampleZero;
             up = true;
-            top = false;
-            bottom = false;
+            top = true;
+            bottom = true;
         }
         SbSample getLevel() {
             return level;
