@@ -110,11 +110,13 @@ namespace sb {
 
             //Get the type of the file.
             filetype = river.get();
-            if(filetype == 0) {
+            if(filetype == SingleTrack) {
                 river.ignore(2); //The next unsigned 16-bit integer will always be 1 in this case.
+                tracks.reserve(1);
+                tracklen = 1;
             }
             else {
-                if (filetype != 1 && filetype != 2) {
+                if (filetype != MultiSong && filetype != MultiTrack) {
                     if (fileIsInsane("the file is not a type 0, 1, or 2 MIDI file"))
                         return false;
                 }
@@ -155,7 +157,7 @@ namespace sb {
             tracks.push_back(static_cast<size_t>(river.tellg())-4LL);
 
             //Index all the tracks.
-            if (filetype != 0) {
+            if (filetype != SingleTrack) {
                 while (river.good() && tracks.size() < tracklen) {
                     uint32_t bites = 0; //Har har.
                     for (unsigned char i = 0; i < 3; ++i) {
@@ -168,7 +170,7 @@ namespace sb {
                     //Sanity check: After the number of given bytes, does an MTrk or EOF exist?
                     unsigned char i = 0;
                     for (; i < 4 && river.good(); ++i) {
-                        if(river.get() != chrs[i] && !river.eof()) {
+                        if(river.getsome() != chrs[i] && !river.eof()) {
                             if (fileIsInsane("one of the tracks has a malformed or incorrect header"))
                                 return false;
                         }
@@ -180,11 +182,11 @@ namespace sb {
                             break;
                     }
                     //TODO: For future versions, have a way of checking for an end-of-track event.
-                    if(!river.eof())
+                    if(!river.eof() && filetype != SingleTrack) {
                         tracks.push_back(static_cast<size_t>(river.tellg())-4LL);
+                    }
                 }
             }
-
             if (tracks.size() < tracklen) {
                 if (fileIsInsane("fewer tracks are present in the MIDI file than expected"))
                     return false;

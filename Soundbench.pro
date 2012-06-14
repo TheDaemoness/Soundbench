@@ -5,7 +5,7 @@
 QMAKE_CXXFLAGS_WARN_ON += -Wall -Wextra -pedantic
 QMAKE_CXXFLAGS += -std=c++0x
 
-DEFINES += IS_SOUNDBENCH NO_JACK NO_PORTAUDIO NO_PORTMIDI  #JACK support doesn't exist yet.
+DEFINES += IS_SOUNDBENCH NO_JACK  #JACK support doesn't exist yet.
 
 TEMPLATE = app
 TARGET = 

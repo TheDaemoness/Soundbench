@@ -32,6 +32,7 @@ namespace sb {
                     river.write(reinterpret_cast<char*>(&tracklen),4);
                 }
                 river.close();
+                eot_reached = false;
             }
             tracks.clear();
             return true;

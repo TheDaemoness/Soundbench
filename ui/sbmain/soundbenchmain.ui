@@ -422,7 +422,7 @@ QTabBar::tab:selected {
 }</string>
     </property>
     <property name="currentIndex">
-     <number>7</number>
+     <number>1</number>
     </property>
     <widget class="QWidget" name="tabSelect">
      <attribute name="title">
@@ -588,11 +588,6 @@ QTabBar::tab:selected {
       <property name="selectionRectVisible">
        <bool>false</bool>
       </property>
-      <item>
-       <property name="text">
-        <string>None</string>
-       </property>
-      </item>
      </widget>
      <widget class="QLabel" name="songsTracksLabel">
       <property name="geometry">

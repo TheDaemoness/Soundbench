@@ -49,6 +49,8 @@ namespace sb {
     }
 
     bool Player::loadTrack(uint16_t track) {
+        if(!reed->isOpen())
+            return false;
         std::cerr << "Loading track #" << track << "...\n";
         if (reed->getFileType() == midi::MultiTrack)
             ++track;

@@ -81,6 +81,9 @@ namespace sb {
             inline MidiFileTypes getFileType() {
                 return static_cast<MidiFileTypes>(filetype);
             }
+            inline bool isOpen() {
+                return river.is_open();
+            }
 
         private:
             char filetype;

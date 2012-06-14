@@ -140,7 +140,8 @@ void SoundbenchMain::setGenSett(int which) {
 }
 
 void SoundbenchMain::setTrack(int e) {
-    plai->loadTrack(static_cast<uint16_t>(e));
+    if(!plai->loadTrack(static_cast<uint16_t>(e)))
+        return;
     ui->tempoBox->setValue(plai->getTempo());
     met->startMeter();
 }
