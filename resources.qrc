@@ -5,6 +5,7 @@
         <file>mainbackdrop.png</file>
         <file>aboutbackdrop.png</file>
         <file>playerbackdrop.png</file>
+        <file>selectbackdrop.png</file>
     </qresource>
     <qresource prefix="/sliders">
         <file>slider_click.png</file>

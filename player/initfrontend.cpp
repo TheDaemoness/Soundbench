@@ -17,36 +17,10 @@
     Copyright 2012  Amaya S.
 */
 
-#include <QApplication>
+#include "player.h"
 
-#include "ui/sbmain/soundbenchmain.h"
-#include "printhelp.h"
-
-size_t sb::SampleRate;
-sb::Synth* sb::midi::MIDIEventNode::synref;
-
-int main(int argc, char *argv[])
-{
-    QApplication a(argc, argv);
-    std::string arg;
-    if (argc == 2) {
-        arg = argv[1];
-        if (arg == "--help" || arg == "-h") {
-            printhelp();
-            return 0;
-        }
+namespace sb {
+    void Player::initfrontend() {
+        std::cerr << "Determining which MIDI frontends will initialize.";
     }
-    std::cout << "Soundbench " << SBVERSION << '\n';
-    std::cout << "Version Series: " << SBVERSION_MAJOR << '.' << SBVERSION_MINOR << ".x\n";
-    if (arg == "--version" || arg == "-v")
-        return 0;
-
-    SoundbenchMain w;
-    w.delayedConstructor();
-
-    std::cerr << "Soundbench loaded.\n";
-
-    w.show();
-    return a.exec();
 }
-

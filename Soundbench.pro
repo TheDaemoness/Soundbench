@@ -64,11 +64,8 @@ SOURCES += emitter/initportaudio.cpp \
     warningpopup.cpp \
     synth.cpp \
     meterupdater.cpp \
-    ui/sbmain/slots.cpp \
-    ui/sbmain/func.cpp \
     ui/settings/basicgen.cpp \
     gener/basic.cpp \
-    ui/sbmain/init.cpp \
     midifio/read.cpp \
     midifio/readeropen.cpp \
     midifio/misc.cpp \
@@ -80,7 +77,11 @@ SOURCES += emitter/initportaudio.cpp \
     frontend/portmidi.cpp \
     frontend/portmidi-parse.cpp \
     trapezoid.cpp \
-    emitter/initsomething.cpp
+    emitter/initsomething.cpp \
+    player/initfrontend.cpp \
+    ui/sbmain/mainfunc.cpp \
+    ui/sbmain/maininit.cpp \
+    ui/sbmain/mainslots.cpp
 
 RESOURCES += \
     resources.qrc

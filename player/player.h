@@ -80,6 +80,7 @@ namespace sb {
 
         void play() {}
         void stop() {}
+        void initfrontend();
         bool ready() {
             return isready;
         }
