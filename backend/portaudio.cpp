@@ -19,9 +19,9 @@
 
 #include "backend/portaudio.h"
 
+namespace sb {
 #ifndef NO_PORTAUDIO
 
-namespace sb {
     bool PortaudioBackend::pa_inited = false;
     PortaudioBackend::PortaudioBackend(Synth* s, size_t& srate, std::map<size_t, bool>& srates, size_t chans) {
         running = false;
@@ -130,13 +130,9 @@ namespace sb {
         pa_inited = true;
         return true;
     }
-
-}
-
 #else
-
-bool PortaudioBackend::instantiable() {
-    return false; //No compiled PortAudio support.
-}
-
+    bool PortaudioBackend::instantiable() {
+        return false; //No compiled PortAudio support.
+    }
 #endif
+} //namespace sb

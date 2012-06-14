@@ -41,10 +41,10 @@ namespace sb {
     };
 
 #else
-    class PortmidiFrontend {
+    class PortmidiFrontend : public MidiFrontend {
     public:
         static bool instantiable();
-        PortmidiFrontend(Synth* s) {};
+        PortmidiFrontend(Synth* s) : MidiFrontend(s) {};
         void start() {};
         void stop() {};
     };
