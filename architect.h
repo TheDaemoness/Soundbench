@@ -34,6 +34,7 @@ namespace sb {
         void planDefaultBasicGen(Blueprint*,size_t chan_index = 0);
 
         //Building functions
+        void stripSynth(Synth*);
         void buildSynth(Synth*,Blueprint* blu = nullptr);
 
     private:

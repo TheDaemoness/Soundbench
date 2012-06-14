@@ -58,6 +58,7 @@ namespace sb {
             reed = new midi::MidiFIO;
             first = new midi::PlayerStartNode(syn);
             wri = new SoundFileWriter(syn);
+            midin = new NoteInput(syn);
 
             connect(this,SIGNAL(progressed(int)),affectedmet,SLOT(setProgress(int)));
         }

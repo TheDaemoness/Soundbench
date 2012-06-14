@@ -32,6 +32,12 @@ namespace sb {
         }
         holdped = false;
         sustped = false;
+
+        for (size_t ate = 0; ate < InternalChannels; ++ate) {
+            gener[ate] = nullptr;
+            for (size_t nonsense = 0; nonsense < FxPerChannel; ++ nonsense)
+                eff[ate][nonsense] = nullptr;
+        }
     }
 
     void Synth::setPolyphony(uint8_t poly) {

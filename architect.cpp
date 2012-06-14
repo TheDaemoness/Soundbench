@@ -42,19 +42,34 @@ namespace sb {
         blu->gener_data[chan_index][GenerReleaseTime] = makeParamfromFloat(0.5);
     }
 
+    void Architect::stripSynth(Synth* syn) {
+        for (size_t alized = 0; alized < InternalChannels; ++alized) {
+            if(syn->gener[alized] != nullptr) {
+                delete syn->gener[alized];
+                syn->gener[alized] = nullptr;
+            }
+        }
+    }
+
     void Architect::buildSynth(Synth* syn, Blueprint* blu) {
         syn->inactivechans = 0;
         for (size_t ous = 0; ous < InternalChannels; ++ous) {
             switch (blu->gener[ous]) {
             case NoGener:
+                if(syn->gener[ous] != nullptr)
+                    delete syn->gener[ous];
                 syn->gener[ous] = nullptr;
                 ++(syn->inactivechans);
                 break;
             case GenerBasic:
+                if(syn->gener[ous] != nullptr)
+                    delete syn->gener[ous];
                 syn->gener[ous] = new BasicGen(sb::SampleRate);
                 break;
             default:
                 std::cerr << "Unimplemented generator type requested for channel " << ous+1 << ". Defaulting to no generator.\n";
+                if(syn->gener[ous] != nullptr)
+                    delete syn->gener[ous];
                 syn->gener[ous] = nullptr;
                 ++(syn->inactivechans);
                 break;
@@ -62,10 +77,14 @@ namespace sb {
             for (size_t effous = 0; effous < FxPerChannel; ++effous) {
                 switch (blu->eff[ous][effous]) {
                 case NoFx:
+                    if(syn->eff[ous][effous] != nullptr)
+                        delete syn->eff[ous][effous];
                     syn->eff[ous][effous] = nullptr;
                     break;
                 default:
                     std::cerr << "Unimplemented effect type requested for channel " << ous+1 <<  ", effect " << effous+1 << ". Defaulting to no effect.\n";
+                    if(syn->eff[ous][effous] != nullptr)
+                        delete syn->eff[ous][effous];
                     syn->eff[ous][effous] = nullptr;
                     break;
                 }

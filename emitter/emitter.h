@@ -62,6 +62,7 @@ namespace sb {
         bool isRunning() {
             if (backend != nullptr)
                 return backend->isRunning();
+            return false;
         }
 
     private:
