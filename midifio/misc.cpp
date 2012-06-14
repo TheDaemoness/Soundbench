@@ -47,9 +47,7 @@ namespace sb {
         bool MidiFIO::setTempo(uint16_t tempo) {
             if (ticks_per_beat == 0 || tempo == 0)
                 return false;
-            std::cerr << "Previous Factor: " << factor << '\n';
             factor = 60000000/tempo/ticks_per_beat; //Microseconds/minute * minutes/beat * beats/tick
-            std::cerr << "Current Factor: " << factor << '\n';
             return true;
         }
 

@@ -94,7 +94,6 @@ namespace sb {
                     chiter->attachNext(new midi::SustenutoEventNode(miditem.params.second, miditem.delay));
                     break;
                 default:
-                    std::cerr << "Request for unimplemented controller #" << static_cast<uint16_t>(miditem.params.first) << " made. Ignoring.\n";
                     chiter->attachNext(new midi::DelayNode(miditem.delay));
                     break;
                 }
@@ -102,7 +101,6 @@ namespace sb {
             case midi::ProgramChange:
             case midi::ChannelPressure:
             case midi::PitchBend:
-                std::cerr << "Warning: Events of type " << static_cast<uint16_t>(miditem.evtype) << " are ignored.\n";
                 chiter->attachNext(new midi::DelayNode(miditem.delay));
                 break;
             case midi::Aftertouch:
@@ -115,7 +113,6 @@ namespace sb {
                     chiter->attachNext(new midi::DelayNode(miditem.delay));
                     break;
                 default:
-                    std::cerr << "An unimplemented meta event of type " << static_cast<uint16_t>(miditem.meta) << " was requested.\n";
                     chiter->attachNext(new midi::DelayNode(miditem.delay));
                     break;
                 }

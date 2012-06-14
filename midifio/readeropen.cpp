@@ -170,7 +170,7 @@ namespace sb {
                     //Sanity check: After the number of given bytes, does an MTrk or EOF exist?
                     unsigned char i = 0;
                     for (; i < 4 && river.good(); ++i) {
-                        if(river.getsome() != chrs[i] && !river.eof()) {
+                        if(river.get() != chrs[i] && !river.eof()) {
                             if (fileIsInsane("one of the tracks has a malformed or incorrect header"))
                                 return false;
                         }
