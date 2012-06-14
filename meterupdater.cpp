@@ -61,22 +61,22 @@ void MeterUpdater::update() {
     time -= ruse.ru_utime.tv_usec + ruse.ru_utime.tv_sec*1000000;
 
     if (!nolimit) {
-        totaltime = usehlimit?rimit.rlim_cur*1000000:rimit.rlim_max*1000000;
+        getrlimit64(RLIMIT_CPU,&rimit);
+        totaltime = (usehlimit?rimit.rlim_max*1000000:rimit.rlim_cur*1000000);
     }
     else {
         clock_gettime(CLOCK_REALTIME,&dust);
         totaltime = dust.tv_nsec/1000 + dust.tv_sec*1000000;
-        prevtotaltime.push(totaltime);
     }
+    prevtotaltime.push(totaltime);
     prevtime.push(time);
-
     avgtime = time - prevtime.front();
     avgtotaltime = totaltime - prevtotaltime.front();
     affectedbar->setValue(avgtime/avgtotaltime*1000.0);
 
-    if (prevtime.size() >= 400) { //Maybe add some way of tuning this value in the future?
-        prevtime.pop();
-        prevtotaltime.pop();
+    if (prevtime.size() >= 400) { //Only one queue is checked because both queues should maintain the same size.
+            prevtime.pop();
+            prevtotaltime.pop();
     }
 }
 #else

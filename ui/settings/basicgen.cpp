@@ -31,8 +31,8 @@ BasicGenerSettings::BasicGenerSettings(size_t chan, sb::Blueprint* blu, QWidget 
     ui->ampBox->setValue(blu->gener_data[chan][sb::GenBasicAmp].sample);
     ui->phaseBox->setValue(blu->gener_data[chan][sb::GenBasicPhase].sample);
     ui->noteBiasBox->setValue(blu->gener_data[chan][sb::GenBasicNoteBias].value);
-    ui->noteBiasBox->setValue(blu->gener_data[chan][sb::GenerAttackTime].decim);
-    ui->noteBiasBox->setValue(blu->gener_data[chan][sb::GenerReleaseTime].decim);
+    ui->attackBox->setValue(blu->gener_data[chan][sb::GenerAttackTime].decim);
+    ui->releaseBox->setValue(blu->gener_data[chan][sb::GenerReleaseTime].decim);
 
     if (static_cast<sb::SimpleWaveTypes>(blu->gener_data[chan][sb::GenBasicWave].value) == sb::TriangleWave)
         ui->triangleWave->setChecked(true);
