@@ -64,13 +64,15 @@ namespace sb {
 
     void PortaudioBackend::start() {
         int e = paNoError;
-        if (river == nullptr)
+        if (river == nullptr) {
             e = Pa_OpenStream(&river,nullptr,&dev,sampling_rate,paFramesPerBufferUnspecified,paNoFlag,PortaudioBackend::callback,reinterpret_cast<void*>(syn));
-        if (e != paNoError) {
-            std::cerr << "Problem when opening the output stream: " << Pa_GetErrorText(e) << ".\n";
-            std::__throw_runtime_error((std::string("emitter::backend::portaudio - Couldn't open the output stream: ")+Pa_GetErrorText(e)).c_str());
+            if (e != paNoError) {
+                std::cerr << "Problem when opening the output stream: " << Pa_GetErrorText(e) << ".\n";
+                std::__throw_runtime_error((std::string("emitter::backend::portaudio - Couldn't open the output stream: ")+Pa_GetErrorText(e)).c_str());
+            }
         }
-        e = Pa_StartStream(river);
+        if (!Pa_IsStreamActive(river))
+            e = Pa_StartStream(river);
         if (e != paNoError) {
             std::cerr << "Problem when starting the output stream: " << Pa_GetErrorText(e) << ".\n";
             stop();
