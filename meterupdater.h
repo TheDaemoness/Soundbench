@@ -39,15 +39,6 @@ class MeterUpdater : public QObject
     Q_OBJECT
 public:
     explicit MeterUpdater(QProgressBar* bare, QObject *parent = 0);
-#ifdef SB_ENV_POSIX
-    inline bool artificial_limit() {
-        return !nolimit;
-    }
-#else
-    inline bool artificial_limit() {
-        return true; //Better safe than sorry.
-    }
-#endif
     void reset() {
         while(!prevtime.empty())
             prevtime.pop();
@@ -65,10 +56,7 @@ private:
 
 #ifdef SB_ENV_POSIX
     rusage ruse;
-    rlimit64 rimit;
     timespec dust;
-    bool usehlimit;
-    bool nolimit;
 #else
 #endif
     double time;

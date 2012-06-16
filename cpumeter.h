@@ -76,7 +76,7 @@ public slots:
 
 private slots:
     void restyleCPUMeter() {
-        if(((metup->artificial_limit() && affectedbar->value() >= 650) || affectedbar->value() >= 750) && !warning && !alternate) {
+        if((affectedbar->value() >= 750) && !warning && !alternate) {
             affectedbar->setStyleSheet("QProgressBar::chunk {\n"
                                        "background-image: url(:/meters/cpumeter_warn.png);\n"
                                        "background-position: center left;\n"
@@ -85,19 +85,19 @@ private slots:
             warning = true;
             alternate = false;
         }
-        else if (((metup->artificial_limit() && affectedbar->value() <= 600) || affectedbar->value() <= 700) && warning) {
+        else if ((affectedbar->value() <= 700) && warning) {
             affectedbar->setStyleSheet("");
             warning = false;
             alternate = false;
         }
-        else if (((metup->artificial_limit() && affectedbar->value() >= 800) || affectedbar->value() >= 900) && warning && !alternate) {
+        else if ((affectedbar->value() >= 900) && warning && !alternate) {
             affectedbar->setStyleSheet("QProgressBar::chunk {\n"
                                        "background-image: url(:/meters/cpumeter_red.png);\n"
                                        "background-position: center left;\n"
                                        "background-repeat: 0;\n"
                                        "}");alternate = true;
         }
-        else if (((metup->artificial_limit() && affectedbar->value() <= 750) || affectedbar->value() <= 850) && warning && alternate) {
+        else if ((affectedbar->value() <= 850) && warning && alternate) {
             affectedbar->setStyleSheet("QProgressBar::chunk {\n"
                                        "background-image: url(:/meters/cpumeter_warn.png);\n"
                                        "background-position: center left;\n"

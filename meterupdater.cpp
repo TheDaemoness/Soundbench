@@ -28,55 +28,31 @@ MeterUpdater::MeterUpdater(QProgressBar* bare, QObject *parent) :
     affectedbar = bare;
     time = 0.0;
     totaltime = 0;
-
-    nolimit = false;
-#ifdef SB_ENV_POSIX
-    getrlimit64(RLIMIT_CPU,&rimit);
-    if (rimit.rlim_cur == RLIM_INFINITY) {
-        if (rimit.rlim_max == RLIM_INFINITY) {
-            std::clog << "Using the true CPU time as the upper bound of CPU meter.\n";
-            nolimit = true;
-        }
-        else {
-            std::clog << "Using the hard limit on CPU usage as the upper bound of CPU meter.\n";
-            usehlimit = true;
-        }
-    }
-    else {
-        std::clog << "Using the soft limit on CPU usage as the upper bound of CPU meter.\n";
-        usehlimit = false;
-    }
-    if (!nolimit)
-        prevtotaltime.push(0);
-#else
-#endif
 }
 
 #ifdef SB_ENV_POSIX
 void MeterUpdater::update() {
+    //Get the CPU time for this process.
     getrusage(RUSAGE_SELF,&ruse);
     time = ruse.ru_utime.tv_usec + ruse.ru_utime.tv_sec*1000000;
 
+    //Ignore this thread.
     getrusage(RUSAGE_THREAD,&ruse);
     time -= ruse.ru_utime.tv_usec + ruse.ru_utime.tv_sec*1000000;
 
-    if (!nolimit) {
-        getrlimit64(RLIMIT_CPU,&rimit);
-        totaltime = (usehlimit?rimit.rlim_max*1000000:rimit.rlim_cur*1000000);
-    }
-    else {
-        clock_gettime(CLOCK_REALTIME,&dust);
-        totaltime = dust.tv_nsec/1000 + dust.tv_sec*1000000;
-    }
+    clock_gettime(CLOCK_REALTIME,&dust);
+    totaltime = dust.tv_nsec/1000 + dust.tv_sec*1000000;
+
+    //A bit of value averaging.
     prevtotaltime.push(totaltime);
     prevtime.push(time);
     avgtime = time - prevtime.front();
     avgtotaltime = totaltime - prevtotaltime.front();
     affectedbar->setValue(avgtime/avgtotaltime*1000.0);
 
-    if (prevtime.size() >= 400) { //Only one queue is checked because both queues should maintain the same size.
-            prevtime.pop();
-            prevtotaltime.pop();
+    if (prevtime.size() >= 450) { //Only one queue is checked because both queues should maintain the same size.
+        prevtime.pop();
+        prevtotaltime.pop();
     }
 }
 #else

@@ -30,25 +30,18 @@ namespace sb {
             return false;
         }
 
-        if(reed->getFileType() == midi::SingleTrack) {
-            if(!loadTrack(0))
+        for(uint16_t i = (reed->getFileType() == midi::MultiTrack?1:0), e = reed->getTrackCount(); i < e; ++i)
+            affectedlist->addItem(reed->getTrackName(i).c_str());
+        if (reed->getFileType() == midi::MultiTrack) {
+            if(!loadTrack(1))
                 return false;
-            return true;
         }
         else {
-            for(uint16_t i = (reed->getFileType() == midi::MultiTrack?1:0), e = reed->getTrackCount(); i < e; ++i)
-                affectedlist->addItem(reed->getTrackName(i).c_str());
-            if (reed->getFileType() == midi::MultiTrack) {
-                if(!loadTrack(1))
-                    return false;
-            }
-            else {
-                if(!loadTrack(0))
-                    return false;
-            }
-            affectedlist->setCurrentRow(0);
-            return true;
+            if(!loadTrack(0))
+                return false;
         }
+        affectedlist->setCurrentRow(0);
+        return true;
     }
 
     bool Player::loadTrack(uint16_t track) {
