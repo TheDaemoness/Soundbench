@@ -19,7 +19,8 @@ Guidelines may be bent or sometimes outright broken if the programmer thinks it'
 1.4. The project may use any C++11 features already implemented in the latest stable g++ compiler using libstdc++.
 1.5* The liberal use of comments is encouraged. Go ahead, be verbose!
 1.6. Please prefer the cstdint integers over the normal integers when size is important.
-1.7. THE HEADER FILES common.h AND sbutilities.h MAY NOT BE MODIFIED BY ANYONE OTHER THAN THE PROJECT HEAD!
+1.7. If a bug is found, please focus on fixing the bug rather than working on new features.
+1.8. THE HEADER FILES common.h AND sbutilities.h MAY NOT BE MODIFIED BY ANYONE OTHER THAN THE PROJECT HEAD!
 
 
 2. Whitespace and Brackets
@@ -39,10 +40,6 @@ Guidelines may be bent or sometimes outright broken if the programmer thinks it'
 3.4. All constants defined with the const keyword should be named as a variable would.
 3.5. Macros taking arguments should have names as functions but should also have two underscores preceeding their names (i.e. __macrosAreEvil).
 3.6. All other macros should have completely capitalized names.
-3.7. There are a names that hold special meanings throughout the project.
-3.7.1. syn: A pointer to a Synth object.
-3.7.2. em: A pointer to an Emitter object.
-3.7.3. blu: A pointer to a Blueprint object.
 
 
 4. Files and Directories
@@ -67,6 +64,7 @@ Guidelines may be bent or sometimes outright broken if the programmer thinks it'
     Example: midifile/open.cpp
 4.8.4. Directories are nested as so:
     <categorization>/<abbreviated class name>/<part of class being implemented>
+4.8.5. Please be careful in ensuring that no two or more files share a name.
 
 
 5. Namespaces
@@ -120,11 +118,8 @@ Guidelines may be bent or sometimes outright broken if the programmer thinks it'
 10.2. Please use Soundbench's WarningPopup and ErrorPopup classes to report problems that require the user to pass judgement or know about.
 10.3. Please do not change existing artwork without consulting with the project head. If one piece is to be changed, likely most of it will need to be.
 10.4. Please do not use UI elements that do not have stylesheets.
-10.4.1. Elements that have been styled: QButton, QRadioButton, QSlider, QTabWidget, QTextBrower, QTextBox, QLabel
-10.4.2. Exceptions to this rule: QListWidget, QTreeWidget, QTableWidget
-10.5. Please do not use QComboBoxes until we're sure their stylesheets are fixed on GNOME.
-10.5.1. For shorter lists of options, use QRadioButtons in their own QWidget.
-10.5.2. For longer lists of options, please use a QListWidget.
+10.4.1. Elements that have been styled: QPushButton, QRadioButton, QTabWidget, QLabel
+10.4.2. Exceptions to this rule: QListWidget, QTreeWidget, QTableWidget.
 10.6. If a progress bar is needed, please create a pointer to the CpuMeter object used in SoundbenchMain and use the setProgress() slot.
 10.6.1. Please remember to call the startMeter() function when you don't need the progress bar anymore. :)
 
