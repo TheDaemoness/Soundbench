@@ -31,7 +31,7 @@ namespace sb {
         SimpleWaveTypes curr_wav;
         SbSample gen_amp;
         int16_t notebias;
-        uint8_t notes, currpoly;
+        uint8_t currpoly;
         size_t offset;
     public:
         explicit BasicGen(size_t srate, size_t cracker = DefaultPolyphony);
@@ -39,7 +39,7 @@ namespace sb {
             delete ocean;
         }
         bool finished(size_t pos) {
-            return envelope[pos].getLevel() == SbSampleZero;
+            return (envelope[pos].getLevel() == SbSampleZero);
         }
 
         void ctrl(ModuleParams arg, ParameterValue val);

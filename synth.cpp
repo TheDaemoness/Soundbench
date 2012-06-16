@@ -42,8 +42,8 @@ namespace sb {
 
     void Synth::setPolyphony(uint8_t poly) {
         for (uint8_t cracker = 0; cracker < poly; ++cracker)
-        if (gener[cracker] != nullptr)
-            gener[cracker]->setPolymorphism(poly);
+            if (gener[cracker] != nullptr)
+                gener[cracker]->setPolymorphism(poly);
         notes.resize(poly);
     }
 
@@ -52,6 +52,11 @@ namespace sb {
             return;
         for (size_t i = 0; i < notes.size(); ++i) {
             if (notes[i].amp == SbSampleZero && notes[i].pedal == NoPedal) {
+                if (gener[i] != nullptr) {
+                    if(!gener[i]->finished(i))
+                        continue;
+                }
+
                 notes[i].noteoffset = halfsteps;
                 notes[i].amp = amp;
                 if(holdped)
@@ -63,7 +68,7 @@ namespace sb {
                         gener[ation]->noteOn(halfsteps,amp,i);
                 }
                 break;
-            }
+            } //Possibly valid note detection.
         }
     }
 

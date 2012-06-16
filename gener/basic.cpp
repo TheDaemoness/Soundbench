@@ -22,7 +22,6 @@
 namespace sb {
 
     BasicGen::BasicGen(size_t srate, size_t cracker) {
-        notes = 0;
         notebias = 0;
         sample_rate = srate;
         gen_amp = SbSampleMax;
@@ -83,13 +82,11 @@ namespace sb {
             return;
         ocean->setWave(getFrequencyFromNote(halfsteps+notebias),ampl,pos);
         envelope[pos].attack();
-        ++notes;
     }
     void BasicGen::noteOff(size_t pos) {
         if(pos >= envelope.size())
             return;
         envelope[pos].release();
-        --notes;
     }
     void BasicGen::reset() {
         ocean->setOffsets(offset);
@@ -115,10 +112,7 @@ namespace sb {
         }
 
         //Bring the volume back in range.
-        if (notes > 0)
-            sample[0] /= notes;
-
-        //std::cerr << sample[0] << '\t';
+        sample[0] /= currpoly;
 
         //Copy the samples to all the other channels.
         for (size_t i = 0; i < chans; ++i) {
