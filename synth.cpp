@@ -41,9 +41,10 @@ namespace sb {
     }
 
     void Synth::setPolyphony(uint8_t poly) {
-        for (uint8_t cracker = 0; cracker < poly; ++cracker)
-            if (gener[cracker] != nullptr)
-                gener[cracker]->setPolymorphism(poly);
+        for (uint8_t ism = 0; ism < InternalChannels; ++ism) {
+            if (gener[ism] != nullptr)
+                gener[ism]->setPolymorphism(poly);
+        }
         notes.resize(poly);
     }
 

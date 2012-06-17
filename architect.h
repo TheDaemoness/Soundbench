@@ -24,6 +24,8 @@
 #include "gener/basic.h"
 #include "synth.h"
 
+#include <QDir>
+
 namespace sb {
     class Architect
     {
