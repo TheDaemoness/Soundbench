@@ -21,7 +21,7 @@
 #define MODULES_H
 
 #include "trapezoid.h"
-#include "basicwaves.h"
+#include "waves/basicwaves.h"
 
 #include <cstring>
 

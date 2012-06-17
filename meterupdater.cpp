@@ -30,7 +30,7 @@ MeterUpdater::MeterUpdater(QProgressBar* bare, QObject *parent) :
     totaltime = 0;
 }
 
-#ifdef SB_ENV_POSIX
+#if defined(SB_ENV_POSIX) {
 void MeterUpdater::update() {
     //Get the CPU time for this process.
     getrusage(RUSAGE_SELF,&ruse);
@@ -40,6 +40,7 @@ void MeterUpdater::update() {
     getrusage(RUSAGE_THREAD,&ruse);
     time -= ruse.ru_utime.tv_usec + ruse.ru_utime.tv_sec*1000000;
 
+    //Get total system time.
     clock_gettime(CLOCK_REALTIME,&dust);
     totaltime = dust.tv_nsec/1000 + dust.tv_sec*1000000;
 
@@ -54,6 +55,41 @@ void MeterUpdater::update() {
         prevtime.pop();
         prevtotaltime.pop();
     }
+}
+#elif defined(SB_ENV_WNDOS)
+static uint64_t filetime_to_ull(const FILETIME &ft)
+{
+  uint64_t hi=ft.dwHighDateTime;
+  return (uint64_t)(ft.dwLowDateTime)|(hi<<32);
+}
+
+void MeterUpdater::update() {
+    // Get process time.
+    GetProcessTimes(GetCurrentProcess(),&ft_unused,&ft_unused,&ft_kernel,&ft_user);
+    time=filetime_to_ull(ft_kernel)+filetime_to_ull(ft_user);
+
+    // Ignore this thread.
+    GetThreadTimes(GetCurrentThread(),&ft_unused,&ft_unused,&ft_kernel,&ft_user);
+    time-=filetime_to_ull(ft_kernel)+filetime_to_ull(ft_user);
+
+    // Get total system time.
+    GetSystemTimes(&ft_unused,&ft_kernel,&ft_user);
+    totaltime=filetime_to_ull(ft_kernel)+filetime_to_ull(ft_user);
+
+
+    //A bit of value averaging.
+    prevtotaltime.push(totaltime);
+    prevtime.push(time);
+    avgtime = time - prevtime.front();
+    avgtotaltime = totaltime - prevtotaltime.front();
+
+    affectedbar->setValue(avgtime/avgtotaltime*1000.0);
+
+    if (prevtime.size() >= 450) { //Only one queue is checked because both queues should maintain the same size.
+        prevtime.pop();
+        prevtotaltime.pop();
+    }
+
 }
 #else
 void MeterUpdater::update() {

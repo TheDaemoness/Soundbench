@@ -49,7 +49,7 @@ namespace sb {
             else if (static_cast<SimpleWaveTypes>(val.value) == OvalWave)
                 w = new Oval(SampleRate);
             else
-                w = new Sine(SampleRate);
+                w = new Peak(SampleRate);
             ocean = new PeriodicSampleTable(w, true);
             ocean->setWaveCount(currpoly);
             ocean->setOffsets(offset);

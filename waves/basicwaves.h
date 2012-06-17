@@ -20,50 +20,9 @@
 #ifndef BASICWAVES_H
 #define BASICWAVES_H
 
-#include "sbutilities.h"
-#include "presetenums.h"
+#include "waves/waves.h"
 
 namespace sb {
-
-    class WaveBase
-    {
-    public:
-        explicit WaveBase(int sample_r) {
-            samp_pos = -1;
-            sample_rate = sample_r;
-            rad_offset = 0.0f;
-        }
-
-        virtual ~WaveBase() {}
-
-        void setFrequency(double new_freq) {
-            frequency = new_freq;
-        }
-        void setAmplitude(SbSample new_amp) {
-            amplitude = new_amp;
-        }
-        void setOffset(float phase) {
-            rad_offset = phase;
-        }
-
-        void reset() {
-            samp_pos = -1;
-        }
-        virtual SbSample tick() {
-            ++samp_pos;
-            float rad = (frequency/sample_rate)*samp_pos;
-            return getRaw(rad + rad_offset);
-        }
-
-        virtual SbSample getRaw(float radians) = 0;
-
-    protected:
-        size_t samp_pos; //WARNING: samp_pos is in samples, and it must start at -1!
-        int sample_rate;
-        double frequency;
-        float rad_offset;
-        SbSample amplitude;
-    };
 
     class Sine : public WaveBase {
     public:
@@ -93,6 +52,12 @@ namespace sb {
     class Oval : public WaveBase {
     public:
         explicit Oval (int sample_r);
+        SbSample getRaw(float radians);
+    };
+
+    class Peak : public WaveBase {
+    public:
+        explicit Peak (int sample_r);
         SbSample getRaw(float radians);
     };
 

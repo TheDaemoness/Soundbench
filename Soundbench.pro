@@ -16,7 +16,6 @@ unix: INCLUDEPATH += /usr/include/
 # Input
 HEADERS += architect.h \
     backend/portaudio.h \
-    basicwaves.h \
     blueprint.h \
     common.h \
     emitter/emitter.h \
@@ -45,7 +44,9 @@ HEADERS += architect.h \
     trapezoid.h \
     presetenums.h \
     ticker.h \
-    printhelp.h
+    printhelp.h \
+    waves/waves.h \
+    waves/basicwaves.h
 
 FORMS += errorpopup.ui \
     gentypedialog.ui \
@@ -56,7 +57,6 @@ FORMS += errorpopup.ui \
 SOURCES += emitter/initportaudio.cpp \
     architect.cpp \
     backend/portaudio.cpp \
-    basicwaves.cpp \
     emitter/emitter.cpp \
     errorpopup.cpp \
     gentypedialog.cpp \
@@ -81,7 +81,8 @@ SOURCES += emitter/initportaudio.cpp \
     player/initfrontend.cpp \
     ui/sbmain/mainfunc.cpp \
     ui/sbmain/maininit.cpp \
-    ui/sbmain/mainslots.cpp
+    ui/sbmain/mainslots.cpp \
+    waves/basicwaves.cpp
 
 RESOURCES += \
     resources.qrc

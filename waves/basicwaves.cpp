@@ -1,3 +1,4 @@
+
 /*
     This file is part of Soundbench.
 
@@ -17,7 +18,7 @@
     Copyright 2012  Amaya S.
 */
 
-#include "basicwaves.h"
+#include "waves/basicwaves.h"
 #include <cmath>
 
 namespace sb {
@@ -27,10 +28,10 @@ namespace sb {
     Square::Square(int sample_r) : Square::WaveBase(sample_r) {}
     Triangle::Triangle(int sample_r) : Triangle::WaveBase(sample_r) {}
     Oval::Oval(int sample_r) : Oval::WaveBase(sample_r) {}
+    Peak::Peak(int sample_r) : Peak::WaveBase(sample_r) {}
 
 
     SbSample Sine::getRaw(float x) {
-        //TODO: Fast sine approximation with at least -150 dB SNR.
         return std::sin(x);
     }
 
@@ -44,7 +45,6 @@ namespace sb {
     }
 
     SbSample Triangle::getRaw(float rads) {
-        //TODO: IS THERE ANY COMPUTATIONALLY CHEAPER WAY OF CALCULATING A TRIANGLE WAVE?!
         rads = std::fmod(rads,2.0f*Pi);
         if (rads < 2.0*Pi/4.0)
             return rads*4.0/(2.0*Pi);

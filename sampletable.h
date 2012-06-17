@@ -20,7 +20,7 @@
 #ifndef SAMPLETABLE_H
 #define SAMPLETABLE_H
 
-#include "basicwaves.h"
+#include "waves/basicwaves.h"
 #include "ticker.h"
 
 namespace sb {

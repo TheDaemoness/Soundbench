@@ -25,12 +25,15 @@
 
 #include "sbutilities.h" //For the environment macros.
 
-#ifdef SB_ENV_POSIX
+#if defined(SB_ENV_POSIX)
     #include <sys/time.h>
     #include <sys/resource.h>
+#elif defined(SB_ENV_WNDOS)
+    #define _WIN32_WINNT 0x0501
+    #include <windows.h>
 #else
     #ifdef __GNUC__
-    #warning The CPU meter will not work properly as this program is being built without the POSIX APIs.
+    #warning The CPU meter will not work properly as this program is being built without POSIX or Windows APIs.
     #endif
 #endif
 
@@ -54,10 +57,11 @@ public slots:
 private:
     QProgressBar* affectedbar;
 
-#ifdef SB_ENV_POSIX
+#if defined(SB_ENV_POSIX)
     rusage ruse;
     timespec dust;
-#else
+#elif defined(SB_ENV_WNDOS)
+    FILETIME ft_unused, ft_kernel, ft_user;
 #endif
     double time;
     uint64_t totaltime;
