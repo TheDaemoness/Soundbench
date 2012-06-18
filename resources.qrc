@@ -64,4 +64,13 @@
         <file>gentype_popup.png</file>
         <file>basicgener_backdrop.png</file>
     </qresource>
+    <qresource prefix="/combobox">
+        <file>combobox_frame_idle.png</file>
+        <file>combobox_button_disabled.png</file>
+        <file>combobox_button_hover.png</file>
+        <file>combobox_button_idle.png</file>
+        <file>combobox_button_pressed.png</file>
+        <file>combobox_frame_hover.png</file>
+        <file>combobox_frame_disabled.png</file>
+    </qresource>
 </RCC>

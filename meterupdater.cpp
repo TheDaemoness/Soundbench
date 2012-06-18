@@ -30,7 +30,7 @@ MeterUpdater::MeterUpdater(QProgressBar* bare, QObject *parent) :
     totaltime = 0;
 }
 
-#if defined(SB_ENV_POSIX) {
+#if defined(SB_ENV_POSIX)
 void MeterUpdater::update() {
     //Get the CPU time for this process.
     getrusage(RUSAGE_SELF,&ruse);

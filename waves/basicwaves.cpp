@@ -60,4 +60,14 @@ namespace sb {
         rads = std::fmod(rads,Pi);
         return (invert?-2.0:2.0)/Pi*std::sqrt(Pi*rads-rads*rads);
     }
+
+    SbSample Peak::getRaw(float rads) {
+        rads = std::fmod(rads,2.0f*Pi);
+        bool invert = rads >= Pi;
+        rads = std::fmod(rads,Pi);
+        if(rads >= Pi/2.0)
+            return (invert?SbSampleMin:SbSampleMax)*(SbSampleMax - 2.0/Pi*std::sqrt(Pi*rads-rads*rads));
+        else
+            return (invert?SbSampleMin:SbSampleMax)*(SbSampleMin + 2.0/Pi*std::sqrt(Pi*rads-rads*rads));
+    }
 }

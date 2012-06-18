@@ -341,6 +341,33 @@ QProgressBar::chunk {
 QProgressBar {
 	border-image: url(:/meters/cpumeter_off.png);
     color: black;
+}
+
+
+QComboBox {
+	border-image: url(:/combobox/combobox_frame_idle.png);
+}
+QComboBox:hover {
+	border-image: url(:/combobox/combobox_frame_hover.png);
+}
+QComboBox:disabled {
+	border-image: url(:/combobox/combobox_frame_disabled.png);
+	color: gray;
+}
+QComboBox::drop-down {
+	border-image: url(:/combobox/combobox_button_idle.png);
+}
+QComboBox::drop-down:hover {
+	border-image: url(:/combobox/combobox_button_hover.png);
+}
+QComboBox::drop-down:pressed {
+	border-image: url(:/combobox/combobox_button_pressed.png);
+}
+QComboBox::drop-down:disabled {
+	border-image: url(:/combobox/combobox_button_disabled.png);
+}
+QComboBox QAbstractItemView {
+	background-color: black;
 }</string>
   </property>
   <property name="dockOptions">
@@ -422,7 +449,7 @@ QTabBar::tab:selected {
 }</string>
     </property>
     <property name="currentIndex">
-     <number>0</number>
+     <number>3</number>
     </property>
     <widget class="QWidget" name="tabSelect">
      <attribute name="title">

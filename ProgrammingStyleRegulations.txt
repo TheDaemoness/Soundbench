@@ -118,7 +118,7 @@ Guidelines may be bent or sometimes outright broken if the programmer thinks it'
 10.2. Please use Soundbench's WarningPopup and ErrorPopup classes to report problems that require the user to pass judgement or know about.
 10.3. Please do not change existing artwork without consulting with the project head or one of the artists. If one piece is to be changed, likely most of it will need to be.
 10.4. Please do not use UI elements that do not have stylesheets.
-10.4.1. Elements that have been styled: QPushButton, QRadioButton, QTabWidget, QLabel, QSpinbox, QDoubleSpinBox.
+10.4.1. Elements that have been styled: QPushButton, QRadioButton, QTabWidget, QLabel, QSpinbox, QDoubleSpinBox, QComboBox.
 10.4.2. Exceptions to this rule: QListWidget, QTreeWidget, QTableWidget.
 10.6. If a progress bar is needed, please create a pointer to the CpuMeter object used in SoundbenchMain and use the setProgress() slot.
 10.6.1. Please remember to call the startMeter() function when you don't need the progress bar anymore. :)

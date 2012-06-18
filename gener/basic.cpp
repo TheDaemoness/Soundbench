@@ -40,16 +40,18 @@ namespace sb {
             delete ocean;
 
             WaveBase* w;
-            if (static_cast<SimpleWaveTypes>(val.value) == TriangleWave)
+            if (curr_wav == TriangleWave)
                 w = new Triangle(SampleRate);
-            else if (static_cast<SimpleWaveTypes>(val.value) == SquareWave)
+            else if (curr_wav == SquareWave)
                 w = new Square(SampleRate);
-            else if (static_cast<SimpleWaveTypes>(val.value) == SawtoothWave)
+            else if (curr_wav == SawtoothWave)
                 w = new Sawtooth(SampleRate);
-            else if (static_cast<SimpleWaveTypes>(val.value) == OvalWave)
+            else if (curr_wav == OvalWave)
                 w = new Oval(SampleRate);
-            else
+            else if (curr_wav == PeakWave)
                 w = new Peak(SampleRate);
+            else
+                w = new Sine(SampleRate);
             ocean = new PeriodicSampleTable(w, true);
             ocean->setWaveCount(currpoly);
             ocean->setOffsets(offset);

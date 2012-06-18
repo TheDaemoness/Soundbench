@@ -47,7 +47,8 @@ namespace sb {
         TriangleWave = 2,
         SquareWave = 3,
         SawtoothWave = 4,
-        OvalWave = 5
+        OvalWave = 5,
+        PeakWave = 6
     };
 }
 
