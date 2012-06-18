@@ -132,9 +132,18 @@ namespace sb {
         pa_inited = true;
         return true;
     }
+
+    std::vector<std::string> PortaudioBackend::getDevices() {
+        std::vector<std::string> vecu;
+        vecu.push_back("Default");
+        for(int i = 0; i < Pa_GetDeviceCount(); ++i)
+            vecu.push_back(Pa_GetDeviceInfo(i)->name);
+        return vecu;
+    }
+
 #else
     bool PortaudioBackend::instantiable() {
-        return false; //No compiled PortAudio support.
+        return false; //Not compiled PortAudio support.
     }
 #endif
 } //namespace sb

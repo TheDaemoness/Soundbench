@@ -34,6 +34,8 @@ namespace sb {
         ~PortmidiFrontend();
         void start();
         void stop();
+        std::vector<std::string> getDevices();
+
         static PmTimestamp callback(void* data);
     private:
         PortMidiStream* river;
@@ -47,6 +49,7 @@ namespace sb {
         PortmidiFrontend(Synth* s) : MidiFrontend(s) {};
         void start() {};
         void stop() {};
+        std::vector<std::string> getDevices() {};
     };
 #endif
 

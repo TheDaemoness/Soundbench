@@ -47,6 +47,11 @@ namespace sb {
         std::map<EmitterType,bool> getSupportedAPIs() {
             return supported_apis;
         }
+        std::vector<std::string> getDevices() {
+            if(backend != nullptr)
+                return backend->getDevices();
+            return std::vector<std::string>();
+        }
 
         void setSamplingRate(size_t);
         void setEmitterType(EmitterType);

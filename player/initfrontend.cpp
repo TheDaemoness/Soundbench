@@ -20,7 +20,16 @@
 #include "player.h"
 
 namespace sb {
-    void Player::initfrontend() {
-        std::cerr << "Determining which MIDI frontends will initialize.";
+    void Player::initfrontend(Synth* syn) {
+        std::cerr << "Determining which MIDI frontends will initialize.\n";
+        supported_apis[PortMIDI] = PortmidiFrontend::instantiable();
+
+        if (supported_apis[PortMIDI]) {
+            std::cerr << "Initializing PortMIDI as a MIDI frontend...\n";
+            midin = new PortmidiFrontend(syn);
+            std::cerr << "PortMIDI frontend initialized.\n";
+            return;
+        }
+        std::cerr << "No MIDI frontends could be initialized on this system.\n";
     }
 }

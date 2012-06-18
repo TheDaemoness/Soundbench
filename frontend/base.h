@@ -37,8 +37,14 @@ namespace sb {
         virtual bool isRunning() {
             return running;
         }
+        virtual void setDevice(uint32_t dev) {
+            devicenum = dev;
+        }
+        virtual std::vector<std::string> getDevices() = 0;
+
     protected:
         bool running;
+        uint32_t devicenum;
         sb::Synth* syn;
     };
 

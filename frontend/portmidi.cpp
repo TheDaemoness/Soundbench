@@ -67,6 +67,13 @@ namespace sb {
         river = nullptr;
         running = false;
     }
+    std::vector<std::string> PortmidiFrontend::getDevices() {
+        std::vector<std::string> veci;
+        veci.push_back("Default");
+        for(int i = 0; i < Pm_CountDevices(); ++i)
+            veci.push_back(Pm_GetDeviceInfo(i)->name);
+        return veci;
+    }
 
 #else
     bool PortmidiFrontend::instantiable() {

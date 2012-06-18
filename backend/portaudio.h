@@ -39,6 +39,15 @@ namespace sb {
         void start();
         void stop();
         void setSamplingRate(size_t);
+        void setDevice(uint32_t dev) {
+            if (dev == 0) {
+                devicenum = Pa_GetDefaultOutputDevice();
+                return;
+            }
+            devicenum = dev - 1;
+        }
+
+        std::vector<std::string> getDevices();
 
         static int callback(const void*, void*, unsigned long, const PaStreamCallbackTimeInfo*, PaStreamCallbackFlags, void*);
 
@@ -60,6 +69,7 @@ namespace sb {
         void start() {}
         void stop() {}
         void setSamplingRate(size_t) {}
+        std::vector<std::string> getDevices() {};
     };
 
 #endif

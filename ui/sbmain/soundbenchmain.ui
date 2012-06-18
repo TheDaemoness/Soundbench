@@ -449,7 +449,7 @@ QTabBar::tab:selected {
 }</string>
     </property>
     <property name="currentIndex">
-     <number>3</number>
+     <number>1</number>
     </property>
     <widget class="QWidget" name="tabSelect">
      <attribute name="title">
@@ -714,30 +714,6 @@ QTabBar::tab:selected {
        <set>Qt::AlignCenter</set>
       </property>
      </widget>
-     <widget class="QLabel" name="iosettingsComingSoon">
-      <property name="geometry">
-       <rect>
-        <x>400</x>
-        <y>85</y>
-        <width>611</width>
-        <height>341</height>
-       </rect>
-      </property>
-      <property name="font">
-       <font>
-        <family>Ubuntu</family>
-        <pointsize>16</pointsize>
-        <weight>75</weight>
-        <bold>true</bold>
-       </font>
-      </property>
-      <property name="text">
-       <string>(Quick I/O settings coming in version 0.3.0)</string>
-      </property>
-      <property name="alignment">
-       <set>Qt::AlignCenter</set>
-      </property>
-     </widget>
      <widget class="QSpinBox" name="tempoBox">
       <property name="enabled">
        <bool>false</bool>
@@ -813,6 +789,74 @@ QTabBar::tab:selected {
       </property>
       <property name="checkable">
        <bool>true</bool>
+      </property>
+     </widget>
+     <widget class="QListWidget" name="inputsList">
+      <property name="geometry">
+       <rect>
+        <x>395</x>
+        <y>115</y>
+        <width>301</width>
+        <height>311</height>
+       </rect>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">QListWidget {
+	background-color: rgba(0, 0, 0, 0);
+}</string>
+      </property>
+      <property name="selectionRectVisible">
+       <bool>false</bool>
+      </property>
+     </widget>
+     <widget class="QLabel" name="inputsLabel">
+      <property name="geometry">
+       <rect>
+        <x>400</x>
+        <y>95</y>
+        <width>291</width>
+        <height>16</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>Note Input Interfaces</string>
+      </property>
+      <property name="alignment">
+       <set>Qt::AlignCenter</set>
+      </property>
+     </widget>
+     <widget class="QListWidget" name="outputsList">
+      <property name="geometry">
+       <rect>
+        <x>710</x>
+        <y>115</y>
+        <width>301</width>
+        <height>311</height>
+       </rect>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">QListWidget {
+	background-color: rgba(0, 0, 0, 0);
+}</string>
+      </property>
+      <property name="selectionRectVisible">
+       <bool>false</bool>
+      </property>
+     </widget>
+     <widget class="QLabel" name="outputsLabel">
+      <property name="geometry">
+       <rect>
+        <x>715</x>
+        <y>95</y>
+        <width>291</width>
+        <height>16</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>Audio Output Interfaces</string>
+      </property>
+      <property name="alignment">
+       <set>Qt::AlignCenter</set>
       </property>
      </widget>
     </widget>

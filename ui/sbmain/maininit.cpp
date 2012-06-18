@@ -47,6 +47,11 @@ void SoundbenchMain::delayedConstructor() {
 
     std::map<sb::EmitterType,bool> backend_apis = em->getSupportedAPIs(); //TODO: Deal with this.
 
+    for(std::string dev : em->getDevices())
+        ui->outputsList->addItem(dev.c_str());
+    for(std::string dev : plai->getDevices())
+        ui->inputsList->addItem(dev.c_str());
+
     type_sigmap->setMapping(ui->gener1TypeBox,0);
     type_sigmap->setMapping(ui->gener2TypeBox,1);
     type_sigmap->setMapping(ui->gener3TypeBox,2);

@@ -39,6 +39,7 @@ namespace sb {
     private:
         bool isready;
         std::deque<midi::MIDIEventNode> nodes;
+        std::map<FrontendType,bool> supported_apis;
         time_t midiclocklen;
         std::string fi;
 
@@ -60,6 +61,8 @@ namespace sb {
             first = new midi::PlayerStartNode(syn);
             wri = new SoundFileWriter(syn);
 
+            initfrontend(syn);
+
             connect(this,SIGNAL(progressed(int)),affectedmet,SLOT(setProgress(int)));
         }
         ~Player() {
@@ -77,10 +80,15 @@ namespace sb {
         inline int getTempo() {
             return reed->getTempo();
         }
+        std::vector<std::string> getDevices() {
+            if(midin != nullptr)
+                return midin->getDevices();
+            return std::vector<std::string>();
+        }
 
         void play() {}
         void stop() {}
-        void initfrontend();
+        void initfrontend(Synth* syn);
         bool ready() {
             return isready;
         }
