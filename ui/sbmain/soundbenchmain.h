@@ -27,7 +27,6 @@
 #include "synth.h"
 #include "player/player.h"
 
-#include "gentypedialog.h"
 #include "ui/settings/basicgen.h"
 #include "cpumeter.h"
 
@@ -85,7 +84,6 @@ private:
 
     QSignalMapper *sett_sigmap, *type_sigmap, *rate_sigmap;
 
-    GenTypeDialog* gtd;
     union {
         BasicGenerSettings* basic;
     } gsd;

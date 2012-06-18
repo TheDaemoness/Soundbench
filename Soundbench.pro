@@ -20,7 +20,6 @@ HEADERS += architect.h \
     common.h \
     emitter/emitter.h \
     errorpopup.h \
-    gentypedialog.h \
     ui/sbmain/soundbenchmain.h \
     synth.h \
     warningpopup.h \
@@ -59,7 +58,6 @@ SOURCES += emitter/initportaudio.cpp \
     backend/portaudio.cpp \
     emitter/emitter.cpp \
     errorpopup.cpp \
-    gentypedialog.cpp \
     main.cpp \
     warningpopup.cpp \
     synth.cpp \

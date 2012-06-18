@@ -47,15 +47,15 @@ void SoundbenchMain::delayedConstructor() {
 
     std::map<sb::EmitterType,bool> backend_apis = em->getSupportedAPIs(); //TODO: Deal with this.
 
-    type_sigmap->setMapping(ui->gen1TypeButton,1);
-    type_sigmap->setMapping(ui->gen2TypeButton,2);
-    type_sigmap->setMapping(ui->gen3TypeButton,3);
-    type_sigmap->setMapping(ui->gen4TypeButton,4);
+    type_sigmap->setMapping(ui->gener1TypeBox,0);
+    type_sigmap->setMapping(ui->gener2TypeBox,1);
+    type_sigmap->setMapping(ui->gener3TypeBox,2);
+    type_sigmap->setMapping(ui->gener4TypeBox,3);
 
-    sett_sigmap->setMapping(ui->gen1SettButton,1);
-    sett_sigmap->setMapping(ui->gen2SettButton,2);
-    sett_sigmap->setMapping(ui->gen3SettButton,3);
-    sett_sigmap->setMapping(ui->gen4SettButton,4);
+    sett_sigmap->setMapping(ui->gen1SettButton,0);
+    sett_sigmap->setMapping(ui->gen2SettButton,1);
+    sett_sigmap->setMapping(ui->gen3SettButton,2);
+    sett_sigmap->setMapping(ui->gen4SettButton,3);
 
     rate_sigmap->setMapping(ui->button441Sampling,0);
     rate_sigmap->setMapping(ui->button48Sampling,1);
@@ -110,10 +110,10 @@ void SoundbenchMain::delayedConstructor() {
     ui->exportButton->setDisabled(true);
 
     //Connect the Channels page widgets.
-    connect(ui->gen1TypeButton,SIGNAL(clicked()),type_sigmap,SLOT(map()));
-    connect(ui->gen2TypeButton,SIGNAL(clicked()),type_sigmap,SLOT(map()));
-    connect(ui->gen3TypeButton,SIGNAL(clicked()),type_sigmap,SLOT(map()));
-    connect(ui->gen4TypeButton,SIGNAL(clicked()),type_sigmap,SLOT(map()));
+    connect(ui->gener1TypeBox,SIGNAL(currentIndexChanged(int)),type_sigmap,SLOT(map()));
+    connect(ui->gener2TypeBox,SIGNAL(currentIndexChanged(int)),type_sigmap,SLOT(map()));
+    connect(ui->gener3TypeBox,SIGNAL(currentIndexChanged(int)),type_sigmap,SLOT(map()));
+    connect(ui->gener4TypeBox,SIGNAL(currentIndexChanged(int)),type_sigmap,SLOT(map()));
 
     connect(ui->gen1SettButton,SIGNAL(clicked()),sett_sigmap,SLOT(map()));
     connect(ui->gen2SettButton,SIGNAL(clicked()),sett_sigmap,SLOT(map()));

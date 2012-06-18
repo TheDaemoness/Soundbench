@@ -109,31 +109,46 @@ void SoundbenchMain::setSampleRate(int which) {
 
 void SoundbenchMain::setGenType(int which) {
     switch (which) {
-    case 1:
-        gtd = new GenTypeDialog(&blu->gener[0],&blu->gener_data[0],ui->gener1Label,ui->gen1SettButton);
+    case 0:
+        blu->gener[which] = static_cast<sb::GenerType>(ui->gener1TypeBox->currentIndex());
+        if (blu->gener[which] != sb::NoGener)
+            ui->gen1SettButton->setEnabled(true);
+        else
+            ui->gen1SettButton->setDisabled(true);
         break;
-    case 2:
-        gtd = new GenTypeDialog(&blu->gener[1],&blu->gener_data[1],ui->gener2Label,ui->gen2SettButton);
+    case 1:
+        blu->gener[which] = static_cast<sb::GenerType>(ui->gener2TypeBox->currentIndex());
+        if (blu->gener[which] != sb::NoGener)
+            ui->gen2SettButton->setEnabled(true);
+        else
+            ui->gen2SettButton->setDisabled(true);
         break;
     case 3:
-        gtd = new GenTypeDialog(&blu->gener[2],&blu->gener_data[2],ui->gener3Label,ui->gen3SettButton);
+        blu->gener[which] = static_cast<sb::GenerType>(ui->gener3TypeBox->currentIndex());
+        if (blu->gener[which] != sb::NoGener)
+            ui->gen3SettButton->setEnabled(true);
+        else
+            ui->gen3SettButton->setDisabled(true);
         break;
     case 4:
-        gtd = new GenTypeDialog(&blu->gener[3],&blu->gener_data[3],ui->gener4Label,ui->gen4SettButton);
+        blu->gener[which] = static_cast<sb::GenerType>(ui->gener4TypeBox->currentIndex());
+        if (blu->gener[which] != sb::NoGener)
+            ui->gen4SettButton->setEnabled(true);
+        else
+            ui->gen4SettButton->setDisabled(true);
         break;
     default:
+        std::cerr << "A generator type-changing function was called by some random widget.\n";
         return;
     }
     stopAndReset();
-    gtd->exec();
-    delete gtd;
     arch->buildSynth(syn,blu);
     em->start();
 }
 
 void SoundbenchMain::setGenSett(int which) {
     stopAndReset();
-    genSetts(which-1);
+    genSetts(which);
     arch->buildSynth(syn,blu);
     syn->reset();
     em->start();

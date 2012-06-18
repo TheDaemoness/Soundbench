@@ -485,7 +485,7 @@ QTabBar::tab:selected {
 }</string>
       </property>
      </widget>
-     <widget class="QPushButton" name="pushButton">
+     <widget class="QPushButton" name="openButton">
       <property name="geometry">
        <rect>
         <x>130</x>
@@ -498,7 +498,7 @@ QTabBar::tab:selected {
        <string>Open</string>
       </property>
      </widget>
-     <widget class="QPushButton" name="pushButton_2">
+     <widget class="QPushButton" name="saveButton">
       <property name="geometry">
        <rect>
         <x>310</x>
@@ -511,7 +511,7 @@ QTabBar::tab:selected {
        <string>Save</string>
       </property>
      </widget>
-     <widget class="QPushButton" name="pushButton_3">
+     <widget class="QPushButton" name="saveAsButton">
       <property name="geometry">
        <rect>
         <x>390</x>
@@ -524,7 +524,7 @@ QTabBar::tab:selected {
        <string>Save As</string>
       </property>
      </widget>
-     <widget class="QPushButton" name="pushButton_4">
+     <widget class="QPushButton" name="saveCopyButton">
       <property name="geometry">
        <rect>
         <x>470</x>
@@ -537,7 +537,7 @@ QTabBar::tab:selected {
        <string>Save Copy</string>
       </property>
      </widget>
-     <widget class="QPushButton" name="pushButton_5">
+     <widget class="QPushButton" name="newButton">
       <property name="geometry">
        <rect>
         <x>50</x>
@@ -550,7 +550,7 @@ QTabBar::tab:selected {
        <string>New</string>
       </property>
      </widget>
-     <widget class="QPushButton" name="pushButton_6">
+     <widget class="QPushButton" name="deleteButton">
       <property name="geometry">
        <rect>
         <x>210</x>
@@ -563,7 +563,7 @@ QTabBar::tab:selected {
        <string>Delete</string>
       </property>
      </widget>
-     <widget class="QPushButton" name="pushButton_7">
+     <widget class="QPushButton" name="editItemsButton">
       <property name="geometry">
        <rect>
         <x>925</x>
@@ -882,66 +882,14 @@ QTabBar::tab:selected {
 }</string>
       </property>
      </widget>
-     <widget class="QLabel" name="gener1Label">
-      <property name="geometry">
-       <rect>
-        <x>25</x>
-        <y>35</y>
-        <width>196</width>
-        <height>25</height>
-       </rect>
-      </property>
-      <property name="font">
-       <font>
-        <family>Ubuntu</family>
-       </font>
-      </property>
-      <property name="toolTip">
-       <string>Channel 1's generator.</string>
-      </property>
-      <property name="styleSheet">
-       <string notr="true"/>
-      </property>
-      <property name="text">
-       <string>Disabled</string>
-      </property>
-      <property name="alignment">
-       <set>Qt::AlignCenter</set>
-      </property>
-     </widget>
-     <widget class="QPushButton" name="gen1TypeButton">
-      <property name="geometry">
-       <rect>
-        <x>40</x>
-        <y>65</y>
-        <width>71</width>
-        <height>21</height>
-       </rect>
-      </property>
-      <property name="font">
-       <font>
-        <family>Ubuntu</family>
-       </font>
-      </property>
-      <property name="toolTip">
-       <string>&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.0//EN&quot; &quot;http://www.w3.org/TR/REC-html40/strict.dtd&quot;&gt;
-&lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;style type=&quot;text/css&quot;&gt;
-p, li { white-space: pre-wrap; }
-&lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:'Ubuntu'; font-size:11pt; font-weight:400; font-style:normal;&quot;&gt;
-&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;Change this generator's type.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
-      </property>
-      <property name="text">
-       <string>Type</string>
-      </property>
-     </widget>
      <widget class="QPushButton" name="gen1SettButton">
       <property name="enabled">
        <bool>false</bool>
       </property>
       <property name="geometry">
        <rect>
-        <x>140</x>
-        <y>65</y>
+        <x>145</x>
+        <y>70</y>
         <width>71</width>
         <height>21</height>
        </rect>
@@ -952,62 +900,10 @@ p, li { white-space: pre-wrap; }
        </font>
       </property>
       <property name="toolTip">
-       <string>Disabled generators have no settings.</string>
+       <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;br/&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
       </property>
       <property name="text">
        <string>Settings</string>
-      </property>
-     </widget>
-     <widget class="QLabel" name="gener2Label">
-      <property name="geometry">
-       <rect>
-        <x>25</x>
-        <y>145</y>
-        <width>196</width>
-        <height>25</height>
-       </rect>
-      </property>
-      <property name="font">
-       <font>
-        <family>Ubuntu</family>
-       </font>
-      </property>
-      <property name="toolTip">
-       <string>Channel 2's generator.</string>
-      </property>
-      <property name="styleSheet">
-       <string notr="true"/>
-      </property>
-      <property name="text">
-       <string>Disabled</string>
-      </property>
-      <property name="alignment">
-       <set>Qt::AlignCenter</set>
-      </property>
-     </widget>
-     <widget class="QPushButton" name="gen2TypeButton">
-      <property name="geometry">
-       <rect>
-        <x>40</x>
-        <y>175</y>
-        <width>71</width>
-        <height>21</height>
-       </rect>
-      </property>
-      <property name="font">
-       <font>
-        <family>Ubuntu</family>
-       </font>
-      </property>
-      <property name="toolTip">
-       <string>&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.0//EN&quot; &quot;http://www.w3.org/TR/REC-html40/strict.dtd&quot;&gt;
-&lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;style type=&quot;text/css&quot;&gt;
-p, li { white-space: pre-wrap; }
-&lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:'Ubuntu'; font-size:11pt; font-weight:400; font-style:normal;&quot;&gt;
-&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;Change this generator's type.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
-      </property>
-      <property name="text">
-       <string>Type</string>
       </property>
      </widget>
      <widget class="QPushButton" name="gen2SettButton">
@@ -1016,7 +912,7 @@ p, li { white-space: pre-wrap; }
       </property>
       <property name="geometry">
        <rect>
-        <x>140</x>
+        <x>145</x>
         <y>175</y>
         <width>71</width>
         <height>21</height>
@@ -1028,35 +924,10 @@ p, li { white-space: pre-wrap; }
        </font>
       </property>
       <property name="toolTip">
-       <string>Disabled generators have no settings.</string>
+       <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;br/&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
       </property>
       <property name="text">
        <string>Settings</string>
-      </property>
-     </widget>
-     <widget class="QPushButton" name="gen3TypeButton">
-      <property name="geometry">
-       <rect>
-        <x>40</x>
-        <y>285</y>
-        <width>71</width>
-        <height>21</height>
-       </rect>
-      </property>
-      <property name="font">
-       <font>
-        <family>Ubuntu</family>
-       </font>
-      </property>
-      <property name="toolTip">
-       <string>&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.0//EN&quot; &quot;http://www.w3.org/TR/REC-html40/strict.dtd&quot;&gt;
-&lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;style type=&quot;text/css&quot;&gt;
-p, li { white-space: pre-wrap; }
-&lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:'Ubuntu'; font-size:11pt; font-weight:400; font-style:normal;&quot;&gt;
-&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;Change this generator's type.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
-      </property>
-      <property name="text">
-       <string>Type</string>
       </property>
      </widget>
      <widget class="QPushButton" name="gen3SettButton">
@@ -1065,7 +936,7 @@ p, li { white-space: pre-wrap; }
       </property>
       <property name="geometry">
        <rect>
-        <x>140</x>
+        <x>145</x>
         <y>285</y>
         <width>71</width>
         <height>21</height>
@@ -1077,89 +948,10 @@ p, li { white-space: pre-wrap; }
        </font>
       </property>
       <property name="toolTip">
-       <string>Disabled generators have no settings.</string>
+       <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;br/&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
       </property>
       <property name="text">
        <string>Settings</string>
-      </property>
-     </widget>
-     <widget class="QLabel" name="gener3Label">
-      <property name="geometry">
-       <rect>
-        <x>25</x>
-        <y>255</y>
-        <width>196</width>
-        <height>25</height>
-       </rect>
-      </property>
-      <property name="font">
-       <font>
-        <family>Ubuntu</family>
-       </font>
-      </property>
-      <property name="toolTip">
-       <string>Channel 3's generator.</string>
-      </property>
-      <property name="styleSheet">
-       <string notr="true"/>
-      </property>
-      <property name="text">
-       <string>Disabled</string>
-      </property>
-      <property name="alignment">
-       <set>Qt::AlignCenter</set>
-      </property>
-     </widget>
-     <widget class="QLabel" name="gener4Label">
-      <property name="geometry">
-       <rect>
-        <x>25</x>
-        <y>365</y>
-        <width>196</width>
-        <height>25</height>
-       </rect>
-      </property>
-      <property name="font">
-       <font>
-        <family>Ubuntu</family>
-       </font>
-      </property>
-      <property name="toolTip">
-       <string>Channel 4's generator.</string>
-      </property>
-      <property name="styleSheet">
-       <string notr="true"/>
-      </property>
-      <property name="text">
-       <string>Disabled</string>
-      </property>
-      <property name="alignment">
-       <set>Qt::AlignCenter</set>
-      </property>
-     </widget>
-     <widget class="QPushButton" name="gen4TypeButton">
-      <property name="geometry">
-       <rect>
-        <x>40</x>
-        <y>395</y>
-        <width>71</width>
-        <height>21</height>
-       </rect>
-      </property>
-      <property name="font">
-       <font>
-        <family>Ubuntu</family>
-       </font>
-      </property>
-      <property name="toolTip">
-       <string>&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.0//EN&quot; &quot;http://www.w3.org/TR/REC-html40/strict.dtd&quot;&gt;
-&lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;style type=&quot;text/css&quot;&gt;
-p, li { white-space: pre-wrap; }
-&lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:'Ubuntu'; font-size:11pt; font-weight:400; font-style:normal;&quot;&gt;
-&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;Change this generator's type.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
-      </property>
-      <property name="text">
-       <string>Type</string>
       </property>
      </widget>
      <widget class="QPushButton" name="gen4SettButton">
@@ -1168,7 +960,7 @@ p, li { white-space: pre-wrap; }
       </property>
       <property name="geometry">
        <rect>
-        <x>140</x>
+        <x>145</x>
         <y>395</y>
         <width>71</width>
         <height>21</height>
@@ -1180,7 +972,7 @@ p, li { white-space: pre-wrap; }
        </font>
       </property>
       <property name="toolTip">
-       <string>Disabled generators have no settings.</string>
+       <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;br/&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
       </property>
       <property name="text">
        <string>Settings</string>
@@ -1220,6 +1012,150 @@ p, li { white-space: pre-wrap; }
       </property>
       <property name="text">
        <string>(Effects are coming in version 0.7.0)</string>
+      </property>
+      <property name="alignment">
+       <set>Qt::AlignCenter</set>
+      </property>
+     </widget>
+     <widget class="QComboBox" name="gener1TypeBox">
+      <property name="geometry">
+       <rect>
+        <x>35</x>
+        <y>70</y>
+        <width>96</width>
+        <height>21</height>
+       </rect>
+      </property>
+      <item>
+       <property name="text">
+        <string>Disabled</string>
+       </property>
+      </item>
+      <item>
+       <property name="text">
+        <string>Basic</string>
+       </property>
+      </item>
+     </widget>
+     <widget class="QComboBox" name="gener2TypeBox">
+      <property name="geometry">
+       <rect>
+        <x>35</x>
+        <y>175</y>
+        <width>96</width>
+        <height>21</height>
+       </rect>
+      </property>
+      <item>
+       <property name="text">
+        <string>Disabled</string>
+       </property>
+      </item>
+      <item>
+       <property name="text">
+        <string>Basic</string>
+       </property>
+      </item>
+     </widget>
+     <widget class="QComboBox" name="gener3TypeBox">
+      <property name="geometry">
+       <rect>
+        <x>35</x>
+        <y>285</y>
+        <width>96</width>
+        <height>21</height>
+       </rect>
+      </property>
+      <item>
+       <property name="text">
+        <string>Disabled</string>
+       </property>
+      </item>
+      <item>
+       <property name="text">
+        <string>Basic</string>
+       </property>
+      </item>
+     </widget>
+     <widget class="QComboBox" name="gener4TypeBox">
+      <property name="geometry">
+       <rect>
+        <x>35</x>
+        <y>395</y>
+        <width>96</width>
+        <height>21</height>
+       </rect>
+      </property>
+      <item>
+       <property name="text">
+        <string>Disabled</string>
+       </property>
+      </item>
+      <item>
+       <property name="text">
+        <string>Basic</string>
+       </property>
+      </item>
+     </widget>
+     <widget class="QLabel" name="gener1Label">
+      <property name="geometry">
+       <rect>
+        <x>25</x>
+        <y>40</y>
+        <width>201</width>
+        <height>16</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>Generator 1</string>
+      </property>
+      <property name="alignment">
+       <set>Qt::AlignCenter</set>
+      </property>
+     </widget>
+     <widget class="QLabel" name="gener2Label">
+      <property name="geometry">
+       <rect>
+        <x>25</x>
+        <y>150</y>
+        <width>201</width>
+        <height>16</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>Generator 2</string>
+      </property>
+      <property name="alignment">
+       <set>Qt::AlignCenter</set>
+      </property>
+     </widget>
+     <widget class="QLabel" name="gener3Label">
+      <property name="geometry">
+       <rect>
+        <x>25</x>
+        <y>255</y>
+        <width>201</width>
+        <height>16</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>Generator 3</string>
+      </property>
+      <property name="alignment">
+       <set>Qt::AlignCenter</set>
+      </property>
+     </widget>
+     <widget class="QLabel" name="gener4Label">
+      <property name="geometry">
+       <rect>
+        <x>25</x>
+        <y>365</y>
+        <width>201</width>
+        <height>16</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>Generator 4</string>
       </property>
       <property name="alignment">
        <set>Qt::AlignCenter</set>

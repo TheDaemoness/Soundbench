@@ -23,9 +23,9 @@
 namespace sb {
     enum GenerType {
         NoGener = 0,
-        GenerSampler = 1,
-        GenerBasic = 2,
-        GenerAdditive = 3,
+        GenerBasic = 1,
+        GenerAdditive = 2,
+        GenerSampler = 3,
         GenerModal = 4,
         GenerWaveguide = 5
     };
