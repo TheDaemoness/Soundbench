@@ -26,6 +26,7 @@ namespace sb {
         sample_rate = srate;
         gen_amp = SbSampleMax;
         currpoly = cracker;
+        curr_wav = SineWave;
 
         ocean = new PeriodicSampleTable(new Sine(SampleRate));
         ocean->setWaveCount(cracker);
