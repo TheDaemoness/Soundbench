@@ -3,10 +3,13 @@ To build Soundbench, you have to make absolutely sure you have the following:
             g++ 4.6.3
             clang++ 3.1
         qmake
-	libqt4
-	libportaudio
+        libqt 4 or 5
 	libsndfile
-        libportmidi
+
+In addition, the following are strongly recommended:
+        One or more of the following:
+            RtAudio
+            PortAudio (version 19+)
 
 ===BUILDING ON *NIX===
 All you need to do is open a terminal and type the following:
@@ -46,8 +49,11 @@ Instructions on how to build on Windows will be provided soon.
 ===CONFIGURATIONS===
 Soundbench does have a few configurations that allow the user to disable one or more features in exchange for a removed dependency.
 
+noRtAudio
+Remove RtAudio. This will remove Soundbench's default audio backend, though a PortAudio backend will be available.
+
 noPortAudio
-Remove PortAudio. As of alpha version 0.2.1, this will disable all real-time audio output as there is no alternative audio backend.
+Remove PortAudio. This will remove Soundbench's fallback audio backend, and if Soundbench is compiled without this or RtAudio, no real-time audio support will be enabled.
 
 noPortMidi
 Remove PortMidi. As of the 0.3.0 development branch, this will disable all real-time Midi input, as there is no alternative note input frontend.
