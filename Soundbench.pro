@@ -15,7 +15,6 @@ unix: INCLUDEPATH += /usr/include/
 
 # Input
 HEADERS += architect.h \
-    backend/portaudio.h \
     blueprint.h \
     common.h \
     emitter/emitter.h \
@@ -39,13 +38,13 @@ HEADERS += architect.h \
     sampletable.h \
     backend/jack.h \
     frontend/base.h \
-    frontend/portmidi.h \
     trapezoid.h \
     presetenums.h \
     ticker.h \
     printhelp.h \
     waves/waves.h \
-    waves/basicwaves.h
+    waves/basicwaves.h \
+    backend/portaudio.h
 
 FORMS += errorpopup.ui \
     gentypedialog.ui \
@@ -72,8 +71,6 @@ SOURCES += emitter/initportaudio.cpp \
     player/write.cpp \
     sampletable.cpp \
     backend/jack.cpp \
-    frontend/portmidi.cpp \
-    frontend/portmidi-parse.cpp \
     trapezoid.cpp \
     emitter/initsomething.cpp \
     player/initfrontend.cpp \
@@ -97,11 +94,11 @@ noPortAudio {
     DEFINES += NO_PORTAUDIO
 }
 
-!noPortMidi{
-    LIBS += -lportmidi
+!noRtMidi{
+    LIBS += -lrtmidi
 }
-noPortMidi {
-    DEFINES += NO_MIDI
+noRtMidi {
+    DEFINES += NO_RTMIDI
 }
 
 

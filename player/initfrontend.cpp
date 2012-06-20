@@ -22,14 +22,14 @@
 namespace sb {
     void Player::initfrontend(Synth* syn) {
         std::cerr << "Determining which MIDI frontends will initialize.\n";
-        supported_apis[PortMIDI] = PortmidiFrontend::instantiable();
 
-        if (supported_apis[PortMIDI]) {
-            std::cerr << "Initializing PortMIDI as a MIDI frontend...\n";
-            midin = new PortmidiFrontend(syn);
-            std::cerr << "PortMIDI frontend initialized.\n";
+        if (supported_apis[RtMIDI]) {
+            std::cerr << "Initializing an RtMIDI frontend...\n";
+            //TODO.
+            std::cerr << "RtMIDI frontend initialized.\n";
             return;
         }
         std::cerr << "No MIDI frontends could be initialized on this system.\n";
+        midin = nullptr;
     }
 }

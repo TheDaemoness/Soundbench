@@ -25,7 +25,7 @@
 
 namespace sb {
 
-    class MidiFrontend {
+    class MidiFrontend  {
     public:
         explicit MidiFrontend(Synth* s) {
             running = false;

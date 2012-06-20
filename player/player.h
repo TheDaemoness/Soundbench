@@ -25,7 +25,7 @@
 #include "cpumeter.h"
 #include "sfwriter.h"
 
-#include "frontend/portmidi.h"
+#include "frontend/base.h"
 
 #include <deque>
 #include <cstdio>
@@ -37,7 +37,6 @@ namespace sb {
     class Player : public QObject {
         Q_OBJECT
     private:
-        bool isready;
         std::deque<midi::MIDIEventNode> nodes;
         std::map<FrontendType,bool> supported_apis;
         time_t midiclocklen;
@@ -55,7 +54,6 @@ namespace sb {
         explicit Player(Synth* syn, QListWidget* tracklist, CpuMeter* themet) {
             affectedlist = tracklist;
             affectedmet = themet;
-            isready = false;
 
             reed = new midi::MidiFIO;
             first = new midi::PlayerStartNode(syn);
@@ -86,11 +84,22 @@ namespace sb {
             return std::vector<std::string>();
         }
 
-        void play() {}
-        void stop() {}
+        void startPlay() {}
+        void stopPlay() {}
+        void startRt() {
+            if(midin != nullptr)
+                midin->start();
+        }
+        void stopRt() {
+            if(midin != nullptr)
+                midin->stop();
+        }
+        void startRec() {}
+        void stopRec() {}
+
         void initfrontend(Synth* syn);
-        bool ready() {
-            return isready;
+        bool empty() {
+            return first->returnNext() == nullptr;
         }
         void setFile(std::string thefile) {
             fi = thefile;

@@ -119,7 +119,6 @@ namespace sb {
             }
             chiter = chiter->returnNext();
         }
-        isready = true;
         return true;
     }
 }

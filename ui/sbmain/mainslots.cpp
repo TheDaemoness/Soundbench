@@ -50,7 +50,7 @@ void SoundbenchMain::importOpen() {
 }
 
 void SoundbenchMain::exportOpen() {
-    if(!plai->ready())
+    if(plai->empty())
         return;
     stopAndReset();
     met->setProgress(0);
@@ -83,12 +83,12 @@ void SoundbenchMain::testSynth(bool b) {
 }
 
 void SoundbenchMain::playSynth(bool b) {
-    if (!plai->ready())
+    if (plai->empty())
         return;
     if (b)
-        plai->play();
+        plai->startPlay();
     else
-        plai->stop();
+        plai->stopPlay();
 }
 
 void SoundbenchMain::silence() {

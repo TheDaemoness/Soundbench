@@ -449,7 +449,7 @@ QTabBar::tab:selected {
 }</string>
     </property>
     <property name="currentIndex">
-     <number>3</number>
+     <number>0</number>
     </property>
     <widget class="QWidget" name="tabSelect">
      <attribute name="title">
@@ -1812,7 +1812,7 @@ p, li { white-space: pre-wrap; }
        <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
       </property>
      </widget>
-     <widget class="QLabel" name="creditsTesting_2">
+     <widget class="QLabel" name="creditsDosCPUMeter">
       <property name="geometry">
        <rect>
         <x>555</x>
