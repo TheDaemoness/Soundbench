@@ -23,7 +23,7 @@ namespace sb {
     void Player::initfrontend(Synth* syn) {
         std::cerr << "Determining which MIDI frontends will initialize.\n";
 
-        if (supported_apis[RtMIDI]) {
+        if (supported_apis[RtMIDI_I]) {
             std::cerr << "Initializing an RtMIDI frontend...\n";
             //TODO.
             std::cerr << "RtMIDI frontend initialized.\n";

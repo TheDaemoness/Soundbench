@@ -25,6 +25,7 @@
 #include "sbutilities.h"
 #include "backend/portaudio.h"
 #include "backend/jack.h"
+#include "backend/rtaudio.h"
 
 //libstdc++11
 #include <vector>
@@ -73,6 +74,7 @@ namespace sb {
     private:
         bool initSomeBackend(EmitterType notthisone = NoEmitter);
         bool initPortAudio();
+        bool initRtAudio();
         bool initJACK();
 
         EmitterType em_type, used_backend;

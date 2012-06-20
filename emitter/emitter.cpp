@@ -37,9 +37,13 @@ namespace sb {
             std::cerr << "Would initialize a JACK as an audio backend, but it hasn't yet been implemented.\n";
             initSomeBackend(JACK_O);
         }
-        else if (emt == PortAudio) {
+        else if (emt == RtAudio_O) {
+            if(!initRtAudio())
+                initSomeBackend(RtAudio_O);
+        }
+        else if (emt == PortAudio_O) {
             if(!initPortAudio())
-                initSomeBackend(PortAudio);
+                initSomeBackend(PortAudio_O);
         }
 
         if (backend != nullptr && used_backend != emt) {
@@ -75,16 +79,17 @@ namespace sb {
 
     Emitter::Emitter(Synth* s) {
         std::cerr << "Determining which audio backends will initialize...\n";
-        supported_apis[PortAudio] = PortaudioBackend::instantiable();
+        supported_apis[PortAudio_O] = PortaudioBackend::instantiable();
         supported_apis[JACK_O] = JACKBackend::instantiable();
+        supported_apis[RtAudio_O] = RtAudioBackend::instantiable();
         syn = s;
 
         if (supported_apis[JACK_O])
             em_type = JACK_O;
-        else if (supported_apis[RtAudio])
-            em_type = RtAudio;
-        else if (supported_apis[PortAudio])
-            em_type = PortAudio;
+        else if (supported_apis[RtAudio_O])
+            em_type = RtAudio_O;
+        else if (supported_apis[PortAudio_O])
+            em_type = PortAudio_O;
         else {
             std::cerr << "No real time audio backends can be initialized on this computer.\n";
             em_type = NoEmitter;

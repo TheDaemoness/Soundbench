@@ -51,12 +51,16 @@ public:
 public slots:
     void startMeter() {
         metup->reset();
-        if (progressmode) {
-            affectedbar->setStyleSheet("");
-            affectedtex->setText("CPU Time");
-            progressmode = false;
-        }
+        affectedbar->setStyleSheet("");
+        affectedtex->setText("CPU Time");
+        progressmode = false;
         teimer->start(10);
+    }
+
+    void pauseMeter() {
+        teimer->stop();
+        affectedtex->setText("Paused");
+        affectedbar->setValue(0);
     }
 
     void setProgress(int val) {

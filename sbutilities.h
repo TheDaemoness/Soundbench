@@ -117,14 +117,14 @@ namespace sb {
 
     enum EmitterType {
         NoEmitter,
-        PortAudio,
-        RtAudio,
+        PortAudio_O,
+        RtAudio_O,
         JACK_O //Not implemented.
     };
 
     enum FrontendType {
         NoMIDI,
-        RtMIDI,
+        RtMIDI_I,
         JACK_I //Not implemented.
     };
 

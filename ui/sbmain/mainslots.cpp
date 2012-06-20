@@ -148,9 +148,11 @@ void SoundbenchMain::setGenType(int which) {
 
 void SoundbenchMain::setGenSett(int which) {
     stopAndReset();
+    met->pauseMeter();
     genSetts(which);
     arch->buildSynth(syn,blu);
     syn->reset();
+    met->startMeter();
     em->start();
 }
 

@@ -6,6 +6,7 @@ QMAKE_CXXFLAGS_WARN_ON += -Wall -Wextra -pedantic
 QMAKE_CXXFLAGS += -std=c++0x
 
 DEFINES += IS_SOUNDBENCH NO_JACK  #JACK support doesn't exist yet.
+DEFINES += NO_PORTAUDIO
 
 TEMPLATE = app
 TARGET = 
@@ -44,7 +45,8 @@ HEADERS += architect.h \
     printhelp.h \
     waves/waves.h \
     waves/basicwaves.h \
-    backend/portaudio.h
+    backend/portaudio.h \
+    backend/rtaudio.h
 
 FORMS += errorpopup.ui \
     gentypedialog.ui \
@@ -77,7 +79,9 @@ SOURCES += emitter/initportaudio.cpp \
     ui/sbmain/mainfunc.cpp \
     ui/sbmain/maininit.cpp \
     ui/sbmain/mainslots.cpp \
-    waves/basicwaves.cpp
+    waves/basicwaves.cpp \
+    backend/rtaudio.cpp \
+    emitter/initrtaudio.cpp
 
 RESOURCES += \
     resources.qrc
@@ -92,6 +96,13 @@ LIBS += -lsndfile
 }
 noPortAudio {
     DEFINES += NO_PORTAUDIO
+}
+
+!noRtAudio{
+    LIBS += -lrtaudio
+}
+noRtAudio {
+    DEFINES += NO_RTAUDIO
 }
 
 !noRtMidi{

@@ -20,23 +20,23 @@
 #include "emitter.h"
 
 namespace sb {
-    bool Emitter::initPortAudio() {
-        used_backend = PortAudio_O;
-        if (supported_apis[sb::PortAudio_O]) {
-            std::cerr << "Initializing a PortAudio audio backend...\n";
-            backend = new PortaudioBackend(syn,sample_rate,supported_rates,OutChannels);
+    bool Emitter::initRtAudio() {
+        used_backend = RtAudio_O;
+        if (supported_apis[sb::RtAudio_O]) {
+            std::cerr << "Initializing an RtAudio audio backend...\n";
+            backend = new RtAudioBackend(syn,sample_rate,supported_rates,OutChannels);
             if (backend->isReady()) {
-                std::cerr << "PortAudio backend initialized.\n";
+                std::cerr << "RtAudio backend initialized.\n";
                 return true;
             }
             else {
                 delete backend;
-                std::cerr << "Cannot initialize the PortAudio audio backend.\n";
+                std::cerr << "Cannot initialize the RtAudio audio backend.\n";
                 return false;
             }
         }
         else {
-            std::cerr << "Cannot initialize the PortAudio audio backend.\n";
+            std::cerr << "Cannot initialize the RtAudio audio backend.\n";
             return false;
         }
     }

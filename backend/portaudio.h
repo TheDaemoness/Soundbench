@@ -24,10 +24,11 @@
 
 //NOTICE: Do not reimplement this class to use Pa_WriteStream. It uses the callback to take advantage of the high-priority thread it runs in.
 
-namespace sb {
-#ifndef NO_PORTAUDIO
 
+#ifndef NO_PORTAUDIO
 #include <portaudio.h>
+
+namespace sb {
     class PortaudioBackend : public EmitterBackend {
     public:
         static bool instantiable();
@@ -57,9 +58,9 @@ namespace sb {
         PaStreamParameters dev;
 
     };
-
+}
 #else
-
+namespace sb {
     class PortaudioBackend : public EmitterBackend {
     public:
         static bool instantiable();
@@ -69,10 +70,9 @@ namespace sb {
         void start() {}
         void stop() {}
         void setSamplingRate(size_t) {}
-        std::vector<std::string> getDevices() {};
+        std::vector<std::string> getDevices() {return std::vector<std::string>();}
     };
-
-#endif
 }
+#endif
 
 #endif // BACKEND_PORTAUDIO_H

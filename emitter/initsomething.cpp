@@ -22,7 +22,7 @@
 namespace sb {
     bool Emitter::initSomeBackend(EmitterType notthisone) {
         for (auto pair : supported_apis) {
-            if (pair.first == PortAudio && notthisone != PortAudio) {
+            if (pair.first == PortAudio_O && notthisone != PortAudio_O) {
                 if (initPortAudio())
                     return true;
             }
