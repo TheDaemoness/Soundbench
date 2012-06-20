@@ -123,14 +123,14 @@ void SoundbenchMain::setGenType(int which) {
         else
             ui->gen2SettButton->setDisabled(true);
         break;
-    case 3:
+    case 2:
         blu->gener[which] = static_cast<sb::GenerType>(ui->gener3TypeBox->currentIndex());
         if (blu->gener[which] != sb::NoGener)
             ui->gen3SettButton->setEnabled(true);
         else
             ui->gen3SettButton->setDisabled(true);
         break;
-    case 4:
+    case 3:
         blu->gener[which] = static_cast<sb::GenerType>(ui->gener4TypeBox->currentIndex());
         if (blu->gener[which] != sb::NoGener)
             ui->gen4SettButton->setEnabled(true);
