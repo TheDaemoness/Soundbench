@@ -449,7 +449,7 @@ QTabBar::tab:selected {
 }</string>
     </property>
     <property name="currentIndex">
-     <number>0</number>
+     <number>3</number>
     </property>
     <widget class="QWidget" name="tabSelect">
      <attribute name="title">
@@ -918,7 +918,7 @@ QTabBar::tab:selected {
        </rect>
       </property>
       <property name="toolTip">
-       <string>Change the generator's type.</string>
+       <string/>
       </property>
       <property name="styleSheet">
        <string notr="true">QGraphicsView {
@@ -944,7 +944,7 @@ QTabBar::tab:selected {
        </font>
       </property>
       <property name="toolTip">
-       <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;br/&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+       <string/>
       </property>
       <property name="text">
        <string>Settings</string>
@@ -968,7 +968,7 @@ QTabBar::tab:selected {
        </font>
       </property>
       <property name="toolTip">
-       <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;br/&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+       <string/>
       </property>
       <property name="text">
        <string>Settings</string>
@@ -992,7 +992,7 @@ QTabBar::tab:selected {
        </font>
       </property>
       <property name="toolTip">
-       <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;br/&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+       <string/>
       </property>
       <property name="text">
        <string>Settings</string>
@@ -1016,7 +1016,7 @@ QTabBar::tab:selected {
        </font>
       </property>
       <property name="toolTip">
-       <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;br/&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+       <string/>
       </property>
       <property name="text">
        <string>Settings</string>
@@ -1070,6 +1070,9 @@ QTabBar::tab:selected {
         <height>21</height>
        </rect>
       </property>
+      <property name="toolTip">
+       <string>Change this generator's type.</string>
+      </property>
       <item>
        <property name="text">
         <string>Disabled</string>
@@ -1089,6 +1092,9 @@ QTabBar::tab:selected {
         <width>96</width>
         <height>21</height>
        </rect>
+      </property>
+      <property name="toolTip">
+       <string>Change this generator's type.</string>
       </property>
       <item>
        <property name="text">
@@ -1110,6 +1116,9 @@ QTabBar::tab:selected {
         <height>21</height>
        </rect>
       </property>
+      <property name="toolTip">
+       <string>Change this generator's type.</string>
+      </property>
       <item>
        <property name="text">
         <string>Disabled</string>
@@ -1129,6 +1138,9 @@ QTabBar::tab:selected {
         <width>96</width>
         <height>21</height>
        </rect>
+      </property>
+      <property name="toolTip">
+       <string>Change this generator's type.</string>
       </property>
       <item>
        <property name="text">
