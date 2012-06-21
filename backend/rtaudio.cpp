@@ -26,69 +26,68 @@ namespace sb {
             RtAudio audio;
 
             unsigned int devices = audio.getDeviceCount();
-            RtAudio::DeviceInfo info;
-            for (uint32_t i=0; i<devices; ++i) {
-                info = audio.getDeviceInfo(i);
-                if (info.probed) {
-                    if(info.outputChannels >= 2)
-                        return true;
-                }
+            if (devices == 0)
+                return false;
+            auto info = audio.getDeviceInfo(audio.getDefaultOutputDevice());
+            if (info.probed) {
+                   if(info.outputChannels >= 2)
+                   return true;
             }
         }
         catch (...) { }
         return false;
     }
 
-    RtAudioBackend::RtAudioBackend(Synth* syns, size_t& srate, std::map<size_t,bool>& supported_rates, size_t chans) {
-        syn = syns;
-        sampling_rate = srate;
-        params.nChannels = chans;
-        devic = rta.getDefaultOutputDevice();
-        bufflen = sampling_rate/100;
+RtAudioBackend::RtAudioBackend(Synth* syns, size_t& srate, std::map<size_t,bool>& supported_rates, size_t chans) {
+    syn = syns;
+    sampling_rate = srate;
+    params.nChannels = chans;
+    devic = rta.getDefaultOutputDevice();
+    bufflen = sampling_rate/100;
 
-        for(auto& pear : supported_rates) {
-            pear.second = false;
-            for(uint32_t srat : rta.getDeviceInfo(devic).sampleRates) {
-                if (srat == pear.first) {
-                    pear.second = true;
-                    break;
-                }
+    for(auto& pear : supported_rates) {
+        pear.second = false;
+        for(uint32_t srat : rta.getDeviceInfo(devic).sampleRates) {
+            if (srat == pear.first) {
+                pear.second = true;
+                break;
             }
         }
-
-        rta.openStream(&params,NULL,RTAUDIO_FLOAT32,sampling_rate,&bufflen,callback,reinterpret_cast<void*>(syn));
-        ready = true;
     }
 
-    void RtAudioBackend::start() {
-        if(rta.isStreamOpen()) {
-            if(!rta.isStreamRunning())
-                rta.startStream();
-        }
-    }
-    void RtAudioBackend::stop() {
-        if (rta.isStreamOpen()) {
-            if(rta.isStreamRunning())
-                rta.abortStream();
-        }
-    }
+    rta.openStream(&params,NULL,RTAUDIO_FLOAT32,sampling_rate,&bufflen,callback,reinterpret_cast<void*>(syn));
+    ready = true;
+}
 
-    int RtAudioBackend::callback( void *outputBuffer, void*, unsigned int nBufferFrames, double, RtAudioStreamStatus, void *userData) {
-        SbSample* framepointer = reinterpret_cast<SbSample*>(outputBuffer);
-        for (size_t i = 0; i < nBufferFrames; framepointer += OutChannels, ++i)
-            reinterpret_cast<Synth*>(userData)->tick(framepointer,OutChannels);
-        return 0;
+void RtAudioBackend::start() {
+    if(rta.isStreamOpen()) {
+        if(!rta.isStreamRunning())
+            rta.startStream();
     }
+}
+void RtAudioBackend::stop() {
+    if (rta.isStreamOpen()) {
+        if(rta.isStreamRunning())
+            rta.abortStream();
+    }
+}
 
-    std::vector<std::string> RtAudioBackend::getDevices() {
-        std::vector<std::string> naems;
-        naems.push_back("Default");
-        for(uint32_t i = 0; i < rta.getDeviceCount(); ++i) {
-            if(rta.getDeviceInfo(i).probed)
-                naems.push_back(rta.getDeviceInfo(i).name);
-        }
-        return naems;
+int RtAudioBackend::callback( void *outputBuffer, void*, unsigned int nBufferFrames, double, RtAudioStreamStatus, void *userData) {
+    SbSample* framepointer = reinterpret_cast<SbSample*>(outputBuffer);
+    for (size_t i = 0; i < nBufferFrames; framepointer += OutChannels, ++i)
+        reinterpret_cast<Synth*>(userData)->tick(framepointer,OutChannels);
+    return 0;
+}
+
+std::vector<std::string> RtAudioBackend::getDevices() {
+    std::vector<std::string> naems;
+    naems.push_back("Default");
+    for(uint32_t i = 0; i < rta.getDeviceCount(); ++i) {
+        if(rta.getDeviceInfo(i).probed)
+            naems.push_back(rta.getDeviceInfo(i).name);
     }
+    return naems;
+}
 
 #else
     bool RtAudioBackend::instantiable() {
