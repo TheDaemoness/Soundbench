@@ -25,6 +25,7 @@ namespace sb {
     bool PortaudioBackend::pa_inited = false;
     PortaudioBackend::PortaudioBackend(Synth* s, size_t& srate, std::map<size_t, bool>& srates, size_t chans) {
         running = false;
+        ready = false;
         int e;
         if (!pa_inited) {
             e = Pa_Initialize();
@@ -126,6 +127,10 @@ namespace sb {
         if (e != paNoError)
             return false;
         if(Pa_GetDeviceCount() == 0 || Pa_GetDefaultOutputDevice() == paNoDevice) {
+            Pa_Terminate();
+            return false;
+        }
+        if (Pa_GetDeviceInfo(Pa_GetDefaultOutputDevice())->maxOutputChannels < 2) {
             Pa_Terminate();
             return false;
         }

@@ -24,7 +24,6 @@
 //local
 #include "sbutilities.h"
 #include "backend/portaudio.h"
-#include "backend/jack.h"
 #include "backend/rtaudio.h"
 
 //libstdc++11
@@ -75,7 +74,6 @@ namespace sb {
         bool initSomeBackend(EmitterType notthisone = NoEmitter);
         bool initPortAudio();
         bool initRtAudio();
-        bool initJACK();
 
         EmitterType em_type, used_backend;
         std::map<EmitterType,bool> supported_apis;

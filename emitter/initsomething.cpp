@@ -26,11 +26,12 @@ namespace sb {
                 if (initPortAudio())
                     return true;
             }
-            else if (pair.first == JACK_O && notthisone != JACK_O) {
-                used_backend = JACK_O;
-                //Do nothing. This backend isn't implemented.
+            else if (pair.first == RtAudio_O && notthisone != RtAudio_O) {
+                if (initRtAudio())
+                    return true;
             }
         }
+        backend = nullptr;
         return false;
     }
 }

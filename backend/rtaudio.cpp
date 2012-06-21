@@ -22,17 +22,20 @@
 namespace sb {
 #ifndef NO_RTAUDIO
     bool RtAudioBackend::instantiable() {
-        RtAudio audio;
+        try {
+            RtAudio audio;
 
-        unsigned int devices = audio.getDeviceCount();
-        RtAudio::DeviceInfo info;
-        for (uint32_t i=0; i<devices; ++i) {
-            info = audio.getDeviceInfo(i);
-            if (info.probed) {
-                if(info.outputChannels >= 2)
-                    return true;
+            unsigned int devices = audio.getDeviceCount();
+            RtAudio::DeviceInfo info;
+            for (uint32_t i=0; i<devices; ++i) {
+                info = audio.getDeviceInfo(i);
+                if (info.probed) {
+                    if(info.outputChannels >= 2)
+                        return true;
+                }
             }
         }
+        catch (...) { }
         return false;
     }
 

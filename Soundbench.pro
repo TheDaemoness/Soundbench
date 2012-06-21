@@ -36,7 +36,6 @@ HEADERS += architect.h \
     midifio/midifio.h \
     sfwriter.h \
     sampletable.h \
-    backend/jack.h \
     frontend/base.h \
     trapezoid.h \
     presetenums.h \
@@ -72,7 +71,6 @@ SOURCES += emitter/initportaudio.cpp \
     player/load.cpp \
     player/write.cpp \
     sampletable.cpp \
-    backend/jack.cpp \
     trapezoid.cpp \
     emitter/initsomething.cpp \
     player/initfrontend.cpp \
