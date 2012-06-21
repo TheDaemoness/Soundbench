@@ -25,7 +25,7 @@
 #include "cpumeter.h"
 #include "sfwriter.h"
 
-#include "frontend/base.h"
+#include "frontend/rtmidi.h"
 
 #include <deque>
 #include <cstdio>
@@ -37,13 +37,13 @@ namespace sb {
     class Player : public QObject {
         Q_OBJECT
     private:
-        std::deque<midi::MIDIEventNode> nodes;
+        std::deque<midi::nodes::MIDIEventNode> nodes;
         std::map<FrontendType,bool> supported_apis;
         time_t midiclocklen;
         std::string fi;
 
         midi::MidiFIO* reed;
-        midi::PlayerStartNode* first;
+        midi::nodes::PlayerStartNode* first;
         SoundFileWriter* wri;
         MidiFrontend* midin;
 
@@ -56,7 +56,7 @@ namespace sb {
             affectedmet = themet;
 
             reed = new midi::MidiFIO;
-            first = new midi::PlayerStartNode(syn);
+            first = new midi::nodes::PlayerStartNode(syn);
             wri = new SoundFileWriter(syn);
 
             initfrontend(syn);
@@ -80,7 +80,7 @@ namespace sb {
         }
         std::vector<std::string> getDevices() {
             if(midin != nullptr)
-                return midin->getDevices();
+                return midin->getPorts();
             return std::vector<std::string>();
         }
 

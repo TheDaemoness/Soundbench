@@ -199,7 +199,7 @@ namespace sb {
 
             if(filetype == MultiTrack) { //Handle the meta events written in the first track.
                 std::cerr << "Parsing the metadata track.\n";
-                MidiFileItem ret;
+                MidiEvent ret;
                 do {
                     ret = read();
                 } while (ret.evtype != EndOfTrack);

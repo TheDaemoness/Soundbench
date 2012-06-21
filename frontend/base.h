@@ -21,30 +21,41 @@
 #define FRONTEND_H
 
 #include "sbutilities.h"
+#include "midichain.h"
+#include "midienums.h"
 #include "synth.h"
 
 namespace sb {
 
     class MidiFrontend  {
     public:
-        explicit MidiFrontend(Synth* s) {
+        MidiFrontend(Synth* s) {
             running = false;
             syn = s;
         }
-        virtual ~MidiFrontend() {}
+        virtual ~MidiFrontend() {
+            delete foist;
+        }
+
+        virtual void record(bool) = 0;
         virtual void stop() = 0;
         virtual void start() = 0;
         virtual bool isRunning() {
             return running;
         }
-        virtual void setDevice(uint32_t dev) {
-            devicenum = dev;
+        virtual bool isReady() {
+            return ready;
         }
-        virtual std::vector<std::string> getDevices() = 0;
+
+        virtual void setPorts(uint32_t ship) {
+            portnum = ship;
+        }
+        virtual std::vector<std::string> getPorts() = 0;
 
     protected:
-        bool running;
-        uint32_t devicenum;
+        midi::nodes::PlayerStartNode* foist;
+        bool running, ready;
+        uint32_t portnum;
         sb::Synth* syn;
     };
 

@@ -10,6 +10,7 @@ In addition, the following are strongly recommended:
         One or more of the following:
             RtAudio
             PortAudio (version 19+)
+        RtMidi (Version 2.0+)
 
 ===BUILDING ON *NIX===
 All you need to do is open a terminal and type the following:
@@ -55,5 +56,5 @@ Remove RtAudio. This will remove Soundbench's default audio backend, though a Po
 noPortAudio
 Remove PortAudio. This will remove Soundbench's fallback audio backend, and if Soundbench is compiled without this or RtAudio, no real-time audio support will be enabled.
 
-noPortMidi
-Remove PortMidi. As of the 0.3.0 development branch, this will disable all real-time Midi input, as there is no alternative note input frontend.
+noRtMidi
+Remove RtMidi. As of the 0.3.0 development branch, this will disable all real-time Midi input, as there is no alternative note input frontend.

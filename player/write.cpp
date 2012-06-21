@@ -49,7 +49,7 @@ namespace sb {
         if(!wri->open(fi,form))
             return;
 
-        midi::MIDIEventNode* nody = first;
+        midi::nodes::MIDIEventNode* nody = first;
         if (nody == nullptr)
             return;
 

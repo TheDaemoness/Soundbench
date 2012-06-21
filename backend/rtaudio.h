@@ -17,8 +17,8 @@
     Copyright 2012  Amaya S.
 */
 
-#ifndef RTAUDIO_H
-#define RTAUDIO_H
+#ifndef BACKEND_RTAUDIO_H
+#define BACKEND_RTAUDIO_H
 
 #include "backend/base.h"
 

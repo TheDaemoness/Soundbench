@@ -22,7 +22,7 @@
 namespace sb {
     namespace midi {
 
-        MidiFileItem MidiFIO::read() {
+        MidiEvent MidiFIO::read() {
             if (writing || !river.is_open())
                 return returnitem;
             if (eot_reached) {

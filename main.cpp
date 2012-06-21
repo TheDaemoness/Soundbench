@@ -23,7 +23,7 @@
 #include "printhelp.h"
 
 size_t sb::SampleRate;
-sb::Synth* sb::midi::MIDIEventNode::synref;
+sb::Synth* sb::midi::nodes::MIDIEventNode::synref;
 
 int main(int argc, char *argv[])
 {

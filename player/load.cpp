@@ -54,8 +54,8 @@ namespace sb {
             std::cerr << "Error switching tracks.\n";
             return false;
         }
-        midi::MidiFileItem miditem;
-        midi::MIDIEventNode* chiter = first;
+        midi::MidiEvent miditem;
+        midi::nodes::MIDIEventNode* chiter = first;
         first->chainDestroy();
 
         while (true) {
@@ -71,45 +71,45 @@ namespace sb {
             switch(miditem.evtype) {
             case midi::NoteOn:
                 if (miditem.params.second != 0)
-                    chiter->attachNext(new midi::NoteOnEventNode(miditem.params.first-69, /*69 is the MIDI number for A4*/
+                    chiter->attachNext(new midi::nodes::NoteOnEventNode(miditem.params.first-69, /*69 is the MIDI number for A4*/
                                                                  static_cast<SbSample>(miditem.params.second)/127,
                                                                  miditem.delay));
                 else
-                    chiter->attachNext(new midi::NoteOffEventNode(miditem.params.first-69, miditem.delay));
+                    chiter->attachNext(new midi::nodes::NoteOffEventNode(miditem.params.first-69, miditem.delay));
                 break;
             case midi::NoteOff:
-                chiter->attachNext(new midi::NoteOffEventNode(miditem.params.first-69, miditem.delay));
+                chiter->attachNext(new midi::nodes::NoteOffEventNode(miditem.params.first-69, miditem.delay));
                 break;
 
             case midi::Controller:
                 switch (miditem.params.first) {
                 case midi::HoldPedal:
-                    chiter->attachNext(new midi::HoldPedalEventNode(miditem.params.second, miditem.delay));
+                    chiter->attachNext(new midi::nodes::HoldPedalEventNode(miditem.params.second, miditem.delay));
                     break;
                 case midi::SustenutoPedal:
-                    chiter->attachNext(new midi::SustenutoEventNode(miditem.params.second, miditem.delay));
+                    chiter->attachNext(new midi::nodes::SustenutoEventNode(miditem.params.second, miditem.delay));
                     break;
                 default:
-                    chiter->attachNext(new midi::DelayNode(miditem.delay));
+                    chiter->attachNext(new midi::nodes::DelayNode(miditem.delay));
                     break;
                 }
                 break;
             case midi::ProgramChange:
             case midi::ChannelPressure:
             case midi::PitchBend:
-                chiter->attachNext(new midi::DelayNode(miditem.delay));
+                chiter->attachNext(new midi::nodes::DelayNode(miditem.delay));
                 break;
             case midi::Aftertouch:
-                chiter->attachNext(new midi::DelayNode(miditem.delay));
+                chiter->attachNext(new midi::nodes::DelayNode(miditem.delay));
                 break;
             case midi::SystemEvent:
                 switch (miditem.meta) {
                 case midi::MetaTempo:
                 case midi::MetaTrackName:
-                    chiter->attachNext(new midi::DelayNode(miditem.delay));
+                    chiter->attachNext(new midi::nodes::DelayNode(miditem.delay));
                     break;
                 default:
-                    chiter->attachNext(new midi::DelayNode(miditem.delay));
+                    chiter->attachNext(new midi::nodes::DelayNode(miditem.delay));
                     break;
                 }
                 break;

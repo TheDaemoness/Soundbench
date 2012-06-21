@@ -160,6 +160,24 @@ namespace sb {
             MultiTrack = 1,
             MultiSong = 2
         };
+
+
+        struct MidiEvent {
+            bool read;
+            midi::MidiEvents evtype;
+            uint8_t chan;
+            std::pair<unsigned char, unsigned char> params;
+            uint8_t meta;
+            std::string meta_data;
+            uint32_t delay;
+            bool operator==(std::string str) {
+                return str==meta_data;
+            }
+            bool operator==(midi::MidiEvents ev) {
+                return evtype==ev;
+            }
+        };
+
     }
 }
 

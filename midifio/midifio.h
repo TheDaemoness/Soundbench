@@ -33,22 +33,6 @@
 namespace sb {
     namespace midi {
 
-        struct MidiFileItem {
-            bool read;
-            midi::MidiEvents evtype;
-            uint8_t chan;
-            std::pair<unsigned char, unsigned char> params;
-            uint8_t meta;
-            std::string meta_data;
-            uint32_t delay;
-            bool operator==(std::string str) {
-                return str==meta_data;
-            }
-            bool operator==(midi::MidiEvents ev) {
-                return evtype==ev;
-            }
-        };
-
         class MidiFIO
         {
         public:
@@ -69,7 +53,7 @@ namespace sb {
 #endif
             bool readFrom(uint16_t); //Changes from which track read() reads.
             std::string getTrackName(uint16_t); //Checks the specified track for a meta-event immediately after the header giving the track's name.
-            MidiFileItem read();
+            MidiEvent read();
             bool close();
 
             uint16_t getTempo();
@@ -93,7 +77,7 @@ namespace sb {
             uint32_t factor; //microseconds/tick
             uint16_t ticks_per_beat;
             size_t tracklen;
-            MidiFileItem returnitem;
+            MidiEvent returnitem;
         };
     }
 }

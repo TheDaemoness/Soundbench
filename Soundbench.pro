@@ -45,7 +45,8 @@ HEADERS += architect.h \
     waves/waves.h \
     waves/basicwaves.h \
     backend/portaudio.h \
-    backend/rtaudio.h
+    backend/rtaudio.h \
+    frontend/rtmidi.h
 
 FORMS += errorpopup.ui \
     gentypedialog.ui \
@@ -80,7 +81,8 @@ SOURCES += emitter/initportaudio.cpp \
     ui/sbmain/mainslots.cpp \
     waves/basicwaves.cpp \
     backend/rtaudio.cpp \
-    emitter/initrtaudio.cpp
+    emitter/initrtaudio.cpp \
+    frontend/rtmidi.cpp
 
 RESOURCES += \
     resources.qrc

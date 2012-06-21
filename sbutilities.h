@@ -35,13 +35,16 @@
 #include "problemfix.h"
 
 #ifndef IS_SOUNDBENCH
-#define IS_SOUNDBENCH
+    #define IS_SOUNDBENCH
 #endif
 
-#if defined(_POSIX_VERSION) | defined(__CYGWIN__) | defined(__linux__) | (defined (__APPLE__) & defined (__MACH__))
-#define SB_ENV_POSIX
+#if defined(_POSIX_VERSION) | defined(__linux__) | (defined (__APPLE__) & defined (__MACH__))
+    #define SB_ENV_POSIX
+#elif defined(__CYGWIN__)
+    #define SB_ENV_WNDOS
+    #define SB_ENV_POSIX
 #elif defined(_WIN32)
-#define SB_ENV_WNDOS
+    #define SB_ENV_WNDOS
 #endif
 
 #define SBVERSION "Development Version"
@@ -124,7 +127,7 @@ namespace sb {
 
     enum FrontendType {
         NoMIDI,
-        RtMIDI_I,
+        RtMidi_I,
         JACK_I //Not implemented.
     };
 
