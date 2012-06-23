@@ -55,6 +55,8 @@ namespace sb {
                     case MetaTempo:
                     case MetaTrackName:
                         return new DelayNode(miditem.delay);
+                    case MetaEndOfTrack:
+                        return new EndNode(miditem.delay);
                     default:
                         return new DelayNode(miditem.delay);
                     }

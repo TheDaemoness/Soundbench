@@ -124,33 +124,33 @@ namespace sb {
             };
         }
         enum MidiEvents {
-            NoteOff = 0x8,
-            NoteOn = 0x9,
-            Aftertouch = 0xA,
-            Controller = 0xB,
-            ProgramChange = 0xC,
-            ChannelPressure = 0xD,
-            PitchBend = 0xE,
-            System = 0xF,
+            NoteOff = 0x80,
+            NoteOn = 0x90,
+            Aftertouch = 0xA0,
+            Controller = 0xB0,
+            ProgramChange = 0xC0,
+            ChannelPressure = 0xD0,
+            PitchBend = 0xE0,
+            System = 0xF0,
 
-            //The following (as far as the developers know) are not used in the MIDI specification. They may be used for internal use.
+            //The following are for internal use only.
             NoData = 0x0,
             EndOfTrack = 0x1,
             Dummy = 0x2
         };
-        enum MidiSystemEvents {
-            SysExEvent = 0xF0,
-            QuarterFrameEvent = 0xF1,
-            SoundPositionEvent = 0xF2,
-            SongSelectEvent = 0xF3,
-            TuneRequestEvent = 0xF6,
-            MidiClockEvent = 0xF8,
-            MidiTickEvent = 0xF9,
-            MidiStartEvent = 0xFA,
-            MidiStopEvent = 0xFC,
-            MidiContinueEvent = 0xFB,
-            ActiveSenseEvent = 0xFE,
-            MetaEvent = 0xFF
+        enum SystemEventChanValues {
+            SysExEvent = 0x0,
+            QuarterFrameEvent = 0x1,
+            SoundPositionEvent = 0x2,
+            SongSelectEvent = 0x3,
+            TuneRequestEvent = 0x6,
+            MidiClockEvent = 0x8,
+            MidiTickEvent = 0x9,
+            MidiStartEvent = 0xA,
+            MidiStopEvent = 0xC,
+            MidiContinueEvent = 0xB,
+            ActiveSenseEvent = 0xE,
+            MetaEvent = 0xF
         };
         enum MidiMetaEvents {
             MetaTrackName = 0x03,

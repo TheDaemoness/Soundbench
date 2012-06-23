@@ -50,8 +50,8 @@ namespace sb {
 
             byte = river.get();
             if(byte & Bit1) {
-                returnitem.evtype = static_cast<midi::MidiEvents>(byte >> 4); //Shift out the channel bits.
-                returnitem.chan = byte & (Bit5 | Bit6 | Bit7 | Bit8); //Mask out all but the last four bits.
+                returnitem.evtype = static_cast<MidiEvents>(byte & (Bit1 | Bit2 | Bit3 | Bit4)); //Mask out the channel bits.
+                returnitem.chan = byte & (Bit5 | Bit6 | Bit7 | Bit8); //Mask out the event type bits.
 
                 if (returnitem.evtype != midi::System) {
                     returnitem.params.first = river.get();
@@ -67,7 +67,9 @@ namespace sb {
 
             if (returnitem.evtype == midi::System) {
                 returnitem.meta_data.clear();
-                //TODO: Sysex events?
+                if (returnitem.chan != midi::MetaEvent)
+                    return returnitem; //Filter sysex events;
+
                 returnitem.meta = river.get();
                 uint32_t evlen = 0;
                 for(uint8_t i = 0; i < 4; ++i) { //See the previous loop that handles variable length data fields for comments.
