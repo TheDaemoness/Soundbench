@@ -37,9 +37,9 @@ namespace sb {
 
                 case Controller:
                     switch (miditem.params.first) {
-                    case HoldPedal:
+                    case ctrl::HoldPedal:
                         return new HoldPedalEventNode(miditem.params.second, miditem.delay);
-                    case SustenutoPedal:
+                    case ctrl::SustenutoPedal:
                         return new SustenutoEventNode(miditem.params.second, miditem.delay);
                     default:
                         return new DelayNode(miditem.delay);
@@ -50,7 +50,7 @@ namespace sb {
                     return new DelayNode(miditem.delay);
                 case Aftertouch:
                     return new DelayNode(miditem.delay);
-                case SystemEvent:
+                case System:
                     switch (miditem.meta) {
                     case MetaTempo:
                     case MetaTrackName:

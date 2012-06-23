@@ -53,7 +53,7 @@ namespace sb {
                 returnitem.evtype = static_cast<midi::MidiEvents>(byte >> 4); //Shift out the channel bits.
                 returnitem.chan = byte & (Bit5 | Bit6 | Bit7 | Bit8); //Mask out all but the last four bits.
 
-                if (returnitem.evtype != midi::SystemEvent) {
+                if (returnitem.evtype != midi::System) {
                     returnitem.params.first = river.get();
                     if (returnitem.evtype != ProgramChange && returnitem.evtype != ChannelPressure)
                         returnitem.params.second = river.get();
@@ -65,7 +65,7 @@ namespace sb {
                     returnitem.params.second = river.get();
             }
 
-            if (returnitem.evtype == midi::SystemEvent) {
+            if (returnitem.evtype == midi::System) {
                 returnitem.meta_data.clear();
                 //TODO: Sysex events?
                 returnitem.meta = river.get();

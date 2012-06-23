@@ -60,7 +60,7 @@ namespace sb {
 
         while (true) {
             miditem = reed->read();
-            if (miditem.evtype == midi::NoDataRead) {
+            if (miditem.evtype == midi::NoData) {
                 std::cerr << "Failed to parse the track.\n";
                 break;
             }

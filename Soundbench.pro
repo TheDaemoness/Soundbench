@@ -28,7 +28,6 @@ HEADERS += architect.h \
     problemfix.h \
     backend/base.h \
     sbutilities.h \
-    midienums.h \
     ui/settings/basicgen.h \
     soundbases.h \
     gener/basic.h \
@@ -45,7 +44,8 @@ HEADERS += architect.h \
     waves/basicwaves.h \
     backend/portaudio.h \
     backend/rtaudio.h \
-    frontend/rtmidi.h
+    frontend/rtmidi.h \
+    midievents.h
 
 FORMS += errorpopup.ui \
     gentypedialog.ui \

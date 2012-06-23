@@ -21,7 +21,7 @@
 #define MIDICHAIN_H
 
 #include "synth.h"
-#include "midienums.h"
+#include "midievents.h"
 
 #include <thread>
 
@@ -76,6 +76,7 @@ namespace sb {
                 }
 
                 virtual void doEvent() = 0;
+                virtual MidiEvent getEvent() = 0;
             };
 
 
@@ -94,12 +95,23 @@ namespace sb {
                 }
 
                 void doEvent() {}
+                virtual MidiEvent getEvent() {
+                    MidiEvent ev;
+                    ev.evtype = midi::NoData;
+                    return ev;
+                }
             };
 
             class DelayNode : public MIDIEventNode { //This is mostly a placeholder for unimplemented and unsupported events.
             public:
                 explicit DelayNode(uint64_t taim = 0) : MIDIEventNode(taim) {}
                 void doEvent() {}
+                virtual MidiEvent getEvent() {
+                    MidiEvent ev;
+                    ev.evtype = midi::Dummy;
+                    ev.delay = delae;
+                    return ev;
+                }
             };
 
             class ResetNode : public MIDIEventNode {
@@ -107,6 +119,12 @@ namespace sb {
                 explicit ResetNode(uint64_t taim = 0) : MIDIEventNode(taim) {}
                 void doEvent() {
                     synref->reset();
+                }
+                virtual MidiEvent getEvent() {
+                    MidiEvent ev;
+                    ev.evtype = midi::Dummy;
+                    ev.delay = delae;
+                    return ev;
                 }
             };
 
@@ -117,6 +135,13 @@ namespace sb {
                     synref->reset();
                 }
                 void attachNext(MIDIEventNode*) {}
+                virtual MidiEvent getEvent() {
+                    MidiEvent ev;
+                    ev.evtype = midi::System;
+                    ev.delay = delae;
+                    ev.meta = midi::MetaEndOfTrack;
+                    return ev;
+                }
             };
 
             class NoteOnEventNode : public MIDIEventNode {
@@ -131,6 +156,14 @@ namespace sb {
                 void doEvent() {
                     synref->noteOn(halfsteps,amp);
                 }
+                virtual MidiEvent getEvent() {
+                    MidiEvent ev;
+                    ev.evtype = midi::NoteOn;
+                    ev.delay = delae;
+                    ev.params.first = 69 + halfsteps;
+                    ev.params.second = 127*amp;
+                    return ev;
+                }
             };
 
             class NoteOffEventNode : public MIDIEventNode {
@@ -142,6 +175,14 @@ namespace sb {
                 }
                 void doEvent() {
                     synref->noteOff(halfsteps);
+                }
+                virtual MidiEvent getEvent() {
+                    MidiEvent ev;
+                    ev.evtype = midi::NoteOn;
+                    ev.delay = delae;
+                    ev.params.first = 69 + halfsteps;
+                    ev.params.second = 0;
+                    return ev;
                 }
             };
 
@@ -158,6 +199,14 @@ namespace sb {
                     else
                         synref->pedal(Hold,false);
                 }
+                virtual MidiEvent getEvent() {
+                    MidiEvent ev;
+                    ev.evtype = midi::Controller;
+                    ev.delay = delae;
+                    ev.params.first = midi::ctrl::HoldPedal;
+                    ev.params.second = pressure;
+                    return ev;
+                }
             };
 
             class SustenutoEventNode : public MIDIEventNode {
@@ -172,6 +221,14 @@ namespace sb {
                         synref->pedal(Sustenuto,true);
                     else
                         synref->pedal(Sustenuto,false);
+                }
+                virtual MidiEvent getEvent() {
+                    MidiEvent ev;
+                    ev.evtype = midi::Controller;
+                    ev.delay = delae;
+                    ev.params.first = midi::ctrl::SustenutoPedal;
+                    ev.params.second = pressure;
+                    return ev;
                 }
             };
         }

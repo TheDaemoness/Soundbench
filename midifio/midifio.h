@@ -28,7 +28,7 @@
 #endif
 
 #include "common.h"
-#include "midienums.h"
+#include "midievents.h"
 
 namespace sb {
     namespace midi {
@@ -37,7 +37,7 @@ namespace sb {
         {
         public:
             MidiFIO() {
-                returnitem.evtype = midi::NoDataRead;
+                returnitem.evtype = midi::NoData;
                 writing = false;
                 tracklen = 0;
                 eot_reached = false;

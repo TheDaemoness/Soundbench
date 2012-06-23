@@ -22,7 +22,7 @@
 
 #include "sbutilities.h"
 #include "midichain.h"
-#include "midienums.h"
+#include "midievents.h"
 #include "synth.h"
 
 namespace sb {

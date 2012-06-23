@@ -65,7 +65,7 @@ namespace sb {
                     tracklen <<= 8;
             }
             eot_reached = false;
-            returnitem.evtype = NoDataRead;
+            returnitem.evtype = NoData;
             return true;
         }
 
