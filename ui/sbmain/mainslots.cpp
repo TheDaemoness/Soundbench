@@ -21,16 +21,19 @@
 
 void SoundbenchMain::importOpen() {
     stopAndReset();
+    met->pauseMeter();
     QString chosenfile = QFileDialog::getOpenFileName(
                 NULL,"Choose a file to import...", "~/", "Standard MIDI Files (*.mid *.smf);;All Files (*)");
 
     if (!chosenfile.size()) {
         em->start();
+        met->startMeter();
         return;
     }
     plai->setFile(chosenfile.toStdString());
     if(!plai->loadFile()) {
         em->start();
+        met->startMeter();
         return;
     }
     ui->exportButton->setEnabled(true);
@@ -47,6 +50,7 @@ void SoundbenchMain::importOpen() {
     }
 
     em->start();
+    met->startMeter();
 }
 
 void SoundbenchMain::exportOpen() {

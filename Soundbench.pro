@@ -80,7 +80,8 @@ SOURCES += emitter/initportaudio.cpp \
     waves/basicwaves.cpp \
     backend/rtaudio.cpp \
     emitter/initrtaudio.cpp \
-    frontend/rtmidi.cpp
+    frontend/rtmidi.cpp \
+    makenode.cpp
 
 RESOURCES += \
     resources.qrc

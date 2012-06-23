@@ -30,7 +30,6 @@ void SoundbenchMain::genSetts(size_t i) {
 }
 
 SoundbenchMain::~SoundbenchMain() {
-
     delete arch;
     delete plai;
     delete em;

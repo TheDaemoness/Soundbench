@@ -47,6 +47,34 @@ void SoundbenchMain::delayedConstructor() {
 
     std::map<sb::EmitterType,bool> backend_apis = em->getSupportedAPIs(); //TODO: Deal with this.
 
+    //Set up the directories if they're not already in place.
+    QDir sbdata(QDir::home());
+#if defined(SB_ENV_MACOS)
+    sbdata.cd("Library");
+    if (!sbdata.exists("Soundbench")) {
+        std::cerr << "Setting up directories...\n";
+        sbdata.mkdir("Soundbench");
+    }
+    sbdata.cd("Soundbench");
+#elif defined(SB_ENV_WNDOS)
+    sbdata.cd("AppData");
+    if (!sbdata.exists("Soundbench")) {
+        std::cerr << "Setting up directories...\n";
+        sbdata.mkdir("Soundbench");
+    }
+    sbdata.mkdir("Soundbench");
+#else
+    if (!sbdata.exists(".soundbench")) {
+        std::cerr << "Setting up directories...\n";
+        sbdata.mkdir(".soundbench");
+    }
+    sbdata.cd(".soundbench");
+#endif
+    if(!sbdata.exists("presets")) {
+        std::cerr << "Setting up presets directory.\n";
+        sbdata.mkdir("presets");
+    }
+
     for(std::string dev : em->getDevices())
         ui->outputsList->addItem(dev.c_str());
     for(std::string dev : plai->getDevices())
@@ -98,8 +126,8 @@ void SoundbenchMain::delayedConstructor() {
                 ui->button176Sampling->setEnabled(false);
             else if (elem.first == sb::SupportedRates[5])
                 ui->button192Sampling->setEnabled(false);
-            }
         }
+    }
 
     //Connect the main page widgets.
     connect(ui->silenceButton,SIGNAL(clicked()),SLOT(silence()));

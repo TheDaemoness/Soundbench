@@ -60,61 +60,13 @@ namespace sb {
 
         while (true) {
             miditem = reed->read();
-            if (miditem.evtype == midi::EndOfTrack) {
-                std::cerr << "Finished loading the track.\n";
-                break;
-            }
             if (miditem.evtype == midi::NoDataRead) {
                 std::cerr << "Failed to parse the track.\n";
                 break;
             }
-            switch(miditem.evtype) {
-            case midi::NoteOn:
-                if (miditem.params.second != 0)
-                    chiter->attachNext(new midi::nodes::NoteOnEventNode(miditem.params.first-69, /*69 is the MIDI number for A4*/
-                                                                 static_cast<SbSample>(miditem.params.second)/127,
-                                                                 miditem.delay));
-                else
-                    chiter->attachNext(new midi::nodes::NoteOffEventNode(miditem.params.first-69, miditem.delay));
-                break;
-            case midi::NoteOff:
-                chiter->attachNext(new midi::nodes::NoteOffEventNode(miditem.params.first-69, miditem.delay));
-                break;
-
-            case midi::Controller:
-                switch (miditem.params.first) {
-                case midi::HoldPedal:
-                    chiter->attachNext(new midi::nodes::HoldPedalEventNode(miditem.params.second, miditem.delay));
-                    break;
-                case midi::SustenutoPedal:
-                    chiter->attachNext(new midi::nodes::SustenutoEventNode(miditem.params.second, miditem.delay));
-                    break;
-                default:
-                    chiter->attachNext(new midi::nodes::DelayNode(miditem.delay));
-                    break;
-                }
-                break;
-            case midi::ProgramChange:
-            case midi::ChannelPressure:
-            case midi::PitchBend:
-                chiter->attachNext(new midi::nodes::DelayNode(miditem.delay));
-                break;
-            case midi::Aftertouch:
-                chiter->attachNext(new midi::nodes::DelayNode(miditem.delay));
-                break;
-            case midi::SystemEvent:
-                switch (miditem.meta) {
-                case midi::MetaTempo:
-                case midi::MetaTrackName:
-                    chiter->attachNext(new midi::nodes::DelayNode(miditem.delay));
-                    break;
-                default:
-                    chiter->attachNext(new midi::nodes::DelayNode(miditem.delay));
-                    break;
-                }
-                break;
-            default:
-                std::__throw_logic_error("The MIDI file reader ignored running status. If you see this message while running an official binary, then please report it as a bug. It shouldn't take too long to fix.");
+            chiter->attachNext(midi::nodes::MIDIEventNode::makeNode(miditem));
+            if (miditem.evtype == midi::EndOfTrack) {
+                std::cerr << "Finished loading the track.\n";
                 break;
             }
             chiter = chiter->returnNext();
