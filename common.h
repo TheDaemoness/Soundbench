@@ -51,7 +51,11 @@ namespace sb {
         Bit2 = 64,
         Bit1 = 128
     };
-    //If a bytemask is needed, shift the AllBits mask around.
+
+    enum SimpleByteMasks {
+        Nibble1 = Bit1 | Bit2 | Bit3 | Bit4,
+        Nibble2 = Bit5 | Bit6 | Bit7 | Bit8
+    };
 
     template <typename outType, typename inType>
     outType lexical_cast(inType in) {

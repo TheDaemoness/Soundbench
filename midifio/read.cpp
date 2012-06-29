@@ -50,8 +50,8 @@ namespace sb {
 
             byte = river.get();
             if(byte & Bit1) {
-                returnitem.evtype = static_cast<MidiEvents>(byte & (Bit1 | Bit2 | Bit3 | Bit4)); //Mask out the channel bits.
-                returnitem.chan = byte & (Bit5 | Bit6 | Bit7 | Bit8); //Mask out the event type bits.
+                returnitem.evtype = static_cast<MidiEvents>(byte & Nibble1); //Mask out the channel bits.
+                returnitem.chan = byte & Nibble2; //Mask out the event type bits.
 
                 if (returnitem.evtype != midi::System) {
                     returnitem.params.first = river.get();
