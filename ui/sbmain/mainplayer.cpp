@@ -89,6 +89,19 @@ void SoundbenchMain::playSynth(bool b) {
         plai->stopPlay();
 }
 
+void SoundbenchMain::loadPorts() {
+    ui->inputsList->clear();
+    for(std::string dev : plai->getPorts())
+        ui->inputsList->addItem(dev.c_str());
+    ui->inputsList->setCurrentRow(plai->getCurrentPort());
+}
+void SoundbenchMain::loadDevices() {
+    ui->outputsList->clear();
+    for(std::string dev : em->getDevices())
+        ui->outputsList->addItem(dev.c_str());
+    ui->outputsList->setCurrentRow(em->getCurrentDevice());
+}
+
 void SoundbenchMain::setTrack(int e) {
     if(!plai->loadTrack(static_cast<uint16_t>(e)))
         return;

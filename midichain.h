@@ -38,7 +38,6 @@ namespace sb {
                 uint64_t delae;
                 static Synth* synref; //In main.cpp
             public:
-                static MIDIEventNode* makeNode(MidiEvent);
                 explicit MIDIEventNode(uint64_t tiim = 0) {
                     delae = tiim;
                     next = nullptr;
@@ -79,7 +78,7 @@ namespace sb {
                 virtual MidiEvent getEvent() = 0;
             };
 
-
+            MIDIEventNode* makeNode(MidiEvent);
 
             class PlayerStartNode : public MIDIEventNode {
                 bool running;

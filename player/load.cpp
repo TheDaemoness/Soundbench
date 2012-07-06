@@ -64,7 +64,7 @@ namespace sb {
                 std::cerr << "Failed to parse the track.\n";
                 break;
             }
-            chiter->attachNext(midi::nodes::MIDIEventNode::makeNode(miditem));
+            chiter->attachNext(midi::nodes::makeNode(miditem));
             if (miditem.evtype == midi::EndOfTrack) {
                 std::cerr << "Finished loading the track.\n";
                 break;

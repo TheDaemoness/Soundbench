@@ -56,6 +56,18 @@ namespace sb {
         void setSamplingRate(size_t);
         void setEmitterType(EmitterType);
 
+        size_t getCurrentDevice() {
+            if (backend != nullptr)
+                return backend->getCurrentDevice();
+            return 0;
+        }
+
+        size_t getDefaultDevice() {
+            if (backend != nullptr)
+                return backend->getDefaultDevice();
+            return 0;
+        }
+
         void start() {
             if (backend != nullptr)
                 backend->start();

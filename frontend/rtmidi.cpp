@@ -44,7 +44,22 @@ namespace sb {
     }
 
     void RtMidiFrontend::record(bool b) {
-        udata.record = b;
+        udata.mutt.lock();
+        if (b) {
+            if (!udata.recording) {
+                udata.nodeiter = foist;
+                udata.nodeiter->chainDestroy();
+                udata.recording = true;
+            }
+        }
+        else {
+            if (udata.recording) {
+                midi::nodes::MIDIEventNode* nod = new midi::nodes::EndNode;
+                udata.nodeiter->attachNext(nod);
+                udata.recording = false;
+            }
+        }
+        udata.mutt.unlock();
     }
     void RtMidiFrontend::stop() {
         rtm->closePort();
@@ -58,8 +73,31 @@ namespace sb {
         running = true;
     }
 
-    void RtMidiFrontend::callback(double timestamp, std::vector<unsigned char>* message, void* userdata) {
+    void RtMidiFrontend::callback(double, std::vector<unsigned char>* message, void* userdata) {
         RtUserData& rtd = *reinterpret_cast<RtUserData*>(userdata);
+        uint8_t byte = (*message)[0];
+        if(byte & Bit1) {
+            rtd.eve.evtype = static_cast<midi::MidiEvents>(byte & Nibble1); //Mask out the channel bits.
+            rtd.eve.chan = byte & Nibble2; //Mask out the event type bits.
+
+            if (rtd.eve.evtype != midi::System) {
+                rtd.eve.params.first = (*message)[1];
+                if (rtd.eve.evtype != midi::ProgramChange && rtd.eve.evtype != midi::ChannelPressure)
+                    rtd.eve.params.second = (*message)[2];
+            }
+        }
+        else { //Running status.
+            rtd.eve.params.first = byte;
+            if (rtd.eve.evtype != midi::ProgramChange && rtd.eve.evtype != midi::ChannelPressure)
+                rtd.eve.params.second = (*message)[1];
+        }
+        midi::doEvent(rtd.syn,rtd.eve);
+        rtd.mutt.lock();
+        if (rtd.recording) {
+            rtd.nodeiter->attachNext(midi::nodes::makeNode(rtd.eve));
+            rtd.nodeiter = rtd.nodeiter->returnNext();
+        }
+        rtd.mutt.unlock();
     }
 
 #else

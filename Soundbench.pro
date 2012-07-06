@@ -83,7 +83,8 @@ SOURCES += emitter/initportaudio.cpp \
     frontend/rtmidi.cpp \
     makenode.cpp \
     ui/sbmain/mainplayer.cpp \
-    ui/sbmain/mainchannels.cpp
+    ui/sbmain/mainchannels.cpp \
+    doevent.cpp
 
 RESOURCES += \
     resources.qrc

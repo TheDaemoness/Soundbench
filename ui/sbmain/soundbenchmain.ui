@@ -449,7 +449,7 @@ QTabBar::tab:selected {
 }</string>
     </property>
     <property name="currentIndex">
-     <number>3</number>
+     <number>1</number>
     </property>
     <widget class="QWidget" name="tabSelect">
      <attribute name="title">
@@ -795,9 +795,9 @@ QTabBar::tab:selected {
       <property name="geometry">
        <rect>
         <x>395</x>
-        <y>115</y>
+        <y>110</y>
         <width>301</width>
-        <height>311</height>
+        <height>281</height>
        </rect>
       </property>
       <property name="styleSheet">
@@ -819,7 +819,7 @@ QTabBar::tab:selected {
        </rect>
       </property>
       <property name="text">
-       <string>Note Input Interfaces</string>
+       <string>Note Input Ports</string>
       </property>
       <property name="alignment">
        <set>Qt::AlignCenter</set>
@@ -829,9 +829,9 @@ QTabBar::tab:selected {
       <property name="geometry">
        <rect>
         <x>710</x>
-        <y>115</y>
+        <y>110</y>
         <width>301</width>
-        <height>311</height>
+        <height>281</height>
        </rect>
       </property>
       <property name="styleSheet">
@@ -857,6 +857,129 @@ QTabBar::tab:selected {
       </property>
       <property name="alignment">
        <set>Qt::AlignCenter</set>
+      </property>
+     </widget>
+     <widget class="QPushButton" name="inputRetry">
+      <property name="enabled">
+       <bool>false</bool>
+      </property>
+      <property name="geometry">
+       <rect>
+        <x>615</x>
+        <y>400</y>
+        <width>71</width>
+        <height>25</height>
+       </rect>
+      </property>
+      <property name="toolTip">
+       <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Use the default port for the current frontend.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+      </property>
+      <property name="text">
+       <string>Retry</string>
+      </property>
+      <property name="checkable">
+       <bool>false</bool>
+      </property>
+     </widget>
+     <widget class="QPushButton" name="inputReload">
+      <property name="enabled">
+       <bool>true</bool>
+      </property>
+      <property name="geometry">
+       <rect>
+        <x>510</x>
+        <y>400</y>
+        <width>71</width>
+        <height>25</height>
+       </rect>
+      </property>
+      <property name="toolTip">
+       <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Reload the list of available note inputs.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+      </property>
+      <property name="text">
+       <string>Reload</string>
+      </property>
+     </widget>
+     <widget class="QPushButton" name="inputVirtual">
+      <property name="enabled">
+       <bool>false</bool>
+      </property>
+      <property name="geometry">
+       <rect>
+        <x>405</x>
+        <y>400</y>
+        <width>71</width>
+        <height>25</height>
+       </rect>
+      </property>
+      <property name="toolTip">
+       <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Open and use a virtual midi port.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+      </property>
+      <property name="text">
+       <string>Virtual</string>
+      </property>
+      <property name="checkable">
+       <bool>true</bool>
+      </property>
+     </widget>
+     <widget class="QPushButton" name="outputDefault">
+      <property name="enabled">
+       <bool>false</bool>
+      </property>
+      <property name="geometry">
+       <rect>
+        <x>720</x>
+        <y>400</y>
+        <width>71</width>
+        <height>25</height>
+       </rect>
+      </property>
+      <property name="toolTip">
+       <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Use the default audio interface for the current backend.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+      </property>
+      <property name="text">
+       <string>Default</string>
+      </property>
+      <property name="checkable">
+       <bool>false</bool>
+      </property>
+     </widget>
+     <widget class="QPushButton" name="outputReload">
+      <property name="enabled">
+       <bool>true</bool>
+      </property>
+      <property name="geometry">
+       <rect>
+        <x>825</x>
+        <y>400</y>
+        <width>71</width>
+        <height>25</height>
+       </rect>
+      </property>
+      <property name="toolTip">
+       <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Reload the list of available audio outputs.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+      </property>
+      <property name="text">
+       <string>Reload</string>
+      </property>
+     </widget>
+     <widget class="QPushButton" name="outputBackend">
+      <property name="enabled">
+       <bool>false</bool>
+      </property>
+      <property name="geometry">
+       <rect>
+        <x>930</x>
+        <y>400</y>
+        <width>71</width>
+        <height>25</height>
+       </rect>
+      </property>
+      <property name="toolTip">
+       <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Try to start the audio backend.&lt;br&gt;This is in case it failed to initialize the first time.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+      </property>
+      <property name="text">
+       <string>Retry</string>
       </property>
      </widget>
     </widget>

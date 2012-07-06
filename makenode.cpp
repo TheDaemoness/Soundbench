@@ -23,7 +23,7 @@ namespace sb {
     namespace midi {
         namespace nodes {
 
-            MIDIEventNode* MIDIEventNode::makeNode(MidiEvent miditem) {
+            MIDIEventNode* makeNode(MidiEvent miditem) {
                 switch(miditem.evtype) {
                 case NoteOn:
                     if (miditem.params.second != 0)

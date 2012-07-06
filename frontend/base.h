@@ -40,6 +40,7 @@ namespace sb {
         virtual void record(bool) = 0;
         virtual void stop() = 0;
         virtual void start() = 0;
+        virtual size_t getCurrentPort() = 0;
         virtual bool isRunning() {
             return running;
         }

@@ -20,7 +20,12 @@
 #ifndef MIDIUTILS_H
 #define MIDIUTILS_H
 
+#include "common.h"
+
 namespace sb {
+#ifdef IS_SOUNDBENCH
+    class Synth;
+#endif
     namespace midi {
         namespace ctrl {
             enum MidiControllers {
@@ -179,6 +184,10 @@ namespace sb {
                 return evtype==ev;
             }
         };
+
+#ifdef IS_SOUNDBENCH
+        bool doEvent(Synth*, MidiEvent);
+#endif
 
     }
 }

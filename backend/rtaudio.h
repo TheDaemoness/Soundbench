@@ -35,6 +35,13 @@ namespace sb {
         void start();
         void stop();
 
+        size_t getDefaultDevice(){
+            return rta.getDefaultOutputDevice();
+        }
+        size_t getCurrentDevice() {
+            return devic;
+        }
+
         void setSamplingRate(size_t neorate) {
             stop();
             if(rta.isStreamOpen())

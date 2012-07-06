@@ -21,6 +21,7 @@
 #define FRONTEND_RTMIDI_H
 
 #include "frontend/base.h"
+#include <mutex>
 
 #ifndef NO_RTMIDI
 #include <RtMidi.h>
@@ -41,6 +42,11 @@ namespace sb {
         }
 
         void record(bool b);
+
+        size_t getCurrentPort() {
+            return whichport;
+        }
+
         void stop();
         void start();
         void setPort(uint32_t dev) {
@@ -61,13 +67,9 @@ namespace sb {
         }
 
         std::vector<std::string> getPorts() {
-            std::string naem = "Default";
             std::vector<std::string> veci;
-            veci.push_back(naem);
-            for(size_t i = 1; i < rtm->getPortCount(); ++i) {
-                naem = rtm->getPortName(i);
-                veci.push_back(naem);
-            }
+            for(size_t i = 1; i < rtm->getPortCount(); ++i)
+                veci.push_back(rtm->getPortName(i));
             return veci;
         }
 
@@ -79,8 +81,10 @@ namespace sb {
         uint32_t whichport;
         struct RtUserData {
             Synth* syn;
+            midi::MidiEvent eve;
             midi::nodes::MIDIEventNode* nodeiter;
             std::chrono::time_point<std::chrono::high_resolution_clock> starttime;
+            std::mutex mutt;
             bool record, recording; //Recording is in place to allow the callback to recognize state changes and act accordingly.
         } udata;
     };

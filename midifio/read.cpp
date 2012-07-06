@@ -45,7 +45,6 @@ namespace sb {
                 if (!(byte & Bit1)) //The next-byte-exists bit isn't set? Stop looping!
                     break;
             }
-
             returnitem.delay = factor*raw_delay;
 
             byte = river.get();

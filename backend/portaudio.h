@@ -39,6 +39,13 @@ namespace sb {
 
         void start();
         void stop();
+        size_t getDefaultDevice(){
+            return Pa_GetDefaultOutputDevice();
+        }
+        size_t getCurrentDevice() {
+            return devicenum;
+        }
+
         void setSamplingRate(size_t);
         void setDevice(uint32_t dev) {
             if (dev == 0) {

@@ -37,6 +37,8 @@ namespace sb {
         virtual ~EmitterBackend() {}
         virtual void stop() = 0;
         virtual void start() = 0;
+        virtual size_t getDefaultDevice() = 0;
+        virtual size_t getCurrentDevice() = 0;
 
         virtual void setSamplingRate(size_t newrate) {
             sampling_rate = newrate;

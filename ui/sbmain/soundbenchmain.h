@@ -52,7 +52,6 @@ public slots:
     //void disableMidi();
 
 private slots:
-    //Implemented in soundbenchmain-slots.cpp
     void importOpen();
     void exportOpen();
     void testSynth(bool);
@@ -65,6 +64,8 @@ private slots:
     void setTrack(int);
     void setTempo(int);
     void setPoly(int);
+    void loadDevices();
+    void loadPorts();
 
 private:
     void genSetts(size_t i);

@@ -81,7 +81,6 @@ int RtAudioBackend::callback( void *outputBuffer, void*, unsigned int nBufferFra
 
 std::vector<std::string> RtAudioBackend::getDevices() {
     std::vector<std::string> naems;
-    naems.push_back("Default");
     for(uint32_t i = 0; i < rta.getDeviceCount(); ++i) {
         if(rta.getDeviceInfo(i).probed)
             naems.push_back(rta.getDeviceInfo(i).name);

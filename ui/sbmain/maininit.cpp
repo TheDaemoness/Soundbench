@@ -75,10 +75,8 @@ void SoundbenchMain::delayedConstructor() {
         sbdata.mkdir("presets");
     }
 
-    for(std::string dev : em->getDevices())
-        ui->outputsList->addItem(dev.c_str());
-    for(std::string dev : plai->getDevices())
-        ui->inputsList->addItem(dev.c_str());
+    loadPorts();
+    loadDevices();
 
     type_sigmap->setMapping(ui->gener1TypeBox,0);
     type_sigmap->setMapping(ui->gener2TypeBox,1);
@@ -140,6 +138,8 @@ void SoundbenchMain::delayedConstructor() {
     connect(ui->exportButton,SIGNAL(clicked()),SLOT(exportOpen()));
     connect(ui->songsTracksList,SIGNAL(currentRowChanged(int)),SLOT(setTrack(int)));
     connect(ui->tempoBox,SIGNAL(valueChanged(int)),SLOT(setTempo(int)));
+    connect(ui->inputReload,SIGNAL(clicked()),SLOT(loadPorts()));
+    connect(ui->outputReload,SIGNAL(clicked()),SLOT(loadDevices()));
     ui->exportButton->setDisabled(true);
 
     //Connect the Channels page widgets.

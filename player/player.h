@@ -78,10 +78,14 @@ namespace sb {
         inline int getTempo() {
             return reed->getTempo();
         }
-        std::vector<std::string> getDevices() {
+        std::vector<std::string> getPorts() {
             if(midin != nullptr)
                 return midin->getPorts();
             return std::vector<std::string>();
+        }
+        size_t getCurrentPort() {
+            if (midin != nullptr)
+                return midin->getCurrentPort();
         }
 
         void startPlay() {}
