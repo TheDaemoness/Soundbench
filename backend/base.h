@@ -49,9 +49,7 @@ namespace sb {
         virtual bool isReady() {
             return ready;
         }
-        virtual void setDevice(uint32_t dev) {
-            devicenum = dev;
-        }
+        virtual void setDevice(uint32_t dev) = 0;
         virtual std::vector<std::string> getDevices() = 0;
 
     protected:
@@ -59,7 +57,6 @@ namespace sb {
         size_t sampling_rate;
         sb::Synth* syn;
         bool running;
-        uint32_t devicenum;
     };
 
 }

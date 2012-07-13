@@ -31,6 +31,7 @@ namespace sb {
     public:
         MidiFrontend(Synth* s) {
             running = false;
+            portnum = 0;
             syn = s;
         }
         virtual ~MidiFrontend() {
@@ -40,6 +41,12 @@ namespace sb {
         virtual void record(bool) = 0;
         virtual void stop() = 0;
         virtual void start() = 0;
+
+        virtual midi::nodes::PlayerStartNode* detachChain() {
+            auto chein = foist;
+            foist = nullptr;
+            return chein;
+        }
         virtual size_t getCurrentPort() = 0;
         virtual bool isRunning() {
             return running;
@@ -48,7 +55,7 @@ namespace sb {
             return ready;
         }
 
-        virtual void setPorts(uint32_t ship) {
+        virtual void setPort(uint32_t ship) {
             portnum = ship;
         }
         virtual std::vector<std::string> getPorts() = 0;

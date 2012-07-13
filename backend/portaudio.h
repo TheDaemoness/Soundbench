@@ -43,16 +43,12 @@ namespace sb {
             return Pa_GetDefaultOutputDevice();
         }
         size_t getCurrentDevice() {
-            return devicenum;
+            return dev.device;
         }
 
         void setSamplingRate(size_t);
-        void setDevice(uint32_t dev) {
-            if (dev == 0) {
-                devicenum = Pa_GetDefaultOutputDevice();
-                return;
-            }
-            devicenum = dev - 1;
+        void setDevice(uint32_t devi) {
+            dev.device = devi;
         }
 
         std::vector<std::string> getDevices();
@@ -77,6 +73,7 @@ namespace sb {
         void start() {}
         void stop() {}
         void setSamplingRate(size_t) {}
+        void setDevice(uint32_t dev) {};
         std::vector<std::string> getDevices() {return std::vector<std::string>();}
     };
 }

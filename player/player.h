@@ -86,6 +86,7 @@ namespace sb {
         size_t getCurrentPort() {
             if (midin != nullptr)
                 return midin->getCurrentPort();
+            return 0;
         }
 
         void startPlay() {}
@@ -98,8 +99,20 @@ namespace sb {
             if(midin != nullptr)
                 midin->stop();
         }
-        void startRec() {}
-        void stopRec() {}
+        void startRec() {
+            if(midin != nullptr)
+                midin->record(true);
+        }
+        void stopRec() {
+            if(midin != nullptr)
+                midin->record(false);
+            if(first != nullptr)
+                first = midin->detachChain();
+        }
+        void setPort(size_t porter) {
+            if(midin != nullptr)
+                midin->setPort(porter);
+        }
 
         void initfrontend(Synth* syn);
         bool empty() {

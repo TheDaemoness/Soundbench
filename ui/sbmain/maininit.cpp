@@ -140,6 +140,7 @@ void SoundbenchMain::delayedConstructor() {
     connect(ui->tempoBox,SIGNAL(valueChanged(int)),SLOT(setTempo(int)));
     connect(ui->inputReload,SIGNAL(clicked()),SLOT(loadPorts()));
     connect(ui->outputReload,SIGNAL(clicked()),SLOT(loadDevices()));
+    connect(ui->inputsList,SIGNAL(clicked(QModelIndex)),SLOT(setPort()));
     ui->exportButton->setDisabled(true);
 
     //Connect the Channels page widgets.
@@ -171,5 +172,6 @@ void SoundbenchMain::delayedConstructor() {
     ui->versionLabel->setText(SBVERSION);
 
     em->start();
+    plai->startRt();
     met->startMeter();
 }

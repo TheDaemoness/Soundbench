@@ -44,14 +44,11 @@ namespace sb {
         void record(bool b);
 
         size_t getCurrentPort() {
-            return whichport;
+            return portnum;
         }
 
         void stop();
         void start();
-        void setPort(uint32_t dev) {
-            whichport = dev;
-        }
 
         bool supportsVirtualPorts() {
             auto api = rtm->getCurrentApi();
@@ -68,7 +65,7 @@ namespace sb {
 
         std::vector<std::string> getPorts() {
             std::vector<std::string> veci;
-            for(size_t i = 1; i < rtm->getPortCount(); ++i)
+            for(size_t i = 0; i < rtm->getPortCount(); ++i)
                 veci.push_back(rtm->getPortName(i));
             return veci;
         }
@@ -78,7 +75,6 @@ namespace sb {
     private:
         RtMidiIn* rtm;
         bool usevport;
-        uint32_t whichport;
         struct RtUserData {
             Synth* syn;
             midi::MidiEvent eve;
@@ -96,9 +92,10 @@ namespace sb {
         static bool instantiable();
 
         explicit RtMidiFrontend(Synth* s) {}
-        virtual ~RtMidiFrontend() {}
-        virtual void stop() {};
-        virtual void start() {};
+        ~RtMidiFrontend() {}
+        void stop() {};
+        void start() {};
+        size_t getCurrentPort() {return 0;}
         virtual std::vector<std::string> getPorts() {return std::vector<std::string>()};
     };
 }

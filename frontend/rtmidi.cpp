@@ -27,8 +27,8 @@ namespace sb {
     }
 
     RtMidiFrontend::RtMidiFrontend(Synth *s) : MidiFrontend(s) {
+        usevport = false;
         udata.syn = s;
-        whichport = 0;
         udata.nodeiter= foist;
         udata.record = false;
         udata.recording = false;
@@ -40,6 +40,7 @@ namespace sb {
             return;
         }
         rtm->setCallback(callback,reinterpret_cast<void*>(&udata));
+        rtm->ignoreTypes();
         ready = true;
     }
 
@@ -69,7 +70,7 @@ namespace sb {
         if (usevport)
             rtm->openVirtualPort("Soundbench MIDI Input");
         else
-            rtm->openPort(whichport,"Soundbench MIDI Input");
+            rtm->openPort(portnum,"Soundbench MIDI Input");
         running = true;
     }
 

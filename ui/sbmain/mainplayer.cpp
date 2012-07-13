@@ -102,6 +102,23 @@ void SoundbenchMain::loadDevices() {
     ui->outputsList->setCurrentRow(em->getCurrentDevice());
 }
 
+void SoundbenchMain::setPort() {
+    plai->stopRt();
+    plai->setPort(ui->inputsList->currentRow());
+    plai->startRt();
+}
+
+void SoundbenchMain::useVPort(bool use) {
+    if (use) {
+        ui->inputsList->clear();
+        std::cerr << "This slot is not yet finished.\n";
+    }
+    else {
+        loadPorts();
+        setPort();
+    }
+}
+
 void SoundbenchMain::setTrack(int e) {
     if(!plai->loadTrack(static_cast<uint16_t>(e)))
         return;
