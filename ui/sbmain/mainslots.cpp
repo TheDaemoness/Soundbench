@@ -42,7 +42,9 @@ void SoundbenchMain::setSampleRate(int which) {
 }
 
 void SoundbenchMain::setPoly(int tracks) {
+    plai->stopRt();
     stopAndReset();
     syn->setPolyphony(tracks);
     em->start();
+    plai->startRt();
 }
