@@ -67,7 +67,7 @@ private slots:
     void loadDevices();
     void loadPorts();
     void setPort();
-    void useVPort();
+    void useVPort(bool use);
 
 private:
     void genSetts(size_t i);

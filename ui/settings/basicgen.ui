@@ -164,9 +164,9 @@ QComboBox QAbstractItemView {
   <widget class="QLabel" name="ampLabel">
    <property name="geometry">
     <rect>
-     <x>210</x>
+     <x>190</x>
      <y>30</y>
-     <width>81</width>
+     <width>101</width>
      <height>28</height>
     </rect>
    </property>
@@ -331,9 +331,9 @@ QSpinBox::down-button:pressed {
   <widget class="QLabel" name="attackLabel">
    <property name="geometry">
     <rect>
-     <x>210</x>
+     <x>190</x>
      <y>105</y>
-     <width>81</width>
+     <width>101</width>
      <height>28</height>
     </rect>
    </property>
@@ -347,9 +347,9 @@ QSpinBox::down-button:pressed {
   <widget class="QLabel" name="releaseLabel">
    <property name="geometry">
     <rect>
-     <x>210</x>
+     <x>190</x>
      <y>130</y>
-     <width>81</width>
+     <width>101</width>
      <height>28</height>
     </rect>
    </property>

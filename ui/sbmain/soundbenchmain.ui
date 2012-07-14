@@ -721,7 +721,7 @@ QTabBar::tab:selected {
       <property name="geometry">
        <rect>
         <x>940</x>
-        <y>55</y>
+        <y>57</y>
         <width>61</width>
         <height>21</height>
        </rect>
@@ -749,9 +749,9 @@ QTabBar::tab:selected {
       <property name="geometry">
        <rect>
         <x>880</x>
-        <y>55</y>
+        <y>57</y>
         <width>61</width>
-        <height>20</height>
+        <height>21</height>
        </rect>
       </property>
       <property name="text">
@@ -803,6 +803,7 @@ QTabBar::tab:selected {
       <property name="styleSheet">
        <string notr="true">QListWidget {
 	background-color: rgba(0, 0, 0, 0);
+	alternate-background-color: cyan;
 }</string>
       </property>
       <property name="selectionRectVisible">
@@ -837,6 +838,7 @@ QTabBar::tab:selected {
       <property name="styleSheet">
        <string notr="true">QListWidget {
 	background-color: rgba(0, 0, 0, 0);
+	border-color: cyan;
 }</string>
       </property>
       <property name="selectionRectVisible">
@@ -1055,7 +1057,7 @@ QTabBar::tab:selected {
       </property>
       <property name="geometry">
        <rect>
-        <x>145</x>
+        <x>140</x>
         <y>70</y>
         <width>71</width>
         <height>21</height>
@@ -1079,7 +1081,7 @@ QTabBar::tab:selected {
       </property>
       <property name="geometry">
        <rect>
-        <x>145</x>
+        <x>140</x>
         <y>175</y>
         <width>71</width>
         <height>21</height>
@@ -1103,7 +1105,7 @@ QTabBar::tab:selected {
       </property>
       <property name="geometry">
        <rect>
-        <x>145</x>
+        <x>140</x>
         <y>285</y>
         <width>71</width>
         <height>21</height>
@@ -1127,7 +1129,7 @@ QTabBar::tab:selected {
       </property>
       <property name="geometry">
        <rect>
-        <x>145</x>
+        <x>140</x>
         <y>395</y>
         <width>71</width>
         <height>21</height>

@@ -48,7 +48,6 @@ HEADERS += architect.h \
     midievents.h
 
 FORMS += errorpopup.ui \
-    gentypedialog.ui \
     ui/sbmain/soundbenchmain.ui \
     warningpopup.ui \
     ui/settings/basicgen.ui

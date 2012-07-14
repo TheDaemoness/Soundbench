@@ -18,6 +18,7 @@
 */
 
 #include <QApplication>
+#include <QCleanlooksStyle>
 
 #include "ui/sbmain/soundbenchmain.h"
 #include "printhelp.h"
@@ -28,6 +29,7 @@ sb::Synth* sb::midi::nodes::MIDIEventNode::synref;
 int main(int argc, char *argv[])
 {
     QApplication a(argc, argv);
+    a.setStyle(new QCleanlooksStyle);
     std::string arg;
     if (argc == 2) {
         arg = argv[1];
