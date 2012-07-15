@@ -50,6 +50,10 @@ namespace sb {
         void stop();
         void start();
 
+        bool isRecording() {
+            return udata.recording;
+        }
+
         bool supportsVirtualPorts() {
             auto api = rtm->getCurrentApi();
             return api == RtMidi::MACOSX_CORE || api == RtMidi::LINUX_ALSA;
@@ -81,7 +85,7 @@ namespace sb {
             midi::nodes::MIDIEventNode* nodeiter;
             std::chrono::time_point<std::chrono::high_resolution_clock> starttime;
             std::mutex mutt;
-            bool record, recording; //Recording is in place to allow the callback to recognize state changes and act accordingly.
+            bool recording;
         } udata;
     };
 }

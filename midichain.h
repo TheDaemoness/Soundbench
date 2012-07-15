@@ -42,13 +42,10 @@ namespace sb {
                     delae = tiim;
                     next = nullptr;
                 }
-                MIDIEventNode* nextDestroy() {
-                    if (next != nullptr) {
-                        MIDIEventNode* evnode = next->returnNext();
-                        delete next;
-                        return evnode;
-                    }
-                    return nullptr;
+                MIDIEventNode* detachNext() {
+                    MIDIEventNode* evnode = next;
+                    next = nullptr;
+                    return evnode;
 
                 }
                 void chainDestroy() {

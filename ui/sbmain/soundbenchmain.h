@@ -61,18 +61,21 @@ private slots:
     void setSampleRate(int);
     void setGenType(int);
     void setGenSett(int);
-    void setTrack(int);
+    void setTrack();
     void setTempo(int);
     void setPoly(int);
     void loadDevices();
     void loadPorts();
     void setPort();
-    void useVPort(bool use);
+    void useVPort(bool);
+    void record(bool);
 
 private:
     void genSetts(size_t i);
     inline void stopAndReset() {
         em->stop();
+        plai->stopRec();
+        plai->stopPlay();
         syn->reset();
         ui->playButton->setChecked(false);
         ui->holdA4Button->setChecked(false);

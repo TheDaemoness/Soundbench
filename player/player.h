@@ -65,7 +65,8 @@ namespace sb {
         }
         ~Player() {
             disconnect(SIGNAL(progressed(int)),affectedmet,SLOT(setProgress(int)));
-            delete first;
+            if (first != nullptr)
+                delete first;
             delete reed;
             delete wri;
         }
@@ -89,6 +90,14 @@ namespace sb {
             return 0;
         }
 
+        inline void close() {
+            reed->close();
+            first->chainDestroy();
+        }
+        inline bool isOpen() {
+            return reed->isOpen();
+        }
+
         void startPlay() {}
         void stopPlay() {}
         void startRt() {
@@ -104,10 +113,27 @@ namespace sb {
                 midin->record(true);
         }
         void stopRec() {
+            if(!midin->isRecording())
+                return;
+
             if(midin != nullptr)
                 midin->record(false);
             if(first != nullptr)
-                first = midin->detachChain();
+                delete first;
+            first = midin->detachChain();
+
+            uint32_t len = 0;
+            for(auto i = first->returnNext(); i != nullptr; i = i->returnNext())
+                ++len;
+            --len;
+            if (len == 0) {
+                std::cerr << "No events were recorded.\n";
+                first->chainDestroy();
+            }
+            else if (len == 1)
+                std::cerr << "Recorded 1 event.\n";
+            else
+                std::cerr << "Recorded " << len << " events.\n";
         }
         void setPort(size_t porter) {
             if(midin != nullptr)

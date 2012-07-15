@@ -30,7 +30,6 @@ namespace sb {
         usevport = false;
         udata.syn = s;
         udata.nodeiter= foist;
-        udata.record = false;
         udata.recording = false;
         try {
             rtm = new RtMidiIn(RtMidi::UNSPECIFIED,"Soundbench");
@@ -50,6 +49,7 @@ namespace sb {
             if (!udata.recording) {
                 udata.nodeiter = foist;
                 udata.nodeiter->chainDestroy();
+                udata.starttime = std::chrono::high_resolution_clock::now();
                 udata.recording = true;
             }
         }
@@ -75,6 +75,7 @@ namespace sb {
     }
 
     void RtMidiFrontend::callback(double, std::vector<unsigned char>* message, void* userdata) {
+        using namespace std::chrono;
         RtUserData& rtd = *reinterpret_cast<RtUserData*>(userdata);
         uint8_t byte = (*message)[0];
         if(byte & Bit1) {
@@ -95,8 +96,10 @@ namespace sb {
         midi::doEvent(rtd.syn,rtd.eve);
         rtd.mutt.lock();
         if (rtd.recording) {
+            rtd.eve.delay = duration_cast<microseconds>(high_resolution_clock::now()-rtd.starttime).count();
             rtd.nodeiter->attachNext(midi::nodes::makeNode(rtd.eve));
             rtd.nodeiter = rtd.nodeiter->returnNext();
+            rtd.starttime = high_resolution_clock::now();
         }
         rtd.mutt.unlock();
     }

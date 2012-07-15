@@ -119,9 +119,26 @@ void SoundbenchMain::useVPort(bool use) {
     }
 }
 
-void SoundbenchMain::setTrack(int e) {
-    if(!plai->loadTrack(static_cast<uint16_t>(e)))
+void SoundbenchMain::setTrack() {
+    if(!plai->isOpen())
+        return;
+    if(!plai->loadTrack(static_cast<uint16_t>(ui->songsTracksList->currentRow())))
         return;
     ui->tempoBox->setValue(plai->getTempo());
     met->startMeter();
+}
+
+void SoundbenchMain::record(bool rec) {
+    if (rec)
+        plai->startRec();
+    else {
+        ui->songsTracksList->clear();
+        plai->stopRec();
+
+        if (plai->isOpen())
+            plai->close();
+        if(!plai->empty())
+            ui->songsTracksList->addItem("Recorded Track");
+        ui->exportButton->setEnabled(!plai->empty());
+    }
 }

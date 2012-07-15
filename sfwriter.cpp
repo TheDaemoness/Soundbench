@@ -65,7 +65,7 @@ namespace sb {
         for(SbSample s : samples) {
             if (flipper) {
                 tmp[1] = s;
-                sf_writef_float(filehandel,tmp,2);
+                sf_writef_float(filehandel,tmp,1);
                 flipper = false;
             }
             else {

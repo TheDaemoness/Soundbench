@@ -33,6 +33,7 @@ namespace sb {
             running = false;
             portnum = 0;
             syn = s;
+            foist = new midi::nodes::PlayerStartNode(syn);
         }
         virtual ~MidiFrontend() {
             delete foist;
@@ -41,10 +42,15 @@ namespace sb {
         virtual void record(bool) = 0;
         virtual void stop() = 0;
         virtual void start() = 0;
+        virtual bool isRecording() {
+            return false;
+        }
 
         virtual midi::nodes::PlayerStartNode* detachChain() {
+            if (isRecording())
+                return new midi::nodes::PlayerStartNode(syn);
             auto chein = foist;
-            foist = nullptr;
+            foist = new midi::nodes::PlayerStartNode(syn);
             return chein;
         }
         virtual size_t getCurrentPort() = 0;

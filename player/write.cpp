@@ -93,7 +93,19 @@ namespace sb {
             wri->tick();
         }
 
-        std::cerr << "Wrote " << sampcount << " samples to the file (appx. " << static_cast<float>(sampcount)*2 / SampleRate << " seconds).\n";
+        uint64_t playtime = static_cast<float>(sampcount) / SampleRate;
+        if (playtime == 1)
+            std::cerr << "Wrote " << sampcount << " samples to the file (appx. 1 second).\n";
+        else if (playtime < 60)
+            std::cerr << "Wrote " << sampcount << " samples to the file (appx. " << playtime << " seconds).\n";
+        else if (playtime == 61)
+            std::cerr << "Wrote " << sampcount << " samples to the file (appx. 1 minute and 1 second).\n";
+        else if (playtime >= 60 && playtime < 120)
+            std::cerr << "Wrote " << sampcount << " samples to the file (appx. 1 minute and " << playtime%60 << " seconds).\n";
+        else if (playtime == 121)
+            std::cerr << "Wrote " << sampcount << " samples to the file (appx. 2 minutes and 1 second).\n";
+        else if (playtime >= 120)
+            std::cerr << "Wrote " << sampcount << " samples to the file (appx. " << playtime/60 << " minutes and " << playtime%60 << " seconds).\n";
         wri->close();
         return;
     }

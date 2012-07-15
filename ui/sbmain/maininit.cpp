@@ -134,9 +134,10 @@ void SoundbenchMain::delayedConstructor() {
 
     //Conncet the Player page widgets and disable a few buttons.
     connect(ui->holdA4Button,SIGNAL(toggled(bool)),SLOT(testSynth(bool)));
+    connect(ui->recordButton,SIGNAL(toggled(bool)),SLOT(record(bool)));
     connect(ui->importButton,SIGNAL(clicked()),SLOT(importOpen()));
     connect(ui->exportButton,SIGNAL(clicked()),SLOT(exportOpen()));
-    connect(ui->songsTracksList,SIGNAL(currentRowChanged(int)),SLOT(setTrack(int)));
+    connect(ui->songsTracksList,SIGNAL(clicked(QModelIndex)),SLOT(setTrack()));
     connect(ui->tempoBox,SIGNAL(valueChanged(int)),SLOT(setTempo(int)));
     connect(ui->inputReload,SIGNAL(clicked()),SLOT(loadPorts()));
     connect(ui->outputReload,SIGNAL(clicked()),SLOT(loadDevices()));
