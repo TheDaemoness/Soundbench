@@ -142,7 +142,9 @@ void SoundbenchMain::delayedConstructor() {
     connect(ui->inputReload,SIGNAL(clicked()),SLOT(loadPorts()));
     connect(ui->outputReload,SIGNAL(clicked()),SLOT(loadDevices()));
     connect(ui->inputsList,SIGNAL(clicked(QModelIndex)),SLOT(setPort()));
+    connect(ui->inputVirtual,SIGNAL(toggled(bool)),SLOT(useVPort(bool)));
     ui->exportButton->setDisabled(true);
+    ui->inputVirtual->setEnabled(plai->setVirtualPort(false)); //Effectively a support check.
 
     //Connect the Channels page widgets.
     connect(ui->gener1TypeBox,SIGNAL(currentIndexChanged(int)),type_sigmap,SLOT(map()));

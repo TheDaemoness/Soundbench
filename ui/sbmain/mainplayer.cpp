@@ -111,11 +111,16 @@ void SoundbenchMain::setPort() {
 void SoundbenchMain::useVPort(bool use) {
     if (use) {
         ui->inputsList->clear();
-        std::cerr << "This slot is not yet finished.\n";
+        plai->stopRt();
+        plai->setVirtualPort(true);
+        plai->startRt();
     }
     else {
+        plai->stopRt();
+        plai->setVirtualPort(false);
         loadPorts();
         setPort();
+        plai->startRt();
     }
 }
 
@@ -137,8 +142,15 @@ void SoundbenchMain::record(bool rec) {
 
         if (plai->isOpen())
             plai->close();
-        if(!plai->empty())
+        if(!plai->empty()) {
             ui->songsTracksList->addItem("Recorded Track");
+            ui->tempoBox->setDisabled(true);
+            ui->tempoBox->setToolTip("Soundbench does not allow the user to use the tempo box with their own tracks at this time.");
+        }
+        else {
+            ui->tempoBox->setDisabled(true);
+            ui->tempoBox->setToolTip("Change the starting tempo of the current track.");
+        }
         ui->exportButton->setEnabled(!plai->empty());
     }
 }

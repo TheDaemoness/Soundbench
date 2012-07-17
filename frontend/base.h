@@ -29,9 +29,9 @@ namespace sb {
 
     class MidiFrontend  {
     public:
-        MidiFrontend(Synth* s) {
+        MidiFrontend(Synth* s, size_t porte = 0) {
             running = false;
-            portnum = 0;
+            portnum = porte;
             syn = s;
             foist = new midi::nodes::PlayerStartNode(syn);
         }
@@ -44,6 +44,13 @@ namespace sb {
         virtual void start() = 0;
         virtual bool isRecording() {
             return false;
+        }
+
+        virtual bool supportsVirtualPorts() {
+            return false;
+        }
+        virtual void setVirtualPort(bool vport) {
+            usevport = vport;
         }
 
         virtual midi::nodes::PlayerStartNode* detachChain() {
@@ -71,6 +78,7 @@ namespace sb {
         bool running, ready;
         uint32_t portnum;
         sb::Synth* syn;
+        bool usevport;
     };
 
 }

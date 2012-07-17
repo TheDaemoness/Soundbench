@@ -22,7 +22,15 @@
 
 namespace sb {
     void Player::writeFile() {
-        std::string ext = fi.substr(fi.find_last_of("."));
+        std::string ext;
+        if (fi.find_last_of(".") == std::string::npos) {
+            ext = ".wav";
+            std::cerr << "Warning: No extension given. Defaulting to '" << ext << "'...\n";
+            fi += ext;
+        }
+        else
+            ext = fi.substr(fi.find_last_of("."));
+
         ExportableFiles form;
         if(ext == ".wav")
             form = FileWAV;
@@ -59,10 +67,11 @@ namespace sb {
             ++evcount;
         }
 
+        --evcount;
         if (evcount == 1)
-            std::cerr << "Have 1 event to process.\n";
+            std::cerr << "Have 1 event to process (excluding the end-of-track event).\n";
         else
-            std::cerr << "Have " << evcount << " events to process.\n";
+            std::cerr << "Have " << evcount << " events to process (excluding the end-of-track event).\n";
         emit progressed(0);
 
         //Microseconds per sample: (microseconds / second) / (samples / second)
@@ -102,9 +111,9 @@ namespace sb {
             std::cerr << "Wrote " << sampcount << " samples to the file (appx. 1 minute and 1 second).\n";
         else if (playtime >= 60 && playtime < 120)
             std::cerr << "Wrote " << sampcount << " samples to the file (appx. 1 minute and " << playtime%60 << " seconds).\n";
-        else if (playtime == 121)
-            std::cerr << "Wrote " << sampcount << " samples to the file (appx. 2 minutes and 1 second).\n";
-        else if (playtime >= 120)
+        else if (playtime % 60 == 1)
+            std::cerr << "Wrote " << sampcount << " samples to the file (appx. " << playtime/60 << " minutes and 1 second).\n";
+        else
             std::cerr << "Wrote " << sampcount << " samples to the file (appx. " << playtime/60 << " minutes and " << playtime%60 << " seconds).\n";
         wri->close();
         return;

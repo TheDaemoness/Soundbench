@@ -31,7 +31,7 @@ namespace sb {
     public:
         static bool instantiable();
 
-        explicit RtMidiFrontend(Synth* s);
+        explicit RtMidiFrontend(Synth* s, size_t porte = 0);
         ~RtMidiFrontend() {
             stop();
             if (foist != nullptr) {
@@ -78,7 +78,6 @@ namespace sb {
 
     private:
         RtMidiIn* rtm;
-        bool usevport;
         struct RtUserData {
             Synth* syn;
             midi::MidiEvent eve;

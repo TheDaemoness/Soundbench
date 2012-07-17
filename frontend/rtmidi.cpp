@@ -26,11 +26,12 @@ namespace sb {
         return (inne.getPortCount() > 0);
     }
 
-    RtMidiFrontend::RtMidiFrontend(Synth *s) : MidiFrontend(s) {
+    RtMidiFrontend::RtMidiFrontend(Synth *s, size_t porte) : MidiFrontend(s, porte) {
         usevport = false;
         udata.syn = s;
         udata.nodeiter= foist;
         udata.recording = false;
+
         try {
             rtm = new RtMidiIn(RtMidi::UNSPECIFIED,"Soundbench");
         }
@@ -38,6 +39,9 @@ namespace sb {
             ready = false;
             return;
         }
+        if (rtm->getPortCount() > 1 && portnum == 0)
+            portnum = 1;
+
         rtm->setCallback(callback,reinterpret_cast<void*>(&udata));
         rtm->ignoreTypes();
         ready = true;

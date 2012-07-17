@@ -89,6 +89,14 @@ namespace sb {
                 return midin->getCurrentPort();
             return 0;
         }
+        bool setVirtualPort(bool vport) {
+            if (midin == nullptr)
+                return false;
+            if (!midin->supportsVirtualPorts())
+                return false;
+            midin->setVirtualPort(vport);
+            return true;
+        }
 
         inline void close() {
             reed->close();
