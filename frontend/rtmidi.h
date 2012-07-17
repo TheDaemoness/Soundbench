@@ -94,12 +94,13 @@ namespace sb {
     public:
         static bool instantiable();
 
-        explicit RtMidiFrontend(Synth* s) {}
+        explicit RtMidiFrontend(Synth* syn, size_t port = 0) : MidiFrontend(syn,port) {}
         ~RtMidiFrontend() {}
-        void stop() {};
-        void start() {};
+        void stop() {}
+        void start() {}
+        void record(bool) {}
         size_t getCurrentPort() {return 0;}
-        virtual std::vector<std::string> getPorts() {return std::vector<std::string>()};
+        virtual std::vector<std::string> getPorts() {return std::vector<std::string>();}
     };
 }
 #endif

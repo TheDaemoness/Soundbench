@@ -82,7 +82,7 @@ namespace sb {
             if(midin != nullptr)
                 midin->setPort(porter);
         }
-        inline bool rtAvailable() {
+        inline bool isRtAvailable() {
             return midin != nullptr;
         }
 

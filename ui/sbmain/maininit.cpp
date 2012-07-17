@@ -139,13 +139,45 @@ void SoundbenchMain::delayedConstructor() {
     connect(ui->exportButton,SIGNAL(clicked()),SLOT(exportOpen()));
     connect(ui->songsTracksList,SIGNAL(clicked(QModelIndex)),SLOT(setTrack()));
     connect(ui->tempoBox,SIGNAL(valueChanged(int)),SLOT(setTempo(int)));
-    connect(ui->inputReload,SIGNAL(clicked()),SLOT(loadPorts()));
-    connect(ui->outputReload,SIGNAL(clicked()),SLOT(loadDevices()));
+    ui->exportButton->setDisabled(true);
+#ifndef NO_MIDIFRONTEND
+    ui->inputRetry->setDisabled(plai->isRtAvailable());
+
+    ui->inputsList->setEnabled(plai->isRtAvailable());
+    ui->inputReload->setEnabled(plai->isRtAvailable());
+    ui->recordButton->setEnabled(plai->isRtAvailable());
+    ui->inputVirtual->setEnabled(plai->setVirtualPort(false)); //Effectively a support check.
+
     connect(ui->inputsList,SIGNAL(clicked(QModelIndex)),SLOT(setPort()));
     connect(ui->inputVirtual,SIGNAL(toggled(bool)),SLOT(useVPort(bool)));
-    ui->exportButton->setDisabled(true);
-    ui->inputVirtual->setEnabled(plai->setVirtualPort(false)); //Effectively a support check.
-    ui->recordButton->setEnabled(plai->isRtAvailable());
+    connect(ui->inputReload,SIGNAL(clicked()),SLOT(loadPorts()));
+    connect(ui->inputRetry,SIGNAL(clicked()),SLOT(reloadPlayer()));
+
+    if(!plai->isRtAvailable())
+        ui->inputsList->addItem("Frontend initialization failed.");
+#else
+    ui->inputsList->addItem("Compiled without any frontends.");
+    ui->inputsList->setDisabled(true);
+    ui->recordButton->setDisabled(true);
+    ui->inputVirtual->setDisabled(true);
+    ui->inputReload->setDisabled(true);
+#endif
+#ifndef NO_AUDIOBACKEND
+    ui->outputRetry->setDisabled(em->isRtAvailable());
+
+    ui->outputsList->setEnabled(em->isRtAvailable());
+    ui->outputReload->setEnabled(em->isRtAvailable());
+
+    connect(ui->outputRetry,SIGNAL(clicked()),SLOT(reloadEmitter()));
+    connect(ui->outputReload,SIGNAL(clicked()),SLOT(loadDevices()));
+
+    if(!em->isRtAvailable())
+        ui->outputsList->addItem("Backend initialization failed.");
+#else
+    ui->outputsList->addItem("Compiled without any backends.");
+    ui->outputsList->setDisabled(true);
+    ui->outputReload->setDisabled(true);
+#endif
 
     //Connect the Channels page widgets.
     connect(ui->gener1TypeBox,SIGNAL(currentIndexChanged(int)),type_sigmap,SLOT(map()));

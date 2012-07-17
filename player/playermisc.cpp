@@ -60,7 +60,7 @@ namespace sb {
     }
 
     void Player::stopRec() {
-        if(midin != nullptr)
+        if(midin == nullptr)
             return;
         if(!midin->isRecording())
             return;

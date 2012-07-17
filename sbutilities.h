@@ -63,6 +63,14 @@ const SbSample SbSampleMin = -1.0;
 const SbSample SbSampleMax = 1.0;
 const SbSample SbSampleZero = 0.0;
 
+#if defined(NO_RTMIDI)
+#define NO_MIDIFRONTEND
+#endif
+
+#if defined(NO_RTAUDIO) & defined(NO_PORTAUDIO)
+#define NO_AUDIOBACKEND
+#endif
+
 class sbException {
 public:
     sbException(std::string type, std::string info = "",

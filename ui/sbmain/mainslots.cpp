@@ -25,6 +25,7 @@ void SoundbenchMain::testSynth(bool b) {
     else
         syn->noteOff(0);
 }
+
 void SoundbenchMain::silence() {
     stopAndReset();
     em->start();

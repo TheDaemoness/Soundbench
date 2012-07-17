@@ -52,6 +52,8 @@ public slots:
     //void disableMidi();
 
 private slots:
+    void reloadEmitter();
+    void reloadPlayer();
     void importOpen();
     void exportOpen();
     void testSynth(bool);

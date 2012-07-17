@@ -38,19 +38,22 @@ namespace sb {
         explicit Emitter(Synth*);
         ~Emitter();
 
-        size_t getSampleRate() {
+        inline size_t getSampleRate() {
             return sample_rate;
         }
-        std::map<size_t,bool> getSupportedRates() {
+        inline std::map<size_t,bool> getSupportedRates() {
             return supported_rates;
         }
-        std::map<EmitterType,bool> getSupportedAPIs() {
+        inline std::map<EmitterType,bool> getSupportedAPIs() {
             return supported_apis;
         }
-        std::vector<std::string> getDevices() {
+        inline std::vector<std::string> getDevices() {
             if(backend != nullptr)
                 return backend->getDevices();
             return std::vector<std::string>();
+        }
+        inline bool isRtAvailable() {
+            return backend != nullptr;
         }
 
         void setSamplingRate(size_t);

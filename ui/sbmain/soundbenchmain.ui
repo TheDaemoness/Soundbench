@@ -877,7 +877,7 @@ QTabBar::tab:selected {
        </rect>
       </property>
       <property name="toolTip">
-       <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Use the default port for the current frontend.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+       <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Try to start the real-time note input frontend.&lt;br&gt;This is in case it failed the first time.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
       </property>
       <property name="text">
        <string>Retry</string>
@@ -968,7 +968,7 @@ QTabBar::tab:selected {
        <string>Reload</string>
       </property>
      </widget>
-     <widget class="QPushButton" name="outputBackend">
+     <widget class="QPushButton" name="outputRetry">
       <property name="enabled">
        <bool>false</bool>
       </property>

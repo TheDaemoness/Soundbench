@@ -72,8 +72,10 @@ namespace sb {
         ~PortaudioBackend() {}
         void start() {}
         void stop() {}
+        size_t getDefaultDevice() {return 0;}
+        size_t getCurrentDevice() {return 0;}
         void setSamplingRate(size_t) {}
-        void setDevice(uint32_t dev) {};
+        void setDevice(uint32_t) {};
         std::vector<std::string> getDevices() {return std::vector<std::string>();}
     };
 }

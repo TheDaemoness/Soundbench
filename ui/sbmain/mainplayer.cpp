@@ -98,6 +98,8 @@ void SoundbenchMain::loadPorts() {
     ui->inputsList->setCurrentRow(plai->getCurrentPort());
 }
 void SoundbenchMain::loadDevices() {
+    if (!em->isRtAvailable())
+        return;
     ui->outputsList->clear();
     for(std::string dev : em->getDevices())
         ui->outputsList->addItem(dev.c_str());
@@ -113,6 +115,8 @@ void SoundbenchMain::setPort() {
 }
 
 void SoundbenchMain::useVPort(bool use) {
+    if (!plai->isRtAvailable())
+        return;
     if (use) {
         ui->inputsList->clear();
         plai->stopRt();
@@ -138,6 +142,8 @@ void SoundbenchMain::setTrack() {
 }
 
 void SoundbenchMain::record(bool rec) {
+    if (!plai->isRtAvailable())
+        return;
     if (rec)
         plai->startRec();
     else {
@@ -157,4 +163,41 @@ void SoundbenchMain::record(bool rec) {
         }
         ui->exportButton->setEnabled(!plai->empty());
     }
+}
+
+
+void SoundbenchMain::reloadEmitter() {
+    plai->stopRt();
+    stopAndReset();
+    em->~Emitter();
+    new (em) sb::Emitter(syn);
+    em->start();
+    plai->startRt();
+
+    ui->outputRetry->setDisabled(em->isRtAvailable());
+
+    ui->outputReload->setEnabled(em->isRtAvailable());
+    ui->outputsList->setEnabled(em->isRtAvailable());
+
+    if(em->isRtAvailable())
+        loadDevices();
+}
+
+void SoundbenchMain::reloadPlayer() {
+    plai->stopRt();
+    stopAndReset();
+    plai->~Player();
+    new (plai) sb::Player(syn,ui->songsTracksList,met);
+    em->start();
+    plai->startRt();
+
+    ui->inputRetry->setDisabled(plai->isRtAvailable());
+
+    ui->inputsList->setEnabled(plai->isRtAvailable());
+    ui->inputReload->setEnabled(plai->isRtAvailable());
+    ui->recordButton->setEnabled(plai->isRtAvailable());
+    ui->inputVirtual->setEnabled(plai->setVirtualPort(false));
+
+    if(plai->isRtAvailable())
+       loadPorts();
 }
