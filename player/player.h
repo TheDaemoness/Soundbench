@@ -82,6 +82,9 @@ namespace sb {
             if(midin != nullptr)
                 midin->setPort(porter);
         }
+        inline bool rtAvailable() {
+            return midin != nullptr;
+        }
 
         void startPlay();
         void stopPlay();

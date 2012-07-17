@@ -90,6 +90,8 @@ void SoundbenchMain::playSynth(bool b) {
 }
 
 void SoundbenchMain::loadPorts() {
+    if (!plai->isRtAvailable())
+        return;
     ui->inputsList->clear();
     for(std::string dev : plai->getPorts())
         ui->inputsList->addItem(dev.c_str());
@@ -103,6 +105,8 @@ void SoundbenchMain::loadDevices() {
 }
 
 void SoundbenchMain::setPort() {
+    if (!plai->isRtAvailable())
+        return;
     plai->stopRt();
     plai->setPort(ui->inputsList->currentRow());
     plai->startRt();
