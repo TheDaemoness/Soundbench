@@ -2,6 +2,9 @@
 <ui version="4.0">
  <class>SoundBenchMain</class>
  <widget class="QMainWindow" name="SoundBenchMain">
+  <property name="enabled">
+   <bool>true</bool>
+  </property>
   <property name="geometry">
    <rect>
     <x>0</x>
@@ -368,6 +371,25 @@ QComboBox::drop-down:disabled {
 }
 QComboBox QAbstractItemView {
 	background-color: black;
+}
+
+QListWidget {
+	background-color: rgba(0, 0, 0, 0);
+	alternate-background-color: rgb(0,191,0);
+	border-color: cyan;
+}
+
+QLineEdit {
+	border-image: url(:/lineedit/lineedit_idle.png);
+}
+QLineEdit:hover {
+	border-image: url(:/lineedit/lineedit_hover.png);
+}
+QLineEdit:focus {
+	border-image: url(:/lineedit/lineedit_focus.png);
+}
+QLineEdit:disabled {
+	border-image: url(:/lineedit/lineedit_disabled.png);
 }</string>
   </property>
   <property name="dockOptions">
@@ -449,7 +471,7 @@ QTabBar::tab:selected {
 }</string>
     </property>
     <property name="currentIndex">
-     <number>1</number>
+     <number>0</number>
     </property>
     <widget class="QWidget" name="tabSelect">
      <attribute name="title">
@@ -470,7 +492,7 @@ QTabBar::tab:selected {
 }</string>
       </property>
      </widget>
-     <widget class="QTableWidget" name="presetList">
+     <widget class="QListWidget" name="presetList">
       <property name="geometry">
        <rect>
         <x>65</x>
@@ -480,16 +502,14 @@ QTabBar::tab:selected {
        </rect>
       </property>
       <property name="styleSheet">
-       <string notr="true">QTableWidget {
-	background-color: rgba(0, 0, 0, 0);
-}</string>
+       <string notr="true"/>
       </property>
      </widget>
      <widget class="QPushButton" name="openButton">
       <property name="geometry">
        <rect>
-        <x>130</x>
-        <y>50</y>
+        <x>140</x>
+        <y>20</y>
         <width>71</width>
         <height>24</height>
        </rect>
@@ -499,11 +519,14 @@ QTabBar::tab:selected {
       </property>
      </widget>
      <widget class="QPushButton" name="saveButton">
+      <property name="enabled">
+       <bool>false</bool>
+      </property>
       <property name="geometry">
        <rect>
-        <x>310</x>
-        <y>50</y>
-        <width>71</width>
+        <x>710</x>
+        <y>20</y>
+        <width>81</width>
         <height>24</height>
        </rect>
       </property>
@@ -512,11 +535,14 @@ QTabBar::tab:selected {
       </property>
      </widget>
      <widget class="QPushButton" name="saveAsButton">
+      <property name="enabled">
+       <bool>false</bool>
+      </property>
       <property name="geometry">
        <rect>
-        <x>390</x>
-        <y>50</y>
-        <width>71</width>
+        <x>610</x>
+        <y>20</y>
+        <width>81</width>
         <height>24</height>
        </rect>
       </property>
@@ -525,11 +551,14 @@ QTabBar::tab:selected {
       </property>
      </widget>
      <widget class="QPushButton" name="saveCopyButton">
+      <property name="enabled">
+       <bool>false</bool>
+      </property>
       <property name="geometry">
        <rect>
-        <x>470</x>
-        <y>50</y>
-        <width>71</width>
+        <x>510</x>
+        <y>20</y>
+        <width>81</width>
         <height>24</height>
        </rect>
       </property>
@@ -541,7 +570,7 @@ QTabBar::tab:selected {
       <property name="geometry">
        <rect>
         <x>50</x>
-        <y>50</y>
+        <y>20</y>
         <width>71</width>
         <height>24</height>
        </rect>
@@ -551,10 +580,13 @@ QTabBar::tab:selected {
       </property>
      </widget>
      <widget class="QPushButton" name="deleteButton">
+      <property name="enabled">
+       <bool>false</bool>
+      </property>
       <property name="geometry">
        <rect>
-        <x>210</x>
-        <y>50</y>
+        <x>410</x>
+        <y>20</y>
         <width>71</width>
         <height>24</height>
        </rect>
@@ -564,16 +596,96 @@ QTabBar::tab:selected {
       </property>
      </widget>
      <widget class="QPushButton" name="editItemsButton">
+      <property name="enabled">
+       <bool>false</bool>
+      </property>
       <property name="geometry">
        <rect>
-        <x>925</x>
-        <y>50</y>
-        <width>71</width>
+        <x>940</x>
+        <y>40</y>
+        <width>81</width>
         <height>24</height>
        </rect>
       </property>
       <property name="text">
        <string>Edit Items</string>
+      </property>
+      <property name="checkable">
+       <bool>true</bool>
+      </property>
+     </widget>
+     <widget class="QLineEdit" name="lineEdit">
+      <property name="enabled">
+       <bool>false</bool>
+      </property>
+      <property name="geometry">
+       <rect>
+        <x>150</x>
+        <y>60</y>
+        <width>750</width>
+        <height>25</height>
+       </rect>
+      </property>
+      <property name="maxLength">
+       <number>255</number>
+      </property>
+      <property name="alignment">
+       <set>Qt::AlignCenter</set>
+      </property>
+     </widget>
+     <widget class="QLabel" name="label">
+      <property name="geometry">
+       <rect>
+        <x>50</x>
+        <y>60</y>
+        <width>101</width>
+        <height>25</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>Filter Presets:</string>
+      </property>
+     </widget>
+     <widget class="QPushButton" name="importPresetButton">
+      <property name="geometry">
+       <rect>
+        <x>230</x>
+        <y>20</y>
+        <width>71</width>
+        <height>24</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>Import</string>
+      </property>
+     </widget>
+     <widget class="QPushButton" name="exportPresetButton">
+      <property name="enabled">
+       <bool>false</bool>
+      </property>
+      <property name="geometry">
+       <rect>
+        <x>810</x>
+        <y>20</y>
+        <width>81</width>
+        <height>24</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>Export</string>
+      </property>
+     </widget>
+     <widget class="QPushButton" name="refreshPresets">
+      <property name="geometry">
+       <rect>
+        <x>320</x>
+        <y>20</y>
+        <width>71</width>
+        <height>24</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>Refresh</string>
       </property>
      </widget>
     </widget>
@@ -693,9 +805,7 @@ QTabBar::tab:selected {
        </rect>
       </property>
       <property name="styleSheet">
-       <string notr="true">QListWidget {
-	background-color: rgba(0, 0, 0, 0);
-}</string>
+       <string notr="true"/>
       </property>
       <property name="selectionRectVisible">
        <bool>false</bool>
@@ -804,10 +914,7 @@ QTabBar::tab:selected {
        </rect>
       </property>
       <property name="styleSheet">
-       <string notr="true">QListWidget {
-	background-color: rgba(0, 0, 0, 0);
-	alternate-background-color: cyan;
-}</string>
+       <string notr="true"/>
       </property>
       <property name="selectionRectVisible">
        <bool>false</bool>
@@ -839,10 +946,7 @@ QTabBar::tab:selected {
        </rect>
       </property>
       <property name="styleSheet">
-       <string notr="true">QListWidget {
-	background-color: rgba(0, 0, 0, 0);
-	border-color: cyan;
-}</string>
+       <string notr="true"/>
       </property>
       <property name="selectionRectVisible">
        <bool>false</bool>
@@ -1955,9 +2059,9 @@ p, li { white-space: pre-wrap; }
      <widget class="QLabel" name="creditsDosCPUMeter">
       <property name="geometry">
        <rect>
-        <x>555</x>
+        <x>514</x>
         <y>290</y>
-        <width>300</width>
+        <width>341</width>
         <height>21</height>
        </rect>
       </property>

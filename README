@@ -3,14 +3,14 @@ To build Soundbench, you have to make absolutely sure you have the following:
             g++ 4.6.3
             clang++ 3.1
         qmake
-        libqt 4 or 5
+        libqt (version 4.7+)
 	libsndfile
 
 In addition, the following are strongly recommended:
         One or more of the following:
             RtAudio
             PortAudio (version 19+)
-        RtMidi (Version 2.0+)
+        RtMidi (version 2.0+)
 
 ===BUILDING ON *NIX===
 All you need to do is open a terminal and type the following:
@@ -24,7 +24,7 @@ Your executable will be in the same directory and will be named "Soundbench". Ha
 ===ON BUILDING WITH CLANG===
 If you're going to build Soundbench with clang, then as at the time of writing qmake doesn't have a spec file for clang++, you will have to use few extra steps.
 
-In addition to the above prerequisites, we recommend having LLVM's libc++, as clang++ doesn't play too nicely with libstdc++.
+In addition to the above prerequisites, we recommend having LLVM's libc++ as clang++ doesn't play too nicely with libstdc++.
 
 If g++ is your defualt C++ compiler, then open a terminal, and type the following
 	cd path/to/the/code
@@ -45,6 +45,8 @@ Your project should be now built! Congrats!
 We highly recommend using Cygwin, as some parts of this program aren't fully functional without the POSIX APIs.
 
 Instructions on how to build on Windows will be provided soon.
+
+If attempting to build on Windows, we recommend doing so without PortAudio as apparently it is rather difficult to compile.
 
 
 ===CONFIGURATIONS===
