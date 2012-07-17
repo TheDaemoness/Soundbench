@@ -29,6 +29,7 @@
 
 #include <deque>
 #include <cstdio>
+#include <thread>
 
 #include <QListWidget>
 
@@ -36,19 +37,6 @@ namespace sb {
 
     class Player : public QObject {
         Q_OBJECT
-    private:
-        std::deque<midi::nodes::MIDIEventNode> nodes;
-        std::map<FrontendType,bool> supported_apis;
-        time_t midiclocklen;
-        std::string fi;
-
-        midi::MidiFIO* reed;
-        midi::nodes::PlayerStartNode* first;
-        SoundFileWriter* wri;
-        MidiFrontend* midin;
-
-        QListWidget* affectedlist;
-        CpuMeter* affectedmet;
 
     public:
         explicit Player(Synth* syn, QListWidget* tracklist, CpuMeter* themet);
@@ -97,10 +85,35 @@ namespace sb {
 
     signals:
         void progressed(int gression);
+        void donePlaying();
 
     public slots:
         void writeFile();
         bool loadFile();
+
+    private slots:
+        void cleanThread() {
+            playthread->join();
+            delete playthread;
+        }
+
+    private:
+        std::deque<midi::nodes::MIDIEventNode> nodes;
+        std::map<FrontendType,bool> supported_apis;
+        time_t midiclocklen;
+        std::string fi;
+        bool playing;
+
+        midi::MidiFIO* reed;
+        midi::nodes::PlayerStartNode* first;
+        SoundFileWriter* wri;
+        MidiFrontend* midin;
+        std::thread* playthread;
+
+        QListWidget* affectedlist;
+        CpuMeter* affectedmet;
+
+        static void playChain(Player*);
     };
 }
 

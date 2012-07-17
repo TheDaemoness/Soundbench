@@ -39,8 +39,19 @@ namespace sb {
         midin->setVirtualPort(vport);
         return true;
     }
-    void Player::startPlay() {}
-    void Player::stopPlay() {}
+    void Player::startPlay() {
+        if (playing)
+            return;
+        playing = true;
+        playthread = new std::thread(playChain,this);
+    }
+    void Player::stopPlay() {
+        if (!playing)
+            return;
+        playing = false;
+        playthread->join();
+        delete playthread;
+    }
     void Player::startRt() {
         if(midin != nullptr)
             midin->start();
@@ -73,7 +84,7 @@ namespace sb {
         uint32_t len = 0;
         for(auto i = first->returnNext(); i != nullptr; i = i->returnNext())
             ++len;
-        --len;
+        --len; //Ignore the ending node.
         if (len == 0) {
             std::cerr << "No events were recorded.\n";
             first->chainDestroy();
@@ -82,5 +93,23 @@ namespace sb {
             std::cerr << "Recorded 1 event.\n";
         else
             std::cerr << "Recorded " << len << " events.\n";
+    }
+
+    void Player::playChain(Player* plai) {
+        uint64_t micros = 0;
+        auto iter = plai->first->returnNext();
+        while (plai->playing) {
+            while (micros >= iter->getDelay()) {
+                iter->doEvent();
+                micros -= iter->getDelay();
+                iter = iter->returnNext();
+                if (iter == nullptr) {
+                    emit plai->donePlaying();
+                    return;
+                }
+            }
+            std::this_thread::sleep_for(std::chrono::milliseconds(1));
+            micros += 1000;
+        }
     }
 }

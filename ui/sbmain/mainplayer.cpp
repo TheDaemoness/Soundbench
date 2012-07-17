@@ -38,6 +38,7 @@ void SoundbenchMain::importOpen() {
         return;
     }
     ui->exportButton->setEnabled(true);
+    ui->playButton->setEnabled(em->isRtAvailable());
     ui->songsTracksList->setCurrentRow(0);
 
     ui->tempoBox->setValue(plai->getTempo());
@@ -81,12 +82,14 @@ void SoundbenchMain::setTempo(int tiem) {
 }
 
 void SoundbenchMain::playSynth(bool b) {
-    if (plai->empty())
+    if (plai->empty() || !em->isRtAvailable()) //No point running this on an empty Player or a dead Emitter.
         return;
     if (b)
         plai->startPlay();
-    else
+    else {
         plai->stopPlay();
+        syn->reset();
+    }
 }
 
 void SoundbenchMain::loadPorts() {
@@ -155,10 +158,12 @@ void SoundbenchMain::record(bool rec) {
         if(!plai->empty()) {
             ui->songsTracksList->addItem("Recorded Track");
             ui->tempoBox->setDisabled(true);
+            ui->playButton->setEnabled(em->isRtAvailable());
             ui->tempoBox->setToolTip("Soundbench does not allow the user to use the tempo box with their own tracks at this time.");
         }
         else {
             ui->tempoBox->setDisabled(true);
+            ui->playButton->setDisabled(true);
             ui->tempoBox->setToolTip("Change the starting tempo of the current track.");
         }
         ui->exportButton->setEnabled(!plai->empty());
@@ -178,6 +183,7 @@ void SoundbenchMain::reloadEmitter() {
 
     ui->outputReload->setEnabled(em->isRtAvailable());
     ui->outputsList->setEnabled(em->isRtAvailable());
+    ui->playButton->setEnabled(em->isRtAvailable() && !plai->empty());
 
     if(em->isRtAvailable())
         loadDevices();

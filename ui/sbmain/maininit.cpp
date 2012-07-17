@@ -170,6 +170,8 @@ void SoundbenchMain::delayedConstructor() {
 
     connect(ui->outputRetry,SIGNAL(clicked()),SLOT(reloadEmitter()));
     connect(ui->outputReload,SIGNAL(clicked()),SLOT(loadDevices()));
+    connect(ui->playButton,SIGNAL(toggled(bool)),SLOT(playSynth(bool)));
+    connect(plai,SIGNAL(donePlaying()),ui->playButton,SLOT(toggle()));
 
     if(!em->isRtAvailable())
         ui->outputsList->addItem("Backend initialization failed.");

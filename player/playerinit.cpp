@@ -28,9 +28,12 @@ namespace sb {
         first = new midi::nodes::PlayerStartNode(syn);
         wri = new SoundFileWriter(syn);
 
+        playing = false;
+
         initfrontend(syn);
 
         connect(this,SIGNAL(progressed(int)),affectedmet,SLOT(setProgress(int)));
+        connect(this,SIGNAL(donePlaying()),SLOT(cleanThread()));
     }
     Player::~Player() {
         disconnect(SIGNAL(progressed(int)),affectedmet,SLOT(setProgress(int)));
