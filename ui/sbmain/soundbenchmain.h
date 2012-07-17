@@ -72,11 +72,13 @@ private slots:
     void useVPort(bool);
     void record(bool);
     void refreshPresets();
+    void resetBlueprint();
 
 private:
     void genSetts(size_t i);
     void displayPresets();
     void writePresetRecord();
+    void loadPresetList();
     inline void stopAndReset() {
         em->stop();
         plai->stopRec();

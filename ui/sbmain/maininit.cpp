@@ -77,7 +77,7 @@ void SoundbenchMain::delayedConstructor() {
         sbdata.mkdir("presets");
     }
 
-    refreshPresets();
+    loadPresetList();
     displayPresets();
 
     loadPorts();
@@ -132,12 +132,16 @@ void SoundbenchMain::delayedConstructor() {
         }
     }
 
-    //Connect the main page widgets.
+    //Connect and setup the main page widgets.
     connect(ui->silenceButton,SIGNAL(clicked()),SLOT(silence()));
     connect(ui->volumeSlider,SIGNAL(valueChanged(int)),SLOT(setMasterVolume(int)));
     connect(ui->playButton,SIGNAL(toggled(bool)),SLOT(playSynth(bool)));
 
-    //Conncet the Player page widgets and disable a few buttons.
+    //Connect and setup the Settings page widgets.
+    connect(ui->newButton,SIGNAL(clicked()),SLOT(resetBlueprint()));
+    connect(ui->refreshPresets,SIGNAL(clicked()),SLOT(refreshPresets()));
+
+    //Connect and setup the Player page widgets.
     connect(ui->holdA4Button,SIGNAL(toggled(bool)),SLOT(testSynth(bool)));
     connect(ui->importButton,SIGNAL(clicked()),SLOT(importOpen()));
     connect(ui->exportButton,SIGNAL(clicked()),SLOT(exportOpen()));
@@ -186,7 +190,7 @@ void SoundbenchMain::delayedConstructor() {
     ui->outputReload->setDisabled(true);
 #endif
 
-    //Connect the Channels page widgets.
+    //Connect and setup the Channels page widgets.
     connect(ui->gener1TypeBox,SIGNAL(currentIndexChanged(int)),type_sigmap,SLOT(map()));
     connect(ui->gener2TypeBox,SIGNAL(currentIndexChanged(int)),type_sigmap,SLOT(map()));
     connect(ui->gener3TypeBox,SIGNAL(currentIndexChanged(int)),type_sigmap,SLOT(map()));
@@ -197,7 +201,7 @@ void SoundbenchMain::delayedConstructor() {
     connect(ui->gen3SettButton,SIGNAL(clicked()),sett_sigmap,SLOT(map()));
     connect(ui->gen4SettButton,SIGNAL(clicked()),sett_sigmap,SLOT(map()));
 
-    //Connect the Settings page widgets
+    //Connect and setup the Settings page widgets
     connect(ui->button441Sampling,SIGNAL(clicked()),rate_sigmap,SLOT(map()));
     connect(ui->button48Sampling,SIGNAL(clicked()),rate_sigmap,SLOT(map()));
     connect(ui->button882Sampling,SIGNAL(clicked()),rate_sigmap,SLOT(map()));

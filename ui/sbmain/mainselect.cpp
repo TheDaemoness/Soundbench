@@ -20,8 +20,34 @@
 #include "soundbenchmain.h"
 
 #include <fstream>
+#include <cstdio>
 
 void SoundbenchMain::refreshPresets() {
+    remove((datadir+"/presetrecord").c_str()); //Get rid of a certain preset record.
+    loadPresetList();
+}
+
+void SoundbenchMain::resetBlueprint() {
+    stopAndReset();
+    arch->planAllDefaults(blu);
+    arch->buildSynth(syn,blu);
+
+    ui->presetLabel->setText("Unnamed Preset");
+
+    ui->gener1TypeBox->setCurrentIndex(0);
+    ui->gener2TypeBox->setCurrentIndex(0);
+    ui->gener3TypeBox->setCurrentIndex(0);
+    ui->gener4TypeBox->setCurrentIndex(0);
+
+    ui->gen1SettButton->setDisabled(true);
+    ui->gen2SettButton->setDisabled(true);
+    ui->gen3SettButton->setDisabled(true);
+    ui->gen4SettButton->setDisabled(true);
+
+    em->start();
+}
+
+void SoundbenchMain::loadPresetList() {
     QFile river((datadir+"/presetrecord").c_str());
     river.open(QIODevice::ReadWrite | QIODevice::Text);
 
@@ -53,17 +79,11 @@ void SoundbenchMain::refreshPresets() {
     }
     river.close();
 
-    if (presetlist.size() == 1)
-        std::cerr << "\nRecord claims that 1 preset exists.\n";
-    else if (presetlist.size() == 0)
-        std::cerr << "\nRecord claims that there are no presets.\n";
-    else
-        std::cerr << "\nRecord claims that " << presetlist.size() << " presets exist.\n";
-
     //Confirm that the record is telling the truth.
     QDir presetdir((datadir+"/presets").c_str());
     auto filelist = presetdir.entryList(QStringList("*.sbp")).toVector();
 
+    std::cerr << '\n';
     size_t missing(0), extra(0);
 
     //Check for missing files.
@@ -96,12 +116,16 @@ void SoundbenchMain::refreshPresets() {
     }
 
     if (extra == 1)
-        std::cerr << "1 extra file was found and was added.\n";
+        std::cerr << "1 extra preset was found and was added.\n";
     else if (extra != 0)
-        std::cerr << extra << " extra files were found and were added.\n";
+        std::cerr << extra << " extra presets were found and were added.\n";
 
-    if (extra + missing == 0)
-        std::cerr << "No presets were added or removed from the record.\n";
+    if (presetlist.size() == 0)
+        std::cerr << "The presets directory has no presets!\n";
+    if (presetlist.size() == 1)
+        std::cerr << "1 preset was loaded.\n";
+    else
+        std::cerr << presetlist.size() << " presets were loaded.\n";
 }
 
 

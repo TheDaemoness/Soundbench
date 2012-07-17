@@ -495,10 +495,10 @@ QTabBar::tab:selected {
      <widget class="QListWidget" name="presetList">
       <property name="geometry">
        <rect>
-        <x>65</x>
-        <y>110</y>
-        <width>921</width>
-        <height>276</height>
+        <x>60</x>
+        <y>112</y>
+        <width>926</width>
+        <height>275</height>
        </rect>
       </property>
       <property name="styleSheet">
@@ -506,6 +506,9 @@ QTabBar::tab:selected {
       </property>
      </widget>
      <widget class="QPushButton" name="openButton">
+      <property name="enabled">
+       <bool>false</bool>
+      </property>
       <property name="geometry">
        <rect>
         <x>140</x>
@@ -634,6 +637,9 @@ QTabBar::tab:selected {
       </property>
      </widget>
      <widget class="QPushButton" name="importPresetButton">
+      <property name="enabled">
+       <bool>false</bool>
+      </property>
       <property name="geometry">
        <rect>
         <x>230</x>

@@ -71,8 +71,11 @@ namespace sb {
         std::cerr << "Getting metadata for " << path << "...\n";
 
         for (uint8_t i = 0; i < 3; ++i) {
-            do {
+            bool cont = true;
+            while (cont) {
                 chara = in.get();
+                cont = chara & Bit1;
+
                 chara &= ~Bit1;
 
                 if (chara == '\t')
@@ -84,7 +87,7 @@ namespace sb {
                     data.arti.push_back(chara);
                 else
                     data.desc.push_back(chara);
-            } while (chara & Bit1);
+            }
         }
 
         in.close();
