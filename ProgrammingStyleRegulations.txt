@@ -47,6 +47,7 @@ Guidelines may be bent or sometimes outright broken if the programmer thinks it'
 4.1. One should be able to tell what a file contains just by looking at its name.
 4.1.1* Header and source files should ideally be named after the class they contain if they contain only one.
 4.2. Header and source file names should be lowercased.
+4.2.1* Files not directly used in the program don't have any casing rules, but should preferably be camelcased.
 4.3* Files should be kept shorter than 150 lines.
 4.4. Files must be kept shorter than 250 lines.
 4.5. Headers have the .h prefix and source files have the .cpp extension.

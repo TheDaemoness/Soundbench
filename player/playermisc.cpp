@@ -62,9 +62,9 @@ namespace sb {
     }
 
     void Player::startRec() {
-        if(midin != nullptr)
+        if(midin == nullptr)
             return;
-        if(!midin->isRecording())
+        if(midin->isRecording())
             return;
         midin->record(true);
 

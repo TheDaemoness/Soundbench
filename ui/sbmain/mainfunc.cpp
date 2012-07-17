@@ -30,6 +30,8 @@ void SoundbenchMain::genSetts(size_t i) {
 }
 
 SoundbenchMain::~SoundbenchMain() {
+    writePresetRecord();
+
     delete arch;
     delete plai;
     delete em;

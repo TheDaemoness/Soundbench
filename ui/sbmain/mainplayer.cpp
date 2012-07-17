@@ -147,14 +147,18 @@ void SoundbenchMain::setTrack() {
 void SoundbenchMain::record(bool rec) {
     if (!plai->isRtAvailable())
         return;
-    if (rec)
+
+    if (rec) {
+        std::cerr << "Began recording.\n";
         plai->startRec();
+    }
     else {
         ui->songsTracksList->clear();
-        plai->stopRec();
-
         if (plai->isOpen())
             plai->close();
+
+        plai->stopRec();
+
         if(!plai->empty()) {
             ui->songsTracksList->addItem("Recorded Track");
             ui->tempoBox->setDisabled(true);

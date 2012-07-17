@@ -27,11 +27,21 @@
 #include <QDir>
 
 namespace sb {
+
+    struct PresetMeta {
+        std::string path;
+        std::string name;
+        std::string arti;
+        std::string desc;
+        std::string tags;
+    };
+
     class Architect
     {
     public:
         Architect();
         //Planning functions.
+        PresetMeta getMetadata(std::string, std::string presetdir);
         void planAllDefaults(Blueprint*);
         void planDefaultBasicGen(Blueprint*,size_t chan_index = 0);
 

@@ -85,7 +85,8 @@ SOURCES += emitter/initportaudio.cpp \
     player/midiinit.cpp \
     player/playerload.cpp \
     player/playerwrite.cpp \
-    player/playerinit.cpp
+    player/playerinit.cpp \
+    ui/sbmain/mainselect.cpp
 
 RESOURCES += \
     resources.qrc
@@ -120,4 +121,6 @@ noRtMidi {
 OTHER_FILES += \
     ProgrammingStyleRegulations.txt \
     COPYING \
-    README
+    README \
+    PresetSpecification.txt \
+    RecordSpecification.txt

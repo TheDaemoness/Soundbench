@@ -70,10 +70,15 @@ void SoundbenchMain::delayedConstructor() {
     }
     sbdata.cd(".soundbench");
 #endif
+
+    datadir = sbdata.absolutePath().toStdString();
     if(!sbdata.exists("presets")) {
         std::cerr << "Setting up presets directory.\n";
         sbdata.mkdir("presets");
     }
+
+    refreshPresets();
+    displayPresets();
 
     loadPorts();
     loadDevices();
@@ -134,7 +139,6 @@ void SoundbenchMain::delayedConstructor() {
 
     //Conncet the Player page widgets and disable a few buttons.
     connect(ui->holdA4Button,SIGNAL(toggled(bool)),SLOT(testSynth(bool)));
-    connect(ui->recordButton,SIGNAL(toggled(bool)),SLOT(record(bool)));
     connect(ui->importButton,SIGNAL(clicked()),SLOT(importOpen()));
     connect(ui->exportButton,SIGNAL(clicked()),SLOT(exportOpen()));
     connect(ui->songsTracksList,SIGNAL(clicked(QModelIndex)),SLOT(setTrack()));
@@ -152,6 +156,7 @@ void SoundbenchMain::delayedConstructor() {
     connect(ui->inputVirtual,SIGNAL(toggled(bool)),SLOT(useVPort(bool)));
     connect(ui->inputReload,SIGNAL(clicked()),SLOT(loadPorts()));
     connect(ui->inputRetry,SIGNAL(clicked()),SLOT(reloadPlayer()));
+    connect(ui->recordButton,SIGNAL(toggled(bool)),SLOT(record(bool)));
 
     if(!plai->isRtAvailable())
         ui->inputsList->addItem("Frontend initialization failed.");

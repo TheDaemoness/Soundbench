@@ -57,6 +57,7 @@
 #define SBVERSION_MAJOR 0
 #define SBVERSION_MINOR 3
 #define SBVERSION_PATCH 0
+#define SB_PRESET_VERSION 1
 
 typedef float SbSample;
 const SbSample SbSampleMin = -1.0;

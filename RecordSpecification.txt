@@ -1,0 +1,23 @@
+NOTICE: This file is primarily for developers and people who want to be able to edit the presets record file on their own (which is disrecommended).
+
+This is the specification that gives the format of the preset record file stored in the main directory of Soundbench's application data folder.
+
+This is located in the root of Soundbench's application data folder, whose location varies per system.
+Windows:                    ~/AppData/Soundbench
+Macintosh OS:               ~/Library/Soundbench
+Linux and other *NIXes:     ~/.soundbench
+
+The main reason this file exists is to be able to quickly associate some simple metadata with preset files without having to read all the files.
+This is not a binary file. Each record is newline-separated. Each field is tab-separated.
+
+When Soundbench opens, it checks the presets directory to look for differences and updates this file as needed.
+This process can also be forced manually with the "Refresh" button.
+
+Record format:
+<file_name> <name> <artist> <description> <tags>
+
+file_name: The path to the file relative to the main presets directory.
+name: The name of the preset stored in the file.
+artist: The name of the artist stored in the file.
+description: The description stored in the file.
+tags: A space-separated list of tags that can be used to additionally filter information.

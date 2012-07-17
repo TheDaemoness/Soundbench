@@ -71,9 +71,12 @@ private slots:
     void setPort();
     void useVPort(bool);
     void record(bool);
+    void refreshPresets();
 
 private:
     void genSetts(size_t i);
+    void displayPresets();
+    void writePresetRecord();
     inline void stopAndReset() {
         em->stop();
         plai->stopRec();
@@ -83,12 +86,16 @@ private:
         ui->holdA4Button->setChecked(false);
     }
 
+    std::vector <sb::PresetMeta> presetlist;
+
     Ui::SoundbenchMain *ui;
     sb::Synth* syn;
     sb::Blueprint* blu;
     sb::Architect* arch;
     sb::Emitter* em;
     sb::Player* plai;
+
+    std::string datadir;
 
     QSignalMapper *sett_sigmap, *type_sigmap, *rate_sigmap;
 
