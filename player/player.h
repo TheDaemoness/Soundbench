@@ -51,52 +51,13 @@ namespace sb {
         CpuMeter* affectedmet;
 
     public:
-        explicit Player(Synth* syn, QListWidget* tracklist, CpuMeter* themet) {
-            affectedlist = tracklist;
-            affectedmet = themet;
-
-            reed = new midi::MidiFIO;
-            first = new midi::nodes::PlayerStartNode(syn);
-            wri = new SoundFileWriter(syn);
-
-            initfrontend(syn);
-
-            connect(this,SIGNAL(progressed(int)),affectedmet,SLOT(setProgress(int)));
-        }
-        ~Player() {
-            disconnect(SIGNAL(progressed(int)),affectedmet,SLOT(setProgress(int)));
-            if (first != nullptr)
-                delete first;
-            delete reed;
-            delete wri;
-        }
+        explicit Player(Synth* syn, QListWidget* tracklist, CpuMeter* themet);
+        ~Player();
 
         bool loadTrack(uint16_t track);
-
-        inline bool setTempo(int tmp) {
-            return reed->setTempo(tmp);
-        }
-        inline int getTempo() {
-            return reed->getTempo();
-        }
-        std::vector<std::string> getPorts() {
-            if(midin != nullptr)
-                return midin->getPorts();
-            return std::vector<std::string>();
-        }
-        size_t getCurrentPort() {
-            if (midin != nullptr)
-                return midin->getCurrentPort();
-            return 0;
-        }
-        bool setVirtualPort(bool vport) {
-            if (midin == nullptr)
-                return false;
-            if (!midin->supportsVirtualPorts())
-                return false;
-            midin->setVirtualPort(vport);
-            return true;
-        }
+        std::vector<std::string> getPorts();
+        size_t getCurrentPort();
+        bool setVirtualPort(bool vport);
 
         inline void close() {
             reed->close();
@@ -105,56 +66,31 @@ namespace sb {
         inline bool isOpen() {
             return reed->isOpen();
         }
-
-        void startPlay() {}
-        void stopPlay() {}
-        void startRt() {
-            if(midin != nullptr)
-                midin->start();
+        inline bool empty() {
+            return first->returnNext() == nullptr;
         }
-        void stopRt() {
-            if(midin != nullptr)
-                midin->stop();
+        inline void setFile(std::string thefile) {
+            fi = thefile;
         }
-        void startRec() {
-            if(midin != nullptr)
-                midin->record(true);
+        inline bool setTempo(int tmp) {
+            return reed->setTempo(tmp);
         }
-        void stopRec() {
-            if(!midin->isRecording())
-                return;
-
-            if(midin != nullptr)
-                midin->record(false);
-            if(first != nullptr)
-                delete first;
-            first = midin->detachChain();
-
-            uint32_t len = 0;
-            for(auto i = first->returnNext(); i != nullptr; i = i->returnNext())
-                ++len;
-            --len;
-            if (len == 0) {
-                std::cerr << "No events were recorded.\n";
-                first->chainDestroy();
-            }
-            else if (len == 1)
-                std::cerr << "Recorded 1 event.\n";
-            else
-                std::cerr << "Recorded " << len << " events.\n";
+        inline int getTempo() {
+            return reed->getTempo();
         }
-        void setPort(size_t porter) {
+        inline void setPort(size_t porter) {
             if(midin != nullptr)
                 midin->setPort(porter);
         }
 
+        void startPlay();
+        void stopPlay();
+        void startRt();
+        void stopRt();
+        void startRec();
+        void stopRec();
+
         void initfrontend(Synth* syn);
-        bool empty() {
-            return first->returnNext() == nullptr;
-        }
-        void setFile(std::string thefile) {
-            fi = thefile;
-        }
 
     signals:
         void progressed(int gression);

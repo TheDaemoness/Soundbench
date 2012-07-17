@@ -67,12 +67,9 @@ SOURCES += emitter/initportaudio.cpp \
     midifio/readeropen.cpp \
     midifio/misc.cpp \
     sfwriter.cpp \
-    player/load.cpp \
-    player/write.cpp \
     sampletable.cpp \
     trapezoid.cpp \
     emitter/initsomething.cpp \
-    player/initfrontend.cpp \
     ui/sbmain/mainfunc.cpp \
     ui/sbmain/maininit.cpp \
     ui/sbmain/mainslots.cpp \
@@ -83,7 +80,12 @@ SOURCES += emitter/initportaudio.cpp \
     makenode.cpp \
     ui/sbmain/mainplayer.cpp \
     ui/sbmain/mainchannels.cpp \
-    doevent.cpp
+    doevent.cpp \
+    player/playermisc.cpp \
+    player/midiinit.cpp \
+    player/playerload.cpp \
+    player/playerwrite.cpp \
+    player/playerinit.cpp
 
 RESOURCES += \
     resources.qrc
