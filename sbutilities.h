@@ -97,32 +97,49 @@ public:
 };
 
 namespace sb {
-    union ParameterValue { //For all you C++ programmers out there who don't know what this is... it's a C-style space-saver. ;)
-        SbSample sample;
-        int64_t value;
-        void* other;
-        float decim;
+    enum ParameterValueType {
+        ParameterByte = 0x0,
+        ParameterPosInt = 0x1,
+        ParameterNegInt = 0x2,
+        ParameterStr = 0x3,
+        ParameterDecim = 0x4,
+        ParameterSample = 0x5
+    };
+
+    struct ParameterValue {
+        union {
+            SbSample sample;
+            int64_t value;
+            float decim;
+            struct {
+            char* type;
+            void* data;
+            } other;
+        } pod;
+        std::string str;
+        ParameterValueType type;
     };
     template <typename T>
     inline ParameterValue makeParamfromPointer(T* ptr) {
         ParameterValue valu;
-        valu.other = reinterpret_cast<void*>(ptr);
+        valu.pod.other.type = "pointer";
+        valu.pod.other.data = reinterpret_cast<void*>(ptr);
         return valu;
     }
     template <typename T>
     inline ParameterValue makeParamfromInt(T i) {
         ParameterValue valu;
-        valu.value = static_cast<int64_t>(i);
+        valu.pod.value = static_cast<int64_t>(i);
         return valu;
     }
     inline ParameterValue makeParamfromSample(SbSample i) {
         ParameterValue valu;
-        valu.sample = i;
+        valu.pod.sample = i;
         return valu;
     }
     inline ParameterValue makeParamfromFloat(float i) {
         ParameterValue valu;
-        valu.decim = i;
+        valu.pod.decim = i;
         return valu;
     }
 

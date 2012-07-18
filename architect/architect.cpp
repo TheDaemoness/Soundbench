@@ -19,8 +19,6 @@
 
 #include "architect.h"
 
-#include <fstream>
-
 namespace sb {
 
     Architect::Architect() {
@@ -34,64 +32,6 @@ namespace sb {
             for (size_t ed = 0; ed < FxPerChannel; ++ed)
                 blu->eff[ac][ed] = NoFx; //Indeed.
         }
-    }
-
-    PresetMeta Architect::getMetadata(std::string path, std::string presetdir) {
-        if(path.empty())
-            return PresetMeta();
-
-        std::ifstream in(presetdir+'/'+path,std::ios_base::binary);
-        std::string magicheader("SoundbenchPreset");
-
-        if (!in.is_open()) {
-            std::cerr << "Something wicked happened when sending the preset's location.\n";
-            return PresetMeta();
-        }
-
-        for (char c : magicheader) {
-            if(in.get() != c) {
-                std::cerr << path << " is not a valid preset. Aborting...\n";
-                return PresetMeta();
-            }
-        }
-
-        uint16_t vnum = in.get();
-        vnum <<= 8;
-        vnum |= in.get();
-        if (vnum > SB_PRESET_VERSION) {
-            std::cerr << path << " uses a preset version later than this Soundbench can read.\n";
-            std::cerr << "Preset version: " << vnum << '\n';
-            std::cerr << "Maximum supported version: " << SB_PRESET_VERSION << '\n';
-        }
-
-        PresetMeta data;
-        data.path = path;
-        char chara;
-
-        std::cerr << "Getting metadata for " << path << "...\n";
-
-        for (uint8_t i = 0; i < 3; ++i) {
-            bool cont = true;
-            while (cont) {
-                chara = in.get();
-                cont = chara & Bit1;
-
-                chara &= ~Bit1;
-
-                if (chara == '\t')
-                    chara = ' '; //To stop wiseguys from screwing up the indexer.
-
-                if (i == 0)
-                    data.name.push_back(chara);
-                else if (i == 1)
-                    data.arti.push_back(chara);
-                else
-                    data.desc.push_back(chara);
-            }
-        }
-
-        in.close();
-        return data;
     }
 
     void Architect::planDefaultBasicGen(Blueprint* blu, size_t chan_index) {

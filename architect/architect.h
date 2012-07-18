@@ -24,7 +24,7 @@
 #include "gener/basic.h"
 #include "synth.h"
 
-#include <QDir>
+#include <fstream>
 
 namespace sb {
 
@@ -41,7 +41,10 @@ namespace sb {
     public:
         Architect();
         //Planning functions.
-        PresetMeta getMetadata(std::string, std::string presetdir);
+        PresetMeta getMetadata(std::string, std::string presetdir, std::ifstream* in = nullptr);
+        PresetMeta loadPreset(std::string path, std::string presetdir, Blueprint* blu);
+        PresetMeta savePreset(std::string path, std::string presetdir, Blueprint* blu, std::string name = "", std::string arti = "", std::string desc = "");
+
         void planAllDefaults(Blueprint*);
         void planDefaultBasicGen(Blueprint*,size_t chan_index = 0);
 

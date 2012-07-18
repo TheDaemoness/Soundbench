@@ -18,6 +18,7 @@
 */
 
 #include "midifio.h"
+#include "vliparser.h"
 
 namespace sb {
     namespace midi {
@@ -36,18 +37,10 @@ namespace sb {
             }
 
             //Deal with the delay.
-            uint32_t raw_delay = 0;
-            uint8_t byte;
-            for(uint8_t i = 0; i < 4; ++i) {
-                raw_delay <<= 7; //Assure space for the next seven bits (1 byte - the next-byte-exists bit).
-                byte = river.get();
-                raw_delay |= byte & ~Bit1; //Everything excpet the next-byte-exists bit.
-                if (!(byte & Bit1)) //The next-byte-exists bit isn't set? Stop looping!
-                    break;
-            }
+            uint32_t raw_delay = vliParse<4>(river);
             returnitem.delay = factor*raw_delay;
 
-            byte = river.get();
+            uint8_t byte = river.get();
             if(byte & Bit1) {
                 returnitem.evtype = static_cast<MidiEvents>(byte & Nibble1); //Mask out the channel bits.
                 returnitem.chan = byte & Nibble2; //Mask out the event type bits.

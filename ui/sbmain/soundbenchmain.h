@@ -23,7 +23,7 @@
 #include "ui_soundbenchmain.h"
 
 #include "emitter/emitter.h"
-#include "architect.h"
+#include "architect/architect.h"
 #include "synth.h"
 #include "player/player.h"
 

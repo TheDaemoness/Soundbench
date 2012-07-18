@@ -24,10 +24,10 @@ Type fields:
 A type field is a 1-byte field that indicates the amount and type of data after it.
 
 0x0: A byte.
-0x1: A VLI field.
-0x2: A byte array.
-0x3: A single-precision floating point number.
-0x4: A double-precision floating point number.
+0x1: A VLI field to be treated as a positive integer.
+0x2: A VLI field to be treated as a negative integer.
+0x3: A byte array.
+0x4: A single-precision floating point number.
 0x5: A floating point sample (like 0x3, except capped -1.0 to 1.0).
 
 ~~~~~~~~~~~~~~~~~

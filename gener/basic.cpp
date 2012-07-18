@@ -35,9 +35,9 @@ namespace sb {
     void BasicGen::ctrl(ModuleParams arg, ParameterValue val) {
         switch (arg) {
         case GenBasicWave:
-            if (curr_wav == static_cast<SimpleWaveTypes>(val.value))
+            if (curr_wav == static_cast<SimpleWaveTypes>(val.pod.value))
                 break;
-            curr_wav = static_cast<SimpleWaveTypes>(val.value);
+            curr_wav = static_cast<SimpleWaveTypes>(val.pod.value);
             delete ocean;
 
             WaveBase* w;
@@ -58,22 +58,22 @@ namespace sb {
             ocean->setOffsets(offset);
             break;
         case GenBasicAmp:
-            gen_amp = val.sample;
+            gen_amp = val.pod.sample;
             break;
         case GenBasicNoteBias:
-            notebias = val.value;
+            notebias = val.pod.value;
             break;
         case GenBasicPhase:
-            offset = val.sample/SbSampleMax*SampleRate;
+            offset = val.pod.sample/SbSampleMax*SampleRate;
             ocean->setOffsets(offset);
             break;
         case GenerAttackTime:
             for(Trapezoid& trap : envelope)
-                trap.setAttackTime(val.decim);
+                trap.setAttackTime(val.pod.decim);
             break;
         case GenerReleaseTime:
             for(Trapezoid& trap : envelope)
-                trap.setReleaseTime(val.decim);
+                trap.setReleaseTime(val.pod.decim);
             break;
         default:
             //Ignore it. The blueprints have values for other generators too.

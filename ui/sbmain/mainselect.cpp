@@ -23,7 +23,8 @@
 #include <cstdio>
 
 void SoundbenchMain::refreshPresets() {
-    remove((datadir+"/presetrecord").c_str()); //Get rid of a certain preset record.
+    QFile delfile((datadir+"/presetrecord").c_str());
+    delfile.remove(); //Get rid of a certain preset record.
     loadPresetList();
 }
 

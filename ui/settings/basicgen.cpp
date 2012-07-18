@@ -28,21 +28,21 @@ BasicGenerSettings::BasicGenerSettings(size_t chan, sb::Blueprint* blu, QWidget 
     affectedchan = chan;
     ui->setupUi(this);
 
-    ui->ampBox->setValue(blu->gener_data[chan][sb::GenBasicAmp].sample);
-    ui->phaseBox->setValue(blu->gener_data[chan][sb::GenBasicPhase].sample);
-    ui->noteBiasBox->setValue(blu->gener_data[chan][sb::GenBasicNoteBias].value);
-    ui->attackBox->setValue(blu->gener_data[chan][sb::GenerAttackTime].decim);
-    ui->releaseBox->setValue(blu->gener_data[chan][sb::GenerReleaseTime].decim);
+    ui->ampBox->setValue(blu->gener_data[chan][sb::GenBasicAmp].pod.sample);
+    ui->phaseBox->setValue(blu->gener_data[chan][sb::GenBasicPhase].pod.sample);
+    ui->noteBiasBox->setValue(blu->gener_data[chan][sb::GenBasicNoteBias].pod.value);
+    ui->attackBox->setValue(blu->gener_data[chan][sb::GenerAttackTime].pod.decim);
+    ui->releaseBox->setValue(blu->gener_data[chan][sb::GenerReleaseTime].pod.decim);
 
-    if (static_cast<sb::SimpleWaveTypes>(blu->gener_data[chan][sb::GenBasicWave].value) == sb::TriangleWave)
+    if (static_cast<sb::SimpleWaveTypes>(blu->gener_data[chan][sb::GenBasicWave].pod.value) == sb::TriangleWave)
         ui->waveTypeBox->setCurrentIndex(1);
-    else if (static_cast<sb::SimpleWaveTypes>(blu->gener_data[chan][sb::GenBasicWave].value) == sb::SquareWave)
+    else if (static_cast<sb::SimpleWaveTypes>(blu->gener_data[chan][sb::GenBasicWave].pod.value) == sb::SquareWave)
         ui->waveTypeBox->setCurrentIndex(2);
-    else if (static_cast<sb::SimpleWaveTypes>(blu->gener_data[chan][sb::GenBasicWave].value) == sb::SawtoothWave)
+    else if (static_cast<sb::SimpleWaveTypes>(blu->gener_data[chan][sb::GenBasicWave].pod.value) == sb::SawtoothWave)
         ui->waveTypeBox->setCurrentIndex(3);
-    else if (static_cast<sb::SimpleWaveTypes>(blu->gener_data[chan][sb::GenBasicWave].value) == sb::OvalWave)
+    else if (static_cast<sb::SimpleWaveTypes>(blu->gener_data[chan][sb::GenBasicWave].pod.value) == sb::OvalWave)
         ui->waveTypeBox->setCurrentIndex(4);
-    else if (static_cast<sb::SimpleWaveTypes>(blu->gener_data[chan][sb::GenBasicWave].value) == sb::PeakWave)
+    else if (static_cast<sb::SimpleWaveTypes>(blu->gener_data[chan][sb::GenBasicWave].pod.value) == sb::PeakWave)
         ui->waveTypeBox->setCurrentIndex(5);
     else
         ui->waveTypeBox->setCurrentIndex(0);

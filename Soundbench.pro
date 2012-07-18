@@ -14,7 +14,7 @@ DEPENDPATH += .
 unix: INCLUDEPATH += /usr/include/
 
 # Input
-HEADERS += architect.h \
+HEADERS += architect/architect.h \
     blueprint.h \
     common.h \
     emitter/emitter.h \
@@ -45,7 +45,9 @@ HEADERS += architect.h \
     backend/portaudio.h \
     backend/rtaudio.h \
     frontend/rtmidi.h \
-    midievents.h
+    midievents.h \
+    fileparsers.h \
+    filewriters.h
 
 FORMS += errorpopup.ui \
     ui/sbmain/soundbenchmain.ui \
@@ -53,7 +55,7 @@ FORMS += errorpopup.ui \
     ui/settings/basicgen.ui
 
 SOURCES += emitter/initportaudio.cpp \
-    architect.cpp \
+    architect/architect.cpp \
     backend/portaudio.cpp \
     emitter/emitter.cpp \
     errorpopup.cpp \
@@ -86,7 +88,10 @@ SOURCES += emitter/initportaudio.cpp \
     player/playerload.cpp \
     player/playerwrite.cpp \
     player/playerinit.cpp \
-    ui/sbmain/mainselect.cpp
+    ui/sbmain/mainselect.cpp \
+    architect/presetload.cpp \
+    architect/presetmeta.cpp \
+    architect/presetsave.cpp
 
 RESOURCES += \
     resources.qrc
