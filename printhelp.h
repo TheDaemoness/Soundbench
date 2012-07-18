@@ -27,7 +27,7 @@ inline void printhelp() {
     std::cout << "For more information, please see the wiki and the in-program tooltips.\n\n";
     std::cout << "Tab Contents\n"
                  "\tSelect: Choose a preset.\n"
-                 "\tPlayer: Route input and output, and record and play MIDI files.\n"
+                 "\tPlayer: Route input and output, record, load, and play MIDI tracks, and export sound files.\n"
                  "\tChannels: Change the settings for the audio generators and effects.\n"
                  "\tSettings: Change the sample rate and polyphony settings.\n";
 }

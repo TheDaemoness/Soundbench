@@ -35,11 +35,19 @@ namespace sb {
     }
 
     void Architect::planDefaultBasicGen(Blueprint* blu, size_t chan_index) {
+        blu->gener_data[chan_index][GenBasicNoteBias] = makeParamfromInt(0);
         blu->gener_data[chan_index][GenBasicWave] = makeParamfromInt(SineWave);
         blu->gener_data[chan_index][GenBasicAmp] = makeParamfromSample(1.0);
-        blu->gener_data[chan_index][GenBasicPhase] = makeParamfromInt(0);
+        blu->gener_data[chan_index][GenBasicPhase] = makeParamfromSample(0);
         blu->gener_data[chan_index][GenerAttackTime] = makeParamfromFloat(0.1);
         blu->gener_data[chan_index][GenerReleaseTime] = makeParamfromFloat(0.5);
+
+        blu->gener_data[chan_index][GenBasicNoteBias].type = sb::ParameterPosInt;
+        blu->gener_data[chan_index][GenBasicWave].type = sb::ParameterPosInt;
+        blu->gener_data[chan_index][GenBasicAmp].type = sb::ParameterSample;
+        blu->gener_data[chan_index][GenBasicPhase].type = sb::ParameterSample;
+        blu->gener_data[chan_index][GenerAttackTime].type = sb::ParameterDecim;
+        blu->gener_data[chan_index][GenerReleaseTime].type = sb::ParameterDecim;
     }
 
     void Architect::stripSynth(Synth* syn) {

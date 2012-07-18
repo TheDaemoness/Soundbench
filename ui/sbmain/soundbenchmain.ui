@@ -2328,7 +2328,7 @@ This is just to quickly hear what a sound sounds like.</string>
 }</string>
     </property>
     <property name="text">
-     <string>No Preset Selected</string>
+     <string>Unnamed Preset</string>
     </property>
     <property name="alignment">
      <set>Qt::AlignCenter</set>
