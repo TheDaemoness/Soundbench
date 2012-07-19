@@ -91,7 +91,8 @@ SOURCES += emitter/initportaudio.cpp \
     ui/sbmain/mainselect.cpp \
     architect/presetload.cpp \
     architect/presetmeta.cpp \
-    architect/presetsave.cpp
+    architect/presetsave.cpp \
+    ui/sbmain/mainselectbuttons.cpp
 
 RESOURCES += \
     resources.qrc

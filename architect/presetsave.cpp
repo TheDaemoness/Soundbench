@@ -33,9 +33,9 @@ namespace sb {
         uint16_t ver = SB_PRESET_VERSION;
         river.write(reinterpret_cast<char*>(&ver),2);
 
-        bitArrayWrite(river, name);
-        bitArrayWrite(river, arti);
-        bitArrayWrite(river, desc);
+        byteArrayWrite(river, name);
+        byteArrayWrite(river, arti);
+        byteArrayWrite(river, desc);
 
         toreturn.name = name;
         toreturn.arti = arti;
@@ -45,43 +45,47 @@ namespace sb {
             river.put(static_cast<char>(t));
 
         for(const auto& a : blu->eff) {
-            for(size_t i = 0; i < FxPerChannel - 1; ++i)
-                river.put(static_cast<char>(a[i] | Bit1));
-            river.put(static_cast<char>(a[FxPerChannel - 1]));
+            for(size_t i = 0; i < FxPerChannel; ++i)
+                river.put(static_cast<char>(a[i]));
         }
 
         //Write the generator's parameters.
         for (size_t i = 0; i < InternalChannels; ++i) {
-            for (auto& pear : blu->gener_data[i]) {
-                char elem = i << 4; //The second nibble should be zero.
-                river.put(elem);
-                vliWrite(river,pear.first);
+            for (const auto& pear : blu->gener_data[i]) {
+                unsigned char bb = static_cast<unsigned char>(i+1);
+                bb <<= 4; //The second nibble should be zero;
+                river.put(bb);
+
+                uint16_t whichparam = static_cast<uint16_t>(pear.first);
+                river.write(reinterpret_cast<char*>(&whichparam),2);
+
                 river.put(static_cast<char>(pear.second.type));
+
                 switch(pear.second.type) {
-                case ParameterByte:
-                    river.put(static_cast<char>(pear.second.pod.value));
+                case ParameterPosByte:
+                    river.put(static_cast<const unsigned char>(pear.second.pod.value & 255));
+                    break;
+                case ParameterSigByte:
+                    river.put(static_cast<const char>(pear.second.pod.value & 255));
                     break;
                 case ParameterPosInt:
-                    vliWrite(river,pear.second.pod.value);
+                case ParameterSigInt:
+                    river.write(reinterpret_cast<const char*>(&pear.second.pod.value),2);
                     break;
-                case ParameterNegInt:
-                    vliWrite(river,-pear.second.pod.value);
-                    break;
-                case ParameterStr:
-                    bitArrayWrite(river,pear.second.str);
+                case ParameterByteArray:
+                    byteArrayWrite(river,pear.second.str);
                     break;
                 case ParameterDecim:
-                    river.write(reinterpret_cast<char*>(&pear.second.pod.decim),sizeof(float));
+                    river.write(reinterpret_cast<const char*>(&pear.second.pod.decim),sizeof(decltype(pear.second.pod.decim)));
                     break;
                 case ParameterSample:
-                    river.write(reinterpret_cast<char*>(&pear.second.pod.sample),sizeof(SbSample));
+                    river.write(reinterpret_cast<const char*>(&pear.second.pod.sample),sizeof(SbSample));
                     break;
                 default:
-                    std::cerr << "Unsupported/unused parameter value type. Please note that this preset will not load correctly.\n";
+                    std::cerr << "Unsupported type field requested. This is likely an internal error.\n";
                 }
             }
         }
-
         river.put(0); //Ending marker.
         river.close();
 

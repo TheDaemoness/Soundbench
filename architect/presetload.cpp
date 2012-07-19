@@ -26,35 +26,38 @@ namespace sb {
         planAllDefaults(blu);
         std::ifstream in(presetdir+'/'+path,std::ios_base::binary);
         PresetMeta premet = getMetadata(path,presetdir,&in);
+        if (in.eof()) {
+            std::cerr << "The preset ended during or at the end of the metadata section. Resetting the blueprint and aborting...\n";
+            planAllDefaults(blu);
+            return PresetMeta();
+        }
 
         if (premet.path.empty()) //Oops.
             return PresetMeta();
 
-        uint8_t munch; //Bite, chew, masticate, etc.
-
         //Deal with the channel section.
-        for (auto& e : blu->gener)
-            e = static_cast<GenerType>(in.get());
-        for (auto& chan : blu->eff) {
-            for (auto& fx : chan) {
+        for (size_t alities = 0; alities < InternalChannels; ++alities)
+            blu->gener[alities] = static_cast<GenerType>(in.get());
+
+        int munch; //Bite, chew, masticate, etc.
+        for (size_t i = 0; i < InternalChannels; ++i) {
+            for (size_t j = 0; j < FxPerChannel; ++j) {
                 munch = in.get();
-                fx = static_cast<FxType>(munch & ~Bit1);
-                if(munch & Bit1)
-                    break;
+                blu->eff[i][j] = static_cast<FxType>(munch);
             }
         }
-
-        //Deal with the arguments section.
         if (in.eof()) {
-            std::cerr << "The preset ended prematurely. Resetting the blueprint and aborting...\n";
+            std::cerr << "The preset ended during or at the end of the channel section. Resetting the blueprint and aborting...\n";
             planAllDefaults(blu);
             return PresetMeta();
         }
+
+        //Deal with the arguments section.
         munch = in.get();
         while(munch != 0) {
             uint8_t channum = (munch & Nibble1) >> 4;
             if (channum == 0 || channum > 4) {
-                std::cerr << "Invalid channel nibble (offset=" << in.tellg() << "). Resetting the blueprint and aborting...\n";
+                std::cerr << "Invalid channel nibble (offset=" << in.tellg() << ", value=" << static_cast<uint16_t>(channum) << "). Resetting the blueprint and aborting...\n";
                 planAllDefaults(blu);
                 return PresetMeta();
             }
@@ -67,35 +70,44 @@ namespace sb {
                 std::cerr << "Warning: This version of Soundbench ignores effect data (offset=" << in.tellg() << ").\n";
 
             //Get the data field.
-            size_t param = vliParse<8>(in);
-            uint8_t typefield = in.get();
+            uint16_t whichparam = 0;
+            in.read(reinterpret_cast<char*>(&whichparam),2);
+
+            std::cerr << "Which channel: " << static_cast<int>(channum) << ".\n";
 
             //Get the data depending on the type field.
             ParameterValue val;
-            val.type = static_cast<ParameterValueType>(typefield);
+            val.type = static_cast<ParameterValueType>(in.get());
             switch(val.type) {
-            case ParameterByte:
-                val.pod.value = in.get();
+            case ParameterPosByte:
+                val.pod.value = static_cast<uint8_t>(in.get());
+                break;
+            case ParameterSigByte:
+                val.pod.value = static_cast<int8_t>(in.get());
                 break;
             case ParameterPosInt:
-                val.pod.value = vliParse<8>(in);
+                uint16_t unsigs;
+                in.read(reinterpret_cast<char*>(&unsigs),2);
+                val.pod.value = unsigs;
                 break;
-            case ParameterNegInt:
-                val.pod.value = -vliParse<8>(in);
+            case ParameterSigInt:
+                int16_t sigs;
+                in.read(reinterpret_cast<char*>(&sigs),2);
+                val.pod.value = sigs;
                 break;
-            case ParameterStr:
-                val.str = bitArrayParse(in);
+            case ParameterByteArray:
+                val.str = byteArrayParse(in);
                 break;
             case ParameterDecim:
-                for(size_t i = 0; i < sizeof(float); ++i)
-                    *(reinterpret_cast<uint8_t*>(&(val.pod.decim))+i) = in.get();
+                float value;
+                in.read(reinterpret_cast<char*>(&value),sizeof(float));
+                val.pod.decim = value;
                 break;
             case ParameterSample:
-                float sample;
-                for(size_t i = 0; i < sizeof(float); ++i)
-                    *(reinterpret_cast<uint8_t*>(&sample)+i) = in.get();
+                SbSample sample;
+                in.read(reinterpret_cast<char*>(&sample),sizeof(SbSample));
                 if (sample > 1.0 || sample < -1.0) {
-                    std::cerr << "Sample out of range (offset=" << static_cast<size_t>(in.tellg())-sizeof(float) << "). Resetting the blueprint and aborting...\n";
+                    std::cerr << "Sample out of range (offset=" << static_cast<size_t>(in.tellg())-sizeof(SbSample) << "). Resetting the blueprint and aborting...\n";
                     planAllDefaults(blu);
                     return PresetMeta();
                 }
@@ -106,13 +118,16 @@ namespace sb {
                 planAllDefaults(blu);
                 return PresetMeta();
             }
+
+            std::cerr << "Type: " << val.type << "\tValue: " << val.pod.value << "\tSample: " << val.pod.sample << "\tDecimal: " << val.pod.decim << "\n";
+
             if ((munch & Nibble2) > 0)
-                blu->eff_data[channum][(munch & Nibble2)-1][static_cast<ModuleParams>(param)] = val;
+                blu->eff_data[channum-1][(munch & Nibble2)-1][static_cast<ModuleParams>(whichparam)] = val;
             else
-                blu->gener_data[channum][static_cast<ModuleParams>(param)] = val;
+                blu->gener_data[channum-1][static_cast<ModuleParams>(whichparam)] = val;
 
             if (in.eof()) {
-                std::cerr << "The preset ended prematurely. Resetting the blueprint and aborting...\n";
+                std::cerr << "The preset ended in the channel arguments section. Resetting the blueprint and aborting...\n";
                 planAllDefaults(blu);
                 return PresetMeta();
             }

@@ -18,7 +18,7 @@
 */
 
 #include "midifio.h"
-#include "vliparser.h"
+#include "fileparsers.h"
 
 namespace sb {
     namespace midi {

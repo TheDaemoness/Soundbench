@@ -71,8 +71,15 @@ private slots:
     void setPort();
     void useVPort(bool);
     void record(bool);
-    void refreshPresets();
+
+    void refreshPresets(); //New preset.
     void resetBlueprint();
+    void loadInternalPreset();
+    void loadExternalPreset();
+    void deletePreset();
+    void importPreset();
+    void savePreset();
+    void exportPreset();
 
 private:
     void genSetts(size_t i);
@@ -87,8 +94,12 @@ private:
         ui->playButton->setChecked(false);
         ui->holdA4Button->setChecked(false);
     }
+    void updateToBlueprint();
 
     std::vector <sb::PresetMeta> presetlist;
+    size_t currpreset;
+    sb::PresetMeta externalpresetdata;
+    bool external;
 
     Ui::SoundbenchMain *ui;
     sb::Synth* syn;

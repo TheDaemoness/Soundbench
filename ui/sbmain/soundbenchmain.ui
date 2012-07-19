@@ -131,27 +131,27 @@
      <colorrole role="WindowText">
       <brush brushstyle="SolidPattern">
        <color alpha="255">
-        <red>0</red>
-        <green>255</green>
-        <blue>255</blue>
+        <red>128</red>
+        <green>128</green>
+        <blue>128</blue>
        </color>
       </brush>
      </colorrole>
      <colorrole role="Text">
       <brush brushstyle="SolidPattern">
        <color alpha="255">
-        <red>0</red>
-        <green>255</green>
-        <blue>255</blue>
+        <red>128</red>
+        <green>128</green>
+        <blue>128</blue>
        </color>
       </brush>
      </colorrole>
      <colorrole role="ButtonText">
       <brush brushstyle="SolidPattern">
        <color alpha="255">
-        <red>0</red>
-        <green>255</green>
-        <blue>255</blue>
+        <red>128</red>
+        <green>128</green>
+        <blue>128</blue>
        </color>
       </brush>
      </colorrole>
@@ -200,6 +200,13 @@
   <property name="styleSheet">
    <string notr="true">QWidget {
 	color: cyan;
+}
+QWidget:disabled {
+	color: gray;
+}
+
+QLabel:disabled {
+	color: gray;
 }
 
 QRadioButton:disabled {
@@ -511,7 +518,7 @@ QTabBar::tab:selected {
       </property>
       <property name="geometry">
        <rect>
-        <x>140</x>
+        <x>250</x>
         <y>20</y>
         <width>71</width>
         <height>24</height>
@@ -527,7 +534,7 @@ QTabBar::tab:selected {
       </property>
       <property name="geometry">
        <rect>
-        <x>700</x>
+        <x>600</x>
         <y>20</y>
         <width>81</width>
         <height>24</height>
@@ -537,45 +544,10 @@ QTabBar::tab:selected {
        <string>Save</string>
       </property>
      </widget>
-     <widget class="QPushButton" name="saveAsButton">
-      <property name="enabled">
-       <bool>false</bool>
-      </property>
-      <property name="geometry">
-       <rect>
-        <x>600</x>
-        <y>20</y>
-        <width>81</width>
-        <height>24</height>
-       </rect>
-      </property>
-      <property name="text">
-       <string>Save As</string>
-      </property>
-     </widget>
-     <widget class="QPushButton" name="saveCopyButton">
-      <property name="enabled">
-       <bool>false</bool>
-      </property>
-      <property name="geometry">
-       <rect>
-        <x>500</x>
-        <y>20</y>
-        <width>81</width>
-        <height>24</height>
-       </rect>
-      </property>
-      <property name="styleSheet">
-       <string notr="true"/>
-      </property>
-      <property name="text">
-       <string>Save Copy</string>
-      </property>
-     </widget>
      <widget class="QPushButton" name="newButton">
       <property name="geometry">
        <rect>
-        <x>50</x>
+        <x>160</x>
         <y>20</y>
         <width>71</width>
         <height>24</height>
@@ -591,7 +563,7 @@ QTabBar::tab:selected {
       </property>
       <property name="geometry">
        <rect>
-        <x>410</x>
+        <x>800</x>
         <y>20</y>
         <width>71</width>
         <height>24</height>
@@ -642,7 +614,7 @@ QTabBar::tab:selected {
       </property>
       <property name="geometry">
        <rect>
-        <x>230</x>
+        <x>340</x>
         <y>20</y>
         <width>71</width>
         <height>24</height>
@@ -658,7 +630,7 @@ QTabBar::tab:selected {
       </property>
       <property name="geometry">
        <rect>
-        <x>800</x>
+        <x>700</x>
         <y>20</y>
         <width>81</width>
         <height>24</height>
@@ -671,7 +643,7 @@ QTabBar::tab:selected {
      <widget class="QPushButton" name="refreshPresets">
       <property name="geometry">
        <rect>
-        <x>320</x>
+        <x>470</x>
         <y>20</y>
         <width>71</width>
         <height>24</height>
@@ -2306,6 +2278,9 @@ This is just to quickly hear what a sound sounds like.</string>
     </property>
    </widget>
    <widget class="QLabel" name="presetLabel">
+    <property name="enabled">
+     <bool>false</bool>
+    </property>
     <property name="geometry">
      <rect>
       <x>15</x>
@@ -2323,9 +2298,7 @@ This is just to quickly hear what a sound sounds like.</string>
      </font>
     </property>
     <property name="styleSheet">
-     <string notr="true">QLabel {
-	color: gray;
-}</string>
+     <string notr="true"/>
     </property>
     <property name="text">
      <string>Unnamed Preset</string>

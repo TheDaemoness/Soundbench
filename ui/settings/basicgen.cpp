@@ -77,7 +77,6 @@ void BasicGenerSettings::affect() {
         affectedblu->gener_data[affectedchan][sb::GenBasicWave] = sb::makeParamfromInt(sb::SineWave);
         break;
     }
-    affectedblu->gener_data[affectedchan][sb::GenBasicNoteBias].type = (ui->noteBiasBox >= 0?(sb::ParameterPosInt):(sb::ParameterNegInt));
     close();
 }
 

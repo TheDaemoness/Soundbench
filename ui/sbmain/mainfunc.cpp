@@ -47,3 +47,15 @@ SoundbenchMain::~SoundbenchMain() {
 
     delete ui;
 }
+
+void SoundbenchMain::updateToBlueprint() {
+    ui->gener1TypeBox->setCurrentIndex(static_cast<int>(blu->gener[0]));
+    ui->gener2TypeBox->setCurrentIndex(static_cast<int>(blu->gener[1]));
+    ui->gener3TypeBox->setCurrentIndex(static_cast<int>(blu->gener[2]));
+    ui->gener4TypeBox->setCurrentIndex(static_cast<int>(blu->gener[3]));
+
+    ui->gen1SettButton->setEnabled(blu->gener[0]!=sb::NoGener);
+    ui->gen2SettButton->setEnabled(blu->gener[1]!=sb::NoGener);
+    ui->gen3SettButton->setEnabled(blu->gener[2]!=sb::NoGener);
+    ui->gen4SettButton->setEnabled(blu->gener[3]!=sb::NoGener);
+}

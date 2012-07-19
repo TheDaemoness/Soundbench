@@ -140,6 +140,12 @@ void SoundbenchMain::delayedConstructor() {
     //Connect and setup the Settings page widgets.
     connect(ui->newButton,SIGNAL(clicked()),SLOT(resetBlueprint()));
     connect(ui->refreshPresets,SIGNAL(clicked()),SLOT(refreshPresets()));
+    connect(ui->openButton,SIGNAL(clicked()),SLOT(loadExternalPreset()));
+    connect(ui->importButton,SIGNAL(clicked()),SLOT(importPreset()));
+    connect(ui->exportButton,SIGNAL(clicked()),SLOT(exportOpen()));
+    connect(ui->saveButton,SIGNAL(clicked()),SLOT(savePreset()));
+    connect(ui->deleteButton,SIGNAL(clicked()),SLOT(deletePreset()));
+    connect(ui->presetList,SIGNAL(clicked(QModelIndex)),SLOT(loadInternalPreset()));
 
     //Connect and setup the Player page widgets.
     connect(ui->holdA4Button,SIGNAL(toggled(bool)),SLOT(testSynth(bool)));

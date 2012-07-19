@@ -98,18 +98,19 @@ public:
 
 namespace sb {
     enum ParameterValueType {
-        ParameterByte = 0x0,
-        ParameterPosInt = 0x1,
-        ParameterNegInt = 0x2,
-        ParameterStr = 0x3,
-        ParameterDecim = 0x4,
-        ParameterSample = 0x5
+        ParameterPosByte = 0x0,
+        ParameterSigByte = 0x1,
+        ParameterPosInt = 0x2,
+        ParameterSigInt = 0x3, //Har har.
+        ParameterByteArray = 0x4,
+        ParameterDecim = 0x5,
+        ParameterSample = 0x6
     };
 
     struct ParameterValue {
         union {
             SbSample sample;
-            int64_t value;
+            int value;
             float decim;
             struct {
             char* type;
@@ -120,26 +121,29 @@ namespace sb {
         ParameterValueType type;
     };
     template <typename T>
-    inline ParameterValue makeParamfromPointer(T* ptr) {
-        ParameterValue valu;
-        valu.pod.other.type = "pointer";
-        valu.pod.other.data = reinterpret_cast<void*>(ptr);
-        return valu;
-    }
-    template <typename T>
     inline ParameterValue makeParamfromInt(T i) {
         ParameterValue valu;
         valu.pod.value = static_cast<int64_t>(i);
+        if (i < 0 && i >= -128)
+            valu.type = sb::ParameterSigByte;
+        else if (i < 256)
+            valu.type = sb::ParameterPosByte;
+        else if (i >= 0)
+            valu.type = sb::ParameterPosInt;
+        else
+            valu.type = sb::ParameterSigInt;
         return valu;
     }
     inline ParameterValue makeParamfromSample(SbSample i) {
         ParameterValue valu;
         valu.pod.sample = i;
+        valu.type = sb::ParameterSample;
         return valu;
     }
     inline ParameterValue makeParamfromFloat(float i) {
         ParameterValue valu;
         valu.pod.decim = i;
+        valu.type = sb::ParameterDecim;
         return valu;
     }
 

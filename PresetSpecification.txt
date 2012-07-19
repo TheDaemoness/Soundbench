@@ -7,15 +7,9 @@ Linux and other *NIXes:     ~/.soundbench
 
 ~~~~~~~~~~~~~~~~~
 
-Variable Length Integer (VLI) Fields and Byte Arrays:
-Variable length fields are similar to how they work in MIDI files.
+Byte Arrays set the first bit of each byte to 1 if there is a following element and 0 if there isn't.
+The remaining 7 bits are used for the actual data.
 
-The first bit indicates whether or not there is a following byte.
-The remaining seven bits are used for the actual values.
-
-The maximum length of a VLI field is capped at 8 bytes.
-
-Byte Arrays work similarly except there is no cap and and each byte is suppsed to be treated as its own element.
 These are generally used as strings of ASCII characters.
 
 ~~~~~~~~~~~~~~~~~
@@ -23,12 +17,13 @@ These are generally used as strings of ASCII characters.
 Type fields:
 A type field is a 1-byte field that indicates the amount and type of data after it.
 
-0x0: A byte.
-0x1: A VLI field to be treated as a positive integer.
-0x2: A VLI field to be treated as a negative integer.
-0x3: A byte array.
-0x4: A single-precision floating point number.
-0x5: A floating point sample (like 0x3, except capped -1.0 to 1.0).
+0x0: A positive byte.
+0x1: A signed byte.
+0x2: A positive 2-byte integer.
+0x3: A signed 2-byte integer.
+0x4: A byte array.
+0x5: A single-precision floating point number.
+0x6: A floating point sample (like 0x6, except capped -1.0 to 1.0).
 
 ~~~~~~~~~~~~~~~~~
 
@@ -50,7 +45,7 @@ Format:
 <generator1_type> <generator2_type> <generator3_type> <generator4_type> <effects1_array> <effects2_array> <effects3_array> <effects4_array>
 
 generator#_type: A one-byte indicator of the type of generator.
-effects#_array: A byte array that can be no longer than 4 elements storing the types of effects, in order.
+effects#_array: A series of 4 bytes storing the types of effects, in order.
 
 ~~~~~~~~~~~~~~~~~
 
@@ -66,7 +61,7 @@ element: A byte.
     The first nibble stores the number of the channel (1-4, NOT 0-3).
     The second nibble stores the element number (0 = generator, 1-4 = effects).
 
-setting: A VLI field storing the number of the setting to be set.
+setting: A two-byte field storing the number of the setting.
 
 type_field: A type field storing the type of the data to be read.
 

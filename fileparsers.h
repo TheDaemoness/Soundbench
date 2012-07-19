@@ -39,7 +39,7 @@ namespace sb {
     }
 
     template <typename stream>
-    std::string bitArrayParse(stream& river) {
+    std::string byteArrayParse(stream& river) {
         std::string outstr;
         while (true) {
             char charin = river.get();

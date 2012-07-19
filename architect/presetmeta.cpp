@@ -47,13 +47,13 @@ namespace sb {
             }
         }
 
-        uint16_t vnum = in->get();
-        vnum <<= 8;
-        vnum |= in->get();
+        uint16_t vnum;
+        in->read(reinterpret_cast<char*>(&vnum),2);
         if (vnum > SB_PRESET_VERSION) {
             std::cerr << path << " uses a preset version later than this Soundbench can read.\n";
             std::cerr << "Preset version: " << vnum << '\n';
             std::cerr << "Maximum supported version: " << SB_PRESET_VERSION << '\n';
+            return PresetMeta();
         }
 
         PresetMeta data;
@@ -62,7 +62,7 @@ namespace sb {
         std::cerr << "Getting metadata for " << path << "...\n";
 
         for (uint8_t i = 0; i < 3; ++i) {
-            std::string field = bitArrayParse(*in);
+            std::string field = byteArrayParse(*in);
             for(char& tab : field) {
                 if(tab == '\t')
                     tab = ' ';

@@ -20,35 +20,10 @@
 #include "soundbenchmain.h"
 
 #include <fstream>
-#include <cstdio>
-
-void SoundbenchMain::refreshPresets() {
-    QFile delfile((datadir+"/presetrecord").c_str());
-    delfile.remove(); //Get rid of a certain preset record.
-    loadPresetList();
-}
-
-void SoundbenchMain::resetBlueprint() {
-    stopAndReset();
-    arch->planAllDefaults(blu);
-    arch->buildSynth(syn,blu);
-
-    ui->presetLabel->setText("Unnamed Preset");
-
-    ui->gener1TypeBox->setCurrentIndex(0);
-    ui->gener2TypeBox->setCurrentIndex(0);
-    ui->gener3TypeBox->setCurrentIndex(0);
-    ui->gener4TypeBox->setCurrentIndex(0);
-
-    ui->gen1SettButton->setDisabled(true);
-    ui->gen2SettButton->setDisabled(true);
-    ui->gen3SettButton->setDisabled(true);
-    ui->gen4SettButton->setDisabled(true);
-
-    em->start();
-}
 
 void SoundbenchMain::loadPresetList() {
+    presetlist.clear();
+
     QFile river((datadir+"/presetrecord").c_str());
     river.open(QIODevice::ReadWrite | QIODevice::Text);
 
