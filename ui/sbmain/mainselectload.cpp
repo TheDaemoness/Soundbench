@@ -30,6 +30,8 @@ void SoundbenchMain::loadInternalPreset() {
         displayPresets();
         em->start();
 
+        resetSelectUI();
+
         ui->presetLabel->setEnabled(false);
         ui->presetLabel->setText("Preset Loading Failed");
 
@@ -44,6 +46,7 @@ void SoundbenchMain::loadInternalPreset() {
     ui->importButton->setDisabled(true);
     ui->saveButton->setEnabled(true);
     ui->exportButton->setEnabled(true);
+    ui->deleteButton->setEnabled(true);
 
     ui->presetLabel->setEnabled(true);
     ui->presetLabel->setText(presetlist[currpreset].name.c_str());
@@ -55,10 +58,14 @@ void SoundbenchMain::loadInternalPreset() {
 }
 
 void SoundbenchMain::loadExternalPreset() {
+    ui->presetLine->releaseKeyboard();
+
     stopAndReset();
     met->pauseMeter();
-    QString chosenfile = QFileDialog::getOpenFileName(NULL,"Choose a preset to open...", "~/", "Soundbench Presets (*.sbp)");
-    if (!chosenfile.size()) {
+    QString chosenfile = QFileDialog::getOpenFileName(NULL,"Choose a preset to open...",QDir::homePath(), "Soundbench Presets (*.sbp)");
+    ui->presetLine->grabKeyboard();
+
+    if (chosenfile.isEmpty()) {
         em->start();
         met->startMeter();
         return;
@@ -85,32 +92,9 @@ void SoundbenchMain::loadExternalPreset() {
     ui->saveButton->setEnabled(true);
 
     ui->importButton->setEnabled(true);
+    ui->exportButton->setEnabled(true);
     ui->deleteButton->setEnabled(true);
-}
-
-void SoundbenchMain::deletePreset() {
-    WarningPopup popu;
-    popu.setWarningText("Confirm Deletion");
-    popu.setInfoText("Once you delete a preset, the operation cannot be trivially undone.");
-    popu.exec();
-
-    if (!popu.fixed())
-        return;
-
-    QFile delfile;
-    if (external)
-        delfile.setFileName(externalpresetdata.path.c_str());
-    else
-        delfile.setFileName((datadir+"/presets/"+presetlist[currpreset].path).c_str());
-    delfile.remove();
-    loadPresetList(); //Reload the list
-
-    ui->deleteButton->setEnabled(false);
-    if (!external) {
-        writePresetRecord();
-        displayPresets();
-        loadPresetList();
-    }
+    ui->presetLine->grabKeyboard();
 }
 
 void SoundbenchMain::importPreset() {
@@ -127,44 +111,6 @@ void SoundbenchMain::importPreset() {
     ui->presetLabel->setText(externalpresetdata.name.c_str());
 }
 
-void SoundbenchMain::savePreset() {
-    if (external) {
-        arch->savePreset(externalpresetdata.path,
-                         "",blu,
-                         externalpresetdata.name,
-                         externalpresetdata.arti,
-                         externalpresetdata.desc);
-    }
-    else {
-        arch->savePreset(presetlist[currpreset].path,
-                         datadir+"/presets",blu,
-                         presetlist[currpreset].name,
-                         presetlist[currpreset].arti,
-                         presetlist[currpreset].desc);
-    }
-}
-
-void SoundbenchMain::exportPreset() {
-    std::string newname = QFileDialog::getOpenFileName(NULL,"Choose a file to save a copy to...", "~/", "Soundbench Presets (*.sbp)").toStdString();
-    if(newname.find_last_of('.') != newname.size()-5) {
-        newname += ".sbp";
-    }
-    if (external) {
-        arch->savePreset(newname,
-                         "",blu,
-                         externalpresetdata.name,
-                         externalpresetdata.arti,
-                         externalpresetdata.desc);
-    }
-    else {
-        arch->savePreset(newname,
-                         "",blu,
-                         presetlist[currpreset].name,
-                         presetlist[currpreset].arti,
-                         presetlist[currpreset].desc);
-    }
-}
-
 void SoundbenchMain::refreshPresets() {
     std::cerr << "Removing " << datadir << "/presetrecord...\n";
     QFile delfile((datadir+"/presetrecord").c_str());
@@ -179,9 +125,6 @@ void SoundbenchMain::resetBlueprint() {
     arch->planAllDefaults(blu);
     arch->buildSynth(syn,blu);
 
-    ui->presetLabel->setDisabled(true);
-    ui->presetLabel->setText("Unnamed Preset");
-
     ui->gener1TypeBox->setCurrentIndex(0);
     ui->gener2TypeBox->setCurrentIndex(0);
     ui->gener3TypeBox->setCurrentIndex(0);
@@ -191,6 +134,9 @@ void SoundbenchMain::resetBlueprint() {
     ui->gen2SettButton->setDisabled(true);
     ui->gen3SettButton->setDisabled(true);
     ui->gen4SettButton->setDisabled(true);
+
+    resetSelectUI();
+    external = false;
 
     em->start();
 }

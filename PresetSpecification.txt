@@ -23,7 +23,7 @@ A type field is a 1-byte field that indicates the amount and type of data after 
 0x3: A signed 2-byte integer.
 0x4: A byte array.
 0x5: A single-precision floating point number.
-0x6: A floating point sample (like 0x6, except capped -1.0 to 1.0).
+0x6: A floating point sample (like 0x5, except capped -1.0 to 1.0).
 
 ~~~~~~~~~~~~~~~~~
 

@@ -73,8 +73,6 @@ namespace sb {
             uint16_t whichparam = 0;
             in.read(reinterpret_cast<char*>(&whichparam),2);
 
-            std::cerr << "Which channel: " << static_cast<int>(channum) << ".\n";
-
             //Get the data depending on the type field.
             ParameterValue val;
             val.type = static_cast<ParameterValueType>(in.get());
@@ -118,8 +116,6 @@ namespace sb {
                 planAllDefaults(blu);
                 return PresetMeta();
             }
-
-            std::cerr << "Type: " << val.type << "\tValue: " << val.pod.value << "\tSample: " << val.pod.sample << "\tDecimal: " << val.pod.decim << "\n";
 
             if ((munch & Nibble2) > 0)
                 blu->eff_data[channum-1][(munch & Nibble2)-1][static_cast<ModuleParams>(whichparam)] = val;

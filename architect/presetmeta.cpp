@@ -34,12 +34,12 @@ namespace sb {
         else
             close = false;
 
-        std::string magicheader("SoundbenchPreset");
         if (!in->is_open()) {
             std::cerr << "Something wicked happened when loading the preset.\n";
             return PresetMeta();
         }
 
+        std::string magicheader("SoundbenchPreset");
         for (char c : magicheader) {
             if(in->get() != c) {
                 std::cerr << path << " is not a valid preset. Aborting...\n";

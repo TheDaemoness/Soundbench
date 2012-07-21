@@ -72,9 +72,7 @@ SOURCES += emitter/initportaudio.cpp \
     sampletable.cpp \
     trapezoid.cpp \
     emitter/initsomething.cpp \
-    ui/sbmain/mainfunc.cpp \
     ui/sbmain/maininit.cpp \
-    ui/sbmain/mainslots.cpp \
     waves/basicwaves.cpp \
     backend/rtaudio.cpp \
     emitter/initrtaudio.cpp \
@@ -92,7 +90,9 @@ SOURCES += emitter/initportaudio.cpp \
     architect/presetload.cpp \
     architect/presetmeta.cpp \
     architect/presetsave.cpp \
-    ui/sbmain/mainselectbuttons.cpp
+    ui/sbmain/mainselectload.cpp \
+    ui/sbmain/mainselectsave.cpp \
+    ui/sbmain/mainmisc.cpp
 
 RESOURCES += \
     resources.qrc

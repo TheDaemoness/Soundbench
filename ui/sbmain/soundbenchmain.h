@@ -71,6 +71,7 @@ private slots:
     void setPort();
     void useVPort(bool);
     void record(bool);
+    void editMetadata(bool);
 
     void refreshPresets(); //New preset.
     void resetBlueprint();
@@ -80,21 +81,16 @@ private slots:
     void importPreset();
     void savePreset();
     void exportPreset();
+    void holdKeyboard(int);
+    void displayPresets();
 
 private:
     void genSetts(size_t i);
-    void displayPresets();
     void writePresetRecord();
     void loadPresetList();
-    inline void stopAndReset() {
-        em->stop();
-        plai->stopRec();
-        plai->stopPlay();
-        syn->reset();
-        ui->playButton->setChecked(false);
-        ui->holdA4Button->setChecked(false);
-    }
+    void stopAndReset();
     void updateToBlueprint();
+    void resetSelectUI();
 
     std::vector <sb::PresetMeta> presetlist;
     size_t currpreset;

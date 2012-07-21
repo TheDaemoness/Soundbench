@@ -21,6 +21,12 @@
 
 #include <fstream>
 
+static bool sortPresets(const sb::PresetMeta& a, const sb::PresetMeta& b) {
+    if (a.name < b.name)
+        return true;
+    return false;
+}
+
 void SoundbenchMain::loadPresetList() {
     presetlist.clear();
 
@@ -58,8 +64,6 @@ void SoundbenchMain::loadPresetList() {
     //Confirm that the record is telling the truth.
     QDir presetdir((datadir+"/presets").c_str());
     auto filelist = presetdir.entryList(QStringList("*.sbp")).toVector();
-
-    std::cerr << '\n';
     size_t missing(0), extra(0);
 
     //Check for missing files.
@@ -91,6 +95,8 @@ void SoundbenchMain::loadPresetList() {
         }
     }
 
+    std::sort(presetlist.begin(),presetlist.end(),sortPresets);
+
     if (extra == 1)
         std::cerr << "1 extra preset was found and was added.\n";
     else if (extra != 0)
@@ -107,17 +113,113 @@ void SoundbenchMain::loadPresetList() {
 
 void SoundbenchMain::displayPresets() {
     ui->presetList->clear();
-    for (sb::PresetMeta pres : presetlist)
-        ui->presetList->addItem((pres.name + " by " + pres.arti + " - " + pres.desc).c_str());
+    if (!ui->presetLine->text().isEmpty()) {
+        const QString& str = ui->presetLine->text();
+
+        QStringList elems = str.toLower().split(' ',QString::SkipEmptyParts);
+        for (sb::PresetMeta pres : presetlist) {
+            auto tags = QString((pres.name + ' ' + pres.arti + ' ' + pres.tags).c_str()).toLower().split(' ',QString::SkipEmptyParts);
+
+            bool allmatch = true;
+            for (const auto& tag : elems) {
+                if(!tags.contains(tag)) {
+                    allmatch = false;
+                    break;
+                }
+            }
+            if (allmatch)
+                ui->presetList->addItem((pres.name + " by " + pres.arti + " - " + pres.desc).c_str());
+        }
+
+    }
+    else {
+        for (sb::PresetMeta pres : presetlist)
+            ui->presetList->addItem((pres.name + " by " + pres.arti + " - " + pres.desc).c_str());
+    }
 }
 
-void SoundbenchMain::writePresetRecord() {
-    std::ofstream of(datadir+"/presetrecord",std::ios_base::trunc);
-    if (!of.is_open()) {
-        std::cerr << "Something wicked happened while writing the preset record.\n";
-        std::cerr << "Please check to ensure that Soundbench didn't lose permissions to write to its own directory.\n";
-        return;
+void SoundbenchMain::resetSelectUI() {
+    ui->saveButton->setDisabled(true);
+    ui->deleteButton->setDisabled(true);
+    ui->importButton->setDisabled(true);
+
+    ui->presetLabel->setDisabled(true);
+    ui->presetLabel->setText("Unnamed Preset");
+}
+
+void SoundbenchMain::editMetadata(bool ed) {
+    if (ed) {
+        disconnect(ui->presetLine,SIGNAL(textEdited(QString)),this,SLOT(displayPresets()));
+        ui->presetLine->clear();
+        displayPresets();
+        ui->metadataBox->setEnabled(false);
+        switch(ui->metadataBox->currentIndex()) {
+        case 0:
+            ui->filterLabel->setText("Name:");
+            if (!external)
+                ui->presetLine->setText(presetlist[currpreset].name.c_str());
+            else
+                ui->presetLine->setText(externalpresetdata.name.c_str());
+            break;
+        case 1:
+            ui->filterLabel->setText("Artist:");
+            if (!external)
+                ui->presetLine->setText(presetlist[currpreset].arti.c_str());
+            else
+                ui->presetLine->setText(externalpresetdata.arti.c_str());
+            break;
+        case 2:
+            ui->filterLabel->setText("Description:");
+            if (!external)
+                ui->presetLine->setText(presetlist[currpreset].desc.c_str());
+            else
+                ui->presetLine->setText(externalpresetdata.desc.c_str());
+            break;
+        case 3:
+            ui->filterLabel->setText("Tags:");
+            if (!external)
+                ui->presetLine->setText(presetlist[currpreset].tags.c_str());
+            else
+                ui->presetLine->setText(externalpresetdata.tags.c_str());
+            break;
+        }
     }
-    for (sb::PresetMeta pres : presetlist)
-        of << pres.path << '\t' << pres.name << '\t'<< pres.arti << '\t' << pres.desc << '\t' << pres.tags << '\n';
+    else {
+        switch(ui->metadataBox->currentIndex()) {
+        case 0:
+            ui->presetLabel->setEnabled(true);
+            ui->presetLabel->setText(ui->presetLine->text());
+            if (!external)
+                presetlist[currpreset].name = ui->presetLine->text().toStdString();
+            else
+                externalpresetdata.name = ui->presetLine->text().toStdString();
+            break;
+        case 1:
+            if (!external)
+                presetlist[currpreset].arti = ui->presetLine->text().toStdString();
+            else
+                externalpresetdata.arti = ui->presetLine->text().toStdString();
+            break;
+        case 2:
+            if (!external)
+                presetlist[currpreset].desc = ui->presetLine->text().toStdString();
+            else
+                externalpresetdata.desc = ui->presetLine->text().toStdString();
+            break;
+        case 3:
+            if (!external)
+                presetlist[currpreset].tags = ui->presetLine->text().toStdString();
+            else
+                externalpresetdata.tags = ui->presetLine->text().toStdString();
+            break;
+        }
+
+        ui->presetLine->clear();
+        displayPresets();
+        connect(ui->presetLine,SIGNAL(textEdited(QString)),SLOT(displayPresets()));
+        ui->filterLabel->setText("Filter Presets:");
+        displayPresets();
+        ui->metadataBox->setEnabled(true);
+    }
+
 }

@@ -59,3 +59,51 @@ void SoundbenchMain::updateToBlueprint() {
     ui->gen3SettButton->setEnabled(blu->gener[2]!=sb::NoGener);
     ui->gen4SettButton->setEnabled(blu->gener[3]!=sb::NoGener);
 }
+
+
+void SoundbenchMain::stopAndReset() {
+    em->stop();
+    plai->stopRec();
+    plai->stopPlay();
+    syn->reset();
+    ui->playButton->setChecked(false);
+    ui->holdA4Button->setChecked(false);
+}
+
+void SoundbenchMain::testSynth(bool b) {
+    if (b)
+        syn->noteOn(0,1.0);
+    else
+        syn->noteOff(0);
+}
+
+void SoundbenchMain::silence() {
+    stopAndReset();
+    em->start();
+}
+
+void SoundbenchMain::setMasterVolume(int) {
+    syn->volume() = static_cast<SbSample>(ui->volumeSlider->value())/ui->volumeSlider->maximum();
+}
+
+void SoundbenchMain::setSampleRate(int which) {
+    ui->playButton->setChecked(false);
+    em->setSamplingRate(sb::SupportedRates[which]);
+    arch->buildSynth(syn,blu);
+    em->start();
+}
+
+void SoundbenchMain::setPoly(int tracks) {
+    plai->stopRt();
+    stopAndReset();
+    syn->setPolyphony(tracks);
+    em->start();
+    plai->startRt();
+}
+
+void SoundbenchMain::holdKeyboard(int fram) {
+    if (fram == 0)
+        ui->presetLine->grabKeyboard();
+    else
+        ui->presetLine->releaseKeyboard();
+}

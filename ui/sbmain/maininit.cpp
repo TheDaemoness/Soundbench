@@ -24,6 +24,7 @@ SoundbenchMain::SoundbenchMain(QWidget *parent) : QMainWindow(parent) {
     blu = new sb::Blueprint;
     em = nullptr;
     syn = nullptr;
+    external = true;
 
     ui = new Ui::SoundbenchMain();
     ui->setupUi(this);
@@ -62,7 +63,7 @@ void SoundbenchMain::delayedConstructor() {
         std::cerr << "Setting up directories...\n";
         sbdata.mkdir("Soundbench");
     }
-    sbdata.mkdir("Soundbench");
+    sbdata.cd("Soundbench");
 #else
     if (!sbdata.exists(".soundbench")) {
         std::cerr << "Setting up directories...\n";
@@ -132,20 +133,25 @@ void SoundbenchMain::delayedConstructor() {
         }
     }
 
-    //Connect and setup the main page widgets.
+    //Connect and setup the main page widgets and actions.
     connect(ui->silenceButton,SIGNAL(clicked()),SLOT(silence()));
     connect(ui->volumeSlider,SIGNAL(valueChanged(int)),SLOT(setMasterVolume(int)));
     connect(ui->playButton,SIGNAL(toggled(bool)),SLOT(playSynth(bool)));
+    connect(ui->mainTabs,SIGNAL(currentChanged(int)),SLOT(holdKeyboard(int)));
 
-    //Connect and setup the Settings page widgets.
+    //Connect and setup the Select page widgets.
     connect(ui->newButton,SIGNAL(clicked()),SLOT(resetBlueprint()));
     connect(ui->refreshPresets,SIGNAL(clicked()),SLOT(refreshPresets()));
     connect(ui->openButton,SIGNAL(clicked()),SLOT(loadExternalPreset()));
-    connect(ui->importButton,SIGNAL(clicked()),SLOT(importPreset()));
-    connect(ui->exportButton,SIGNAL(clicked()),SLOT(exportOpen()));
+    connect(ui->importPresetButton,SIGNAL(clicked()),SLOT(importPreset()));
+    connect(ui->exportPresetButton,SIGNAL(clicked()),SLOT(exportPreset()));
     connect(ui->saveButton,SIGNAL(clicked()),SLOT(savePreset()));
     connect(ui->deleteButton,SIGNAL(clicked()),SLOT(deletePreset()));
     connect(ui->presetList,SIGNAL(clicked(QModelIndex)),SLOT(loadInternalPreset()));
+    connect(ui->editMetadata,SIGNAL(toggled(bool)),SLOT(editMetadata(bool)));
+    connect(ui->presetLine,SIGNAL(textEdited(QString)),SLOT(displayPresets()));
+    if (ui->mainTabs->currentIndex() == 0)
+        ui->presetLine->grabKeyboard();
 
     //Connect and setup the Player page widgets.
     connect(ui->holdA4Button,SIGNAL(toggled(bool)),SLOT(testSynth(bool)));
