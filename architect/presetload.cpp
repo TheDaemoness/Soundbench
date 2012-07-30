@@ -129,6 +129,7 @@ namespace sb {
             }
             munch = in.get();
         }
+        std::cerr << "Loaded preset \"" << premet.name << "\".\n";
         return premet;
     }
 }

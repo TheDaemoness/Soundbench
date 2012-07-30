@@ -52,11 +52,11 @@ If attempting to build on Windows, we recommend doing so without PortAudio as ap
 ===CONFIGURATIONS===
 Soundbench does have a few configurations that allow the user to disable one or more features in exchange for a removed dependency.
 
-noRtAudio
-Remove RtAudio. This will remove Soundbench's default audio backend, though a PortAudio backend will be available.
-
 noPortAudio
-Remove PortAudio. This will remove Soundbench's fallback audio backend, and if Soundbench is compiled without this or RtAudio, no real-time audio support will be enabled.
+Remove PortAudio. This will remove Soundbench's default audio backend.
+
+noRtAudio
+Remove RtAudio. This will remove Soundbench's fallback audio backend.
 
 noRtMidi
 Remove RtMidi. As of the 0.3.0 development branch, this will disable all real-time Midi input, as there is no alternative note input frontend.

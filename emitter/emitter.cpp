@@ -83,10 +83,10 @@ namespace sb {
         supported_apis[RtAudio_O] = RtAudioBackend::instantiable();
         syn = s;
 
-        if (supported_apis[RtAudio_O])
-            em_type = RtAudio_O;
-        else if (supported_apis[PortAudio_O])
+        if (supported_apis[PortAudio_O])
             em_type = PortAudio_O;
+        else if (supported_apis[RtAudio_O])
+            em_type = RtAudio_O;
         else {
             std::cerr << "No real time audio backends can be initialized on this computer.\n";
             em_type = NoEmitter;

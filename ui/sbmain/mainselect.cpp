@@ -141,7 +141,9 @@ void SoundbenchMain::displayPresets() {
 void SoundbenchMain::resetSelectUI() {
     ui->saveButton->setDisabled(true);
     ui->deleteButton->setDisabled(true);
-    ui->importButton->setDisabled(true);
+    ui->importPresetButton->setDisabled(true);
+
+    ui->presetList->setCurrentRow(ui->presetList->currentRow(),QItemSelectionModel::Deselect);
 
     ui->presetLabel->setDisabled(true);
     ui->presetLabel->setText("Unnamed Preset");

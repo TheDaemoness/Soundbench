@@ -32,6 +32,11 @@ SoundbenchMain::SoundbenchMain(QWidget *parent) : QMainWindow(parent) {
     type_sigmap = new QSignalMapper;
     rate_sigmap = new QSignalMapper;
 
+    sc_new = new QShortcut(QKeySequence("Ctrl+N"),this);
+    sc_open = new QShortcut(QKeySequence("Ctrl+O"),this);
+    sc_save = new QShortcut(QKeySequence("Ctrl+S"),this);
+    sc_export = new QShortcut(QKeySequence("Ctrl+Shift+S"),this);
+
     arch->planAllDefaults(blu);
 }
 
@@ -152,6 +157,10 @@ void SoundbenchMain::delayedConstructor() {
     connect(ui->presetLine,SIGNAL(textEdited(QString)),SLOT(displayPresets()));
     if (ui->mainTabs->currentIndex() == 0)
         ui->presetLine->grabKeyboard();
+    connect(sc_new,SIGNAL(activated()),SLOT(resetBlueprint()));
+    connect(sc_open,SIGNAL(activated()),SLOT(loadExternalPreset()));
+    connect(sc_save,SIGNAL(activated()),SLOT(savePreset()));
+    connect(sc_export,SIGNAL(activated()),SLOT(exportPreset()));
 
     //Connect and setup the Player page widgets.
     connect(ui->holdA4Button,SIGNAL(toggled(bool)),SLOT(testSynth(bool)));

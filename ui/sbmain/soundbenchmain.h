@@ -33,6 +33,7 @@
 #include <QSignalMapper>
 #include <QFileDialog>
 #include <QThread>
+#include <QShortcut>
 
 namespace Ui {
     class SoundbenchMain: public Ui_SoundBenchMain {};
@@ -103,6 +104,8 @@ private:
     sb::Architect* arch;
     sb::Emitter* em;
     sb::Player* plai;
+
+    QShortcut *sc_new, *sc_open, *sc_export, *sc_save;
 
     std::string datadir;
 

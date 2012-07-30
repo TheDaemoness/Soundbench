@@ -45,6 +45,11 @@ SoundbenchMain::~SoundbenchMain() {
     delete type_sigmap;
     delete rate_sigmap;
 
+    delete sc_new;
+    delete sc_open;
+    delete sc_save;
+    delete sc_export;
+
     delete ui;
 }
 
