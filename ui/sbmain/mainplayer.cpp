@@ -168,7 +168,7 @@ void SoundbenchMain::record(bool rec) {
         else {
             ui->tempoBox->setDisabled(true);
             ui->playButton->setDisabled(true);
-            ui->tempoBox->setToolTip("Change the starting tempo of the current track.");
+            ui->tempoBox->setToolTip("");
         }
         ui->exportButton->setEnabled(!plai->empty());
     }

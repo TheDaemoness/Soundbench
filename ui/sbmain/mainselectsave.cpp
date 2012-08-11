@@ -23,6 +23,8 @@
 
 void SoundbenchMain::savePreset() {
     if (external) {
+        if (externalpresetdata.path.empty())
+            return;
         arch->savePreset(externalpresetdata.path,
                          "",blu,
                          externalpresetdata.name,
@@ -30,6 +32,8 @@ void SoundbenchMain::savePreset() {
                          externalpresetdata.desc);
     }
     else {
+        if (presetlist[currpreset].path.empty())
+            return;
         arch->savePreset(presetlist[currpreset].path,
                          datadir+"/presets",blu,
                          presetlist[currpreset].name,

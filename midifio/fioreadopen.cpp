@@ -73,7 +73,7 @@ namespace sb {
                     error_stream << "Unknown error.\n";
                 else {
                     reason[0] = toupper(reason[0]);
-                    error_stream << reason << '.';
+                    error_stream << reason << ".\n";
                 }
                 river.close();
                 return false;

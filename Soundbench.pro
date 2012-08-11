@@ -65,9 +65,6 @@ SOURCES += emitter/initportaudio.cpp \
     meterupdater.cpp \
     ui/settings/basicgen.cpp \
     gener/basic.cpp \
-    midifio/read.cpp \
-    midifio/readeropen.cpp \
-    midifio/misc.cpp \
     sfwriter.cpp \
     sampletable.cpp \
     trapezoid.cpp \
@@ -92,7 +89,12 @@ SOURCES += emitter/initportaudio.cpp \
     architect/presetsave.cpp \
     ui/sbmain/mainselectload.cpp \
     ui/sbmain/mainselectsave.cpp \
-    ui/sbmain/mainmisc.cpp
+    ui/sbmain/mainmisc.cpp \
+    midifio/fiomisc.cpp \
+    midifio/fioread.cpp \
+    midifio/fioreadopen.cpp \
+    midifio/fiowriteopen.cpp \
+    midifio/fiowrite.cpp
 
 RESOURCES += \
     resources.qrc

@@ -112,6 +112,9 @@ void SoundbenchMain::loadPresetList() {
 
 
 void SoundbenchMain::displayPresets() {
+    int oldsize = ui->presetList->count();
+    int hilight = ((oldsize != 0)?ui->presetList->currentRow():0);
+    \
     ui->presetList->clear();
     if (!ui->presetLine->text().isEmpty()) {
         const QString& str = ui->presetLine->text();
@@ -136,6 +139,9 @@ void SoundbenchMain::displayPresets() {
         for (sb::PresetMeta pres : presetlist)
             ui->presetList->addItem((pres.name + " by " + pres.arti + " - " + pres.desc).c_str());
     }
+    if (oldsize != 0 && oldsize == ui->presetList->count())
+        ui->presetList->setCurrentRow(hilight);
+
 }
 
 void SoundbenchMain::resetSelectUI() {
@@ -158,8 +164,9 @@ void SoundbenchMain::editMetadata(bool ed) {
         switch(ui->metadataBox->currentIndex()) {
         case 0:
             ui->filterLabel->setText("Name:");
-            if (!external)
+            if (!external) {
                 ui->presetLine->setText(presetlist[currpreset].name.c_str());
+            }
             else
                 ui->presetLine->setText(externalpresetdata.name.c_str());
             break;
