@@ -478,7 +478,7 @@ QTabBar::tab:selected {
 }</string>
     </property>
     <property name="currentIndex">
-     <number>0</number>
+     <number>3</number>
     </property>
     <widget class="QWidget" name="tabSelect">
      <attribute name="title">
@@ -1191,8 +1191,8 @@ Save the preset as another file.</string>
      <widget class="QGraphicsView" name="channelsBackdrop">
       <property name="geometry">
        <rect>
-        <x>-5</x>
-        <y>-5</y>
+        <x>-2</x>
+        <y>-2</y>
         <width>1056</width>
         <height>466</height>
        </rect>
@@ -1212,7 +1212,7 @@ Save the preset as another file.</string>
       </property>
       <property name="geometry">
        <rect>
-        <x>140</x>
+        <x>145</x>
         <y>70</y>
         <width>71</width>
         <height>21</height>
@@ -1236,7 +1236,7 @@ Save the preset as another file.</string>
       </property>
       <property name="geometry">
        <rect>
-        <x>140</x>
+        <x>145</x>
         <y>175</y>
         <width>71</width>
         <height>21</height>
@@ -1260,7 +1260,7 @@ Save the preset as another file.</string>
       </property>
       <property name="geometry">
        <rect>
-        <x>140</x>
+        <x>145</x>
         <y>285</y>
         <width>71</width>
         <height>21</height>
@@ -1284,7 +1284,7 @@ Save the preset as another file.</string>
       </property>
       <property name="geometry">
        <rect>
-        <x>140</x>
+        <x>145</x>
         <y>395</y>
         <width>71</width>
         <height>21</height>
@@ -1344,7 +1344,7 @@ Save the preset as another file.</string>
      <widget class="QComboBox" name="gener1TypeBox">
       <property name="geometry">
        <rect>
-        <x>35</x>
+        <x>40</x>
         <y>70</y>
         <width>96</width>
         <height>21</height>
@@ -1367,7 +1367,7 @@ Save the preset as another file.</string>
      <widget class="QComboBox" name="gener2TypeBox">
       <property name="geometry">
        <rect>
-        <x>35</x>
+        <x>40</x>
         <y>175</y>
         <width>96</width>
         <height>21</height>
@@ -1390,7 +1390,7 @@ Save the preset as another file.</string>
      <widget class="QComboBox" name="gener3TypeBox">
       <property name="geometry">
        <rect>
-        <x>35</x>
+        <x>40</x>
         <y>285</y>
         <width>96</width>
         <height>21</height>
@@ -1413,7 +1413,7 @@ Save the preset as another file.</string>
      <widget class="QComboBox" name="gener4TypeBox">
       <property name="geometry">
        <rect>
-        <x>35</x>
+        <x>40</x>
         <y>395</y>
         <width>96</width>
         <height>21</height>

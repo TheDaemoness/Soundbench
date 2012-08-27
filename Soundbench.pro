@@ -92,9 +92,7 @@ SOURCES += emitter/initportaudio.cpp \
     ui/sbmain/mainmisc.cpp \
     midifio/fiomisc.cpp \
     midifio/fioread.cpp \
-    midifio/fioreadopen.cpp \
-    midifio/fiowriteopen.cpp \
-    midifio/fiowrite.cpp
+    midifio/fioreadopen.cpp
 
 RESOURCES += \
     resources.qrc

@@ -48,10 +48,8 @@ namespace sb {
 
 #ifndef IS_SOUNDBENCH
             bool readerOpen(std::string, std::ostream& error_stream = std::cerr);
-            bool writerOpen(std::string, std::ostream& error_stream = std::cerr);
 #else
             bool readerOpen(std::string);
-            bool writerOpen(std::string);
 #endif
             bool readFrom(uint16_t); //Changes from which track read() reads.
             std::string getTrackName(uint16_t); //Checks the specified track for a meta-event immediately after the header giving the track's name.
