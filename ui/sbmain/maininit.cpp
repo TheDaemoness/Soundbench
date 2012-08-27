@@ -24,7 +24,6 @@ SoundbenchMain::SoundbenchMain(QWidget *parent) : QMainWindow(parent) {
     blu = new sb::Blueprint;
     em = nullptr;
     syn = nullptr;
-    external = true;
 
     ui = new Ui::SoundbenchMain();
     ui->setupUi(this);
@@ -148,7 +147,6 @@ void SoundbenchMain::delayedConstructor() {
     connect(ui->newButton,SIGNAL(clicked()),SLOT(resetBlueprint()));
     connect(ui->refreshPresets,SIGNAL(clicked()),SLOT(refreshPresets()));
     connect(ui->openButton,SIGNAL(clicked()),SLOT(loadExternalPreset()));
-    connect(ui->importPresetButton,SIGNAL(clicked()),SLOT(importPreset()));
     connect(ui->exportPresetButton,SIGNAL(clicked()),SLOT(exportPreset()));
     connect(ui->saveButton,SIGNAL(clicked()),SLOT(savePreset()));
     connect(ui->deleteButton,SIGNAL(clicked()),SLOT(deletePreset()));

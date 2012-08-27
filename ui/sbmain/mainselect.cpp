@@ -147,7 +147,6 @@ void SoundbenchMain::displayPresets() {
 void SoundbenchMain::resetSelectUI() {
     ui->saveButton->setDisabled(true);
     ui->deleteButton->setDisabled(true);
-    ui->importPresetButton->setDisabled(true);
 
     ui->presetList->setCurrentRow(ui->presetList->currentRow(),QItemSelectionModel::Deselect);
 
@@ -164,32 +163,19 @@ void SoundbenchMain::editMetadata(bool ed) {
         switch(ui->metadataBox->currentIndex()) {
         case 0:
             ui->filterLabel->setText("Name:");
-            if (!external) {
-                ui->presetLine->setText(presetlist[currpreset].name.c_str());
-            }
-            else
-                ui->presetLine->setText(externalpresetdata.name.c_str());
+            ui->presetLine->setText(presetdata.name.c_str());
             break;
         case 1:
             ui->filterLabel->setText("Artist:");
-            if (!external)
-                ui->presetLine->setText(presetlist[currpreset].arti.c_str());
-            else
-                ui->presetLine->setText(externalpresetdata.arti.c_str());
+            ui->presetLine->setText(presetdata.arti.c_str());
             break;
         case 2:
             ui->filterLabel->setText("Description:");
-            if (!external)
-                ui->presetLine->setText(presetlist[currpreset].desc.c_str());
-            else
-                ui->presetLine->setText(externalpresetdata.desc.c_str());
+            ui->presetLine->setText(presetdata.desc.c_str());
             break;
         case 3:
             ui->filterLabel->setText("Tags:");
-            if (!external)
-                ui->presetLine->setText(presetlist[currpreset].tags.c_str());
-            else
-                ui->presetLine->setText(externalpresetdata.tags.c_str());
+            ui->presetLine->setText(presetdata.tags.c_str());
             break;
         }
     }
@@ -198,28 +184,16 @@ void SoundbenchMain::editMetadata(bool ed) {
         case 0:
             ui->presetLabel->setEnabled(true);
             ui->presetLabel->setText(ui->presetLine->text());
-            if (!external)
-                presetlist[currpreset].name = ui->presetLine->text().toStdString();
-            else
-                externalpresetdata.name = ui->presetLine->text().toStdString();
+            presetdata.name = ui->presetLine->text().toStdString();
             break;
         case 1:
-            if (!external)
-                presetlist[currpreset].arti = ui->presetLine->text().toStdString();
-            else
-                externalpresetdata.arti = ui->presetLine->text().toStdString();
+            presetdata.arti = ui->presetLine->text().toStdString();
             break;
         case 2:
-            if (!external)
-                presetlist[currpreset].desc = ui->presetLine->text().toStdString();
-            else
-                externalpresetdata.desc = ui->presetLine->text().toStdString();
+            presetdata.desc = ui->presetLine->text().toStdString();
             break;
         case 3:
-            if (!external)
-                presetlist[currpreset].tags = ui->presetLine->text().toStdString();
-            else
-                externalpresetdata.tags = ui->presetLine->text().toStdString();
+            presetdata.tags = ui->presetLine->text().toStdString();
             break;
         }
 

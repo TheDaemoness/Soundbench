@@ -24,6 +24,10 @@
 void SoundbenchMain::loadInternalPreset() {
     stopAndReset();
     currpreset = ui->presetList->currentRow();
+
+    presetdata = presetlist[currpreset];
+    presetdata.path = datadir+"/presets/"+presetlist[currpreset].path;
+
     auto dat = arch->loadPreset(presetlist[currpreset].path,datadir+"/presets",blu);
     if(dat.path.empty()) {
         loadPresetList(); //Maybe a preset got deleted.
@@ -51,7 +55,6 @@ void SoundbenchMain::loadInternalPreset() {
     ui->presetLabel->setEnabled(true);
     ui->presetLabel->setText(presetlist[currpreset].name.c_str());
 
-    external = false;
     arch->buildSynth(syn,blu);
     updateToBlueprint();
     em->start();
@@ -71,15 +74,14 @@ void SoundbenchMain::loadExternalPreset() {
         return;
     }
     plai->stopRt();
-    externalpresetdata = arch->loadPreset(chosenfile.toStdString(),"",blu);
-    if(externalpresetdata.path.empty()) {
+    presetdata = arch->loadPreset(chosenfile.toStdString(),"",blu);
+    if(presetdata.path.empty()) {
         ui->presetLabel->setEnabled(false);
         ui->presetLabel->setText("Preset Loading Failed");
         em->start();
         met->startMeter();
     }
 
-    external = true;
     arch->buildSynth(syn,blu);
     updateToBlueprint();
     plai->startRt();
@@ -87,7 +89,7 @@ void SoundbenchMain::loadExternalPreset() {
     met->startMeter();
 
     ui->presetLabel->setEnabled(true);
-    ui->presetLabel->setText((externalpresetdata.name + " (External)").c_str());
+    ui->presetLabel->setText((presetdata.name + " (External)").c_str());
 
     ui->saveButton->setEnabled(true);
 
@@ -95,20 +97,6 @@ void SoundbenchMain::loadExternalPreset() {
     ui->exportButton->setEnabled(true);
     ui->deleteButton->setEnabled(true);
     ui->presetLine->grabKeyboard();
-}
-
-void SoundbenchMain::importPreset() {
-    if (!external)
-        return;
-    QFile inport(externalpresetdata.path.c_str());
-    inport.copy(externalpresetdata.path.c_str(),(datadir+"/presets/"+externalpresetdata.name+"_imported.sbp").c_str());
-
-    presetlist.push_back(externalpresetdata);
-    currpreset = presetlist.size()-1;
-    external = false;
-
-    ui->importButton->setEnabled(false);
-    ui->presetLabel->setText(externalpresetdata.name.c_str());
 }
 
 void SoundbenchMain::refreshPresets() {
@@ -136,7 +124,11 @@ void SoundbenchMain::resetBlueprint() {
     ui->gen4SettButton->setDisabled(true);
 
     resetSelectUI();
-    external = false;
+
+    presetdata.name = "Unnamed Preset";
+    presetdata.arti = "Unknown";
+    presetdata.desc = "No Description";
+    presetdata.tags = "";
 
     em->start();
 }

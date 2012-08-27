@@ -478,7 +478,7 @@ QTabBar::tab:selected {
 }</string>
     </property>
     <property name="currentIndex">
-     <number>3</number>
+     <number>0</number>
     </property>
     <widget class="QWidget" name="tabSelect">
      <attribute name="title">
@@ -538,7 +538,7 @@ Open a preset that's outside the presets folder.</string>
       </property>
       <property name="geometry">
        <rect>
-        <x>580</x>
+        <x>615</x>
         <y>20</y>
         <width>71</width>
         <height>24</height>
@@ -575,7 +575,7 @@ Reset Soundbench to its default preset.</string>
       </property>
       <property name="geometry">
        <rect>
-        <x>760</x>
+        <x>795</x>
         <y>20</y>
         <width>71</width>
         <height>24</height>
@@ -596,7 +596,7 @@ Reset Soundbench to its default preset.</string>
        <rect>
         <x>159</x>
         <y>60</y>
-        <width>711</width>
+        <width>706</width>
         <height>25</height>
        </rect>
       </property>
@@ -623,32 +623,13 @@ Reset Soundbench to its default preset.</string>
        <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
       </property>
      </widget>
-     <widget class="QPushButton" name="importPresetButton">
-      <property name="enabled">
-       <bool>false</bool>
-      </property>
-      <property name="geometry">
-       <rect>
-        <x>340</x>
-        <y>20</y>
-        <width>71</width>
-        <height>24</height>
-       </rect>
-      </property>
-      <property name="toolTip">
-       <string>Move the external preset into the presets folder.</string>
-      </property>
-      <property name="text">
-       <string>Import</string>
-      </property>
-     </widget>
      <widget class="QPushButton" name="exportPresetButton">
       <property name="enabled">
-       <bool>false</bool>
+       <bool>true</bool>
       </property>
       <property name="geometry">
        <rect>
-        <x>670</x>
+        <x>705</x>
         <y>20</y>
         <width>71</width>
         <height>24</height>
@@ -665,7 +646,7 @@ Save the preset as another file.</string>
      <widget class="QPushButton" name="refreshPresets">
       <property name="geometry">
        <rect>
-        <x>460</x>
+        <x>340</x>
         <y>20</y>
         <width>71</width>
         <height>24</height>
@@ -684,7 +665,7 @@ Save the preset as another file.</string>
       </property>
       <property name="geometry">
        <rect>
-        <x>900</x>
+        <x>885</x>
         <y>60</y>
         <width>91</width>
         <height>24</height>
@@ -706,9 +687,9 @@ Save the preset as another file.</string>
       </property>
       <property name="geometry">
        <rect>
-        <x>880</x>
+        <x>885</x>
         <y>20</y>
-        <width>111</width>
+        <width>106</width>
         <height>25</height>
        </rect>
       </property>

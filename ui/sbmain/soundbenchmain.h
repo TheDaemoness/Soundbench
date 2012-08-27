@@ -79,7 +79,6 @@ private slots:
     void loadInternalPreset();
     void loadExternalPreset();
     void deletePreset();
-    void importPreset();
     void savePreset();
     void exportPreset();
     void holdKeyboard(int);
@@ -95,8 +94,7 @@ private:
 
     std::vector <sb::PresetMeta> presetlist;
     size_t currpreset;
-    sb::PresetMeta externalpresetdata;
-    bool external;
+    sb::PresetMeta presetdata;
 
     Ui::SoundbenchMain *ui;
     sb::Synth* syn;

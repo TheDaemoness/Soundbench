@@ -28,6 +28,8 @@
 namespace sb {
     template <typename Stream, typename Arrai>
     void byteArrayWrite (Stream& river, Arrai str) {
+        if (str.length() == 0)
+            return;
         for(size_t i = 0; i < str.length() - 1; ++i)
             river.put(str[i] | Bit1);
         river.put(str.back());

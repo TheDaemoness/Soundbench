@@ -22,24 +22,13 @@
 #include <fstream>
 
 void SoundbenchMain::savePreset() {
-    if (external) {
-        if (externalpresetdata.path.empty())
-            return;
-        arch->savePreset(externalpresetdata.path,
-                         "",blu,
-                         externalpresetdata.name,
-                         externalpresetdata.arti,
-                         externalpresetdata.desc);
-    }
-    else {
-        if (presetlist[currpreset].path.empty())
-            return;
-        arch->savePreset(presetlist[currpreset].path,
-                         datadir+"/presets",blu,
-                         presetlist[currpreset].name,
-                         presetlist[currpreset].arti,
-                         presetlist[currpreset].desc);
-    }
+    if (presetdata.path.empty())
+        return;
+    arch->savePreset(presetdata.path,
+                     "",blu,
+                     presetdata.name,
+                     presetdata.arti,
+                     presetdata.desc);
 }
 
 void SoundbenchMain::exportPreset() {
@@ -52,20 +41,11 @@ void SoundbenchMain::exportPreset() {
     if(newname.find_last_of('.') != newname.size()-4)
         newname += ".sbp";
 
-    if (external) {
-        arch->savePreset(newname,
-                         "",blu,
-                         externalpresetdata.name,
-                         externalpresetdata.arti,
-                         externalpresetdata.desc);
-    }
-    else {
-        arch->savePreset(newname,
-                         "",blu,
-                         presetlist[currpreset].name,
-                         presetlist[currpreset].arti,
-                         presetlist[currpreset].desc);
-    }
+    arch->savePreset(newname,
+                     "",blu,
+                     presetdata.name,
+                     presetdata.arti,
+                     presetdata.desc);
 }
 
 void SoundbenchMain::deletePreset() {
@@ -78,21 +58,16 @@ void SoundbenchMain::deletePreset() {
         return;
 
     QFile delfile;
-    if (external)
-        delfile.setFileName(externalpresetdata.path.c_str());
-    else
-        delfile.setFileName((datadir+"/presets/"+presetlist[currpreset].path).c_str());
+    delfile.setFileName(presetdata.path.c_str());
     delfile.remove();
     loadPresetList(); //Reload the list
     resetBlueprint();
 
     ui->deleteButton->setEnabled(false);
     ui->saveButton->setEnabled(false);
-    if (!external) {
-        writePresetRecord();
-        displayPresets();
-        loadPresetList();
-    }
+    writePresetRecord();
+    displayPresets();
+    loadPresetList();
 }
 
 void SoundbenchMain::writePresetRecord() {
