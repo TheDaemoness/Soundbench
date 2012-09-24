@@ -47,6 +47,9 @@ void SoundbenchMain::exportPreset() {
                      presetdata.name,
                      presetdata.arti,
                      presetdata.desc);
+
+    ui->saveButton->setEnabled(true);
+    ui->deleteButton->setEnabled(true);
 }
 
 void SoundbenchMain::deletePreset() {

@@ -82,12 +82,14 @@ void SoundbenchMain::delayedConstructor() {
         sbdata.mkdir("presets");
     }
 
+    //Set up the device, port, and preset lists.
     loadPresetList();
     displayPresets();
 
     loadPorts();
     loadDevices();
 
+    //Set up the sigmaps.
     type_sigmap->setMapping(ui->gener1TypeBox,0);
     type_sigmap->setMapping(ui->gener2TypeBox,1);
     type_sigmap->setMapping(ui->gener3TypeBox,2);
