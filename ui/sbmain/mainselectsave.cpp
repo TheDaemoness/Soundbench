@@ -40,6 +40,7 @@ void SoundbenchMain::exportPreset() {
         return;
     if(newname.find_last_of('.') != newname.size()-4)
         newname += ".sbp";
+    presetdata.path = newname;
 
     arch->savePreset(newname,
                      "",blu,

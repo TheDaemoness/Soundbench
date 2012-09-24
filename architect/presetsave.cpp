@@ -42,11 +42,11 @@ namespace sb {
         toreturn.desc = desc;
 
         for(GenerType t : blu->gener)
-            river.put(static_cast<char>(t));
+            river.put(static_cast<unsigned char>(t));
 
-        for(const auto& a : blu->eff) {
-            for(size_t i = 0; i < FxPerChannel; ++i)
-                river.put(static_cast<char>(a[i]));
+        for(const auto& chan : blu->eff) {
+            for(const auto& tard : chan)
+                river.put(static_cast<unsigned char>(tard));
         }
 
         //Write the generator's parameters.

@@ -88,6 +88,7 @@ void SoundbenchMain::loadExternalPreset() {
     em->start();
     met->startMeter();
 
+    ui->presetList->setCurrentRow(ui->presetList->currentRow(),QItemSelectionModel::Deselect);
     ui->presetLabel->setEnabled(true);
     ui->presetLabel->setText((presetdata.name + " (External)").c_str());
 
@@ -103,7 +104,6 @@ void SoundbenchMain::refreshPresets() {
     std::cerr << "Removing " << datadir << "/presetrecord...\n";
     QFile delfile((datadir+"/presetrecord").c_str());
     delfile.remove(); //Get rid of a certain preset record.
-    writePresetRecord();
     loadPresetList();
     displayPresets();
 }

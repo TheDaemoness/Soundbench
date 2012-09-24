@@ -35,8 +35,6 @@ SoundbenchMain::SoundbenchMain(QWidget *parent) : QMainWindow(parent) {
     sc_open = new QShortcut(QKeySequence("Ctrl+O"),this);
     sc_save = new QShortcut(QKeySequence("Ctrl+S"),this);
     sc_export = new QShortcut(QKeySequence("Ctrl+Shift+S"),this);
-
-    arch->planAllDefaults(blu);
 }
 
 void SoundbenchMain::delayedConstructor() {
@@ -47,6 +45,8 @@ void SoundbenchMain::delayedConstructor() {
     em = new sb::Emitter(syn);
     met = new CpuMeter(ui->cpuMeter,ui->cpuLabel);
     plai = new sb::Player(syn,ui->songsTracksList,met);
+
+    resetBlueprint();
 
     syn->volume() = static_cast<SbSample>(ui->volumeSlider->value())/ui->volumeSlider->maximum();
 
