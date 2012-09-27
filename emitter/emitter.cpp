@@ -24,60 +24,6 @@
 
 namespace sb {
 
-    void Emitter::setEmitterType(EmitterType emt) {
-        if (backend != nullptr) {
-            delete backend;
-            backend = nullptr;
-        }
-        if (emt == NoEmitter)
-            return;
-        used_backend = NoEmitter;
-
-        if (emt == JACK_O) {
-            used_backend = JACK_O;
-            std::cerr << "Would initialize a JACK as an audio backend, but it hasn't yet been implemented.\n";
-            initSomeBackend(JACK_O);
-        }
-        else if (emt == RtAudio_O) {
-            if(!initBackend<RtAudio_O,RtAudioBackend>(this))
-                initSomeBackend(RtAudio_O);
-        }
-        else if (emt == PortAudio_O) {
-            if(!initBackend<PortAudio_O,PortaudioBackend>(this))
-                initSomeBackend(PortAudio_O);
-        }
-
-        if (backend != nullptr && used_backend != emt) {
-            //A different backend is in use.
-            WarningPopup* w = new WarningPopup;
-            w->setWarningText("Alternate Backend in Use");
-            w->setInfoText("Soundbench could not initialize the desired audio backend and is using an backend different from the one requested.");
-            w->exec();
-            bool noquite = w->fixed();
-            delete w;
-            if (!noquite) {
-                delete backend;
-                backend = nullptr;
-                return;
-            }
-        }
-        else if (backend == nullptr && emt != NoEmitter && used_backend == NoEmitter) {
-            //A completely unknown backend was requested.
-            std::__throw_logic_error("A completely unknown audio backend was requested.\nTHIS IS A SEVERE INTERAL ERROR so if you see this in an official binary, please submit it as a bug report.");
-        }
-        else if (backend == nullptr && emt != NoEmitter) {
-            //All the backends failed.
-            ErrorPopup* er = new ErrorPopup;
-            er->setErrorText("All Audio Backends Failed");
-            er->setInfoText("All the audio backends failed to initialize. This is not necessarily Soundbench's problem, but may be that of your operating system.\n\nThis error may be ignored, but the program would run without real-time audio output.");
-
-            errs::fixes::Ignore ign;
-            ign.setComments("Run Soundbench without realtime audio support.\nSoundbench will not be able to output any sound save by writing it to a file.");
-            er->addFix(&ign);
-            delete er;
-        }
-    }
-
     Emitter::Emitter(Synth* s) {
         std::cerr << "Determining which audio backends will initialize...\n";
         supported_apis[PortAudio_O] = PortaudioBackend::instantiable();
@@ -99,6 +45,58 @@ namespace sb {
         sample_rate = SampleRate;
         backend = nullptr;
         setEmitterType(em_type);
+    }
+
+    void Emitter::setEmitterType(EmitterType emt) {
+        if (backend != nullptr) {
+            delete backend;
+            backend = nullptr;
+        }
+        if (emt == NoEmitter)
+            return;
+        used_backend = NoEmitter;
+        bool initialed = false;
+
+        if (emt == JACK_O) {
+            used_backend = JACK_O;
+            std::cerr << "Would initialize a JACK as an audio backend, but it hasn't yet been implemented.\n";
+            initSomeBackend(JACK_O);
+        }
+        else if (emt == RtAudio_O)
+            initialed = initBackend<RtAudio_O,RtAudioBackend>(this);
+        else if (emt == PortAudio_O)
+            initialed = initBackend<PortAudio_O,PortaudioBackend>(this);
+
+        //Try the other backends if the chosen one didn't work out.
+        if (!initialed)
+            initSomeBackend(emt);
+
+        if (!initialed && backend != nullptr) {
+            //A different backend is in use.
+            WarningPopup* w = new WarningPopup;
+            w->setWarningText("Alternate Backend in Use");
+            w->setInfoText("Soundbench could not initialize the desired audio backend and is using an backend different from the one requested.");
+            w->exec();
+            bool noquite = w->fixed();
+            delete w;
+            if (!noquite) {
+                delete backend;
+                backend = nullptr;
+                return;
+            }
+        }
+        else if (!initialed && backend == nullptr) {
+            //All the backends failed.
+            ErrorPopup* er = new ErrorPopup;
+            er->setErrorText("All Audio Backends Failed");
+            er->setInfoText("All the audio backends failed to initialize. This is not necessarily due to a fault in Soundbench.\n\nThis error may be ignored, but the program would run without real-time audio output.");
+
+            errs::fixes::Ignore* ign = new errs::fixes::Ignore;
+            ign->setComments("Run Soundbench without realtime audio support.\nSoundbench will not be able to output any sound save by writing it to a file.");
+            er->addFix(ign);
+            er->exec();
+            delete er;
+        }
     }
 
     void Emitter::setSamplingRate(size_t s_rate) {

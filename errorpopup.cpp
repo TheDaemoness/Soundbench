@@ -30,7 +30,7 @@ ErrorPopup::ErrorPopup(QWidget *parent) :
     whichfix = 0;
     fixed = false;
     for(unsigned char i = 0; i < fixcount; ++i)
-        fixes[i] = NULL;
+        fixes[i] = nullptr;
     ui->fix1Choice->setDisabled(true);
     ui->fix2Choice->setDisabled(true);
     ui->fix3Choice->setDisabled(true);

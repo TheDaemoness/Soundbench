@@ -26,7 +26,7 @@
    <string>Soundbench Error Reporter</string>
   </property>
   <property name="windowIcon">
-   <iconset resource="sbMainResources.qrc">
+   <iconset resource="resources.qrc">
     <normaloff>:/icons/sbicon.png</normaloff>:/icons/sbicon.png</iconset>
   </property>
   <property name="windowOpacity">
@@ -164,7 +164,7 @@ QTabBar::tab:selected {
     <enum>QTabWidget::North</enum>
    </property>
    <property name="currentIndex">
-    <number>1</number>
+    <number>0</number>
    </property>
    <widget class="QWidget" name="actionsTab">
     <attribute name="title">
@@ -399,7 +399,7 @@ p, li { white-space: pre-wrap; }
   </widget>
  </widget>
  <resources>
-  <include location="sbMainResources.qrc"/>
+  <include location="resources.qrc"/>
  </resources>
  <connections/>
 </ui>
