@@ -20,6 +20,7 @@
 #include "emitter.h"
 #include "warningpopup.h"
 #include "errorpopup.h"
+#include "initbackend.h"
 
 namespace sb {
 
@@ -38,11 +39,11 @@ namespace sb {
             initSomeBackend(JACK_O);
         }
         else if (emt == RtAudio_O) {
-            if(!initRtAudio())
+            if(!initBackend<RtAudio_O,RtAudioBackend>(this))
                 initSomeBackend(RtAudio_O);
         }
         else if (emt == PortAudio_O) {
-            if(!initPortAudio())
+            if(!initBackend<PortAudio_O,PortaudioBackend>(this))
                 initSomeBackend(PortAudio_O);
         }
 
@@ -110,5 +111,20 @@ namespace sb {
     Emitter::~Emitter() {
         if (backend != nullptr)
             delete backend;
+    }
+
+    bool Emitter::initSomeBackend(EmitterType notthisone) {
+        for (auto pair : supported_apis) {
+            if (pair.first == PortAudio_O && notthisone != PortAudio_O) {
+                if (initBackend<PortAudio_O,PortaudioBackend>(this))
+                    return true;
+            }
+            else if (pair.first == RtAudio_O && notthisone != RtAudio_O) {
+                if (initBackend<RtAudio_O,RtAudioBackend>(this))
+                    return true;
+            }
+        }
+        backend = nullptr;
+        return false;
     }
 }

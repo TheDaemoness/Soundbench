@@ -48,14 +48,15 @@ HEADERS += architect/architect.h \
     midievents.h \
     fileparsers.h \
     filewriters.h \
-    backend/jackaudio.h
+    backend/jackaudio.h \
+    emitter/initbackend.h
 
 FORMS += errorpopup.ui \
     ui/sbmain/soundbenchmain.ui \
     warningpopup.ui \
     ui/settings/basicgen.ui
 
-SOURCES += emitter/initportaudio.cpp \
+SOURCES += \
     architect/architect.cpp \
     backend/portaudio.cpp \
     emitter/emitter.cpp \
@@ -69,11 +70,9 @@ SOURCES += emitter/initportaudio.cpp \
     sfwriter.cpp \
     sampletable.cpp \
     trapezoid.cpp \
-    emitter/initsomething.cpp \
     ui/sbmain/maininit.cpp \
     waves/basicwaves.cpp \
     backend/rtaudio.cpp \
-    emitter/initrtaudio.cpp \
     frontend/rtmidi.cpp \
     makenode.cpp \
     ui/sbmain/mainplayer.cpp \

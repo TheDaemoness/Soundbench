@@ -17,21 +17,29 @@
     Copyright 2012  Amaya S.
 */
 
+#ifndef INITBACKEND_H
+#define INITBACKEND_H
+
 #include "emitter.h"
 
 namespace sb {
-    bool Emitter::initSomeBackend(EmitterType notthisone) {
-        for (auto pair : supported_apis) {
-            if (pair.first == PortAudio_O && notthisone != PortAudio_O) {
-                if (initPortAudio())
-                    return true;
-            }
-            else if (pair.first == RtAudio_O && notthisone != RtAudio_O) {
-                if (initRtAudio())
-                    return true;
+    template <sb::EmitterType TypeEnum, class Backside>
+    bool initBackend(Emitter* em) {
+
+        em->used_backend = TypeEnum;
+        if (em->supported_apis[TypeEnum]) {
+            em->backend = new Backside(em->syn,em->sample_rate,em->supported_rates,OutChannels);
+            if (em->backend->isReady())
+                return true;
+            else {
+                delete em->backend;
+                em->backend = nullptr;
+                return false;
             }
         }
-        backend = nullptr;
-        return false;
+        else
+            return false;
     }
 }
+
+#endif // INITBACKEND_H

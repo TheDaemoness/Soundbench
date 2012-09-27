@@ -35,6 +35,9 @@ class Synth;
 namespace sb {
 
     class Emitter {
+        template <sb::EmitterType TypeEnum, class Backside>
+        friend bool initBackend(Emitter* b);
+
     public:
         explicit Emitter(Synth*);
         ~Emitter();
