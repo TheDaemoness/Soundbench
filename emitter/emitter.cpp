@@ -86,7 +86,7 @@ namespace sb {
 
         if (supported_apis[PortAudio_O])
             em_type = PortAudio_O;
-        if (supported_apis[JACK_O])
+        else if (supported_apis[JACK_O])
             em_type = JACK_O;
         else if (supported_apis[RtAudio_O])
             em_type = RtAudio_O;

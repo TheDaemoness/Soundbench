@@ -124,13 +124,22 @@ namespace sb {
 
     bool PortaudioBackend::instantiable() {
         PaError e = Pa_Initialize();
-        if (e != paNoError)
+        if (e != paNoError) {
+            std::cerr << "Could not initialize PortAudio: " << Pa_GetErrorText(e) << ". Skipping this backend...\n";
             return false;
-        if(Pa_GetDeviceCount() == 0 || Pa_GetDefaultOutputDevice() == paNoDevice) {
+        }
+        if(Pa_GetDeviceCount() == 0) {
+            std::cerr << "Portaudio could not find any available devices. Skipping this backend...\n";
+            Pa_Terminate();
+            return false;
+        }
+        if  (Pa_GetDefaultOutputDevice() == paNoDevice) {
+            std::cerr << "Portaudio could not determine a default device. Skipping this backend...\n";
             Pa_Terminate();
             return false;
         }
         if (Pa_GetDeviceInfo(Pa_GetDefaultOutputDevice())->maxOutputChannels < 2) {
+            std::cerr << "The default device for Portaudio does not support stereo audio. Skipping this backend...\n";
             Pa_Terminate();
             return false;
         }

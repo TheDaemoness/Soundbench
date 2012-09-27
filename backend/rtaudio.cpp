@@ -26,15 +26,23 @@ namespace sb {
             RtAudio audio;
 
             unsigned int devices = audio.getDeviceCount();
-            if (devices == 0)
+            if (devices == 0) {
+                std::cerr << "RtAudio could not find any audio devices. Skipping this backend...\n";
                 return false;
+            }
             auto info = audio.getDeviceInfo(audio.getDefaultOutputDevice());
             if (info.probed) {
-                   if(info.outputChannels >= 2)
-                   return true;
+                if(info.outputChannels >= 2)
+                    return true;
+                else
+                    std::cerr << "The default device for RtAudio does not support stereo sound. Skipping this backend...\n";
             }
+            else
+                std::cerr << "RtAudio could not find or probe the default audio device. Skipping this backend...\n";
         }
-        catch (...) { }
+        catch (RtError& e) {
+            std::cerr << "RtAudio threw an exception: " << e.getMessage() << ". Skipping this backend...\n";
+        }
         return false;
     }
 
