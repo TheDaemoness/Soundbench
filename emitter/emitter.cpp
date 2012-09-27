@@ -56,6 +56,7 @@ namespace sb {
                 AbortSoundbench();
             em_type = NoEmitter;
         }
+#endif
 
         syn = s;
         sample_rate = SampleRate;
@@ -86,6 +87,15 @@ namespace sb {
         //Try the other backends if the chosen one didn't work out.
         if (!initialed)
             initSomeBackend(emt);
+
+        if (backend != nullptr) {
+            if(emt == RtAudio_O)
+                std::cerr << "Using an RtAudio backend.\n";
+            else if (emt == PortAudio_O)
+                std::cerr << "Using a PortAudio backend.\n";
+            else if (emt == JACK_O)
+                std::cerr << "Using a JACK backend.\n";
+        }
 
         if (!initialed && backend != nullptr) {
             //A different backend is in use.
