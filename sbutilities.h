@@ -59,6 +59,16 @@
 #define SBVERSION_PATCH 0
 #define SB_PRESET_VERSION 1
 
+inline void AbortSoundbench() {
+    try {
+        std::cerr << "Abort requested.\n";
+        throw;
+    }
+    catch(...) {
+        throw;
+    }
+}
+
 typedef float SbSample;
 const SbSample SbSampleMin = -1.0;
 const SbSample SbSampleMax = 1.0;

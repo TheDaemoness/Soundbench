@@ -84,6 +84,8 @@ namespace sb {
                 backend = nullptr;
                 return;
             }
+            else
+                AbortSoundbench();
         }
         else if (!initialed && backend == nullptr) {
             //All the backends failed.
@@ -95,7 +97,10 @@ namespace sb {
             ign->setComments("Run Soundbench without realtime audio support.\nSoundbench will not be able to output any sound save by writing it to a file.");
             er->addFix(ign);
             er->exec();
+            bool throw22 = !er->wasFixed();
             delete er;
+            if (throw22)
+                AbortSoundbench();
         }
     }
 
