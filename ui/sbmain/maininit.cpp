@@ -41,7 +41,6 @@ void SoundbenchMain::delayedConstructor() {
     sb::SampleRate = sb::SupportedRates[1];
 
     syn = new sb::Synth;
-    arch->buildSynth(syn,blu);
     em = new sb::Emitter(syn);
     met = new CpuMeter(ui->cpuMeter,ui->cpuLabel);
     plai = new sb::Player(syn,ui->songsTracksList,met);
