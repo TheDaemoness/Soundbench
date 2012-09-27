@@ -17,59 +17,38 @@
     Copyright 2012  Amaya S.
 */
 
-#ifndef BACKEND_PORTAUDIO_H
-#define BACKEND_PORTAUDIO_H
-
 #include "backend/base.h"
 
-//NOTICE: Do not reimplement this class to use Pa_WriteStream. It uses the callback to take advantage of the high-priority thread it runs in.
+#ifndef JACKAUDIO_H
+#define JACKAUDIO_H
 
-
-#ifndef NO_PORTAUDIO
-#include <portaudio.h>
-
+#ifndef NO_JACK
 namespace sb {
-    class PortaudioBackend : public EmitterBackend {
+    class JackAudioBackend : public EmitterBackend {
     public:
         static bool instantiable();
-        static bool pa_inited;
-        explicit PortaudioBackend(sb::Synth*, size_t&, std::map<size_t,bool>&, size_t);
+        explicit JackAudioBackend(sb::Synth*, size_t&, std::map<size_t,bool>&, size_t);
         size_t returnSuggestedBufferSize();
-        ~PortaudioBackend();
+        ~JackAudioBackend();
 
         void start();
         void stop();
-        size_t getDefaultDevice(){
-            return Pa_GetDefaultOutputDevice();
-        }
-        size_t getCurrentDevice() {
-            return dev.device;
-        }
+        size_t getDefaultDevice();
+        size_t getCurrentDevice();
 
         void setSamplingRate(size_t);
-        void setDevice(uint32_t devi) {
-            dev.device = devi;
-        }
-
+        void setDevice(uint32_t devi);
         std::vector<std::string> getDevices();
-
-        static int callback(const void*, void*, unsigned long, const PaStreamCallbackTimeInfo*, PaStreamCallbackFlags, void*);
-
-    private:
-        bool dead;
-        PaStream* river;
-        PaStreamParameters dev;
-
     };
 }
 #else
 namespace sb {
-    class PortaudioBackend : public EmitterBackend {
+    class JackAudioBackend : public EmitterBackend {
     public:
         static bool instantiable();
-        explicit PortaudioBackend(sb::Synth*, size_t&,std::map<size_t,bool>&,size_t) {}
+        explicit JackAudioBackend(sb::Synth*, size_t&,std::map<size_t,bool>&,size_t) {}
         size_t returnSuggestedBufferSize() {return 0;}
-        ~PortaudioBackend() {}
+        ~JackAudioBackend() {}
         void start() {}
         void stop() {}
         size_t getDefaultDevice() {return 0;}
@@ -81,4 +60,4 @@ namespace sb {
 }
 #endif
 
-#endif // BACKEND_PORTAUDIO_H
+#endif // JACKAUDIO_H

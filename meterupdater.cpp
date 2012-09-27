@@ -49,16 +49,15 @@ void MeterUpdater::update() {
     prevtime.push(time);
     avgtime = time - prevtime.front();
     avgtotaltime = totaltime - prevtotaltime.front();
-    affectedbar->setValue(avgtime/avgtotaltime*1000.0);
 
+    affectedbar->setValue(avgtime/avgtotaltime*1000.0);
     if (prevtime.size() >= 450) { //Only one queue is checked because both queues should maintain the same size.
         prevtime.pop();
         prevtotaltime.pop();
     }
 }
 #elif defined(SB_ENV_WNDOS)
-static uint64_t filetime_to_ull(const FILETIME &ft)
-{
+static uint64_t filetime_to_ull(const FILETIME &ft) {
   uint64_t hi=ft.dwHighDateTime;
   return (uint64_t)(ft.dwLowDateTime)|(hi<<32);
 }
@@ -76,7 +75,6 @@ void MeterUpdater::update() {
     GetSystemTimes(&ft_unused,&ft_kernel,&ft_user);
     totaltime=filetime_to_ull(ft_kernel)+filetime_to_ull(ft_user);
 
-
     //A bit of value averaging.
     prevtotaltime.push(totaltime);
     prevtime.push(time);
@@ -84,7 +82,6 @@ void MeterUpdater::update() {
     avgtotaltime = totaltime - prevtotaltime.front();
 
     affectedbar->setValue(avgtime/avgtotaltime*1000.0);
-
     if (prevtime.size() >= 450) { //Only one queue is checked because both queues should maintain the same size.
         prevtime.pop();
         prevtotaltime.pop();

@@ -78,11 +78,14 @@ namespace sb {
         explicit RtAudioBackend(sb::Synth*, size_t&, std::map<size_t,bool>&, size_t) {}
 
         static bool instantiable();
+        size_t returnSuggestedBufferSize() {return 0;}
+        ~RtAudioBackend() {}
         void start() {}
         void stop() {}
-        virtual size_t getDefaultDevice() {return 0;}
-        virtual size_t getCurrentDevice() {return 0;}
-        virtual void setDevice(uint32_t) {}
+        size_t getDefaultDevice() {return 0;}
+        size_t getCurrentDevice() {return 0;}
+        void setSamplingRate(size_t) {}
+        void setDevice(uint32_t) {}
         std::vector<std::string> getDevices() {return std::vector<std::string>();}
     };
 }

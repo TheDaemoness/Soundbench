@@ -26,10 +26,11 @@
 size_t sb::SampleRate;
 sb::Synth* sb::midi::nodes::MIDIEventNode::synref;
 
-int main(int argc, char *argv[])
-{
+int main(int argc, char *argv[]) {
     QApplication a(argc, argv);
     a.setStyle(new QCleanlooksStyle);
+
+    //Parse some arguments.
     std::string arg;
     if (argc == 2) {
         arg = argv[1];

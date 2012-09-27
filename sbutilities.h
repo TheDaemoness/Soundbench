@@ -55,7 +55,7 @@
 
 #define SBVERSION "Development Version"
 #define SBVERSION_MAJOR 0
-#define SBVERSION_MINOR 3
+#define SBVERSION_MINOR 4
 #define SBVERSION_PATCH 0
 #define SB_PRESET_VERSION 1
 
@@ -158,7 +158,7 @@ namespace sb {
         NoEmitter,
         PortAudio_O,
         RtAudio_O,
-        JACK_O //Not implemented.
+        JACK_O
     };
 
     enum FrontendType {

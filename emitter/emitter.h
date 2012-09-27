@@ -25,6 +25,7 @@
 #include "sbutilities.h"
 #include "backend/portaudio.h"
 #include "backend/rtaudio.h"
+#include "backend/jackaudio.h"
 
 //libstdc++11
 #include <vector>

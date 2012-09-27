@@ -5,7 +5,7 @@
 QMAKE_CXXFLAGS_WARN_ON += -Wall -Wextra -pedantic
 QMAKE_CXXFLAGS += -std=c++0x
 
-DEFINES += IS_SOUNDBENCH NO_JACK  #JACK support doesn't exist yet.
+DEFINES += IS_SOUNDBENCH NO_JACK #JACK support doesn't exist yet, but will in 0.4.0.
 
 TEMPLATE = app
 TARGET = 
@@ -47,7 +47,8 @@ HEADERS += architect/architect.h \
     frontend/rtmidi.h \
     midievents.h \
     fileparsers.h \
-    filewriters.h
+    filewriters.h \
+    backend/jackaudio.h
 
 FORMS += errorpopup.ui \
     ui/sbmain/soundbenchmain.ui \
@@ -92,7 +93,8 @@ SOURCES += emitter/initportaudio.cpp \
     ui/sbmain/mainmisc.cpp \
     midifio/fiomisc.cpp \
     midifio/fioread.cpp \
-    midifio/fioreadopen.cpp
+    midifio/fioreadopen.cpp \
+    backend/jackaudio.cpp
 
 RESOURCES += \
     resources.qrc
