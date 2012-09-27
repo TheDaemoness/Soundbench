@@ -25,11 +25,14 @@
 namespace sb {
 
     Emitter::Emitter(Synth* s) {
+#ifdef NO_AUDIOBACKEND
+        std::cerr << "Soundbench was compiled without any audio backends.\n";
+        em_type = NoEmitter;
+#else
         std::cerr << "Determining which audio backends will initialize...\n";
         supported_apis[PortAudio_O] = PortaudioBackend::instantiable();
         supported_apis[RtAudio_O] = RtAudioBackend::instantiable();
         supported_apis[JACK_O] = JackAudioBackend::instantiable();
-        syn = s;
 
         if (supported_apis[PortAudio_O])
             em_type = PortAudio_O;
@@ -38,10 +41,23 @@ namespace sb {
         else if (supported_apis[RtAudio_O])
             em_type = RtAudio_O;
         else {
-            std::cerr << "No real time audio backends can be initialized on this computer.\n";
+            std::cerr << "...none will initialize.\n";
+            ErrorPopup* er = new ErrorPopup;
+            er->setErrorText("All Backends Unusable");
+            er->setInfoText("None of the audio backends report that they can be initialized. This is not necessarily due to a fault in Soundbench.\n\nThis error may be ignored, but the program would run without real-time audio output.");
+
+            errs::fixes::Ignore* ign = new errs::fixes::Ignore;
+            ign->setComments("Run Soundbench without realtime audio support.\nSoundbench will not be able to output any sound except by writing it to a file.");
+            er->addFix(ign);
+            er->exec();
+            bool killoption = !er->wasFixed();
+            delete er;
+            if (killoption)
+                AbortSoundbench();
             em_type = NoEmitter;
         }
 
+        syn = s;
         sample_rate = SampleRate;
         backend = nullptr;
         setEmitterType(em_type);
@@ -90,7 +106,7 @@ namespace sb {
         else if (!initialed && backend == nullptr) {
             //All the backends failed.
             ErrorPopup* er = new ErrorPopup;
-            er->setErrorText("All Audio Backends Failed");
+            er->setErrorText("All Backends Failed");
             er->setInfoText("All the audio backends failed to initialize. This is not necessarily due to a fault in Soundbench.\n\nThis error may be ignored, but the program would run without real-time audio output.");
 
             errs::fixes::Ignore* ign = new errs::fixes::Ignore;

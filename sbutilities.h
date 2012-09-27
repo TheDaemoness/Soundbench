@@ -78,7 +78,7 @@ const SbSample SbSampleZero = 0.0;
 #define NO_MIDIFRONTEND
 #endif
 
-#if defined(NO_RTAUDIO) & defined(NO_PORTAUDIO)
+#if defined(NO_RTAUDIO) & defined(NO_PORTAUDIO) & defined(NO_JACK)
 #define NO_AUDIOBACKEND
 #endif
 
