@@ -75,7 +75,7 @@ namespace sb {
             //A different backend is in use.
             WarningPopup* w = new WarningPopup;
             w->setWarningText("Alternate Backend in Use");
-            w->setInfoText("Soundbench could not initialize the desired audio backend and is using an backend different from the one requested.");
+            w->setInfoText("Soundbench could not initialize the desired audio backend and is using a backend different from the one requested.");
             w->exec();
             bool noquite = w->fixed();
             delete w;
@@ -94,7 +94,7 @@ namespace sb {
             er->setInfoText("All the audio backends failed to initialize. This is not necessarily due to a fault in Soundbench.\n\nThis error may be ignored, but the program would run without real-time audio output.");
 
             errs::fixes::Ignore* ign = new errs::fixes::Ignore;
-            ign->setComments("Run Soundbench without realtime audio support.\nSoundbench will not be able to output any sound save by writing it to a file.");
+            ign->setComments("Run Soundbench without realtime audio support.\nSoundbench will not be able to output any sound except by writing it to a file.");
             er->addFix(ign);
             er->exec();
             bool throw22 = !er->wasFixed();
