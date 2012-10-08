@@ -10,37 +10,22 @@
     but WITHOUT ANY WARRANTY; without even the implied warranty of
     MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
     GNU General Public License for more details.
-
     You should have received a copy of the GNU General Public License
     along with Soundbench.  If not, see <http://www.gnu.org/licenses/>.
 
     Copyright 2012  Amaya S.
 */
 
-#include "player.h"
+#include "jackmidi.h"
 
 namespace sb {
-    Player::Player(Synth* syn, QListWidget* tracklist, CpuMeter* themet) {
-        affectedlist = tracklist;
-        affectedmet = themet;
-
-        reed = new midi::MidiFIO;
-        first = new midi::nodes::PlayerStartNode(syn);
-        wri = new SoundFileWriter(syn);
-
-        playing = false;
-        fetype = NoMIDI;
-
-        initfrontend(syn);
-
-        connect(this,SIGNAL(progressed(int)),affectedmet,SLOT(setProgress(int)));
-        connect(this,SIGNAL(donePlaying()),SLOT(cleanThread()));
+#ifndef NO_JACK
+    bool JackMidiFrontend::instantiable() {
+        return true; //Not much one can do short of starting the server.
     }
-    Player::~Player() {
-        disconnect(SIGNAL(progressed(int)),affectedmet,SLOT(setProgress(int)));
-        if (first != nullptr)
-            delete first;
-        delete reed;
-        delete wri;
+#else
+    bool JackMidiFrontend::instantiable() {
+        return false;
     }
+#endif
 }

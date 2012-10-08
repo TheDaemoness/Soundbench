@@ -49,6 +49,19 @@ namespace sb {
         virtual bool isReady() {
             return ready;
         }
+        virtual bool usesPorts() {
+            return false;
+        }
+        virtual std::vector<std::string> getPorts() {
+            return std::vector<std::string>();
+        }
+        virtual std::vector<size_t> getConnections(bool) {
+            return std::vector<size_t>();
+        }
+        virtual bool modifyConnection(bool, size_t, bool) {
+            return false;
+        }
+
         virtual void setDevice(uint32_t dev) = 0;
         virtual std::vector<std::string> getDevices() = 0;
 

@@ -34,8 +34,10 @@ namespace sb {
             if (info.probed) {
                 if(info.outputChannels >= 2)
                     return true;
-                else
+                else if (info.outputChannels == 1)
                     std::cerr << "The default device for RtAudio does not support stereo sound. Skipping this backend...\n";
+                else
+                    std::cerr << "The default device for RtAudio cannot output any audio at this time. Skipping this backend...\n";
             }
             else
                 std::cerr << "RtAudio could not find or probe the default audio device. Skipping this backend...\n";

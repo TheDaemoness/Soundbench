@@ -205,6 +205,11 @@ QWidget:disabled {
 	color: gray;
 }
 
+QGraphicsView {
+	background-color: black;
+	border-color: black;
+}
+
 QLabel:disabled {
 	color: gray;
 }
@@ -1193,9 +1198,9 @@ Save the preset as another file.</string>
       </property>
       <property name="geometry">
        <rect>
-        <x>145</x>
-        <y>70</y>
-        <width>71</width>
+        <x>115</x>
+        <y>110</y>
+        <width>96</width>
         <height>21</height>
        </rect>
       </property>
@@ -1217,9 +1222,9 @@ Save the preset as another file.</string>
       </property>
       <property name="geometry">
        <rect>
-        <x>145</x>
-        <y>175</y>
-        <width>71</width>
+        <x>360</x>
+        <y>110</y>
+        <width>96</width>
         <height>21</height>
        </rect>
       </property>
@@ -1241,9 +1246,9 @@ Save the preset as another file.</string>
       </property>
       <property name="geometry">
        <rect>
-        <x>145</x>
-        <y>285</y>
-        <width>71</width>
+        <x>600</x>
+        <y>110</y>
+        <width>101</width>
         <height>21</height>
        </rect>
       </property>
@@ -1265,9 +1270,9 @@ Save the preset as another file.</string>
       </property>
       <property name="geometry">
        <rect>
-        <x>145</x>
-        <y>395</y>
-        <width>71</width>
+        <x>845</x>
+        <y>110</y>
+        <width>96</width>
         <height>21</height>
        </rect>
       </property>
@@ -1283,50 +1288,11 @@ Save the preset as another file.</string>
        <string>Settings</string>
       </property>
      </widget>
-     <widget class="QGraphicsView" name="graphicsView">
-      <property name="geometry">
-       <rect>
-        <x>231</x>
-        <y>25</y>
-        <width>800</width>
-        <height>405</height>
-       </rect>
-      </property>
-      <property name="styleSheet">
-       <string notr="true">QGraphicsView {
-	background-color: black;
-}</string>
-      </property>
-     </widget>
-     <widget class="QLabel" name="effectsComingSoon">
-      <property name="geometry">
-       <rect>
-        <x>231</x>
-        <y>25</y>
-        <width>800</width>
-        <height>405</height>
-       </rect>
-      </property>
-      <property name="font">
-       <font>
-        <family>Ubuntu</family>
-        <pointsize>16</pointsize>
-        <weight>75</weight>
-        <bold>true</bold>
-       </font>
-      </property>
-      <property name="text">
-       <string>(Effects are coming in version 0.7.0)</string>
-      </property>
-      <property name="alignment">
-       <set>Qt::AlignCenter</set>
-      </property>
-     </widget>
      <widget class="QComboBox" name="gener1TypeBox">
       <property name="geometry">
        <rect>
-        <x>40</x>
-        <y>70</y>
+        <x>115</x>
+        <y>80</y>
         <width>96</width>
         <height>21</height>
        </rect>
@@ -1348,8 +1314,8 @@ Save the preset as another file.</string>
      <widget class="QComboBox" name="gener2TypeBox">
       <property name="geometry">
        <rect>
-        <x>40</x>
-        <y>175</y>
+        <x>360</x>
+        <y>80</y>
         <width>96</width>
         <height>21</height>
        </rect>
@@ -1371,9 +1337,9 @@ Save the preset as another file.</string>
      <widget class="QComboBox" name="gener3TypeBox">
       <property name="geometry">
        <rect>
-        <x>40</x>
-        <y>285</y>
-        <width>96</width>
+        <x>600</x>
+        <y>80</y>
+        <width>101</width>
         <height>21</height>
        </rect>
       </property>
@@ -1394,8 +1360,8 @@ Save the preset as another file.</string>
      <widget class="QComboBox" name="gener4TypeBox">
       <property name="geometry">
        <rect>
-        <x>40</x>
-        <y>395</y>
+        <x>845</x>
+        <y>80</y>
         <width>96</width>
         <height>21</height>
        </rect>
@@ -1417,10 +1383,10 @@ Save the preset as another file.</string>
      <widget class="QLabel" name="gener1Label">
       <property name="geometry">
        <rect>
-        <x>25</x>
-        <y>45</y>
-        <width>201</width>
-        <height>16</height>
+        <x>100</x>
+        <y>50</y>
+        <width>121</width>
+        <height>20</height>
        </rect>
       </property>
       <property name="text">
@@ -1433,9 +1399,9 @@ Save the preset as another file.</string>
      <widget class="QLabel" name="gener2Label">
       <property name="geometry">
        <rect>
-        <x>25</x>
-        <y>150</y>
-        <width>201</width>
+        <x>345</x>
+        <y>50</y>
+        <width>121</width>
         <height>16</height>
        </rect>
       </property>
@@ -1449,9 +1415,9 @@ Save the preset as another file.</string>
      <widget class="QLabel" name="gener3Label">
       <property name="geometry">
        <rect>
-        <x>25</x>
-        <y>260</y>
-        <width>201</width>
+        <x>590</x>
+        <y>50</y>
+        <width>121</width>
         <height>16</height>
        </rect>
       </property>
@@ -1465,14 +1431,48 @@ Save the preset as another file.</string>
      <widget class="QLabel" name="gener4Label">
       <property name="geometry">
        <rect>
-        <x>25</x>
-        <y>370</y>
-        <width>201</width>
+        <x>830</x>
+        <y>50</y>
+        <width>126</width>
         <height>16</height>
        </rect>
       </property>
       <property name="text">
        <string>Generator 4</string>
+      </property>
+      <property name="alignment">
+       <set>Qt::AlignCenter</set>
+      </property>
+     </widget>
+     <widget class="QGraphicsView" name="graphicsView">
+      <property name="geometry">
+       <rect>
+        <x>10</x>
+        <y>195</y>
+        <width>1036</width>
+        <height>251</height>
+       </rect>
+      </property>
+     </widget>
+     <widget class="QLabel" name="macroComingSoon_2">
+      <property name="geometry">
+       <rect>
+        <x>10</x>
+        <y>195</y>
+        <width>1031</width>
+        <height>251</height>
+       </rect>
+      </property>
+      <property name="font">
+       <font>
+        <family>Ubuntu</family>
+        <pointsize>16</pointsize>
+        <weight>75</weight>
+        <bold>true</bold>
+       </font>
+      </property>
+      <property name="text">
+       <string>(Effects coming in version 0.4.0)</string>
       </property>
       <property name="alignment">
        <set>Qt::AlignCenter</set>
@@ -1516,7 +1516,7 @@ Save the preset as another file.</string>
        </font>
       </property>
       <property name="text">
-       <string>(Coming in version 0.8.0)</string>
+       <string>(Coming in version 0.7.0)</string>
       </property>
       <property name="alignment">
        <set>Qt::AlignCenter</set>

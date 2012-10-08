@@ -21,8 +21,13 @@
 
 namespace sb {
     void Player::initfrontend(Synth* syn) {
+#ifdef NO_MIDIFRONTEND
+        std::cerr << "Soundbench was compiled without any MIDI frontends.\n";
+#else
         std::cerr << "Determining which MIDI frontends will initialize.\n";
         supported_apis[RtMidi_I] = RtMidiFrontend::instantiable();
+        supported_apis[JACK_I] = JackMidiFrontend::instantiable();
+#endif
 
         if (supported_apis[RtMidi_I]) {
             std::cerr << "Initializing an RtMidi frontend...\n";

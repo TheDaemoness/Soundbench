@@ -26,6 +26,7 @@
 #include "sfwriter.h"
 
 #include "frontend/rtmidi.h"
+#include "frontend/jackmidi.h"
 
 #include <deque>
 #include <cstdio>
@@ -108,6 +109,7 @@ namespace sb {
         midi::nodes::PlayerStartNode* first;
         SoundFileWriter* wri;
         MidiFrontend* midin;
+        FrontendType fetype;
         std::thread* playthread;
 
         QListWidget* affectedlist;

@@ -5,7 +5,7 @@
 QMAKE_CXXFLAGS_WARN_ON += -Wall -Wextra -pedantic
 QMAKE_CXXFLAGS += -std=c++0x
 
-DEFINES += IS_SOUNDBENCH NO_JACK #JACK support doesn't exist yet, but will in 0.4.0.
+DEFINES += IS_SOUNDBENCH
 
 TEMPLATE = app
 TARGET = 
@@ -49,7 +49,8 @@ HEADERS += architect/architect.h \
     fileparsers.h \
     filewriters.h \
     backend/jackaudio.h \
-    emitter/initbackend.h
+    emitter/initbackend.h \
+    frontend/jackmidi.h
 
 FORMS += errorpopup.ui \
     ui/sbmain/soundbenchmain.ui \
@@ -93,7 +94,8 @@ SOURCES += \
     midifio/fiomisc.cpp \
     midifio/fioread.cpp \
     midifio/fioreadopen.cpp \
-    backend/jackaudio.cpp
+    backend/jackaudio.cpp \
+    frontend/jackmidi.cpp
 
 RESOURCES += \
     resources.qrc
@@ -121,6 +123,13 @@ noRtAudio {
     LIBS += -lrtmidi
 }
 noRtMidi {
+    DEFINES += NO_RTMIDI
+}
+
+!noJack{
+    LIBS += -ljack
+}
+noJack {
     DEFINES += NO_RTMIDI
 }
 

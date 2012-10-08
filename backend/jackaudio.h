@@ -23,6 +23,8 @@
 #define JACKAUDIO_H
 
 #ifndef NO_JACK
+#include <jack/jack.h>
+
 namespace sb {
     class JackAudioBackend : public EmitterBackend {
     public:
@@ -37,8 +39,16 @@ namespace sb {
         size_t getCurrentDevice();
 
         void setSamplingRate(size_t);
-        void setDevice(uint32_t devi);
-        std::vector<std::string> getDevices();
+        void setDevice(uint32_t);
+
+        bool usesPorts();
+        std::vector<std::string> getPorts();
+        std::vector<size_t> getConnections(bool rightport);
+        bool modifyConnection(bool rightport, size_t portid, bool conn = false);
+    private:
+        jack_client_t* cli;
+        jack_port_t *lport, *rport;
+        jack_status_t stat;
     };
 }
 #else
@@ -46,7 +56,7 @@ namespace sb {
     class JackAudioBackend : public EmitterBackend {
     public:
         static bool instantiable();
-        explicit JackAudioBackend(sb::Synth*, size_t&,std::map<size_t,bool>&,size_t) {}
+        explicit JackAudioBackend(sb::Synth*, size_t&,std::map<size_t,bool>&, size_t) {}
         size_t returnSuggestedBufferSize() {return 0;}
         ~JackAudioBackend() {}
         void start() {}
