@@ -48,7 +48,7 @@ namespace sb {
             ign->setComments("Run Soundbench without realtime audio support.\nSoundbench will not be able to output any sound except by writing it to a file.");
             er->addFix(ign);
             er->exec();
-            bool killoption = !er->wasFixed();
+            bool killoption = !er->fixed();
             delete er;
             if (killoption)
                 AbortSoundbench();
@@ -100,13 +100,15 @@ namespace sb {
             w->exec();
             bool noquite = w->fixed();
             delete w;
-            if (!noquite) {
+            if (noquite) {
                 delete backend;
                 backend = nullptr;
                 return;
             }
-            else
+            else {
+                delete backend;
                 AbortSoundbench();
+            }
         }
         else if (!initialed && backend == nullptr) {
             //All the backends failed.
@@ -118,7 +120,7 @@ namespace sb {
             ign->setComments("Run Soundbench without realtime audio support.\nSoundbench will not be able to output any sound except by writing it to a file.");
             er->addFix(ign);
             er->exec();
-            bool throw22 = !er->wasFixed();
+            bool throw22 = !er->fixed();
             delete er;
             if (throw22)
                 AbortSoundbench();

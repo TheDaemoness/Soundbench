@@ -28,7 +28,7 @@ ErrorPopup::ErrorPopup(QWidget *parent) :
 {
     ui->setupUi(this);
     whichfix = 0;
-    fixed = false;
+    wasfixed = false;
     for(unsigned char i = 0; i < fixcount; ++i)
         fixes[i] = nullptr;
     ui->fix1Choice->setDisabled(true);
@@ -44,19 +44,19 @@ ErrorPopup::ErrorPopup(QWidget *parent) :
 void ErrorPopup::takeAction() {
     close();
     if (ui->fix1Choice->isChecked())
-        fixed = fixes[0]->runFix();
+        wasfixed = fixes[0]->runFix();
     else if (ui->fix2Choice->isChecked())
-        fixed = fixes[1]->runFix();
+        wasfixed = fixes[1]->runFix();
     else if (ui->fix3Choice->isChecked())
-        fixed = fixes[2]->runFix();
+        wasfixed = fixes[2]->runFix();
     else if (ui->fix4Choice->isChecked())
-        fixed = fixes[3]->runFix();
+        wasfixed = fixes[3]->runFix();
     else if (ui->fix5Choice->isChecked())
-        fixed = fixes[4]->runFix();
+        wasfixed = fixes[4]->runFix();
     else if (ui->fix6Choice->isChecked())
-        fixed = fixes[5]->runFix();
+        wasfixed = fixes[5]->runFix();
     else if (ui->fix7Choice->isChecked())
-        fixed = fixes[6]->runFix();
+        wasfixed = fixes[6]->runFix();
 }
 
 void ErrorPopup::setErrorText(std::string txt) {

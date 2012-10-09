@@ -39,8 +39,8 @@ public:
     void setErrorText(std::string);
     void setInfoText(std::string);
     void addFix(sb::errs::fixes::ProblemFix*, std::string desc = "", std::string comments = "");
-    bool wasFixed() {
-        return fixed;
+    bool fixed() {
+        return wasfixed;
     }
 
 private slots:
@@ -49,7 +49,7 @@ private slots:
 private:
     Ui::ErrorPopup *ui;
     char whichfix;
-    bool fixed;
+    bool wasfixed;
     sb::errs::fixes::ProblemFix* fixes[fixcount];
 };
 
