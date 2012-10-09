@@ -18,6 +18,7 @@
 */
 
 #include "backend/base.h"
+#include "jackbase.h"
 
 #ifndef JACKAUDIO_H
 #define JACKAUDIO_H
@@ -26,7 +27,7 @@
 #include <jack/jack.h>
 
 namespace sb {
-    class JackAudioBackend : public EmitterBackend {
+    class JackAudioBackend : public EmitterBackend, public JackBase {
     public:
         static bool instantiable();
         explicit JackAudioBackend(sb::Synth*, size_t&, std::map<size_t,bool>&, size_t);
@@ -43,12 +44,11 @@ namespace sb {
 
         bool usesPorts();
         std::vector<std::string> getPorts();
+         std::vector<std::string> getDevices();
         std::vector<size_t> getConnections(bool rightport);
         bool modifyConnection(bool rightport, size_t portid, bool conn = false);
     private:
-        jack_client_t* cli;
         jack_port_t *lport, *rport;
-        jack_status_t stat;
     };
 }
 #else

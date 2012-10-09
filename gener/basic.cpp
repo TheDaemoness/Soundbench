@@ -28,7 +28,7 @@ namespace sb {
         currpoly = cracker;
         curr_wav = SineWave;
 
-        ocean = new PeriodicSampleTable(new Sine(SampleRate));
+        ocean = new PeriodicSampleTable(new Sine(global_srate));
         ocean->setWaveCount(cracker);
         envelope.resize(cracker);
     }
@@ -42,17 +42,17 @@ namespace sb {
 
             WaveBase* w;
             if (curr_wav == TriangleWave)
-                w = new Triangle(SampleRate);
+                w = new Triangle(global_srate);
             else if (curr_wav == SquareWave)
-                w = new Square(SampleRate);
+                w = new Square(global_srate);
             else if (curr_wav == SawtoothWave)
-                w = new Sawtooth(SampleRate);
+                w = new Sawtooth(global_srate);
             else if (curr_wav == OvalWave)
-                w = new Oval(SampleRate);
+                w = new Oval(global_srate);
             else if (curr_wav == PeakWave)
-                w = new Peak(SampleRate);
+                w = new Peak(global_srate);
             else
-                w = new Sine(SampleRate);
+                w = new Sine(global_srate);
             ocean = new PeriodicSampleTable(w, true);
             ocean->setWaveCount(currpoly);
             ocean->setOffsets(offset);
@@ -64,7 +64,7 @@ namespace sb {
             notebias = val.pod.value;
             break;
         case GenBasicPhase:
-            offset = val.pod.sample/SbSampleMax*SampleRate;
+            offset = val.pod.sample/SbSampleMax*global_srate;
             ocean->setOffsets(offset);
             break;
         case GenerAttackTime:

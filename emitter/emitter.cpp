@@ -36,8 +36,6 @@ namespace sb {
 
         if (supported_apis[PortAudio_O])
             em_type = PortAudio_O;
-        else if (supported_apis[JACK_O])
-            em_type = JACK_O;
         else if (supported_apis[RtAudio_O])
             em_type = RtAudio_O;
         else {
@@ -59,7 +57,7 @@ namespace sb {
 #endif
 
         syn = s;
-        sample_rate = SampleRate;
+        sample_rate = global_srate;
         backend = nullptr;
         setEmitterType(em_type);
     }
@@ -74,15 +72,12 @@ namespace sb {
         used_backend = NoEmitter;
         bool initialed = false;
 
-        if (emt == JACK_O) {
-            used_backend = JACK_O;
-            std::cerr << "Would initialize a JACK as an audio backend, but it hasn't yet been implemented.\n";
-            initSomeBackend(JACK_O);
-        }
+        if (emt == PortAudio_O)
+            initialed = initBackend<PortAudio_O,PortaudioBackend>(this);
+        else if (emt == JACK_O)
+            initialed = initBackend<JACK_O,JackAudioBackend>(this);
         else if (emt == RtAudio_O)
             initialed = initBackend<RtAudio_O,RtAudioBackend>(this);
-        else if (emt == PortAudio_O)
-            initialed = initBackend<PortAudio_O,PortaudioBackend>(this);
 
         //Try the other backends if the chosen one didn't work out.
         if (!initialed)
@@ -131,10 +126,10 @@ namespace sb {
     }
 
     void Emitter::setSamplingRate(size_t s_rate) {
-        SampleRate = s_rate;
+        global_srate = s_rate;
         if (backend != nullptr)
             backend->setSamplingRate(s_rate);
-        std::cerr << "Set sampling rate to " << SampleRate << " samples per second.\n";
+        std::cerr << "Set sampling rate to " << global_srate << " samples per second.\n";
     }
 
     Emitter::~Emitter() {

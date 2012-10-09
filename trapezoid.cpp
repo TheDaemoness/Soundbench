@@ -43,12 +43,12 @@ namespace sb {
     }
     void Trapezoid::attack() {
         up = true;
-        rate = 1.0/(timeup*SampleRate)*SbSampleMax;
+        rate = 1.0/(timeup*global_srate)*SbSampleMax;
         top = false;
     }
     void Trapezoid::release() {
         up = false;
-        rate = 1.0/(timedown*SampleRate)*SbSampleMax;
+        rate = 1.0/(timedown*global_srate)*SbSampleMax;
         bottom = false;
     }
 }

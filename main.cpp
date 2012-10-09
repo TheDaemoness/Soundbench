@@ -23,8 +23,10 @@
 #include "ui/sbmain/soundbenchmain.h"
 #include "printhelp.h"
 
-size_t sb::SampleRate;
+size_t sb::global_srate;
 sb::Synth* sb::midi::nodes::MIDIEventNode::synref;
+jack_client_t* sb::JackBase::cli = nullptr;
+jack_status_t sb::JackBase::stat = static_cast<jack_status_t>(0);
 
 int main(int argc, char *argv[]) {
     QApplication a(argc, argv);

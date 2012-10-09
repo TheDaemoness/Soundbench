@@ -38,7 +38,7 @@ SoundbenchMain::SoundbenchMain(QWidget *parent) : QMainWindow(parent) {
 }
 
 void SoundbenchMain::delayedConstructor() {
-    sb::SampleRate = sb::SupportedRates[1];
+    sb::global_srate = sb::SupportedRates[1];
 
     syn = new sb::Synth;
     em = new sb::Emitter(syn);

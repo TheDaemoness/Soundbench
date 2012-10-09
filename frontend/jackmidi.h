@@ -21,11 +21,12 @@
 #define JACKMIDI_H
 
 #include "frontend/base.h"
+#include "jackbase.h"
 
 #ifndef NO_JACK
 
 namespace sb {
-    class JackMidiFrontend : public MidiFrontend {
+    class JackMidiFrontend : public MidiFrontend, public JackBase {
     public:
         static bool instantiable();
 

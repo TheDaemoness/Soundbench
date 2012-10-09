@@ -22,12 +22,33 @@
 #include <algorithm>
 
 namespace sb {
-#ifndef NO_JACK
+
     bool JackAudioBackend::instantiable() {
-        return true; //There are no lightweight checks that can be performed here.
+#ifndef NO_JACK
+        if (cli == nullptr)
+            cli = jack_client_open("Soundbench",JackNoStartServer,&stat); //May remove the JackNoStartServer option in the future.
+        if (stat & JackFailure) {
+            if (stat & JackServerFailed)
+                std::cerr << "Could not find a running JACK server.\nNote: Soundbench does not start the server if it's not present.\n";
+            if (stat & JackServerError)
+                std::cerr << "Could not communicate with the JACK server.\n";
+        }
+        return !(stat & JackFailure);
+#else
+        return false;
+#endif
     }
+
+#ifndef NO_JACK
     JackAudioBackend::JackAudioBackend(Synth* s, size_t& srate, std::map<size_t, bool>& srates, size_t) {
-        cli = jack_client_open("Soundbench",static_cast<jack_options_t>(0),&stat);
+        ready = false;
+        if (cli == nullptr)
+            cli = jack_client_open("Soundbench",static_cast<jack_options_t>(0),&stat);
+
+        if (cli == nullptr) {
+            std::cerr << "Something went horribly wrong initializing the JACK backend.";
+            return;
+        }
 
         lport = jack_port_register(cli,"Soundbench Output - Left", JACK_DEFAULT_AUDIO_TYPE,JackPortIsOutput,srate/100);
         rport = jack_port_register(cli,"Soundbench Output - Right", JACK_DEFAULT_AUDIO_TYPE,JackPortIsOutput,srate/100);
@@ -39,39 +60,41 @@ namespace sb {
 
         sampling_rate = srate;
         syn = s;
+        ready = true;
     }
     JackAudioBackend::~JackAudioBackend() {
         stop();
-        jack_client_close(cli);
+        if (cli != nullptr) {
+            jack_client_close(cli);
+            cli = nullptr;
+        }
     }
 
     void JackAudioBackend::start() {
-        int err = jack_activate(cli);
-        if (err != 0) {
-            //Error handling stuff here.
+        if (cli != nullptr) {
+            int err = jack_activate(cli);
+            if (err != 0) {
+                //Error handling stuff here.
+            }
         }
     }
 
     void JackAudioBackend::stop() {
-        int err = jack_deactivate(cli);
-        if (err != 0) {
-            //Error handling stuff here.
+        if (cli != nullptr) {
+            int err = jack_deactivate(cli);
+            if (err != 0) {
+                //Error handling stuff here.
+            }
         }
-    }
-    size_t JackAudioBackend::getDefaultDevice() {
-        return 0;
-    }
-    size_t JackAudioBackend::getCurrentDevice() {
-        return 0;
-    }
-    void JackAudioBackend::setDevice(uint32_t) {
-        return;
     }
 
     bool JackAudioBackend::usesPorts() {
         return true;
     }
     std::vector<std::string> JackAudioBackend::getPorts() {
+        if (cli == nullptr)
+            return std::vector<std::string>();
+
         const char** portes = jack_get_ports(cli,NULL,NULL,static_cast<unsigned long>(JackPortIsInput));
 
         std::vector<std::string> ret;
@@ -83,6 +106,9 @@ namespace sb {
         return ret;
     }
     std::vector<std::size_t> JackAudioBackend::getConnections(bool rightport) {
+        if (cli == nullptr)
+            return std::vector<size_t>();
+
         const char** connlist = jack_port_get_connections(rightport?rport:lport);
         std::vector<std::string> portlist = getPorts();
         std::vector<std::size_t> ret;
@@ -99,16 +125,19 @@ namespace sb {
 
     }
     bool JackAudioBackend::modifyConnection(bool rightport, size_t portid, bool conn) {
+        if (cli == nullptr)
+            return false;
+
         int e = 0;
         if (conn) {
             e = jack_connect(cli,
-                         jack_port_name(rightport?rport:lport),
-                         jack_port_name(jack_port_by_id(cli,portid)));
+                             jack_port_name(rightport?rport:lport),
+                             jack_port_name(jack_port_by_id(cli,portid)));
         }
         else {
             e = jack_disconnect(cli,
-                         jack_port_name(rightport?rport:lport),
-                         jack_port_name(jack_port_by_id(cli,portid)));
+                                jack_port_name(rightport?rport:lport),
+                                jack_port_name(jack_port_by_id(cli,portid)));
         }
         if (e != 0) {
             //Error handling stuff here.
@@ -117,13 +146,21 @@ namespace sb {
         return true;
     }
 
-    void JackAudioBackend::setSamplingRate(size_t) {
-        std::cerr << "The sampling rate cannot be changed while using JACK.\n";
+    size_t JackAudioBackend::getDefaultDevice() {
+        return 0;
+    }
+    size_t JackAudioBackend::getCurrentDevice() {
+        return 0;
+    }
+    void JackAudioBackend::setDevice(uint32_t) {
+        return;
+    }
+    std::vector<std::string> JackAudioBackend::getDevices() {
+        return std::vector<std::string>();
     }
 
-#else
-    bool JackAudioBackend::instantiable() {
-        return false;
+    void JackAudioBackend::setSamplingRate(size_t) {
+        std::cerr << "The sampling rate cannot be changed while using JACK.\n";
     }
 #endif
 }

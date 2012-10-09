@@ -32,7 +32,7 @@ namespace sb {
         EmitterBackend() {
             running = false;
             ready = false;
-            sampling_rate = SampleRate;
+            sampling_rate = global_srate;
         }
         virtual ~EmitterBackend() {}
         virtual void stop() = 0;

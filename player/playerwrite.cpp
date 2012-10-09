@@ -75,7 +75,7 @@ namespace sb {
         emit progressed(0);
 
         //Microseconds per sample: (microseconds / second) / (samples / second)
-        uint16_t factor = 1000000 / SampleRate;
+        uint16_t factor = 1000000 / global_srate;
         nody = first;
         bool cont = true;
         uint32_t evnum = 0, prevnum = 0;
@@ -102,7 +102,7 @@ namespace sb {
             wri->tick();
         }
 
-        uint64_t playtime = static_cast<float>(sampcount) / SampleRate;
+        uint64_t playtime = static_cast<float>(sampcount) / global_srate;
         if (playtime == 1)
             std::cerr << "Wrote " << sampcount << " samples to the file (appx. 1 second).\n";
         else if (playtime < 60)

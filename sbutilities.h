@@ -177,7 +177,6 @@ namespace sb {
         JACK_I //Not implemented.
     };
 
-    extern size_t SampleRate;
     const size_t OutChannels = 2;
     const float Pi = 3.14159265358979323846264338327950288f;
 
@@ -188,6 +187,7 @@ namespace sb {
     const size_t SupportedRates[] = {44100,48000,88200,96000,176400,192000};
     const size_t SupportedRatesCount = 6;
 
+    extern size_t global_srate;
     inline float getFrequencyFromNote(int8_t delta, float A4 = 440.00) {
         return A4*std::pow(pow(2.0,1.0/12),delta);
     }

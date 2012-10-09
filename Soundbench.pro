@@ -50,7 +50,8 @@ HEADERS += architect/architect.h \
     filewriters.h \
     backend/jackaudio.h \
     emitter/initbackend.h \
-    frontend/jackmidi.h
+    frontend/jackmidi.h \
+    jackbase.h
 
 FORMS += errorpopup.ui \
     ui/sbmain/soundbenchmain.ui \

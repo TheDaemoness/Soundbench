@@ -22,12 +22,12 @@
 namespace sb {
     PeriodicSampleTable::PeriodicSampleTable(WaveBase* wav, bool autodelete) {
         if (wav == nullptr) {
-            samples.resize(SampleRate,0.0);
+            samples.resize(global_srate,0.0);
             return;
         }
-        samples.reserve(SampleRate);
-        float factor = Pi*2.0/SampleRate;
-        for (uint32_t i = 0; i < SampleRate; ++i)
+        samples.reserve(global_srate);
+        float factor = Pi*2.0/global_srate;
+        for (uint32_t i = 0; i < global_srate; ++i)
             samples.push_back(wav->getRaw(factor*i));
         if (autodelete)
             delete wav;
