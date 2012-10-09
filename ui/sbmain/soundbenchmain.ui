@@ -483,7 +483,7 @@ QTabBar::tab:selected {
 }</string>
     </property>
     <property name="currentIndex">
-     <number>0</number>
+     <number>3</number>
     </property>
     <widget class="QWidget" name="tabSelect">
      <attribute name="title">
@@ -1199,7 +1199,7 @@ Save the preset as another file.</string>
       <property name="geometry">
        <rect>
         <x>115</x>
-        <y>110</y>
+        <y>95</y>
         <width>96</width>
         <height>21</height>
        </rect>
@@ -1223,7 +1223,7 @@ Save the preset as another file.</string>
       <property name="geometry">
        <rect>
         <x>360</x>
-        <y>110</y>
+        <y>95</y>
         <width>96</width>
         <height>21</height>
        </rect>
@@ -1247,7 +1247,7 @@ Save the preset as another file.</string>
       <property name="geometry">
        <rect>
         <x>600</x>
-        <y>110</y>
+        <y>95</y>
         <width>101</width>
         <height>21</height>
        </rect>
@@ -1271,7 +1271,7 @@ Save the preset as another file.</string>
       <property name="geometry">
        <rect>
         <x>845</x>
-        <y>110</y>
+        <y>95</y>
         <width>96</width>
         <height>21</height>
        </rect>
@@ -1292,7 +1292,7 @@ Save the preset as another file.</string>
       <property name="geometry">
        <rect>
         <x>115</x>
-        <y>80</y>
+        <y>65</y>
         <width>96</width>
         <height>21</height>
        </rect>
@@ -1315,7 +1315,7 @@ Save the preset as another file.</string>
       <property name="geometry">
        <rect>
         <x>360</x>
-        <y>80</y>
+        <y>65</y>
         <width>96</width>
         <height>21</height>
        </rect>
@@ -1338,7 +1338,7 @@ Save the preset as another file.</string>
       <property name="geometry">
        <rect>
         <x>600</x>
-        <y>80</y>
+        <y>65</y>
         <width>101</width>
         <height>21</height>
        </rect>
@@ -1361,7 +1361,7 @@ Save the preset as another file.</string>
       <property name="geometry">
        <rect>
         <x>845</x>
-        <y>80</y>
+        <y>65</y>
         <width>96</width>
         <height>21</height>
        </rect>
@@ -1379,70 +1379,6 @@ Save the preset as another file.</string>
         <string>Basic</string>
        </property>
       </item>
-     </widget>
-     <widget class="QLabel" name="gener1Label">
-      <property name="geometry">
-       <rect>
-        <x>100</x>
-        <y>50</y>
-        <width>121</width>
-        <height>20</height>
-       </rect>
-      </property>
-      <property name="text">
-       <string>Generator 1</string>
-      </property>
-      <property name="alignment">
-       <set>Qt::AlignCenter</set>
-      </property>
-     </widget>
-     <widget class="QLabel" name="gener2Label">
-      <property name="geometry">
-       <rect>
-        <x>345</x>
-        <y>50</y>
-        <width>121</width>
-        <height>16</height>
-       </rect>
-      </property>
-      <property name="text">
-       <string>Generator 2</string>
-      </property>
-      <property name="alignment">
-       <set>Qt::AlignCenter</set>
-      </property>
-     </widget>
-     <widget class="QLabel" name="gener3Label">
-      <property name="geometry">
-       <rect>
-        <x>590</x>
-        <y>50</y>
-        <width>121</width>
-        <height>16</height>
-       </rect>
-      </property>
-      <property name="text">
-       <string>Generator 3</string>
-      </property>
-      <property name="alignment">
-       <set>Qt::AlignCenter</set>
-      </property>
-     </widget>
-     <widget class="QLabel" name="gener4Label">
-      <property name="geometry">
-       <rect>
-        <x>830</x>
-        <y>50</y>
-        <width>126</width>
-        <height>16</height>
-       </rect>
-      </property>
-      <property name="text">
-       <string>Generator 4</string>
-      </property>
-      <property name="alignment">
-       <set>Qt::AlignCenter</set>
-      </property>
      </widget>
      <widget class="QGraphicsView" name="graphicsView">
       <property name="geometry">
