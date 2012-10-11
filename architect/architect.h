@@ -22,7 +22,7 @@
 
 #include "blueprint.h"
 #include "gener/basic.h"
-#include "synth.h"
+#include "synth/synth.h"
 
 #include <fstream>
 

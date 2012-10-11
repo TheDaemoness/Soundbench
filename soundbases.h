@@ -32,12 +32,13 @@ namespace sb {
         SoundBase()  {}
         virtual ~SoundBase()  {}
 
-        virtual void tick(float* sample, size_t chans) = 0;
+        virtual void tick(float* sample, size_t chans, bool left = true) = 0;
         virtual void ctrl(ModuleParams arg, ParameterValue val) = 0; //See the documentation for notes about this function.
         virtual void reset() = 0;
+        virtual void updateSamplingRate() = 0;
+
     protected:
         std::vector<Trapezoid> envelope;
-        size_t sample_rate;
     };
 
 

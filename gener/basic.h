@@ -34,7 +34,7 @@ namespace sb {
         uint8_t currpoly;
         size_t offset;
     public:
-        explicit BasicGen(size_t srate, size_t cracker = DefaultPolyphony);
+        explicit BasicGen(size_t cracker = DefaultPolyphony);
         ~BasicGen() {
             delete ocean;
         }
@@ -47,7 +47,8 @@ namespace sb {
         void noteOff(size_t pos);
         void reset();
         void setPolymorphism(size_t poly);
-        void tick(float *sample, size_t chans);
+        void tick(float *sample, size_t chans, bool left = true);
+        void updateSamplingRate();
     };
 }
 

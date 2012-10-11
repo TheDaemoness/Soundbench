@@ -45,10 +45,8 @@ namespace sb {
             srates[SupportedRates[i]] = (Pa_IsFormatSupported(nullptr,&dev,SupportedRates[i]) == paFormatIsSupported);
 
         if (!srates[SupportedRates[1]]) {
-            for (size_t i = 0; i < SupportedRatesCount; ++i) {
-                if(srates[SupportedRates[i]])
-                    srate = SupportedRates[i];
-            }
+            std::cerr << "Primary sampling rate not supported.\n";
+            return;
         }
         sampling_rate = srate;
         syn = s;

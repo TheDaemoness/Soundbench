@@ -107,17 +107,17 @@ void SoundbenchMain::delayedConstructor() {
     rate_sigmap->setMapping(ui->button192Sampling,5);
 
     //Check off the sampling rate being used.
-    if (em->getSampleRate() == sb::SupportedRates[0])
+    if (sb::global_srate == sb::SupportedRates[0])
         ui->button441Sampling->setChecked(true);
-    else if (em->getSampleRate() == sb::SupportedRates[1])
+    else if (sb::global_srate == sb::SupportedRates[1])
         ui->button48Sampling->setChecked(true);
-    else if (em->getSampleRate() == sb::SupportedRates[2])
+    else if (sb::global_srate == sb::SupportedRates[2])
         ui->button882Sampling->setChecked(true);
-    else if (em->getSampleRate() == sb::SupportedRates[3])
+    else if (sb::global_srate == sb::SupportedRates[3])
         ui->button96Sampling->setChecked(true);
-    else if (em->getSampleRate() == sb::SupportedRates[4])
+    else if (sb::global_srate == sb::SupportedRates[4])
         ui->button176Sampling->setChecked(true);
-    else if (em->getSampleRate() == sb::SupportedRates[5])
+    else if (sb::global_srate == sb::SupportedRates[5])
         ui->button192Sampling->setChecked(true);
 
     //Disable the sampling rates that the platform does not support. I'm looking at you, 192k...

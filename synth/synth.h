@@ -45,8 +45,9 @@ namespace sb {
         void noteOff(int halfsteps);
         void pedal(SupportedPedals which, bool val = true);
         void reset();
-        void tick(SbSample* frame, size_t chans);
+        void tick(SbSample* frame, size_t chans, bool left = true);
         void setPolyphony(uint8_t);
+        void updateSamplingRate();
 
         inline SbSample& volume() {return vol;}
         friend class Architect;

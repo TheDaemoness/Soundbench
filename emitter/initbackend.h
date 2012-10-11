@@ -27,7 +27,7 @@ namespace sb {
     bool initBackend(Emitter* em) {
         em->used_backend = TypeEnum;
         if (em->supported_apis[TypeEnum]) {
-            em->backend = new Backside(em->syn,em->sample_rate,em->supported_rates,OutChannels);
+            em->backend = new Backside(em->syn,global_srate,em->supported_rates,OutChannels);
             if (em->backend->isReady())
                 return true;
             else {

@@ -48,6 +48,17 @@ namespace sb {
         notes.resize(poly);
     }
 
+    void Synth::updateSamplingRate() {
+        for (size_t osity = 0; osity < InternalChannels; ++osity) { //Loop per internal channel.
+            if (gener[osity] != nullptr)
+                gener[osity]->updateSamplingRate();
+            for (size_t is_not_a_word = 0; is_not_a_word < FxPerChannel; ++is_not_a_word) { //Loop per effect.
+                if (eff[osity][is_not_a_word] != nullptr)
+                    eff[osity][is_not_a_word]->updateSamplingRate();
+            }
+        }
+    }
+
     void Synth::noteOn(int halfsteps, SbSample amp) {
         if (amp <= SbSampleZero)
             return;
@@ -139,17 +150,17 @@ namespace sb {
         }
     }
 
-    void Synth::tick(SbSample* frames, size_t chans) {
+    void Synth::tick(SbSample* frames, size_t chans, bool left) {
         for (size_t ic = 0; ic < InternalChannels; ++ic) { //Loop per internal channel.
             if (gener[ic] != nullptr)
-                gener[ic]->tick(buffer[ic], chans);
+                gener[ic]->tick(buffer[ic], chans, left);
             else {
                 for (size_t i = 0; i < chans; ++i)
                     buffer[ic][i] = SbSampleZero;
             }
             for (size_t ient = 0; ient < FxPerChannel; ++ient) { //Loop per effect.
                 if (eff[ic][ient] != nullptr)
-                    eff[ic][ient]->tick(buffer[ient],chans);
+                    eff[ic][ient]->tick(buffer[ient],chans,left);
             }
             for (size_t acid = 0; acid < chans; ++acid) { //Loop per outbound channel.
                 if (!ic)
@@ -165,3 +176,4 @@ namespace sb {
         }
     }
 }
+

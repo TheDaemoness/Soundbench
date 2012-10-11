@@ -24,7 +24,7 @@
 
 #include "emitter/emitter.h"
 #include "architect/architect.h"
-#include "synth.h"
+#include "synth/synth.h"
 #include "player/player.h"
 
 #include "ui/settings/basicgen.h"

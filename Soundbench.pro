@@ -20,7 +20,6 @@ HEADERS += architect/architect.h \
     emitter/emitter.h \
     errorpopup.h \
     ui/sbmain/soundbenchmain.h \
-    synth.h \
     warningpopup.h \
     meterupdater.h \
     player/player.h \
@@ -51,7 +50,8 @@ HEADERS += architect/architect.h \
     backend/jackaudio.h \
     emitter/initbackend.h \
     frontend/jackmidi.h \
-    jackbase.h
+    jackbase.h \
+    synth/synth.h
 
 FORMS += errorpopup.ui \
     ui/sbmain/soundbenchmain.ui \
@@ -65,7 +65,6 @@ SOURCES += \
     errorpopup.cpp \
     main.cpp \
     warningpopup.cpp \
-    synth.cpp \
     meterupdater.cpp \
     ui/settings/basicgen.cpp \
     gener/basic.cpp \
@@ -96,7 +95,8 @@ SOURCES += \
     midifio/fioread.cpp \
     midifio/fioreadopen.cpp \
     backend/jackaudio.cpp \
-    frontend/jackmidi.cpp
+    frontend/jackmidi.cpp \
+    synth/synth.cpp
 
 RESOURCES += \
     resources.qrc

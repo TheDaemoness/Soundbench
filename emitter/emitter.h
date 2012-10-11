@@ -42,8 +42,12 @@ namespace sb {
         explicit Emitter(Synth*);
         ~Emitter();
 
-        inline size_t getSampleRate() {
-            return sample_rate;
+        void stopAndUpdateSampleRate() {
+            if (backend != nullptr) {
+                backend->stop();
+                backend->setSamplingRate(global_srate);
+                std::cerr << "Updated the sampling rate to " << global_srate << ".\n";
+            }
         }
         inline std::map<size_t,bool> getSupportedRates() {
             return supported_rates;
@@ -60,7 +64,6 @@ namespace sb {
             return backend != nullptr;
         }
 
-        void setSamplingRate(size_t);
         void setEmitterType(EmitterType);
 
 
@@ -99,7 +102,6 @@ namespace sb {
         std::map<EmitterType,bool> supported_apis;
         std::map<size_t,bool> supported_rates;
         EmitterBackend* backend;
-        size_t sample_rate;
         Synth* syn;
     };
 

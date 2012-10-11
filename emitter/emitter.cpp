@@ -57,7 +57,6 @@ namespace sb {
 #endif
 
         syn = s;
-        sample_rate = global_srate;
         backend = nullptr;
         setEmitterType(em_type);
     }
@@ -126,14 +125,6 @@ namespace sb {
                 AbortSoundbench();
         }
     }
-
-    void Emitter::setSamplingRate(size_t s_rate) {
-        global_srate = s_rate;
-        if (backend != nullptr)
-            backend->setSamplingRate(s_rate);
-        std::cerr << "Set sampling rate to " << global_srate << " samples per second.\n";
-    }
-
     Emitter::~Emitter() {
         if (backend != nullptr)
             delete backend;

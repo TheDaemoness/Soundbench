@@ -20,7 +20,7 @@
 #ifndef MIDICHAIN_H
 #define MIDICHAIN_H
 
-#include "synth.h"
+#include "synth/synth.h"
 #include "midievents.h"
 
 #include <thread>

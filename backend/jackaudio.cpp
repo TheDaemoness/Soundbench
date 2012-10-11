@@ -50,13 +50,17 @@ namespace sb {
             return;
         }
 
-        lport = jack_port_register(cli,"Soundbench Output - Left", JACK_DEFAULT_AUDIO_TYPE,JackPortIsOutput,srate/100);
-        rport = jack_port_register(cli,"Soundbench Output - Right", JACK_DEFAULT_AUDIO_TYPE,JackPortIsOutput,srate/100);
+        udata.lport = jack_port_register(cli,"Audio Output - Left", JACK_DEFAULT_AUDIO_TYPE,JackPortIsOutput,srate/100);
+        udata.rport = jack_port_register(cli,"Audio Output - Right", JACK_DEFAULT_AUDIO_TYPE,JackPortIsOutput,srate/100);
 
         srate = jack_get_sample_rate(cli);
 
         for(size_t i = 0; i < SupportedRatesCount; ++i)
             srates[SupportedRates[i]] = false; //JACK is in control of sample rate switching here.
+
+        udata.synref = s;
+        udata.cliref = cli;
+        udata.buffsize = 0;
 
         sampling_rate = srate;
         syn = s;
@@ -109,7 +113,7 @@ namespace sb {
         if (cli == nullptr)
             return std::vector<size_t>();
 
-        const char** connlist = jack_port_get_connections(rightport?rport:lport);
+        const char** connlist = jack_port_get_connections(rightport?udata.rport:udata.lport);
         std::vector<std::string> portlist = getPorts();
         std::vector<std::size_t> ret;
 
@@ -131,12 +135,12 @@ namespace sb {
         int e = 0;
         if (conn) {
             e = jack_connect(cli,
-                             jack_port_name(rightport?rport:lport),
+                             jack_port_name(rightport?udata.rport:udata.lport),
                              jack_port_name(jack_port_by_id(cli,portid)));
         }
         else {
             e = jack_disconnect(cli,
-                                jack_port_name(rightport?rport:lport),
+                                jack_port_name(rightport?udata.rport:udata.lport),
                                 jack_port_name(jack_port_by_id(cli,portid)));
         }
         if (e != 0) {

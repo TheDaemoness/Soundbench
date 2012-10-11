@@ -21,22 +21,18 @@
 
 namespace sb {
 
-    BasicGen::BasicGen(size_t srate, size_t cracker) {
+    BasicGen::BasicGen(size_t cracker) {
         notebias = 0;
-        sample_rate = srate;
         gen_amp = SbSampleMax;
         currpoly = cracker;
         curr_wav = SineWave;
 
-        ocean = new PeriodicSampleTable(new Sine(global_srate));
-        ocean->setWaveCount(cracker);
+        ocean = new PeriodicSampleTable(new Sine(global_srate),cracker);
         envelope.resize(cracker);
     }
     void BasicGen::ctrl(ModuleParams arg, ParameterValue val) {
         switch (arg) {
         case GenBasicWave:
-            if (curr_wav == static_cast<SimpleWaveTypes>(val.pod.value))
-                break;
             curr_wav = static_cast<SimpleWaveTypes>(val.pod.value);
             delete ocean;
 
@@ -53,8 +49,7 @@ namespace sb {
                 w = new Peak(global_srate);
             else
                 w = new Sine(global_srate);
-            ocean = new PeriodicSampleTable(w, true);
-            ocean->setWaveCount(currpoly);
+            ocean = new PeriodicSampleTable(w, currpoly);
             ocean->setOffsets(offset);
             break;
         case GenBasicAmp:
@@ -105,7 +100,7 @@ namespace sb {
         envelope.resize(poly);
         ocean->setWaveCount(poly);
     }
-    void BasicGen::tick(float *sample, size_t chans) {
+    void BasicGen::tick(float *sample, size_t chans, bool) {
         //Cummulate all the samples from each active wave into the same float.
         sample[0] = 0.0f;
         for (size_t i = 0; i < currpoly; ++i) {
@@ -121,5 +116,9 @@ namespace sb {
         for (size_t i = 0; i < chans; ++i) {
             sample[i] = sample[0];
         }
+    }
+    void BasicGen::updateSamplingRate() {
+        reset();
+        ctrl(GenBasicWave,makeParamfromInt(curr_wav));
     }
 }

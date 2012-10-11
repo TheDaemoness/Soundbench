@@ -44,11 +44,18 @@ namespace sb {
 
         bool usesPorts();
         std::vector<std::string> getPorts();
-         std::vector<std::string> getDevices();
+        std::vector<std::string> getDevices();
         std::vector<size_t> getConnections(bool rightport);
         bool modifyConnection(bool rightport, size_t portid, bool conn = false);
     private:
-        jack_port_t *lport, *rport;
+
+        struct userdata {
+            jack_port_t *lport, *rport;
+            Synth* synref;
+            jack_client_t* cliref;
+            size_t buffsize;
+            size_t* srateref;
+        } udata;
     };
 }
 #else

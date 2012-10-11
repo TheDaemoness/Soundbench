@@ -21,7 +21,7 @@
 #define BACKEND_H
 
 #include "sbutilities.h"
-#include "synth.h"
+#include "synth/synth.h"
 
 //I'd have liked to keep the Synth and backend class of objects separate, but it ends up being a lot easier to maintain the required performance this way.
 

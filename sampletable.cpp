@@ -20,7 +20,7 @@
 #include "sampletable.h"
 
 namespace sb {
-    PeriodicSampleTable::PeriodicSampleTable(WaveBase* wav, bool autodelete) {
+    PeriodicSampleTable::PeriodicSampleTable(WaveBase* wav, size_t wavecount, bool autodelete) {
         if (wav == nullptr) {
             samples.resize(global_srate,0.0);
             return;
@@ -31,6 +31,7 @@ namespace sb {
             samples.push_back(wav->getRaw(factor*i));
         if (autodelete)
             delete wav;
+        setWaveCount(wavecount);
     }
 
     void PeriodicSampleTable::setWave(float freq, SbSample amp, size_t pos){

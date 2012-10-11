@@ -92,9 +92,12 @@ void SoundbenchMain::setMasterVolume(int) {
 }
 
 void SoundbenchMain::setSampleRate(int which) {
-    ui->playButton->setChecked(false);
-    em->setSamplingRate(sb::SupportedRates[which]);
-    arch->buildSynth(syn,blu);
+    stopAndReset();
+
+    sb::global_srate = sb::SupportedRates[which];
+    syn->updateSamplingRate();
+    em->stopAndUpdateSampleRate();
+
     em->start();
 }
 
