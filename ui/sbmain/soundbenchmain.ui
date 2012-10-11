@@ -2085,7 +2085,7 @@ QSlider::handle:pressed:horizontal {
      <number>100</number>
     </property>
     <property name="value">
-     <number>75</number>
+     <number>90</number>
     </property>
     <property name="orientation">
      <enum>Qt::Horizontal</enum>

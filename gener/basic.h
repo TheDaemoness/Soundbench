@@ -34,7 +34,7 @@ namespace sb {
         uint8_t currpoly;
         size_t offset;
     public:
-        explicit BasicGen(size_t cracker = DefaultPolyphony);
+        explicit BasicGen(uint8_t cracker = DefaultPolyphony);
         ~BasicGen() {
             delete ocean;
         }

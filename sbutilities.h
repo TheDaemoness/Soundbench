@@ -133,7 +133,7 @@ namespace sb {
     template <typename T>
     inline ParameterValue makeParamfromInt(T i) {
         ParameterValue valu;
-        valu.pod.value = static_cast<int64_t>(i);
+        valu.pod.value = static_cast<int>(i);
         if (i < 0 && i >= -128)
             valu.type = sb::ParameterSigByte;
         else if (i < 256)

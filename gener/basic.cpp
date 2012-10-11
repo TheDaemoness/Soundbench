@@ -21,7 +21,7 @@
 
 namespace sb {
 
-    BasicGen::BasicGen(size_t cracker) {
+    BasicGen::BasicGen(uint8_t cracker) {
         notebias = 0;
         gen_amp = SbSampleMax;
         currpoly = cracker;

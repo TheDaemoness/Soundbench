@@ -70,7 +70,7 @@ namespace sb {
                 ++(syn->inactivechans);
                 break;
             case GenerBasic:
-                syn->gener[ous] = new BasicGen(sb::global_srate);
+                syn->gener[ous] = new BasicGen(syn->currentpoly);
                 break;
             default:
                 std::cerr << "Unimplemented generator type #" << blu->gener[ous] <<  " requested for channel " << ous+1 << ". Defaulting to no generator.\n";
