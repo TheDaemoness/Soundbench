@@ -67,17 +67,25 @@ namespace sb {
         void setEmitterType(EmitterType);
 
 
+        bool doesBackendUsePorts() {
+            if (backend != nullptr)
+                return backend->usesPorts();
+            return false;
+        }
         size_t getCurrentDevice() {
             if (backend != nullptr)
                 return backend->getCurrentDevice();
             return 0;
         }
-
         size_t getDefaultDevice() {
             if (backend != nullptr)
                 return backend->getDefaultDevice();
             return 0;
         }
+        inline EmitterType getUsedBackendType() {
+            return em_type;
+        }
+
 
         void start() {
             if (backend != nullptr)

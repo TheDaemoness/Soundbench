@@ -194,8 +194,13 @@ void SoundbenchMain::delayedConstructor() {
 #ifndef NO_AUDIOBACKEND
     ui->outputRetry->setDisabled(em->isRtAvailable());
 
-    ui->outputsList->setEnabled(em->isRtAvailable());
-    ui->outputReload->setEnabled(em->isRtAvailable());
+    ui->outputsList->setEnabled(em->isRtAvailable() && em->getUsedBackendType() != sb::JACK_O);
+    ui->outputReload->setEnabled(em->isRtAvailable() && em->getUsedBackendType() != sb::JACK_O);
+    ui->outputPorts->setEnabled(em->getUsedBackendType() == sb::JACK_O);
+    if (em->doesBackendUsePorts()) {
+        ui->outputsList->addItem("Backend uses ports.");
+        ui->outputsList->addItem("Please use the 'Connect' interface.");
+    }
 
     connect(ui->outputRetry,SIGNAL(clicked()),SLOT(reloadEmitter()));
     connect(ui->outputReload,SIGNAL(clicked()),SLOT(loadDevices()));

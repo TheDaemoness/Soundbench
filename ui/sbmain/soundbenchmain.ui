@@ -1065,7 +1065,7 @@ Save the preset as another file.</string>
        <bool>true</bool>
       </property>
      </widget>
-     <widget class="QPushButton" name="outputDefault">
+     <widget class="QPushButton" name="outputPorts">
       <property name="enabled">
        <bool>false</bool>
       </property>
@@ -1081,7 +1081,7 @@ Save the preset as another file.</string>
        <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Use the default audio interface for the current backend.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
       </property>
       <property name="text">
-       <string>Default</string>
+       <string>Connect</string>
       </property>
       <property name="checkable">
        <bool>false</bool>
