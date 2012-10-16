@@ -893,7 +893,7 @@ Save the preset as another file.</string>
        <set>Qt::AlignCenter</set>
       </property>
      </widget>
-     <widget class="QTabWidget" name="tabWidget">
+     <widget class="QTabWidget" name="setupTabs">
       <property name="geometry">
        <rect>
         <x>395</x>
@@ -1078,9 +1078,9 @@ Save the preset as another file.</string>
        <zorder>midiAPILabel</zorder>
        <zorder>midiAPIs</zorder>
       </widget>
-      <widget class="QWidget" name="emitterTab">
+      <widget class="QWidget" name="audioTab">
        <attribute name="title">
-        <string>Emitter</string>
+        <string>Audio</string>
        </attribute>
        <widget class="QListWidget" name="outputsList">
         <property name="geometry">
@@ -1490,7 +1490,7 @@ Several audio editing utilities support this sampling rate.</string>
      <zorder>songsTracksLabel</zorder>
      <zorder>tempoBox</zorder>
      <zorder>tempoLabel</zorder>
-     <zorder>tabWidget</zorder>
+     <zorder>setupTabs</zorder>
     </widget>
     <widget class="QWidget" name="tabMacro">
      <attribute name="title">
