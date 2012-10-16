@@ -903,7 +903,7 @@ Save the preset as another file.</string>
        </rect>
       </property>
       <property name="currentIndex">
-       <number>1</number>
+       <number>0</number>
       </property>
       <widget class="QWidget" name="midiInputTab">
        <attribute name="title">
@@ -915,7 +915,7 @@ Save the preset as another file.</string>
         </property>
         <property name="geometry">
          <rect>
-          <x>535</x>
+          <x>10</x>
           <y>10</y>
           <width>71</width>
           <height>25</height>
@@ -937,8 +937,8 @@ Save the preset as another file.</string>
         </property>
         <property name="geometry">
          <rect>
-          <x>535</x>
-          <y>45</y>
+          <x>95</x>
+          <y>10</y>
           <width>71</width>
           <height>25</height>
          </rect>
@@ -956,8 +956,8 @@ Save the preset as another file.</string>
         </property>
         <property name="geometry">
          <rect>
-          <x>535</x>
-          <y>80</y>
+          <x>180</x>
+          <y>10</y>
           <width>71</width>
           <height>25</height>
          </rect>
@@ -976,9 +976,9 @@ Save the preset as another file.</string>
         <property name="geometry">
          <rect>
           <x>5</x>
-          <y>5</y>
-          <width>521</width>
-          <height>331</height>
+          <y>45</y>
+          <width>606</width>
+          <height>291</height>
          </rect>
         </property>
         <property name="styleSheet">
@@ -988,7 +988,7 @@ Save the preset as another file.</string>
          <bool>false</bool>
         </property>
        </widget>
-       <widget class="QGraphicsView" name="graphicsView_2">
+       <widget class="QGraphicsView" name="midiSetingsBackdrop">
         <property name="geometry">
          <rect>
           <x>0</x>
@@ -998,7 +998,7 @@ Save the preset as another file.</string>
          </rect>
         </property>
        </widget>
-       <zorder>graphicsView_2</zorder>
+       <zorder>midiSetingsBackdrop</zorder>
        <zorder>inputVirtual</zorder>
        <zorder>inputReload</zorder>
        <zorder>inputRetry</zorder>
@@ -1012,9 +1012,9 @@ Save the preset as another file.</string>
         <property name="geometry">
          <rect>
           <x>5</x>
-          <y>5</y>
+          <y>35</y>
           <width>406</width>
-          <height>331</height>
+          <height>301</height>
          </rect>
         </property>
         <property name="styleSheet">
@@ -1084,7 +1084,7 @@ Save the preset as another file.</string>
          <bool>false</bool>
         </property>
        </widget>
-       <widget class="QGraphicsView" name="graphicsView_3">
+       <widget class="QGraphicsView" name="emitterBackdrop">
         <property name="geometry">
          <rect>
           <x>0</x>
@@ -1319,7 +1319,23 @@ Several audio editing utilities support this sampling rate.</string>
          </property>
         </widget>
        </widget>
-       <zorder>graphicsView_3</zorder>
+       <widget class="QLabel" name="devicesLabel">
+        <property name="geometry">
+         <rect>
+          <x>5</x>
+          <y>10</y>
+          <width>406</width>
+          <height>17</height>
+         </rect>
+        </property>
+        <property name="text">
+         <string>Audio Devices/Interfaces</string>
+        </property>
+        <property name="alignment">
+         <set>Qt::AlignCenter</set>
+        </property>
+       </widget>
+       <zorder>emitterBackdrop</zorder>
        <zorder>outputsList</zorder>
        <zorder>outputPorts</zorder>
        <zorder>playerBackdrop</zorder>
@@ -1330,6 +1346,7 @@ Several audio editing utilities support this sampling rate.</string>
        <zorder>polyphonyBox</zorder>
        <zorder>samplingRateLabe</zorder>
        <zorder>samplingrateButtons</zorder>
+       <zorder>devicesLabel</zorder>
       </widget>
      </widget>
      <widget class="QGraphicsView" name="playerBackdrop">
