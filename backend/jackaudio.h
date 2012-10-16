@@ -49,7 +49,11 @@ namespace sb {
         bool modifyConnection(bool rightport, size_t portid, bool conn = false);
     private:
 
-        struct userdata {
+        static int processCallback(jack_nframes_t frames, void* udata);
+        static int sampleRateCallback(jack_nframes_t srate, void *udata);
+        static void infoShutdownCallback(jack_status_t, const char *reason, void*);
+
+        struct JackUserData {
             jack_port_t *lport, *rport;
             Synth* synref;
             jack_client_t* cliref;

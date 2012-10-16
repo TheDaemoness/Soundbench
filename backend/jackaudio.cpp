@@ -53,7 +53,8 @@ namespace sb {
         udata.lport = jack_port_register(cli,"Audio Output - Left", JACK_DEFAULT_AUDIO_TYPE,JackPortIsOutput,srate/100);
         udata.rport = jack_port_register(cli,"Audio Output - Right", JACK_DEFAULT_AUDIO_TYPE,JackPortIsOutput,srate/100);
 
-        srate = jack_get_sample_rate(cli);
+        global_srate = jack_get_sample_rate(cli);
+        s->updateSamplingRate();
 
         for(size_t i = 0; i < SupportedRatesCount; ++i)
             srates[SupportedRates[i]] = false; //JACK is in control of sample rate switching here.
@@ -61,6 +62,10 @@ namespace sb {
         udata.synref = s;
         udata.cliref = cli;
         udata.buffsize = 0;
+
+        jack_set_process_callback(cli, processCallback, reinterpret_cast<void*>(&udata));
+        jack_set_sample_rate_callback(cli, sampleRateCallback, reinterpret_cast<void*>(&udata));
+        jack_on_info_shutdown(cli, infoShutdownCallback, reinterpret_cast<void*>(&udata));
 
         sampling_rate = srate;
         syn = s;
@@ -72,6 +77,29 @@ namespace sb {
             jack_client_close(cli);
             cli = nullptr;
         }
+    }
+
+    int JackAudioBackend::processCallback(jack_nframes_t frames, void *udata) {
+        float* lbuffer = reinterpret_cast<float*>(jack_port_get_buffer(reinterpret_cast<JackUserData*>(udata)->lport,frames));
+        float* rbuffer = reinterpret_cast<float*>(jack_port_get_buffer(reinterpret_cast<JackUserData*>(udata)->rport,frames));
+        float sample_pear[2];
+        for (size_t i = 0; i < frames; ++i) {
+            reinterpret_cast<JackUserData*>(udata)->synref->tick(sample_pear,2);
+            lbuffer[i] = sample_pear[0];
+            rbuffer[i] = sample_pear[1];
+        }
+        return 0;
+    }
+
+    int JackAudioBackend::sampleRateCallback(jack_nframes_t srate, void *udata) {
+        global_srate = srate;
+        reinterpret_cast<JackUserData*>(udata)->synref->updateSamplingRate();
+        return 0;
+    }
+
+    void JackAudioBackend::infoShutdownCallback(jack_status_t, const char* reason, void*) {
+        std::cerr << "JACK killed, haven't written error handling for this yet.\n" << "Reason: " << reason << ".\n";
+        AbortSoundbench();
     }
 
     void JackAudioBackend::start() {

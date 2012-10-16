@@ -34,7 +34,9 @@ namespace sb {
         supported_apis[RtAudio_O] = RtAudioBackend::instantiable();
         supported_apis[JACK_O] = JackAudioBackend::instantiable();
 
-        if (supported_apis[PortAudio_O])
+        if (supported_apis[JACK_O])
+            em_type = JACK_O;
+        else if (supported_apis[PortAudio_O])
             em_type = PortAudio_O;
         else if (supported_apis[RtAudio_O])
             em_type = RtAudio_O;
