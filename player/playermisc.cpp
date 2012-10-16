@@ -49,8 +49,7 @@ namespace sb {
         if (!playing)
             return;
         playing = false;
-        playthread->join();
-        delete playthread;
+        cleanThread();
     }
     void Player::startRt() {
         if(midin != nullptr)

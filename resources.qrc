@@ -1,7 +1,6 @@
 <RCC>
     <qresource prefix="/backdrops">
         <file>channelsbackdrop.png</file>
-        <file>settingsbackdrop.png</file>
         <file>mainbackdrop.png</file>
         <file>aboutbackdrop.png</file>
         <file>playerbackdrop.png</file>

@@ -94,8 +94,11 @@ namespace sb {
 
     private slots:
         void cleanThread() {
+            if (playthread == nullptr)
+                return;
             playthread->join();
             delete playthread;
+            playthread = nullptr;
         }
 
     private:

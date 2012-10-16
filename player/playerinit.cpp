@@ -27,6 +27,7 @@ namespace sb {
         reed = new midi::MidiFIO;
         first = new midi::nodes::PlayerStartNode(syn);
         wri = new SoundFileWriter(syn);
+        playthread = nullptr;
 
         playing = false;
         fetype = NoMIDI;

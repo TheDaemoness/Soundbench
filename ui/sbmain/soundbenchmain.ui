@@ -485,9 +485,9 @@ QTabBar::tab:selected {
     <property name="currentIndex">
      <number>0</number>
     </property>
-    <widget class="QWidget" name="tabSelect">
+    <widget class="QWidget" name="tabPresets">
      <attribute name="title">
-      <string>Select</string>
+      <string>Presets</string>
      </attribute>
      <widget class="QGraphicsView" name="selectBackdrop">
       <property name="geometry">
@@ -725,29 +725,14 @@ Save the preset as another file.</string>
     </widget>
     <widget class="QWidget" name="tabPlayer">
      <attribute name="title">
-      <string>Player</string>
+      <string>Setup</string>
      </attribute>
-     <widget class="QGraphicsView" name="playerBackdrop">
-      <property name="geometry">
-       <rect>
-        <x>-2</x>
-        <y>-2</y>
-        <width>1056</width>
-        <height>466</height>
-       </rect>
-      </property>
-      <property name="styleSheet">
-       <string notr="true">QGraphicsView {
-	border-image: url(:/backdrops/playerbackdrop.png);
-}</string>
-      </property>
-     </widget>
      <widget class="QPushButton" name="exportButton">
       <property name="geometry">
        <rect>
-        <x>680</x>
-        <y>55</y>
-        <width>71</width>
+        <x>300</x>
+        <y>45</y>
+        <width>66</width>
         <height>25</height>
        </rect>
       </property>
@@ -764,9 +749,9 @@ Save the preset as another file.</string>
       </property>
       <property name="geometry">
        <rect>
-        <x>500</x>
-        <y>55</y>
-        <width>71</width>
+        <x>115</x>
+        <y>45</y>
+        <width>66</width>
         <height>25</height>
        </rect>
       </property>
@@ -783,9 +768,9 @@ Save the preset as another file.</string>
       </property>
       <property name="geometry">
        <rect>
-        <x>410</x>
-        <y>55</y>
-        <width>71</width>
+        <x>35</x>
+        <y>45</y>
+        <width>66</width>
         <height>25</height>
        </rect>
       </property>
@@ -805,9 +790,9 @@ Save the preset as another file.</string>
       </property>
       <property name="geometry">
        <rect>
-        <x>590</x>
-        <y>55</y>
-        <width>71</width>
+        <x>220</x>
+        <y>45</y>
+        <width>66</width>
         <height>25</height>
        </rect>
       </property>
@@ -833,9 +818,9 @@ Save the preset as another file.</string>
       <property name="geometry">
        <rect>
         <x>30</x>
-        <y>70</y>
+        <y>110</y>
         <width>341</width>
-        <height>361</height>
+        <height>321</height>
        </rect>
       </property>
       <property name="styleSheet">
@@ -848,9 +833,9 @@ Save the preset as another file.</string>
      <widget class="QLabel" name="songsTracksLabel">
       <property name="geometry">
        <rect>
-        <x>30</x>
-        <y>45</y>
-        <width>341</width>
+        <x>35</x>
+        <y>80</y>
+        <width>146</width>
         <height>20</height>
        </rect>
       </property>
@@ -867,9 +852,9 @@ Save the preset as another file.</string>
       </property>
       <property name="geometry">
        <rect>
-        <x>940</x>
-        <y>57</y>
-        <width>61</width>
+        <x>300</x>
+        <y>80</y>
+        <width>66</width>
         <height>21</height>
        </rect>
       </property>
@@ -895,9 +880,9 @@ Save the preset as another file.</string>
      <widget class="QLabel" name="tempoLabel">
       <property name="geometry">
        <rect>
-        <x>880</x>
-        <y>57</y>
-        <width>61</width>
+        <x>220</x>
+        <y>80</y>
+        <width>66</width>
         <height>21</height>
        </rect>
       </property>
@@ -908,223 +893,470 @@ Save the preset as another file.</string>
        <set>Qt::AlignCenter</set>
       </property>
      </widget>
-     <widget class="QPushButton" name="settingsButton">
-      <property name="enabled">
-       <bool>false</bool>
-      </property>
-      <property name="geometry">
-       <rect>
-        <x>770</x>
-        <y>55</y>
-        <width>71</width>
-        <height>25</height>
-       </rect>
-      </property>
-      <property name="font">
-       <font>
-        <family>Ubuntu</family>
-       </font>
-      </property>
-      <property name="toolTip">
-       <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Coming in version 0.5.0.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
-      </property>
-      <property name="styleSheet">
-       <string notr="true"/>
-      </property>
-      <property name="text">
-       <string>Settings</string>
-      </property>
-      <property name="checkable">
-       <bool>true</bool>
-      </property>
-     </widget>
-     <widget class="QListWidget" name="inputsList">
+     <widget class="QTabWidget" name="tabWidget">
       <property name="geometry">
        <rect>
         <x>395</x>
-        <y>110</y>
-        <width>301</width>
-        <height>281</height>
+        <y>40</y>
+        <width>616</width>
+        <height>386</height>
+       </rect>
+      </property>
+      <property name="currentIndex">
+       <number>1</number>
+      </property>
+      <widget class="QWidget" name="midiInputTab">
+       <attribute name="title">
+        <string>MIDI</string>
+       </attribute>
+       <widget class="QPushButton" name="inputVirtual">
+        <property name="enabled">
+         <bool>false</bool>
+        </property>
+        <property name="geometry">
+         <rect>
+          <x>535</x>
+          <y>10</y>
+          <width>71</width>
+          <height>25</height>
+         </rect>
+        </property>
+        <property name="toolTip">
+         <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Open and use a virtual midi port.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+        </property>
+        <property name="text">
+         <string>Virtual</string>
+        </property>
+        <property name="checkable">
+         <bool>true</bool>
+        </property>
+       </widget>
+       <widget class="QPushButton" name="inputReload">
+        <property name="enabled">
+         <bool>true</bool>
+        </property>
+        <property name="geometry">
+         <rect>
+          <x>535</x>
+          <y>45</y>
+          <width>71</width>
+          <height>25</height>
+         </rect>
+        </property>
+        <property name="toolTip">
+         <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Reload the list of available note inputs.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+        </property>
+        <property name="text">
+         <string>Reload</string>
+        </property>
+       </widget>
+       <widget class="QPushButton" name="inputRetry">
+        <property name="enabled">
+         <bool>false</bool>
+        </property>
+        <property name="geometry">
+         <rect>
+          <x>535</x>
+          <y>80</y>
+          <width>71</width>
+          <height>25</height>
+         </rect>
+        </property>
+        <property name="toolTip">
+         <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Try to start the real-time note input frontend.&lt;br&gt;This is in case it failed the first time.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+        </property>
+        <property name="text">
+         <string>Retry</string>
+        </property>
+        <property name="checkable">
+         <bool>false</bool>
+        </property>
+       </widget>
+       <widget class="QListWidget" name="inputsList">
+        <property name="geometry">
+         <rect>
+          <x>5</x>
+          <y>5</y>
+          <width>521</width>
+          <height>331</height>
+         </rect>
+        </property>
+        <property name="styleSheet">
+         <string notr="true"/>
+        </property>
+        <property name="selectionRectVisible">
+         <bool>false</bool>
+        </property>
+       </widget>
+       <widget class="QGraphicsView" name="graphicsView_2">
+        <property name="geometry">
+         <rect>
+          <x>0</x>
+          <y>0</y>
+          <width>616</width>
+          <height>346</height>
+         </rect>
+        </property>
+       </widget>
+       <zorder>graphicsView_2</zorder>
+       <zorder>inputVirtual</zorder>
+       <zorder>inputReload</zorder>
+       <zorder>inputRetry</zorder>
+       <zorder>inputsList</zorder>
+      </widget>
+      <widget class="QWidget" name="emitterTab">
+       <attribute name="title">
+        <string>Emitter</string>
+       </attribute>
+       <widget class="QListWidget" name="outputsList">
+        <property name="geometry">
+         <rect>
+          <x>5</x>
+          <y>5</y>
+          <width>406</width>
+          <height>331</height>
+         </rect>
+        </property>
+        <property name="styleSheet">
+         <string notr="true"/>
+        </property>
+        <property name="selectionRectVisible">
+         <bool>false</bool>
+        </property>
+       </widget>
+       <widget class="QPushButton" name="outputReload">
+        <property name="enabled">
+         <bool>true</bool>
+        </property>
+        <property name="geometry">
+         <rect>
+          <x>475</x>
+          <y>55</y>
+          <width>71</width>
+          <height>25</height>
+         </rect>
+        </property>
+        <property name="toolTip">
+         <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Reload the list of available audio outputs.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+        </property>
+        <property name="text">
+         <string>Reload</string>
+        </property>
+       </widget>
+       <widget class="QPushButton" name="outputRetry">
+        <property name="enabled">
+         <bool>false</bool>
+        </property>
+        <property name="geometry">
+         <rect>
+          <x>475</x>
+          <y>95</y>
+          <width>71</width>
+          <height>25</height>
+         </rect>
+        </property>
+        <property name="toolTip">
+         <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Try to start the audio backend.&lt;br&gt;This is in case it failed to initialize the first time.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+        </property>
+        <property name="text">
+         <string>Retry</string>
+        </property>
+       </widget>
+       <widget class="QPushButton" name="outputPorts">
+        <property name="enabled">
+         <bool>false</bool>
+        </property>
+        <property name="geometry">
+         <rect>
+          <x>475</x>
+          <y>15</y>
+          <width>71</width>
+          <height>25</height>
+         </rect>
+        </property>
+        <property name="toolTip">
+         <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Use the default audio interface for the current backend.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+        </property>
+        <property name="text">
+         <string>Connect</string>
+        </property>
+        <property name="checkable">
+         <bool>false</bool>
+        </property>
+       </widget>
+       <widget class="QGraphicsView" name="graphicsView_3">
+        <property name="geometry">
+         <rect>
+          <x>0</x>
+          <y>0</y>
+          <width>616</width>
+          <height>346</height>
+         </rect>
+        </property>
+       </widget>
+       <widget class="QLabel" name="polyphonyLabel">
+        <property name="geometry">
+         <rect>
+          <x>410</x>
+          <y>160</y>
+          <width>201</width>
+          <height>20</height>
+         </rect>
+        </property>
+        <property name="text">
+         <string>Polyphony</string>
+        </property>
+        <property name="alignment">
+         <set>Qt::AlignCenter</set>
+        </property>
+       </widget>
+       <widget class="QSpinBox" name="polyphonyBox">
+        <property name="geometry">
+         <rect>
+          <x>485</x>
+          <y>185</y>
+          <width>51</width>
+          <height>21</height>
+         </rect>
+        </property>
+        <property name="alignment">
+         <set>Qt::AlignCenter</set>
+        </property>
+        <property name="minimum">
+         <number>1</number>
+        </property>
+        <property name="maximum">
+         <number>256</number>
+        </property>
+        <property name="singleStep">
+         <number>1</number>
+        </property>
+        <property name="value">
+         <number>16</number>
+        </property>
+       </widget>
+       <widget class="QLabel" name="samplingRateLabe">
+        <property name="geometry">
+         <rect>
+          <x>425</x>
+          <y>255</y>
+          <width>176</width>
+          <height>21</height>
+         </rect>
+        </property>
+        <property name="font">
+         <font>
+          <family>Ubuntu</family>
+         </font>
+        </property>
+        <property name="toolTip">
+         <string>Changes the number of samples per second.
+This feature is mostly here to support different audio platforms. Some people with sensitive ears can differentiate between these sampling rates.
+Bear in mind that larger sampling rates will increase the strain on your computer.</string>
+        </property>
+        <property name="styleSheet">
+         <string notr="true"/>
+        </property>
+        <property name="text">
+         <string>Sampling Rate</string>
+        </property>
+        <property name="alignment">
+         <set>Qt::AlignCenter</set>
+        </property>
+       </widget>
+       <widget class="QWidget" name="samplingrateButtons" native="true">
+        <property name="geometry">
+         <rect>
+          <x>425</x>
+          <y>275</y>
+          <width>181</width>
+          <height>61</height>
+         </rect>
+        </property>
+        <widget class="QRadioButton" name="button176Sampling">
+         <property name="geometry">
+          <rect>
+           <x>0</x>
+           <y>40</y>
+           <width>91</width>
+           <height>22</height>
+          </rect>
+         </property>
+         <property name="font">
+          <font>
+           <family>Ubuntu</family>
+          </font>
+         </property>
+         <property name="toolTip">
+          <string>The sampling rate used in HDCD recorders and some Blu-ray tracks.</string>
+         </property>
+         <property name="text">
+          <string>176.4 kHz</string>
+         </property>
+        </widget>
+        <widget class="QRadioButton" name="button882Sampling">
+         <property name="enabled">
+          <bool>true</bool>
+         </property>
+         <property name="geometry">
+          <rect>
+           <x>0</x>
+           <y>20</y>
+           <width>91</width>
+           <height>21</height>
+          </rect>
+         </property>
+         <property name="font">
+          <font>
+           <family>Ubuntu</family>
+          </font>
+         </property>
+         <property name="toolTip">
+          <string>Double the audio CD sampling rate, used in some audio CD editing programs.</string>
+         </property>
+         <property name="text">
+          <string>88.2 kHz</string>
+         </property>
+        </widget>
+        <widget class="QRadioButton" name="button441Sampling">
+         <property name="enabled">
+          <bool>true</bool>
+         </property>
+         <property name="geometry">
+          <rect>
+           <x>0</x>
+           <y>0</y>
+           <width>91</width>
+           <height>22</height>
+          </rect>
+         </property>
+         <property name="font">
+          <font>
+           <family>Ubuntu</family>
+          </font>
+         </property>
+         <property name="toolTip">
+          <string>The sampling rate used on most audio CDs.</string>
+         </property>
+         <property name="text">
+          <string>44.1 kHz</string>
+         </property>
+        </widget>
+        <widget class="QRadioButton" name="button48Sampling">
+         <property name="enabled">
+          <bool>true</bool>
+         </property>
+         <property name="geometry">
+          <rect>
+           <x>95</x>
+           <y>0</y>
+           <width>91</width>
+           <height>22</height>
+          </rect>
+         </property>
+         <property name="font">
+          <font>
+           <family>Ubuntu</family>
+          </font>
+         </property>
+         <property name="toolTip">
+          <string>A sampling rate standard across many audio platforms.</string>
+         </property>
+         <property name="text">
+          <string>48.0 kHz</string>
+         </property>
+         <property name="checkable">
+          <bool>true</bool>
+         </property>
+         <property name="checked">
+          <bool>false</bool>
+         </property>
+        </widget>
+        <widget class="QRadioButton" name="button96Sampling">
+         <property name="enabled">
+          <bool>true</bool>
+         </property>
+         <property name="geometry">
+          <rect>
+           <x>95</x>
+           <y>20</y>
+           <width>91</width>
+           <height>21</height>
+          </rect>
+         </property>
+         <property name="font">
+          <font>
+           <family>Ubuntu</family>
+          </font>
+         </property>
+         <property name="toolTip">
+          <string>Double the current industry standard sampling rate, used in some high-definition audio tracks. 
+Several audio editing utilities support this sampling rate.</string>
+         </property>
+         <property name="text">
+          <string>96.0 kHz</string>
+         </property>
+        </widget>
+        <widget class="QRadioButton" name="button192Sampling">
+         <property name="geometry">
+          <rect>
+           <x>95</x>
+           <y>40</y>
+           <width>81</width>
+           <height>22</height>
+          </rect>
+         </property>
+         <property name="font">
+          <font>
+           <family>Ubuntu</family>
+          </font>
+         </property>
+         <property name="toolTip">
+          <string>Used for some very high-definition audio tracks.</string>
+         </property>
+         <property name="text">
+          <string>192 kHz</string>
+         </property>
+        </widget>
+       </widget>
+       <zorder>graphicsView_3</zorder>
+       <zorder>outputsList</zorder>
+       <zorder>outputPorts</zorder>
+       <zorder>playerBackdrop</zorder>
+       <zorder>outputReload</zorder>
+       <zorder>outputRetry</zorder>
+       <zorder>outputPorts</zorder>
+       <zorder>polyphonyLabel</zorder>
+       <zorder>polyphonyBox</zorder>
+       <zorder>samplingRateLabe</zorder>
+       <zorder>samplingrateButtons</zorder>
+      </widget>
+     </widget>
+     <widget class="QGraphicsView" name="playerBackdrop">
+      <property name="geometry">
+       <rect>
+        <x>-2</x>
+        <y>-2</y>
+        <width>1056</width>
+        <height>466</height>
        </rect>
       </property>
       <property name="styleSheet">
-       <string notr="true"/>
-      </property>
-      <property name="selectionRectVisible">
-       <bool>false</bool>
-      </property>
-     </widget>
-     <widget class="QLabel" name="inputsLabel">
-      <property name="geometry">
-       <rect>
-        <x>400</x>
-        <y>95</y>
-        <width>291</width>
-        <height>16</height>
-       </rect>
-      </property>
-      <property name="text">
-       <string>Note Input Ports</string>
-      </property>
-      <property name="alignment">
-       <set>Qt::AlignCenter</set>
+       <string notr="true">QGraphicsView {
+	border-image: url(:/backdrops/playerbackdrop.png);
+}</string>
       </property>
      </widget>
-     <widget class="QListWidget" name="outputsList">
-      <property name="geometry">
-       <rect>
-        <x>710</x>
-        <y>110</y>
-        <width>301</width>
-        <height>281</height>
-       </rect>
-      </property>
-      <property name="styleSheet">
-       <string notr="true"/>
-      </property>
-      <property name="selectionRectVisible">
-       <bool>false</bool>
-      </property>
-     </widget>
-     <widget class="QLabel" name="outputsLabel">
-      <property name="geometry">
-       <rect>
-        <x>715</x>
-        <y>95</y>
-        <width>291</width>
-        <height>16</height>
-       </rect>
-      </property>
-      <property name="text">
-       <string>Audio Output Interfaces</string>
-      </property>
-      <property name="alignment">
-       <set>Qt::AlignCenter</set>
-      </property>
-     </widget>
-     <widget class="QPushButton" name="inputRetry">
-      <property name="enabled">
-       <bool>false</bool>
-      </property>
-      <property name="geometry">
-       <rect>
-        <x>615</x>
-        <y>400</y>
-        <width>71</width>
-        <height>25</height>
-       </rect>
-      </property>
-      <property name="toolTip">
-       <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Try to start the real-time note input frontend.&lt;br&gt;This is in case it failed the first time.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
-      </property>
-      <property name="text">
-       <string>Retry</string>
-      </property>
-      <property name="checkable">
-       <bool>false</bool>
-      </property>
-     </widget>
-     <widget class="QPushButton" name="inputReload">
-      <property name="enabled">
-       <bool>true</bool>
-      </property>
-      <property name="geometry">
-       <rect>
-        <x>510</x>
-        <y>400</y>
-        <width>71</width>
-        <height>25</height>
-       </rect>
-      </property>
-      <property name="toolTip">
-       <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Reload the list of available note inputs.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
-      </property>
-      <property name="text">
-       <string>Reload</string>
-      </property>
-     </widget>
-     <widget class="QPushButton" name="inputVirtual">
-      <property name="enabled">
-       <bool>false</bool>
-      </property>
-      <property name="geometry">
-       <rect>
-        <x>405</x>
-        <y>400</y>
-        <width>71</width>
-        <height>25</height>
-       </rect>
-      </property>
-      <property name="toolTip">
-       <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Open and use a virtual midi port.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
-      </property>
-      <property name="text">
-       <string>Virtual</string>
-      </property>
-      <property name="checkable">
-       <bool>true</bool>
-      </property>
-     </widget>
-     <widget class="QPushButton" name="outputPorts">
-      <property name="enabled">
-       <bool>false</bool>
-      </property>
-      <property name="geometry">
-       <rect>
-        <x>720</x>
-        <y>400</y>
-        <width>71</width>
-        <height>25</height>
-       </rect>
-      </property>
-      <property name="toolTip">
-       <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Use the default audio interface for the current backend.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
-      </property>
-      <property name="text">
-       <string>Connect</string>
-      </property>
-      <property name="checkable">
-       <bool>false</bool>
-      </property>
-     </widget>
-     <widget class="QPushButton" name="outputReload">
-      <property name="enabled">
-       <bool>true</bool>
-      </property>
-      <property name="geometry">
-       <rect>
-        <x>825</x>
-        <y>400</y>
-        <width>71</width>
-        <height>25</height>
-       </rect>
-      </property>
-      <property name="toolTip">
-       <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Reload the list of available audio outputs.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
-      </property>
-      <property name="text">
-       <string>Reload</string>
-      </property>
-     </widget>
-     <widget class="QPushButton" name="outputRetry">
-      <property name="enabled">
-       <bool>false</bool>
-      </property>
-      <property name="geometry">
-       <rect>
-        <x>930</x>
-        <y>400</y>
-        <width>71</width>
-        <height>25</height>
-       </rect>
-      </property>
-      <property name="toolTip">
-       <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Try to start the audio backend.&lt;br&gt;This is in case it failed to initialize the first time.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
-      </property>
-      <property name="text">
-       <string>Retry</string>
-      </property>
-     </widget>
+     <zorder>playerBackdrop</zorder>
+     <zorder>exportButton</zorder>
+     <zorder>importButton</zorder>
+     <zorder>recordButton</zorder>
+     <zorder>playButton</zorder>
+     <zorder>songsTracksList</zorder>
+     <zorder>songsTracksLabel</zorder>
+     <zorder>tempoBox</zorder>
+     <zorder>tempoLabel</zorder>
+     <zorder>tabWidget</zorder>
     </widget>
     <widget class="QWidget" name="tabMacro">
      <attribute name="title">
@@ -1502,318 +1734,6 @@ Save the preset as another file.</string>
        <set>Qt::AlignCenter</set>
       </property>
      </widget>
-    </widget>
-    <widget class="QWidget" name="tabSettings">
-     <attribute name="title">
-      <string>Settings</string>
-     </attribute>
-     <widget class="QLabel" name="midiComingSoonLabel">
-      <property name="geometry">
-       <rect>
-        <x>640</x>
-        <y>105</y>
-        <width>211</width>
-        <height>51</height>
-       </rect>
-      </property>
-      <property name="font">
-       <font>
-        <family>Ubuntu</family>
-        <pointsize>10</pointsize>
-       </font>
-      </property>
-      <property name="styleSheet">
-       <string notr="true"/>
-      </property>
-      <property name="text">
-       <string>&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.0//EN&quot; &quot;http://www.w3.org/TR/REC-html40/strict.dtd&quot;&gt;
-&lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;style type=&quot;text/css&quot;&gt;
-p, li { white-space: pre-wrap; }
-&lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:'Ubuntu'; font-size:10pt; font-weight:400; font-style:normal;&quot;&gt;
-&lt;p align=&quot;center&quot; style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-size:11pt;&quot;&gt;Advanced MIDI Settings&lt;/span&gt;&lt;/p&gt;
-&lt;p align=&quot;center&quot; style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-size:11pt;&quot;&gt;Coming in version 0.5.0&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
-      </property>
-      <property name="alignment">
-       <set>Qt::AlignCenter</set>
-      </property>
-     </widget>
-     <widget class="QGraphicsView" name="settingsBackdrop">
-      <property name="geometry">
-       <rect>
-        <x>-5</x>
-        <y>-5</y>
-        <width>1056</width>
-        <height>461</height>
-       </rect>
-      </property>
-      <property name="styleSheet">
-       <string notr="true">QGraphicsView {
-	background-image: url(:/backdrops/settingsbackdrop.png);
-}</string>
-      </property>
-     </widget>
-     <widget class="QLabel" name="samplingRateLabe">
-      <property name="geometry">
-       <rect>
-        <x>640</x>
-        <y>290</y>
-        <width>211</width>
-        <height>21</height>
-       </rect>
-      </property>
-      <property name="font">
-       <font>
-        <family>Ubuntu</family>
-       </font>
-      </property>
-      <property name="toolTip">
-       <string>Changes the number of samples per second.
-This feature is mostly here to support different audio platforms. Some people with sensitive ears can differentiate between these sampling rates.
-Bear in mind that larger sampling rates will increase the strain on your computer.</string>
-      </property>
-      <property name="styleSheet">
-       <string notr="true"/>
-      </property>
-      <property name="text">
-       <string>Sampling Rate</string>
-      </property>
-      <property name="alignment">
-       <set>Qt::AlignCenter</set>
-      </property>
-     </widget>
-     <widget class="QWidget" name="samplingrateButtons" native="true">
-      <property name="geometry">
-       <rect>
-        <x>655</x>
-        <y>310</y>
-        <width>181</width>
-        <height>61</height>
-       </rect>
-      </property>
-      <widget class="QRadioButton" name="button176Sampling">
-       <property name="geometry">
-        <rect>
-         <x>0</x>
-         <y>40</y>
-         <width>91</width>
-         <height>22</height>
-        </rect>
-       </property>
-       <property name="font">
-        <font>
-         <family>Ubuntu</family>
-        </font>
-       </property>
-       <property name="toolTip">
-        <string>The sampling rate used in HDCD recorders and some Blu-ray tracks.</string>
-       </property>
-       <property name="text">
-        <string>176.4 kHz</string>
-       </property>
-      </widget>
-      <widget class="QRadioButton" name="button882Sampling">
-       <property name="enabled">
-        <bool>true</bool>
-       </property>
-       <property name="geometry">
-        <rect>
-         <x>0</x>
-         <y>20</y>
-         <width>91</width>
-         <height>22</height>
-        </rect>
-       </property>
-       <property name="font">
-        <font>
-         <family>Ubuntu</family>
-        </font>
-       </property>
-       <property name="toolTip">
-        <string>Double the audio CD sampling rate, used in some audio CD editing programs.</string>
-       </property>
-       <property name="text">
-        <string>88.2 kHz</string>
-       </property>
-      </widget>
-      <widget class="QRadioButton" name="button441Sampling">
-       <property name="enabled">
-        <bool>true</bool>
-       </property>
-       <property name="geometry">
-        <rect>
-         <x>0</x>
-         <y>0</y>
-         <width>91</width>
-         <height>22</height>
-        </rect>
-       </property>
-       <property name="font">
-        <font>
-         <family>Ubuntu</family>
-        </font>
-       </property>
-       <property name="toolTip">
-        <string>The sampling rate used on most audio CDs.</string>
-       </property>
-       <property name="text">
-        <string>44.1 kHz</string>
-       </property>
-      </widget>
-      <widget class="QRadioButton" name="button48Sampling">
-       <property name="enabled">
-        <bool>true</bool>
-       </property>
-       <property name="geometry">
-        <rect>
-         <x>95</x>
-         <y>0</y>
-         <width>91</width>
-         <height>22</height>
-        </rect>
-       </property>
-       <property name="font">
-        <font>
-         <family>Ubuntu</family>
-        </font>
-       </property>
-       <property name="toolTip">
-        <string>A sampling rate standard across many audio platforms.</string>
-       </property>
-       <property name="text">
-        <string>48.0 kHz</string>
-       </property>
-       <property name="checkable">
-        <bool>true</bool>
-       </property>
-       <property name="checked">
-        <bool>false</bool>
-       </property>
-      </widget>
-      <widget class="QRadioButton" name="button96Sampling">
-       <property name="enabled">
-        <bool>true</bool>
-       </property>
-       <property name="geometry">
-        <rect>
-         <x>95</x>
-         <y>20</y>
-         <width>91</width>
-         <height>21</height>
-        </rect>
-       </property>
-       <property name="font">
-        <font>
-         <family>Ubuntu</family>
-        </font>
-       </property>
-       <property name="toolTip">
-        <string>Double the current industry standard sampling rate, used in some high-definition audio tracks. 
-Several audio editing utilities support this sampling rate.</string>
-       </property>
-       <property name="text">
-        <string>96.0 kHz</string>
-       </property>
-      </widget>
-      <widget class="QRadioButton" name="button192Sampling">
-       <property name="geometry">
-        <rect>
-         <x>95</x>
-         <y>40</y>
-         <width>81</width>
-         <height>22</height>
-        </rect>
-       </property>
-       <property name="font">
-        <font>
-         <family>Ubuntu</family>
-        </font>
-       </property>
-       <property name="toolTip">
-        <string>Used for some very high-definition audio tracks.</string>
-       </property>
-       <property name="text">
-        <string>192 kHz</string>
-       </property>
-      </widget>
-     </widget>
-     <widget class="QLabel" name="emitterComingSoonLabel">
-      <property name="geometry">
-       <rect>
-        <x>225</x>
-        <y>105</y>
-        <width>215</width>
-        <height>51</height>
-       </rect>
-      </property>
-      <property name="font">
-       <font>
-        <family>Ubuntu</family>
-        <pointsize>8</pointsize>
-       </font>
-      </property>
-      <property name="styleSheet">
-       <string notr="true"/>
-      </property>
-      <property name="text">
-       <string>&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.0//EN&quot; &quot;http://www.w3.org/TR/REC-html40/strict.dtd&quot;&gt;
-&lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;style type=&quot;text/css&quot;&gt;
-p, li { white-space: pre-wrap; }
-&lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:'Ubuntu'; font-size:8pt; font-weight:400; font-style:normal;&quot;&gt;
-&lt;p align=&quot;center&quot; style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-size:11pt;&quot;&gt;Advanced Audio Settings &lt;/span&gt;&lt;/p&gt;
-&lt;p align=&quot;center&quot; style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-size:11pt;&quot;&gt;Coming in version 0.5.0&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
-      </property>
-      <property name="alignment">
-       <set>Qt::AlignCenter</set>
-      </property>
-     </widget>
-     <widget class="QLabel" name="polyphonyLabel">
-      <property name="geometry">
-       <rect>
-        <x>230</x>
-        <y>310</y>
-        <width>211</width>
-        <height>20</height>
-       </rect>
-      </property>
-      <property name="text">
-       <string>Maximum Voices</string>
-      </property>
-      <property name="alignment">
-       <set>Qt::AlignCenter</set>
-      </property>
-     </widget>
-     <widget class="QSpinBox" name="polyphonyBox">
-      <property name="geometry">
-       <rect>
-        <x>310</x>
-        <y>332</y>
-        <width>51</width>
-        <height>21</height>
-       </rect>
-      </property>
-      <property name="alignment">
-       <set>Qt::AlignCenter</set>
-      </property>
-      <property name="minimum">
-       <number>1</number>
-      </property>
-      <property name="maximum">
-       <number>256</number>
-      </property>
-      <property name="singleStep">
-       <number>1</number>
-      </property>
-      <property name="value">
-       <number>16</number>
-      </property>
-     </widget>
-     <zorder>settingsBackdrop</zorder>
-     <zorder>midiComingSoonLabel</zorder>
-     <zorder>samplingRateLabe</zorder>
-     <zorder>samplingrateButtons</zorder>
-     <zorder>emitterComingSoonLabel</zorder>
-     <zorder>polyphonyLabel</zorder>
-     <zorder>polyphonyBox</zorder>
     </widget>
     <widget class="QWidget" name="tabAbout">
      <attribute name="title">

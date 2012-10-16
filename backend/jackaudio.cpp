@@ -98,7 +98,7 @@ namespace sb {
     }
 
     void JackAudioBackend::infoShutdownCallback(jack_status_t, const char* reason, void*) {
-        std::cerr << "JACK killed, haven't written error handling for this yet.\n" << "Reason: " << reason << ".\n";
+        std::cerr << "JACK killed, haven't written error handling for this yet.\n" << "Reason for termination: " << reason << ".\n";
         AbortSoundbench();
     }
 

@@ -18,7 +18,7 @@
 */
 
 #include "midievents.h"
-#include "synth.h"
+#include "synth/synth.h"
 
 namespace sb {
     namespace midi {

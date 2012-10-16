@@ -82,7 +82,11 @@ void SoundbenchMain::setTempo(int tiem) {
 }
 
 void SoundbenchMain::playSynth(bool b) {
-    if (plai->empty() || !em->isRtAvailable()) //No point running this on an empty Player or a dead Emitter.
+    if (b && plai->empty()) {
+        ui->playButton->setChecked(false);
+        return;
+    }
+    if (!em->isRtAvailable() || plai->empty())
         return;
     if (b)
         plai->startPlay();
