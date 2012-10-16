@@ -30,6 +30,7 @@ SoundbenchMain::SoundbenchMain(QWidget *parent) : QMainWindow(parent) {
     sett_sigmap = new QSignalMapper;
     type_sigmap = new QSignalMapper;
     rate_sigmap = new QSignalMapper;
+    emit_sigmap = new QSignalMapper;
 
     sc_new = new QShortcut(QKeySequence("Ctrl+N"),this);
     sc_open = new QShortcut(QKeySequence("Ctrl+O"),this);
@@ -98,13 +99,6 @@ void SoundbenchMain::delayedConstructor() {
     sett_sigmap->setMapping(ui->gen2SettButton,1);
     sett_sigmap->setMapping(ui->gen3SettButton,2);
     sett_sigmap->setMapping(ui->gen4SettButton,3);
-
-    rate_sigmap->setMapping(ui->button441Sampling,0);
-    rate_sigmap->setMapping(ui->button48Sampling,1);
-    rate_sigmap->setMapping(ui->button882Sampling,2);
-    rate_sigmap->setMapping(ui->button96Sampling,3);
-    rate_sigmap->setMapping(ui->button176Sampling,4);
-    rate_sigmap->setMapping(ui->button192Sampling,5);
 
     //Check off the sampling rate being used.
     if (sb::global_srate == sb::SupportedRates[0])
@@ -179,6 +173,7 @@ void SoundbenchMain::delayedConstructor() {
     connect(sett_sigmap,SIGNAL(mapped(int)),SLOT(setGenSett(int)));
     connect(type_sigmap,SIGNAL(mapped(int)),SLOT(setGenType(int)));
     connect(rate_sigmap,SIGNAL(mapped(int)),SLOT(setSampleRate(int)));
+    connect(emit_sigmap,SIGNAL(mapped(int)),SLOT(changeAudioAPI(int)));
 
     ui->versionLabel->setText(SBVERSION);
 

@@ -70,7 +70,7 @@ namespace sb {
         }
         if (emt == NoEmitter)
             return;
-        used_backend = NoEmitter;
+        em_type = emt;
         bool initialed = false;
 
         if (emt == PortAudio_O)
@@ -114,6 +114,7 @@ namespace sb {
         else if (!initialed && backend == nullptr) {
             //All the backends failed.
             ErrorPopup* er = new ErrorPopup;
+            em_type = NoEmitter;
             er->setErrorText("All Backends Failed");
             er->setInfoText("All the audio backends failed to initialize. This is not necessarily due to a fault in Soundbench.\n\nThis error may be ignored, but the program would run without real-time audio output.");
 

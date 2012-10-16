@@ -74,6 +74,7 @@ private slots:
     void useVPort(bool);
     void record(bool);
     void editMetadata(bool);
+    void changeAudioAPI(int);
 
     void refreshPresets(); //New preset.
     void resetBlueprint();
@@ -108,7 +109,7 @@ private:
 
     std::string datadir;
 
-    QSignalMapper *sett_sigmap, *type_sigmap, *rate_sigmap;
+    QSignalMapper *sett_sigmap, *type_sigmap, *rate_sigmap, *emit_sigmap;
 
     union {
         BasicGenerSettings* basic;

@@ -82,7 +82,7 @@ namespace sb {
                 return backend->getDefaultDevice();
             return 0;
         }
-        inline EmitterType getUsedBackendType() {
+        inline EmitterType getCurrentAPI() {
             return em_type;
         }
 
@@ -106,7 +106,7 @@ namespace sb {
         bool initPortAudio();
         bool initRtAudio();
 
-        EmitterType em_type, used_backend;
+        EmitterType em_type;
         std::map<EmitterType,bool> supported_apis;
         std::map<size_t,bool> supported_rates;
         EmitterBackend* backend;

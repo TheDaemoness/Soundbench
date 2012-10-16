@@ -111,6 +111,12 @@ void SoundbenchMain::loadDevices() {
     for(std::string dev : em->getDevices())
         ui->outputsList->addItem(dev.c_str());
     ui->outputsList->setCurrentRow(em->getCurrentDevice());
+    ui->outputsList->setEnabled(em->isRtAvailable() && em->getCurrentAPI() != sb::JACK_O);
+    ui->outputReload->setEnabled(em->isRtAvailable() && em->getCurrentAPI() != sb::JACK_O);
+    if (em->doesBackendUsePorts()) {
+        ui->outputsList->addItem("Backend uses ports.");
+        ui->outputsList->addItem("Please use the 'Connect' interface.");
+    }
 }
 
 void SoundbenchMain::setPort() {

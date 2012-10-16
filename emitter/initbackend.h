@@ -25,7 +25,7 @@
 namespace sb {
     template <sb::EmitterType TypeEnum, class Backside>
     bool initBackend(Emitter* em) {
-        em->used_backend = TypeEnum;
+        em->em_type = TypeEnum;
         if (em->supported_apis[TypeEnum]) {
             em->backend = new Backside(em->syn,global_srate,em->supported_rates,OutChannels);
             if (em->backend->isReady())
@@ -33,11 +33,14 @@ namespace sb {
             else {
                 delete em->backend;
                 em->backend = nullptr;
+                em->em_type = NoEmitter;
                 return false;
             }
         }
-        else
+        else {
+            em->em_type = NoEmitter;
             return false;
+        }
     }
 }
 

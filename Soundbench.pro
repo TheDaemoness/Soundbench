@@ -75,7 +75,6 @@ SOURCES += \
     backend/rtaudio.cpp \
     frontend/rtmidi.cpp \
     makenode.cpp \
-    ui/sbmain/mainplayer.cpp \
     ui/sbmain/mainchannels.cpp \
     doevent.cpp \
     player/playermisc.cpp \
@@ -83,12 +82,9 @@ SOURCES += \
     player/playerload.cpp \
     player/playerwrite.cpp \
     player/playerinit.cpp \
-    ui/sbmain/mainselect.cpp \
     architect/presetload.cpp \
     architect/presetmeta.cpp \
     architect/presetsave.cpp \
-    ui/sbmain/mainselectload.cpp \
-    ui/sbmain/mainselectsave.cpp \
     ui/sbmain/mainmisc.cpp \
     midifio/fiomisc.cpp \
     midifio/fioread.cpp \
@@ -97,7 +93,11 @@ SOURCES += \
     frontend/jackmidi.cpp \
     synth/synth.cpp \
     ui/sbmain/init/initgeneral.cpp \
-    ui/sbmain/init/initsetup.cpp
+    ui/sbmain/init/initsetup.cpp \
+    ui/sbmain/mainsetup.cpp \
+    ui/sbmain/mainpresetload.cpp \
+    ui/sbmain/mainpresetsave.cpp \
+    ui/sbmain/mainpreset.cpp
 
 RESOURCES += \
     resources.qrc

@@ -44,6 +44,7 @@ SoundbenchMain::~SoundbenchMain() {
     delete sett_sigmap;
     delete type_sigmap;
     delete rate_sigmap;
+    delete emit_sigmap;
 
     delete sc_new;
     delete sc_open;
@@ -80,6 +81,13 @@ void SoundbenchMain::testSynth(bool b) {
         syn->noteOn(0,1.0);
     else
         syn->noteOff(0);
+}
+
+void SoundbenchMain::changeAudioAPI(int api) {
+    stopAndReset();
+    em->setEmitterType(static_cast<sb::EmitterType>(api));
+    loadDevices();
+    em->start();
 }
 
 void SoundbenchMain::silence() {

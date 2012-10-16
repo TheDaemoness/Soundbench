@@ -20,6 +20,17 @@
 #include "ui/sbmain/soundbenchmain.h"
 
 void SoundbenchMain::initSetupPage() {
+    rate_sigmap->setMapping(ui->button441Sampling,0);
+    rate_sigmap->setMapping(ui->button48Sampling,1);
+    rate_sigmap->setMapping(ui->button882Sampling,2);
+    rate_sigmap->setMapping(ui->button96Sampling,3);
+    rate_sigmap->setMapping(ui->button176Sampling,4);
+    rate_sigmap->setMapping(ui->button192Sampling,5);
+
+    emit_sigmap->setMapping(ui->jackAudioButton,static_cast<int>(sb::JACK_O));
+    emit_sigmap->setMapping(ui->portAudioButton,static_cast<int>(sb::PortAudio_O));
+    emit_sigmap->setMapping(ui->rtAudioButton,static_cast<int>(sb::RtAudio_O));
+
     connect(ui->holdA4Button,SIGNAL(toggled(bool)),SLOT(testSynth(bool)));
     connect(ui->importButton,SIGNAL(clicked()),SLOT(importOpen()));
     connect(ui->exportButton,SIGNAL(clicked()),SLOT(exportOpen()));
@@ -40,6 +51,10 @@ void SoundbenchMain::initSetupPage() {
     connect(ui->inputRetry,SIGNAL(clicked()),SLOT(reloadPlayer()));
     connect(ui->recordButton,SIGNAL(toggled(bool)),SLOT(record(bool)));
 
+    connect(ui->jackAudioButton,SIGNAL(clicked()),emit_sigmap,SLOT(map()));
+    connect(ui->portAudioButton,SIGNAL(clicked()),emit_sigmap,SLOT(map()));
+    connect(ui->rtAudioButton,SIGNAL(clicked()),emit_sigmap,SLOT(map()));
+
     if(!plai->isRtAvailable())
         ui->inputsList->addItem("Frontend initialization failed.");
 #else
@@ -52,12 +67,7 @@ void SoundbenchMain::initSetupPage() {
 #ifndef NO_AUDIOBACKEND
     ui->outputRetry->setDisabled(em->isRtAvailable());
 
-    ui->outputsList->setEnabled(em->isRtAvailable() && em->getUsedBackendType() != sb::JACK_O);
-    ui->outputReload->setEnabled(em->isRtAvailable() && em->getUsedBackendType() != sb::JACK_O);
-    if (em->doesBackendUsePorts()) {
-        ui->outputsList->addItem("Backend uses ports.");
-        ui->outputsList->addItem("Please use the 'Connect' interface.");
-    }
+    loadDevices();
 
     connect(ui->outputRetry,SIGNAL(clicked()),SLOT(reloadEmitter()));
     connect(ui->outputReload,SIGNAL(clicked()),SLOT(loadDevices()));
@@ -71,6 +81,27 @@ void SoundbenchMain::initSetupPage() {
     ui->outputsList->setDisabled(true);
     ui->outputReload->setDisabled(true);
 #endif
+
+    auto audio_apis = em->getSupportedAPIs();
+    if(!audio_apis[sb::JACK_O])
+        ui->jackAudioButton->setDisabled(true);
+    if(!audio_apis[sb::PortAudio_O])
+        ui->portAudioButton->setDisabled(true);
+    if(!audio_apis[sb::RtAudio_O])
+        ui->rtAudioButton->setDisabled(true);
+
+    auto usedbackend = em->getCurrentAPI();
+    if(usedbackend == sb::JACK_O)
+        ui->jackAudioButton->setChecked(true);
+    else if(usedbackend == sb::PortAudio_O)
+        ui->portAudioButton->setChecked(true);
+    else if(usedbackend == sb::RtAudio_O)
+        ui->rtAudioButton->setChecked(true);
+
+    if(plai->isRtAvailable())
+        ui->rtMidiButton->setChecked(true);
+    else
+        ui->rtMidiButton->setDisabled(true);
 
     connect(ui->button441Sampling,SIGNAL(clicked()),rate_sigmap,SLOT(map()));
     connect(ui->button48Sampling,SIGNAL(clicked()),rate_sigmap,SLOT(map()));
