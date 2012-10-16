@@ -915,8 +915,8 @@ Save the preset as another file.</string>
         </property>
         <property name="geometry">
          <rect>
-          <x>10</x>
-          <y>10</y>
+          <x>475</x>
+          <y>85</y>
           <width>71</width>
           <height>25</height>
          </rect>
@@ -937,8 +937,8 @@ Save the preset as another file.</string>
         </property>
         <property name="geometry">
          <rect>
-          <x>95</x>
-          <y>10</y>
+          <x>475</x>
+          <y>15</y>
           <width>71</width>
           <height>25</height>
          </rect>
@@ -956,17 +956,17 @@ Save the preset as another file.</string>
         </property>
         <property name="geometry">
          <rect>
-          <x>180</x>
-          <y>10</y>
+          <x>475</x>
+          <y>50</y>
           <width>71</width>
           <height>25</height>
          </rect>
         </property>
         <property name="toolTip">
-         <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Try to start the real-time note input frontend.&lt;br&gt;This is in case it failed the first time.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+         <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Start or restart the note input frontend.&lt;br&gt;This redoes all the initialization checks.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
         </property>
         <property name="text">
-         <string>Retry</string>
+         <string>Restart</string>
         </property>
         <property name="checkable">
          <bool>false</bool>
@@ -976,9 +976,9 @@ Save the preset as another file.</string>
         <property name="geometry">
          <rect>
           <x>5</x>
-          <y>45</y>
-          <width>606</width>
-          <height>291</height>
+          <y>35</y>
+          <width>406</width>
+          <height>301</height>
          </rect>
         </property>
         <property name="styleSheet">
@@ -998,11 +998,85 @@ Save the preset as another file.</string>
          </rect>
         </property>
        </widget>
+       <widget class="QLabel" name="midiPortsLabel">
+        <property name="geometry">
+         <rect>
+          <x>5</x>
+          <y>10</y>
+          <width>406</width>
+          <height>17</height>
+         </rect>
+        </property>
+        <property name="text">
+         <string>MIDI Ports</string>
+        </property>
+        <property name="alignment">
+         <set>Qt::AlignCenter</set>
+        </property>
+       </widget>
+       <widget class="QLabel" name="midiAPILabel">
+        <property name="geometry">
+         <rect>
+          <x>410</x>
+          <y>270</y>
+          <width>206</width>
+          <height>20</height>
+         </rect>
+        </property>
+        <property name="text">
+         <string>API</string>
+        </property>
+        <property name="alignment">
+         <set>Qt::AlignCenter</set>
+        </property>
+       </widget>
+       <widget class="QWidget" name="midiAPIs" native="true">
+        <property name="geometry">
+         <rect>
+          <x>415</x>
+          <y>290</y>
+          <width>196</width>
+          <height>51</height>
+         </rect>
+        </property>
+        <widget class="QRadioButton" name="jackMidiButton">
+         <property name="enabled">
+          <bool>false</bool>
+         </property>
+         <property name="geometry">
+          <rect>
+           <x>10</x>
+           <y>0</y>
+           <width>181</width>
+           <height>22</height>
+          </rect>
+         </property>
+         <property name="text">
+          <string>JACK</string>
+         </property>
+        </widget>
+        <widget class="QRadioButton" name="rtMidiButton">
+         <property name="geometry">
+          <rect>
+           <x>10</x>
+           <y>25</y>
+           <width>181</width>
+           <height>22</height>
+          </rect>
+         </property>
+         <property name="text">
+          <string>RtMidi</string>
+         </property>
+        </widget>
+       </widget>
        <zorder>midiSetingsBackdrop</zorder>
        <zorder>inputVirtual</zorder>
        <zorder>inputReload</zorder>
        <zorder>inputRetry</zorder>
        <zorder>inputsList</zorder>
+       <zorder>midiPortsLabel</zorder>
+       <zorder>midiAPILabel</zorder>
+       <zorder>midiAPIs</zorder>
       </widget>
       <widget class="QWidget" name="emitterTab">
        <attribute name="title">
@@ -1031,7 +1105,7 @@ Save the preset as another file.</string>
         <property name="geometry">
          <rect>
           <x>475</x>
-          <y>55</y>
+          <y>15</y>
           <width>71</width>
           <height>25</height>
          </rect>
@@ -1050,38 +1124,16 @@ Save the preset as another file.</string>
         <property name="geometry">
          <rect>
           <x>475</x>
-          <y>95</y>
+          <y>50</y>
           <width>71</width>
           <height>25</height>
          </rect>
         </property>
         <property name="toolTip">
-         <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Try to start the audio backend.&lt;br&gt;This is in case it failed to initialize the first time.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+         <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Start or restart the emitter.&lt;br&gt;This redoes all the initialization checks.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
         </property>
         <property name="text">
-         <string>Retry</string>
-        </property>
-       </widget>
-       <widget class="QPushButton" name="outputPorts">
-        <property name="enabled">
-         <bool>false</bool>
-        </property>
-        <property name="geometry">
-         <rect>
-          <x>475</x>
-          <y>15</y>
-          <width>71</width>
-          <height>25</height>
-         </rect>
-        </property>
-        <property name="toolTip">
-         <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Use the default audio interface for the current backend.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
-        </property>
-        <property name="text">
-         <string>Connect</string>
-        </property>
-        <property name="checkable">
-         <bool>false</bool>
+         <string>Restart</string>
         </property>
        </widget>
        <widget class="QGraphicsView" name="emitterBackdrop">
@@ -1098,7 +1150,7 @@ Save the preset as another file.</string>
         <property name="geometry">
          <rect>
           <x>410</x>
-          <y>160</y>
+          <y>195</y>
           <width>201</width>
           <height>20</height>
          </rect>
@@ -1114,7 +1166,7 @@ Save the preset as another file.</string>
         <property name="geometry">
          <rect>
           <x>485</x>
-          <y>185</y>
+          <y>220</y>
           <width>51</width>
           <height>21</height>
          </rect>
@@ -1335,18 +1387,83 @@ Several audio editing utilities support this sampling rate.</string>
          <set>Qt::AlignCenter</set>
         </property>
        </widget>
+       <widget class="QLabel" name="audioAPILabel">
+        <property name="geometry">
+         <rect>
+          <x>410</x>
+          <y>90</y>
+          <width>206</width>
+          <height>20</height>
+         </rect>
+        </property>
+        <property name="text">
+         <string>API</string>
+        </property>
+        <property name="alignment">
+         <set>Qt::AlignCenter</set>
+        </property>
+       </widget>
+       <widget class="QWidget" name="audioAPIs" native="true">
+        <property name="geometry">
+         <rect>
+          <x>415</x>
+          <y>110</y>
+          <width>196</width>
+          <height>76</height>
+         </rect>
+        </property>
+        <widget class="QRadioButton" name="jackAudioButton">
+         <property name="geometry">
+          <rect>
+           <x>10</x>
+           <y>0</y>
+           <width>181</width>
+           <height>22</height>
+          </rect>
+         </property>
+         <property name="text">
+          <string>JACK</string>
+         </property>
+        </widget>
+        <widget class="QRadioButton" name="portAudioButton">
+         <property name="geometry">
+          <rect>
+           <x>10</x>
+           <y>25</y>
+           <width>181</width>
+           <height>22</height>
+          </rect>
+         </property>
+         <property name="text">
+          <string>PortAudio</string>
+         </property>
+        </widget>
+        <widget class="QRadioButton" name="rtAudioButton">
+         <property name="geometry">
+          <rect>
+           <x>10</x>
+           <y>50</y>
+           <width>181</width>
+           <height>22</height>
+          </rect>
+         </property>
+         <property name="text">
+          <string>RtAudio</string>
+         </property>
+        </widget>
+       </widget>
        <zorder>emitterBackdrop</zorder>
        <zorder>outputsList</zorder>
-       <zorder>outputPorts</zorder>
        <zorder>playerBackdrop</zorder>
        <zorder>outputReload</zorder>
        <zorder>outputRetry</zorder>
-       <zorder>outputPorts</zorder>
        <zorder>polyphonyLabel</zorder>
        <zorder>polyphonyBox</zorder>
        <zorder>samplingRateLabe</zorder>
        <zorder>samplingrateButtons</zorder>
        <zorder>devicesLabel</zorder>
+       <zorder>audioAPILabel</zorder>
+       <zorder>audioAPIs</zorder>
       </widget>
      </widget>
      <widget class="QGraphicsView" name="playerBackdrop">

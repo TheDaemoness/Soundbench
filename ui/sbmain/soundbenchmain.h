@@ -47,6 +47,7 @@ public:
     explicit SoundbenchMain(QWidget *parent = 0);
     ~SoundbenchMain();
     void delayedConstructor();
+    void initSetupPage();
 
 public slots:
     //void disableRtAu();

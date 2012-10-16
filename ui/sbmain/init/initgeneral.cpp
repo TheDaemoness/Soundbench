@@ -144,7 +144,7 @@ void SoundbenchMain::delayedConstructor() {
     connect(ui->playButton,SIGNAL(toggled(bool)),SLOT(playSynth(bool)));
     connect(ui->mainTabs,SIGNAL(currentChanged(int)),SLOT(holdKeyboard(int)));
 
-    //Connect and setup the Select page widgets.
+    //Connect and setup the Presets page widgets.
     connect(ui->newButton,SIGNAL(clicked()),SLOT(resetBlueprint()));
     connect(ui->refreshPresets,SIGNAL(clicked()),SLOT(refreshPresets()));
     connect(ui->openButton,SIGNAL(clicked()),SLOT(loadExternalPreset()));
@@ -161,59 +161,8 @@ void SoundbenchMain::delayedConstructor() {
     connect(sc_save,SIGNAL(activated()),SLOT(savePreset()));
     connect(sc_export,SIGNAL(activated()),SLOT(exportPreset()));
 
-    //Connect and setup the Player page widgets.
-    connect(ui->holdA4Button,SIGNAL(toggled(bool)),SLOT(testSynth(bool)));
-    connect(ui->importButton,SIGNAL(clicked()),SLOT(importOpen()));
-    connect(ui->exportButton,SIGNAL(clicked()),SLOT(exportOpen()));
-    connect(ui->songsTracksList,SIGNAL(clicked(QModelIndex)),SLOT(setTrack()));
-    connect(ui->tempoBox,SIGNAL(valueChanged(int)),SLOT(setTempo(int)));
-    ui->exportButton->setDisabled(true);
-#ifndef NO_MIDIFRONTEND
-    ui->inputRetry->setDisabled(plai->isRtAvailable());
-
-    ui->inputsList->setEnabled(plai->isRtAvailable());
-    ui->inputReload->setEnabled(plai->isRtAvailable());
-    ui->recordButton->setEnabled(plai->isRtAvailable());
-    ui->inputVirtual->setEnabled(plai->setVirtualPort(false)); //Effectively a support check.
-
-    connect(ui->inputsList,SIGNAL(clicked(QModelIndex)),SLOT(setPort()));
-    connect(ui->inputVirtual,SIGNAL(toggled(bool)),SLOT(useVPort(bool)));
-    connect(ui->inputReload,SIGNAL(clicked()),SLOT(loadPorts()));
-    connect(ui->inputRetry,SIGNAL(clicked()),SLOT(reloadPlayer()));
-    connect(ui->recordButton,SIGNAL(toggled(bool)),SLOT(record(bool)));
-
-    if(!plai->isRtAvailable())
-        ui->inputsList->addItem("Frontend initialization failed.");
-#else
-    ui->inputsList->addItem("Compiled without any frontends.");
-    ui->inputsList->setDisabled(true);
-    ui->recordButton->setDisabled(true);
-    ui->inputVirtual->setDisabled(true);
-    ui->inputReload->setDisabled(true);
-#endif
-#ifndef NO_AUDIOBACKEND
-    ui->outputRetry->setDisabled(em->isRtAvailable());
-
-    ui->outputsList->setEnabled(em->isRtAvailable() && em->getUsedBackendType() != sb::JACK_O);
-    ui->outputReload->setEnabled(em->isRtAvailable() && em->getUsedBackendType() != sb::JACK_O);
-    ui->outputPorts->setEnabled(em->getUsedBackendType() == sb::JACK_O);
-    if (em->doesBackendUsePorts()) {
-        ui->outputsList->addItem("Backend uses ports.");
-        ui->outputsList->addItem("Please use the 'Connect' interface.");
-    }
-
-    connect(ui->outputRetry,SIGNAL(clicked()),SLOT(reloadEmitter()));
-    connect(ui->outputReload,SIGNAL(clicked()),SLOT(loadDevices()));
-    connect(ui->playButton,SIGNAL(toggled(bool)),SLOT(playSynth(bool)));
-    connect(plai,SIGNAL(donePlaying()),ui->playButton,SLOT(toggle()));
-
-    if(!em->isRtAvailable())
-        ui->outputsList->addItem("Backend initialization failed.");
-#else
-    ui->outputsList->addItem("Compiled without any backends.");
-    ui->outputsList->setDisabled(true);
-    ui->outputReload->setDisabled(true);
-#endif
+    //Connect and setup the Setup page widgets.
+    initSetupPage();
 
     //Connect and setup the Channels page widgets.
     connect(ui->gener1TypeBox,SIGNAL(currentIndexChanged(int)),type_sigmap,SLOT(map()));
@@ -225,16 +174,6 @@ void SoundbenchMain::delayedConstructor() {
     connect(ui->gen2SettButton,SIGNAL(clicked()),sett_sigmap,SLOT(map()));
     connect(ui->gen3SettButton,SIGNAL(clicked()),sett_sigmap,SLOT(map()));
     connect(ui->gen4SettButton,SIGNAL(clicked()),sett_sigmap,SLOT(map()));
-
-    //Connect and setup the Settings page widgets
-    connect(ui->button441Sampling,SIGNAL(clicked()),rate_sigmap,SLOT(map()));
-    connect(ui->button48Sampling,SIGNAL(clicked()),rate_sigmap,SLOT(map()));
-    connect(ui->button882Sampling,SIGNAL(clicked()),rate_sigmap,SLOT(map()));
-    connect(ui->button96Sampling,SIGNAL(clicked()),rate_sigmap,SLOT(map()));
-    connect(ui->button176Sampling,SIGNAL(clicked()),rate_sigmap,SLOT(map()));
-    connect(ui->button192Sampling,SIGNAL(clicked()),rate_sigmap,SLOT(map()));
-    connect(ui->polyphonyBox,SIGNAL(valueChanged(int)),SLOT(setPoly(int)));
-    ui->polyphonyBox->setValue(sb::DefaultPolyphony);
 
     //Connect the sigmaps.
     connect(sett_sigmap,SIGNAL(mapped(int)),SLOT(setGenSett(int)));

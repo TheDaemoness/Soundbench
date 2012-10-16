@@ -71,7 +71,6 @@ SOURCES += \
     sfwriter.cpp \
     sampletable.cpp \
     trapezoid.cpp \
-    ui/sbmain/maininit.cpp \
     waves/basicwaves.cpp \
     backend/rtaudio.cpp \
     frontend/rtmidi.cpp \
@@ -96,7 +95,9 @@ SOURCES += \
     midifio/fioreadopen.cpp \
     backend/jackaudio.cpp \
     frontend/jackmidi.cpp \
-    synth/synth.cpp
+    synth/synth.cpp \
+    ui/sbmain/init/initgeneral.cpp \
+    ui/sbmain/init/initsetup.cpp
 
 RESOURCES += \
     resources.qrc
