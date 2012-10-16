@@ -71,16 +71,25 @@ RtAudioBackend::RtAudioBackend(Synth* syns, size_t& srate, std::map<size_t,bool>
 }
 
 void RtAudioBackend::start() {
-    if (!rta.isStreamOpen())
-        rta.openStream(&params,NULL,RTAUDIO_FLOAT32,sampling_rate,&bufflen,callback,reinterpret_cast<void*>(syn));
-    if(!rta.isStreamRunning())
-        rta.startStream();
+    try {
+        if (!rta.isStreamOpen())
+            rta.openStream(&params,NULL,RTAUDIO_FLOAT32,sampling_rate,&bufflen,callback,reinterpret_cast<void*>(syn));
+        if(!rta.isStreamRunning())
+            rta.startStream();
+        running = true;
+    }
+    catch (RtError& e) {
+        ready = false;
+        std::cerr << "RtAudio had problems opening and starting a stream.\n";
+        std::cerr << "Details: " << e.what() << "\n";
+    }
 }
 void RtAudioBackend::stop() {
     if(rta.isStreamRunning())
         rta.abortStream();
     if (rta.isStreamOpen())
         rta.closeStream();
+    running = false;
 }
 
 int RtAudioBackend::callback( void *outputBuffer, void*, unsigned int nBufferFrames, double, RtAudioStreamStatus, void *userData) {
