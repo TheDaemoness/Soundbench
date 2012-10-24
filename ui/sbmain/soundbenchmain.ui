@@ -483,7 +483,7 @@ QTabBar::tab:selected {
 }</string>
     </property>
     <property name="currentIndex">
-     <number>0</number>
+     <number>1</number>
     </property>
     <widget class="QWidget" name="tabPresets">
      <attribute name="title">
@@ -723,7 +723,7 @@ Save the preset as another file.</string>
       </item>
      </widget>
     </widget>
-    <widget class="QWidget" name="tabPlayer">
+    <widget class="QWidget" name="tabSetup">
      <attribute name="title">
       <string>Setup</string>
      </attribute>
@@ -1454,7 +1454,6 @@ Several audio editing utilities support this sampling rate.</string>
        </widget>
        <zorder>emitterBackdrop</zorder>
        <zorder>outputsList</zorder>
-       <zorder>playerBackdrop</zorder>
        <zorder>outputReload</zorder>
        <zorder>outputRetry</zorder>
        <zorder>polyphonyLabel</zorder>

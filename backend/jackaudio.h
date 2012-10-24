@@ -60,6 +60,8 @@ namespace sb {
             size_t buffsize;
             size_t* srateref;
         } udata;
+
+        std::vector<std::string> lconnects, rconnects;
     };
 }
 #else

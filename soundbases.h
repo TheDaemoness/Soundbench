@@ -36,9 +36,6 @@ namespace sb {
         virtual void ctrl(ModuleParams arg, ParameterValue val) = 0; //See the documentation for notes about this function.
         virtual void reset() = 0;
         virtual void updateSamplingRate() = 0;
-
-    protected:
-        std::vector<Trapezoid> envelope;
     };
 
 

@@ -107,7 +107,22 @@ namespace sb {
             int err = jack_activate(cli);
             if (err != 0) {
                 //Error handling stuff here.
+                return;
             }
+            auto ports = jack_get_ports (cli, NULL, JACK_DEFAULT_AUDIO_TYPE, JackPortIsPhysical|JackPortIsInput);
+            if(ports[0] == NULL)
+                std::cerr << "Warning: No physical output ports found. Connections will need to be made manually.\n";
+            else
+                jack_connect(cli,jack_port_name(udata.lport),ports[0]);
+
+            if (ports[1] == NULL) {
+                std::cerr << "Warning: Only one physical output port found. Both output ports will connect to it.\n";
+                jack_connect(cli,jack_port_name(udata.rport),ports[0]);
+            }
+            else
+                jack_connect(cli,jack_port_name(udata.rport),ports[1]);
+
+            running = true;
         }
     }
 
@@ -117,6 +132,7 @@ namespace sb {
             if (err != 0) {
                 //Error handling stuff here.
             }
+            running = false;
         }
     }
 

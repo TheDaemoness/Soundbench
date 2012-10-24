@@ -51,12 +51,15 @@ HEADERS += architect/architect.h \
     emitter/initbackend.h \
     frontend/jackmidi.h \
     jackbase.h \
-    synth/synth.h
+    synth/synth.h \
+    ui/settings/biquadfx.h \
+    fx/biquad.h
 
 FORMS += errorpopup.ui \
     ui/sbmain/soundbenchmain.ui \
     warningpopup.ui \
-    ui/settings/basicgen.ui
+    ui/settings/basicgen.ui \
+    ui/settings/biquadfx.ui
 
 SOURCES += \
     architect/architect.cpp \
@@ -97,7 +100,9 @@ SOURCES += \
     ui/sbmain/mainsetup.cpp \
     ui/sbmain/mainpresetload.cpp \
     ui/sbmain/mainpresetsave.cpp \
-    ui/sbmain/mainpreset.cpp
+    ui/sbmain/mainpreset.cpp \
+    ui/settings/biquadfx.cpp \
+    fx/biquad.cpp
 
 RESOURCES += \
     resources.qrc

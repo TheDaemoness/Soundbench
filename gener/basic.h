@@ -33,6 +33,7 @@ namespace sb {
         int16_t notebias;
         uint8_t currpoly;
         size_t offset;
+        std::vector<Trapezoid> envelope;
     public:
         explicit BasicGen(uint8_t cracker = DefaultPolyphony);
         ~BasicGen() {
