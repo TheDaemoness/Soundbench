@@ -102,7 +102,8 @@ SOURCES += \
     ui/sbmain/mainpresetsave.cpp \
     ui/sbmain/mainpreset.cpp \
     ui/settings/biquadfx.cpp \
-    fx/biquad.cpp
+    fx/biquad.cpp \
+    fx/biquad_formula.cpp
 
 RESOURCES += \
     resources.qrc

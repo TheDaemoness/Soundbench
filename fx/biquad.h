@@ -35,41 +35,41 @@ namespace sb {
             float alpha, w0, A; //Intermediate variables.
             float a0, a1, a2, b0, b1, b2; //Coefficients.
         };
-        class Highpass : public BiquadFormula {
-            virtual void tick(float* sample, size_t chans, bool left = true);
-            virtual void computeCoefficients(float, float, float);
-        };
         class Lowpass : public BiquadFormula {
-            virtual void tick(float* sample, size_t chans, bool left = true);
-            virtual void computeCoefficients(float, float, float);
+            void tick(float* sample, size_t chans, bool left = true);
+            void computeCoefficients(float, float, float);
+        };
+        class Highpass : public BiquadFormula {
+            void tick(float* sample, size_t chans, bool left = true);
+            void computeCoefficients(float, float, float);
         };
         class BandpassQ : public BiquadFormula {
-            virtual void tick(float* sample, size_t chans, bool left = true);
-            virtual void computeCoefficients(float, float, float);
+            void tick(float* sample, size_t chans, bool left = true);
+            void computeCoefficients(float, float, float);
         };
         class BandpassZero : public BiquadFormula {
-            virtual void tick(float* sample, size_t chans, bool left = true);
-            virtual void computeCoefficients(float, float, float);
+            void tick(float* sample, size_t chans, bool left = true);
+            void computeCoefficients(float, float, float);
         };
         class Notch : public BiquadFormula {
-            virtual void tick(float* sample, size_t chans, bool left = true);
-            virtual void computeCoefficients(float, float, float);
+            void tick(float* sample, size_t chans, bool left = true);
+            void computeCoefficients(float, float, float);
         };
         class Allpass : public BiquadFormula {
-            virtual void tick(float* sample, size_t chans, bool left = true);
-            virtual void computeCoefficients(float, float, float);
+            void tick(float* sample, size_t chans, bool left = true);
+            void computeCoefficients(float, float, float);
         };
         class PeakingEQ : public BiquadFormula {
-            virtual void tick(float* sample, size_t chans, bool left = true);
-            virtual void computeCoefficients(float, float, float);
+            void tick(float* sample, size_t chans, bool left = true);
+            void computeCoefficients(float, float, float);
         };
         class LowShelf : public BiquadFormula {
-            virtual void tick(float* sample, size_t chans, bool left = true);
-            virtual void computeCoefficients(float, float, float);
+            void tick(float* sample, size_t chans, bool left = true);
+            void computeCoefficients(float, float, float);
         };
         class HighShelf : public BiquadFormula {
-            virtual void tick(float* sample, size_t chans, bool left = true);
-            virtual void computeCoefficients(float, float, float);
+            void tick(float* sample, size_t chans, bool left = true);
+            void computeCoefficients(float, float, float);
         };
     public:
         BiquadFx();
