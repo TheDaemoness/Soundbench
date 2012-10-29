@@ -30,7 +30,8 @@ namespace sb {
         GenerWaveguide = 5
     };
     enum FxType {
-        NoFx = 0
+        NoFx = 0,
+        FxBiquad = 1
     };
 
     enum ModuleParams {
@@ -39,7 +40,23 @@ namespace sb {
         GenBasicWave = 2,
         GenBasicAmp = 3,
         GenBasicPhase = 4,
-        GenBasicNoteBias = 5
+        GenBasicNoteBias = 5,
+        FxBiquadType = 6,
+        FxBiquadFreq = 7,
+        FxBiquadMisc = 8,
+        FxBiquadGain = 9
+    };
+
+    enum BiquadTypes {
+        BiquadLowpass = 0,
+        BiquadHighpass = 1,
+        BiquadBandpassZero = 2,
+        BiquadBandpassQ = 3,
+        BiquadNotch = 4,
+        BiquadAllpass = 5,
+        BiquadPeakingEQ = 6,
+        BiquadLowShelf = 7,
+        BiquadHighShelf = 8
     };
 
     enum SimpleWaveTypes {
