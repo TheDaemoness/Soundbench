@@ -42,6 +42,12 @@ void SoundbenchMain::delayedConstructor() {
     sb::global_srate = sb::SupportedRates[1];
 
     syn = new sb::Synth;
+    std::cerr << "Threading Level: ";
+    if(syn->getThreadLevel() < 4 && syn->getThreadLevel() != sb::ThreadingNone)
+        std::cerr << 'x' << syn->getThreadLevel() << '\n';
+    else if(syn->getThreadLevel() == sb::ThreadingX4)
+        std::cerr << "x4\n";
+
     em = new sb::Emitter(syn);
     met = new CpuMeter(ui->cpuMeter,ui->cpuLabel);
     plai = new sb::Player(syn,ui->songsTracksList,met);

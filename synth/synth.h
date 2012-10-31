@@ -22,8 +22,16 @@
 
 #include "gener/basic.h"
 #include <chrono>
+#include <QThread>
 
 namespace sb {
+
+    enum ThreadLevel {
+        ThreadingNone = 0,
+        ThreadingX2 = 2,
+        ThreadingX3 = 3,
+        ThreadingX4 = 4
+    };
 
     class Architect;
 
@@ -54,6 +62,8 @@ namespace sb {
         void updateSamplingRate();
 
         inline SbSample& volume() {return vol;}
+        inline ThreadLevel getThreadLevel() {return tlevel;}
+
         friend class Architect;
 
     private:
@@ -79,6 +89,7 @@ namespace sb {
         SbSample vol;
         uint8_t currentpoly;
         size_t inactivechans;
+        ThreadLevel tlevel;
     };
 }
 

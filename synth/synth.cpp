@@ -33,6 +33,11 @@ namespace sb {
         holdped = false;
         sustped = false;
 
+        if(QThread::idealThreadCount() < 2)
+            tlevel = ThreadingNone;
+        else if(QThread::idealThreadCount() <= 4)
+            tlevel = static_cast<ThreadLevel>(QThread::idealThreadCount());
+
         for (size_t ate = 0; ate < InternalChannels; ++ate) {
             gener[ate] = nullptr;
             for (size_t nonsense = 0; nonsense < FxPerChannel; ++ nonsense)
@@ -128,7 +133,6 @@ namespace sb {
         }
     }
 
-
     void Synth::reset() {
         for (size_t i = 0; i < notes.size(); ++i) {
             if(notes[i].amp != SbSampleZero) {
@@ -147,32 +151,6 @@ namespace sb {
                 if (eff[ec][tive] != nullptr) //I could make these jokes all day.
                     eff[ec][tive]->reset();
             }*/
-        }
-    }
-
-    void Synth::tick(SbSample* frames) {
-        for (size_t ic = 0; ic < InternalChannels; ++ic) { //Loop per internal channel.
-            if (gener[ic] != nullptr)
-                gener[ic]->tick(buffer[ic], OutChannels);
-            else {
-                for (size_t i = 0; i < OutChannels; ++i)
-                    buffer[ic][i] = SbSampleZero;
-            }
-            for (size_t ient = 0; ient < FxPerChannel; ++ient) { //Loop per effect.
-                if (eff[ic][ient] != nullptr)
-                    eff[ic][ient]->tick(buffer[ient],OutChannels);
-            }
-            for (size_t acid = 0; acid < OutChannels; ++acid) { //Loop per outbound channel.
-                if (!ic)
-                    frames[acid] = SbSampleZero;
-                frames[acid] += buffer[ic][acid]; //What an incorrect name that'd be.
-            }
-        }
-        if (inactivechans != InternalChannels) {
-            for (size_t out = 0; out < OutChannels; ++out) {
-                frames[out] /= (InternalChannels-inactivechans); //Correctly average the signal from the running channels.
-                frames[out] *= vol; //Apply the master volume.
-            }
         }
     }
 }
