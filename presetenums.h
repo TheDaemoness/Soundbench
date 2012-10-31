@@ -43,8 +43,10 @@ namespace sb {
         GenBasicNoteBias = 5,
         FxBiquadType = 6,
         FxBiquadFreq = 7,
-        FxBiquadMisc = 8,
-        FxBiquadGain = 9
+        FxBiquadGain = 8,
+        FxBiquadQ = 9,
+        FxBiquadBW = 10,
+        FxBiquadS = 11
     };
 
     enum BiquadTypes {

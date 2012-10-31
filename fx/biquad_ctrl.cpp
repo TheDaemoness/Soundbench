@@ -16,31 +16,26 @@
 
     Copyright 2012  Amaya S.
 */
-\
-#ifndef BIQUAD_H
-#define BIQUAD_H
 
-
-#include "soundbases.h"
+#include "biquad.h"
 
 namespace sb {
-
-    class BiquadFx : public FxBase {
-    private:
-            float f0, dbgain, q, bw, s;
-            float alpha, w0, a; //Intermediate variables.
-            float a0, a1, a2, b0, b1, b2; //Coefficients.
-            SbSample prevl[2], prevr[2];
-    public:
-        BiquadFx();
-            void tick(float *sample, size_t chans, bool left);
-            void ctrl(ModuleParams arg, ParameterValue val);
-            void updateSamplingRate();
-            void reset();
-    private:
-        void recalc();
-        BiquadTypes typpe;
-    };
-
+    void BiquadFx::ctrl(ModuleParams arg, ParameterValue val) {
+        switch(arg) {
+        case FxBiquadType:
+            break;
+        case FxBiquadFreq:
+            break;
+        case FxBiquadGain:
+            break;
+        case FxBiquadQ:
+            break;
+        case FxBiquadBW:
+            break;
+        case FxBiquadS:
+            break;
+        default:
+            break;
+        }
+    }
 }
-#endif // BIQUAD_H
