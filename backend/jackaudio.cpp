@@ -84,7 +84,7 @@ namespace sb {
         float* rbuffer = reinterpret_cast<float*>(jack_port_get_buffer(reinterpret_cast<JackUserData*>(udata)->rport,frames));
         float sample_pear[2];
         for (size_t i = 0; i < frames; ++i) {
-            reinterpret_cast<JackUserData*>(udata)->synref->tick(sample_pear,2);
+            reinterpret_cast<JackUserData*>(udata)->synref->tick(sample_pear);
             lbuffer[i] = sample_pear[0];
             rbuffer[i] = sample_pear[1];
         }

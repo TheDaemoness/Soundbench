@@ -95,7 +95,7 @@ void RtAudioBackend::stop() {
 int RtAudioBackend::callback( void *outputBuffer, void*, unsigned int nBufferFrames, double, RtAudioStreamStatus, void *userData) {
     SbSample* framepointer = reinterpret_cast<SbSample*>(outputBuffer);
     for (size_t i = 0; i < nBufferFrames; framepointer += OutChannels, ++i)
-        reinterpret_cast<Synth*>(userData)->tick(framepointer,OutChannels);
+        reinterpret_cast<Synth*>(userData)->tick(framepointer);
     return 0;
 }
 

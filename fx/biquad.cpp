@@ -33,7 +33,7 @@ namespace sb {
     }
 
     void BiquadFx::updateSamplingRate() {
-        recalcVars();
+        recalc();
     }
 
     void BiquadFx::tick(float *sample, size_t chans, bool left) {
@@ -81,5 +81,7 @@ namespace sb {
         case BiquadPeakingEQ:
         case BiquadLowShelf:
         case BiquadHighShelf:
+            break;
         }
+    }
 }

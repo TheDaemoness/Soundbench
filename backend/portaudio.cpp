@@ -57,7 +57,7 @@ namespace sb {
     int PortaudioBackend::callback(const void*, void* output, unsigned long framecount, const PaStreamCallbackTimeInfo*, PaStreamCallbackFlags, void* syne) {
         SbSample* framepointer = reinterpret_cast<SbSample*>(output);
         for (size_t i = 0; i < framecount; framepointer += OutChannels, ++i)
-            reinterpret_cast<Synth*>(syne)->tick(framepointer,OutChannels);
+            reinterpret_cast<Synth*>(syne)->tick(framepointer);
         return paContinue;
     }
 

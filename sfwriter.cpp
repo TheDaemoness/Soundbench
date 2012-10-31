@@ -51,7 +51,7 @@ namespace sb {
 
     void SoundFileWriter::tick() {
         SbSample tmp[2];
-        syn->tick(tmp,2);
+        syn->tick(tmp);
         samples.push_back(tmp[0]);
         samples.push_back(tmp[1]);
         needsflush = true;

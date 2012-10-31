@@ -150,26 +150,26 @@ namespace sb {
         }
     }
 
-    void Synth::tick(SbSample* frames, size_t chans, bool left) {
+    void Synth::tick(SbSample* frames) {
         for (size_t ic = 0; ic < InternalChannels; ++ic) { //Loop per internal channel.
             if (gener[ic] != nullptr)
-                gener[ic]->tick(buffer[ic], chans, left);
+                gener[ic]->tick(buffer[ic], OutChannels);
             else {
-                for (size_t i = 0; i < chans; ++i)
+                for (size_t i = 0; i < OutChannels; ++i)
                     buffer[ic][i] = SbSampleZero;
             }
             for (size_t ient = 0; ient < FxPerChannel; ++ient) { //Loop per effect.
                 if (eff[ic][ient] != nullptr)
-                    eff[ic][ient]->tick(buffer[ient],chans,left);
+                    eff[ic][ient]->tick(buffer[ient],OutChannels);
             }
-            for (size_t acid = 0; acid < chans; ++acid) { //Loop per outbound channel.
+            for (size_t acid = 0; acid < OutChannels; ++acid) { //Loop per outbound channel.
                 if (!ic)
                     frames[acid] = SbSampleZero;
                 frames[acid] += buffer[ic][acid]; //What an incorrect name that'd be.
             }
         }
         if (inactivechans != InternalChannels) {
-            for (size_t out = 0; out < chans; ++out) {
+            for (size_t out = 0; out < OutChannels; ++out) {
                 frames[out] /= (InternalChannels-inactivechans); //Correctly average the signal from the running channels.
                 frames[out] *= vol; //Apply the master volume.
             }

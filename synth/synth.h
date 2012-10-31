@@ -45,7 +45,11 @@ namespace sb {
         void noteOff(int halfsteps);
         void pedal(SupportedPedals which, bool val = true);
         void reset();
-        void tick(SbSample* frame, size_t chans, bool left = true);
+        void tick(SbSample* frame);
+        void channel_tick(uint8_t chanval, SbSample* frame);
+        void interleaved_block(SbSample* frames, size_t framecount);
+        void uninterleaved_blocks(SbSample* lframes, SbSample* rframes, size_t framecount);
+
         void setPolyphony(uint8_t);
         void updateSamplingRate();
 
