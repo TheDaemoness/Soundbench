@@ -50,4 +50,102 @@ namespace sb {
                 eff[ic][ient]->tick(frame,OutChannels);
         }
     }
+
+    void Synth::interleaved_block(SbSample *frames, size_t framecount) {
+        for (size_t i = 0; i < framecount*OutChannels; ++i)
+            frames[i] = SbSampleZero;
+
+        auto singleChannelCallback = [&,this](uint8_t chan) {
+            SbSample buff[OutChannels];
+            for(size_t p = 0; p < framecount*OutChannels; p+=OutChannels)  {
+                channel_tick(chan,buff);
+                for(size_t et = 0; et < OutChannels; ++et) {
+                    frames[p+et] += buff[et];
+                }
+            }
+        };
+
+        switch(tlevel) {
+        case ThreadingChannelwise:
+            std::thread* t[InternalChannels];
+            for (uint8_t ie = 0; ie < InternalChannels; ++ie) {
+                if (gener[ie] != nullptr)
+                    t[ie] = new std::thread(singleChannelCallback,ie);
+                else
+                    t[ie] = nullptr;
+                for (uint8_t i = 0; i < InternalChannels; ++i)
+                    if (t[ie] != nullptr) {
+                        t[i]->join();
+                        delete t[i];
+                    }
+            }
+            break;
+        case ThreadingNone:
+            for(uint8_t i = 0; i < InternalChannels; ++i) {
+                SbSample buff[OutChannels];
+                for(size_t onn = 0; onn < framecount*OutChannels; onn+=OutChannels)  {
+                    channel_tick(i,buff);
+                    for(size_t et = 0; et < OutChannels; ++et)
+                        frames[onn+et] += buff[et];
+                }
+            }
+            break;
+        }
+        if (inactivechans != InternalChannels) {
+            for (size_t out = 0; out < OutChannels; ++out) {
+                frames[out] /= (InternalChannels-inactivechans); //Correctly average the signal from the running channels.
+                frames[out] *= vol; //Apply the master volume.
+            }
+        }
+    }
+    void Synth::uninterleaved_blocks(SbSample *lframes, SbSample *rframes, size_t framecount) {
+        for (size_t i = 0; i < framecount; ++i) {
+            lframes[i] = SbSampleZero;
+            rframes[i] = SbSampleZero;
+        }
+
+        auto singleChannelCallback = [&,this](uint8_t chan) {
+            SbSample buff[2];
+            for(size_t es = 0; es < framecount; ++es)  {
+                channel_tick(chan,buff);
+                lframes[es] += buff[0];
+                rframes[es] += buff[1];
+            }
+        };
+
+        switch(tlevel) {
+        case ThreadingChannelwise:
+            std::thread* t[InternalChannels];
+            for (uint8_t ie = 0; ie < InternalChannels; ++ie) {
+                if (gener[ie] != nullptr)
+                    t[ie] = new std::thread(singleChannelCallback,ie);
+                else
+                    t[ie] = nullptr;
+                for (uint8_t i = 0; i < InternalChannels; ++i)
+                    if (t[ie] != nullptr) {
+                        t[i]->join();
+                        delete t[i];
+                    }
+            }
+            break;
+        case ThreadingNone:
+            for(uint8_t er = 0; er < InternalChannels; ++er) {
+                SbSample buff[2];
+                for(size_t ong = 0; ong < framecount; ++ong)  {
+                    channel_tick(er,buff);
+                    lframes[ong] += buff[0];
+                    rframes[ong] += buff[1];
+                }
+            }
+            break;
+        }
+        if (inactivechans != InternalChannels) {
+            for (size_t out = 0; out < OutChannels; ++out) {
+                lframes[out] /= (InternalChannels-inactivechans); //Correctly average the signal from the running channels.
+                lframes[out] *= vol; //Apply the master volume.
+                rframes[out] /= (InternalChannels-inactivechans); //Correctly average the signal from the running channels.
+                rframes[out] *= vol; //Apply the master volume.
+            }
+        }
+    }
 }

@@ -43,10 +43,10 @@ void SoundbenchMain::delayedConstructor() {
 
     syn = new sb::Synth;
     std::cerr << "Threading Level: ";
-    if(syn->getThreadLevel() < 4 && syn->getThreadLevel() != sb::ThreadingNone)
-        std::cerr << 'x' << syn->getThreadLevel() << '\n';
-    else if(syn->getThreadLevel() == sb::ThreadingX4)
-        std::cerr << "x4\n";
+    if(syn->getThreadLevel() == sb::ThreadingNone)
+        std::cerr << "None\n";
+    if(syn->getThreadLevel() == sb::ThreadingChannelwise)
+        std::cerr << "Channelwise\n";
 
     em = new sb::Emitter(syn);
     met = new CpuMeter(ui->cpuMeter,ui->cpuLabel);

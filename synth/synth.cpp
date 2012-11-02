@@ -18,6 +18,7 @@
 */
 
 #include "synth.h"
+#include <QThread>
 
 namespace sb {
 
@@ -35,8 +36,10 @@ namespace sb {
 
         if(QThread::idealThreadCount() < 2)
             tlevel = ThreadingNone;
-        else if(QThread::idealThreadCount() <= 4)
-            tlevel = static_cast<ThreadLevel>(QThread::idealThreadCount());
+        else if(QThread::idealThreadCount() < InternalChannels)
+            tlevel = ThreadingNone;
+        else if(QThread::idealThreadCount() == InternalChannels)
+            tlevel = ThreadingChannelwise;
 
         for (size_t ate = 0; ate < InternalChannels; ++ate) {
             gener[ate] = nullptr;

@@ -21,16 +21,16 @@
 #define SYNTH_H
 
 #include "gener/basic.h"
+
 #include <chrono>
-#include <QThread>
+#include <thread>
 
 namespace sb {
 
     enum ThreadLevel {
         ThreadingNone = 0,
-        ThreadingX2 = 2,
-        ThreadingX3 = 3,
-        ThreadingX4 = 4
+        ThreadingChannelwise = 1,
+        ThreadingPartial = 2
     };
 
     class Architect;
