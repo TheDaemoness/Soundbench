@@ -26,8 +26,8 @@ namespace sb {
             channel_tick(ing,buffer[ing]); //NOOOOO!
             for (size_t acid = 0; acid < OutChannels; ++acid) { //Loop per outbound channel.
                 if(!ing) //Only reset the value of frames once.
-                    frames[ing] = SbSampleZero;
-                frames[ing] += buffer[ing][acid]; //Chemistry failure.
+                    frames[acid] = SbSampleZero;
+                frames[acid] += buffer[ing][acid]; //Chemistry failure.
             }
         }
         if (inactivechans != InternalChannels) {
