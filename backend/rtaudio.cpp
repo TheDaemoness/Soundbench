@@ -94,12 +94,12 @@ void RtAudioBackend::stop() {
 
 int RtAudioBackend::callback( void *outputBuffer, void*, unsigned int nBufferFrames, double, RtAudioStreamStatus, void *userData) {
     reinterpret_cast<Synth*>(userData)->interleaved_block(reinterpret_cast<SbSample*>(outputBuffer),nBufferFrames);
-    return 0;
     /*
     SbSample* framepointer = reinterpret_cast<SbSample*>(outputBuffer);
     for (size_t i = 0; i < nBufferFrames; framepointer += OutChannels, ++i)
         reinterpret_cast<Synth*>(userData)->tick(framepointer);
     */
+    return 0;
 }
 
 std::vector<std::string> RtAudioBackend::getDevices() {

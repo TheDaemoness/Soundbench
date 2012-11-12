@@ -290,6 +290,50 @@ QSpinBox::down-button:disabled {
 	border-image: url(:/spinbox/spinbox_lower_disabled.png);
 }
 
+QDoubleSpinBox {
+	color: cyan;
+	border-image: url(:/spinbox/spinbox_frame.png);
+}
+QDoubleSpinBox:hover {
+	border-image: url(:/spinbox/spinbox_frame_hover.png);
+}
+QDoubleSpinBox:focus {
+	border-image: url(:/spinbox/spinbox_frame_edit.png);
+}
+QDoubleSpinBox:disabled{
+	border-image: url(:/spinbox/spinbox_frame_disabled.png);
+	color: gray;
+}
+QDoubleSpinBox::up-button {
+	height: 11px;
+	width: 20px;
+	border-image: url(:/spinbox/spinbox_upper_idle.png);
+}
+QDoubleSpinBox::down-button {
+	height: 11px;
+	width: 20px;
+	border-image: url(:/spinbox/spinbox_lower_idle.png);
+}
+QDoubleSpinBox::up-button:hover {
+	border-image: url(:/spinbox/spinbox_upper_hover.png);
+}
+QDoubleSpinBox::up-button:pressed {
+	border-image: url(:/spinbox/spinbox_upper_pressed.png);
+}
+QDoubleSpinBox::up-button:disabled {
+	border-image: url(:/spinbox/spinbox_upper_disabled.png);
+}
+
+QDoubleSpinBox::down-button:hover {
+	border-image: url(:/spinbox/spinbox_lower_hover.png);
+}
+QDoubleSpinBox::down-button:pressed {
+	border-image: url(:/spinbox/spinbox_lower_pressed.png);
+}
+QDoubleSpinBox::down-button:disabled {
+	border-image: url(:/spinbox/spinbox_lower_disabled.png);
+}
+
 QPushButton {
 	border-image: url(:/buttons/button75_idle.png);
 }
@@ -483,7 +527,7 @@ QTabBar::tab:selected {
 }</string>
     </property>
     <property name="currentIndex">
-     <number>1</number>
+     <number>3</number>
     </property>
     <widget class="QWidget" name="tabPresets">
      <attribute name="title">
@@ -1745,38 +1789,512 @@ Several audio editing utilities support this sampling rate.</string>
        </property>
       </item>
      </widget>
-     <widget class="QGraphicsView" name="graphicsView">
+     <widget class="QLabel" name="fxNumberLabel1">
       <property name="geometry">
        <rect>
-        <x>10</x>
-        <y>195</y>
-        <width>1036</width>
-        <height>251</height>
-       </rect>
-      </property>
-     </widget>
-     <widget class="QLabel" name="macroComingSoon_2">
-      <property name="geometry">
-       <rect>
-        <x>10</x>
-        <y>195</y>
-        <width>1031</width>
-        <height>251</height>
+        <x>100</x>
+        <y>220</y>
+        <width>126</width>
+        <height>25</height>
        </rect>
       </property>
       <property name="font">
        <font>
         <family>Ubuntu</family>
-        <pointsize>16</pointsize>
-        <weight>75</weight>
-        <bold>true</bold>
        </font>
       </property>
+      <property name="styleSheet">
+       <string notr="true"/>
+      </property>
       <property name="text">
-       <string>(Effects coming in version 0.4.0)</string>
+       <string>Effect Number</string>
       </property>
       <property name="alignment">
        <set>Qt::AlignCenter</set>
+      </property>
+     </widget>
+     <widget class="QLabel" name="fxNumberLabel2">
+      <property name="geometry">
+       <rect>
+        <x>345</x>
+        <y>220</y>
+        <width>121</width>
+        <height>25</height>
+       </rect>
+      </property>
+      <property name="font">
+       <font>
+        <family>Ubuntu</family>
+       </font>
+      </property>
+      <property name="styleSheet">
+       <string notr="true"/>
+      </property>
+      <property name="text">
+       <string>Effect Number</string>
+      </property>
+      <property name="alignment">
+       <set>Qt::AlignCenter</set>
+      </property>
+     </widget>
+     <widget class="QLabel" name="fxNumberLabel3">
+      <property name="geometry">
+       <rect>
+        <x>590</x>
+        <y>220</y>
+        <width>121</width>
+        <height>25</height>
+       </rect>
+      </property>
+      <property name="font">
+       <font>
+        <family>Ubuntu</family>
+       </font>
+      </property>
+      <property name="styleSheet">
+       <string notr="true"/>
+      </property>
+      <property name="text">
+       <string>Effect Number</string>
+      </property>
+      <property name="alignment">
+       <set>Qt::AlignCenter</set>
+      </property>
+     </widget>
+     <widget class="QLabel" name="fxNumberLabel4">
+      <property name="geometry">
+       <rect>
+        <x>835</x>
+        <y>220</y>
+        <width>121</width>
+        <height>25</height>
+       </rect>
+      </property>
+      <property name="font">
+       <font>
+        <family>Ubuntu</family>
+       </font>
+      </property>
+      <property name="styleSheet">
+       <string notr="true"/>
+      </property>
+      <property name="text">
+       <string>Effect Number</string>
+      </property>
+      <property name="alignment">
+       <set>Qt::AlignCenter</set>
+      </property>
+     </widget>
+     <widget class="QSpinBox" name="fxNumberBox1">
+      <property name="geometry">
+       <rect>
+        <x>130</x>
+        <y>245</y>
+        <width>60</width>
+        <height>21</height>
+       </rect>
+      </property>
+      <property name="minimum">
+       <number>1</number>
+      </property>
+      <property name="maximum">
+       <number>4</number>
+      </property>
+     </widget>
+     <widget class="QSpinBox" name="fxNumberBox2">
+      <property name="geometry">
+       <rect>
+        <x>375</x>
+        <y>245</y>
+        <width>60</width>
+        <height>21</height>
+       </rect>
+      </property>
+      <property name="minimum">
+       <number>1</number>
+      </property>
+      <property name="maximum">
+       <number>4</number>
+      </property>
+     </widget>
+     <widget class="QSpinBox" name="fxNumberBox3">
+      <property name="geometry">
+       <rect>
+        <x>620</x>
+        <y>245</y>
+        <width>60</width>
+        <height>21</height>
+       </rect>
+      </property>
+      <property name="minimum">
+       <number>1</number>
+      </property>
+      <property name="maximum">
+       <number>4</number>
+      </property>
+     </widget>
+     <widget class="QSpinBox" name="fxNumberBox4">
+      <property name="geometry">
+       <rect>
+        <x>865</x>
+        <y>245</y>
+        <width>60</width>
+        <height>21</height>
+       </rect>
+      </property>
+      <property name="minimum">
+       <number>1</number>
+      </property>
+      <property name="maximum">
+       <number>4</number>
+      </property>
+     </widget>
+     <widget class="QComboBox" name="fx1TypeBox">
+      <property name="geometry">
+       <rect>
+        <x>115</x>
+        <y>360</y>
+        <width>96</width>
+        <height>21</height>
+       </rect>
+      </property>
+      <property name="toolTip">
+       <string>Change this generator's type.</string>
+      </property>
+      <item>
+       <property name="text">
+        <string>Disabled</string>
+       </property>
+      </item>
+      <item>
+       <property name="text">
+        <string>Biquad</string>
+       </property>
+      </item>
+     </widget>
+     <widget class="QPushButton" name="fx1SettButton">
+      <property name="enabled">
+       <bool>false</bool>
+      </property>
+      <property name="geometry">
+       <rect>
+        <x>115</x>
+        <y>390</y>
+        <width>96</width>
+        <height>21</height>
+       </rect>
+      </property>
+      <property name="font">
+       <font>
+        <family>Ubuntu</family>
+       </font>
+      </property>
+      <property name="toolTip">
+       <string/>
+      </property>
+      <property name="text">
+       <string>Settings</string>
+      </property>
+     </widget>
+     <widget class="QPushButton" name="fx2SettButton">
+      <property name="enabled">
+       <bool>false</bool>
+      </property>
+      <property name="geometry">
+       <rect>
+        <x>360</x>
+        <y>390</y>
+        <width>96</width>
+        <height>21</height>
+       </rect>
+      </property>
+      <property name="font">
+       <font>
+        <family>Ubuntu</family>
+       </font>
+      </property>
+      <property name="toolTip">
+       <string/>
+      </property>
+      <property name="text">
+       <string>Settings</string>
+      </property>
+     </widget>
+     <widget class="QComboBox" name="fx2TypeBox">
+      <property name="geometry">
+       <rect>
+        <x>360</x>
+        <y>360</y>
+        <width>96</width>
+        <height>21</height>
+       </rect>
+      </property>
+      <property name="toolTip">
+       <string>Change this generator's type.</string>
+      </property>
+      <item>
+       <property name="text">
+        <string>Disabled</string>
+       </property>
+      </item>
+      <item>
+       <property name="text">
+        <string>Biquad</string>
+       </property>
+      </item>
+     </widget>
+     <widget class="QComboBox" name="fx3TypeBox">
+      <property name="geometry">
+       <rect>
+        <x>600</x>
+        <y>360</y>
+        <width>96</width>
+        <height>21</height>
+       </rect>
+      </property>
+      <property name="toolTip">
+       <string>Change this generator's type.</string>
+      </property>
+      <item>
+       <property name="text">
+        <string>Disabled</string>
+       </property>
+      </item>
+      <item>
+       <property name="text">
+        <string>Biquad</string>
+       </property>
+      </item>
+     </widget>
+     <widget class="QPushButton" name="fx3SettButton">
+      <property name="enabled">
+       <bool>false</bool>
+      </property>
+      <property name="geometry">
+       <rect>
+        <x>600</x>
+        <y>390</y>
+        <width>96</width>
+        <height>21</height>
+       </rect>
+      </property>
+      <property name="font">
+       <font>
+        <family>Ubuntu</family>
+       </font>
+      </property>
+      <property name="toolTip">
+       <string/>
+      </property>
+      <property name="text">
+       <string>Settings</string>
+      </property>
+     </widget>
+     <widget class="QComboBox" name="fx4TypeBox">
+      <property name="geometry">
+       <rect>
+        <x>845</x>
+        <y>360</y>
+        <width>96</width>
+        <height>21</height>
+       </rect>
+      </property>
+      <property name="toolTip">
+       <string>Change this generator's type.</string>
+      </property>
+      <item>
+       <property name="text">
+        <string>Disabled</string>
+       </property>
+      </item>
+      <item>
+       <property name="text">
+        <string>Biquad</string>
+       </property>
+      </item>
+     </widget>
+     <widget class="QPushButton" name="fx4SettButton">
+      <property name="enabled">
+       <bool>false</bool>
+      </property>
+      <property name="geometry">
+       <rect>
+        <x>845</x>
+        <y>390</y>
+        <width>96</width>
+        <height>21</height>
+       </rect>
+      </property>
+      <property name="font">
+       <font>
+        <family>Ubuntu</family>
+       </font>
+      </property>
+      <property name="toolTip">
+       <string/>
+      </property>
+      <property name="text">
+       <string>Settings</string>
+      </property>
+     </widget>
+     <widget class="QLabel" name="fxFeedbackLabel1">
+      <property name="geometry">
+       <rect>
+        <x>100</x>
+        <y>285</y>
+        <width>121</width>
+        <height>25</height>
+       </rect>
+      </property>
+      <property name="font">
+       <font>
+        <family>Ubuntu</family>
+       </font>
+      </property>
+      <property name="styleSheet">
+       <string notr="true"/>
+      </property>
+      <property name="text">
+       <string>Feedback</string>
+      </property>
+      <property name="alignment">
+       <set>Qt::AlignCenter</set>
+      </property>
+     </widget>
+     <widget class="QDoubleSpinBox" name="fx1Feedback">
+      <property name="geometry">
+       <rect>
+        <x>130</x>
+        <y>310</y>
+        <width>62</width>
+        <height>21</height>
+       </rect>
+      </property>
+      <property name="maximum">
+       <double>1.000000000000000</double>
+      </property>
+      <property name="singleStep">
+       <double>0.050000000000000</double>
+      </property>
+     </widget>
+     <widget class="QLabel" name="fxFeedbackLabel2">
+      <property name="geometry">
+       <rect>
+        <x>345</x>
+        <y>285</y>
+        <width>121</width>
+        <height>25</height>
+       </rect>
+      </property>
+      <property name="font">
+       <font>
+        <family>Ubuntu</family>
+       </font>
+      </property>
+      <property name="styleSheet">
+       <string notr="true"/>
+      </property>
+      <property name="text">
+       <string>Feedback</string>
+      </property>
+      <property name="alignment">
+       <set>Qt::AlignCenter</set>
+      </property>
+     </widget>
+     <widget class="QDoubleSpinBox" name="fx2Feedback">
+      <property name="geometry">
+       <rect>
+        <x>375</x>
+        <y>310</y>
+        <width>62</width>
+        <height>21</height>
+       </rect>
+      </property>
+      <property name="maximum">
+       <double>1.000000000000000</double>
+      </property>
+      <property name="singleStep">
+       <double>0.050000000000000</double>
+      </property>
+     </widget>
+     <widget class="QLabel" name="fxFeedbackLabel3">
+      <property name="geometry">
+       <rect>
+        <x>590</x>
+        <y>285</y>
+        <width>121</width>
+        <height>25</height>
+       </rect>
+      </property>
+      <property name="font">
+       <font>
+        <family>Ubuntu</family>
+       </font>
+      </property>
+      <property name="styleSheet">
+       <string notr="true"/>
+      </property>
+      <property name="text">
+       <string>Feedback</string>
+      </property>
+      <property name="alignment">
+       <set>Qt::AlignCenter</set>
+      </property>
+     </widget>
+     <widget class="QDoubleSpinBox" name="fx3Feedback">
+      <property name="geometry">
+       <rect>
+        <x>620</x>
+        <y>310</y>
+        <width>62</width>
+        <height>21</height>
+       </rect>
+      </property>
+      <property name="maximum">
+       <double>1.000000000000000</double>
+      </property>
+      <property name="singleStep">
+       <double>0.050000000000000</double>
+      </property>
+     </widget>
+     <widget class="QLabel" name="fxFeedbackLabel4">
+      <property name="geometry">
+       <rect>
+        <x>830</x>
+        <y>285</y>
+        <width>121</width>
+        <height>25</height>
+       </rect>
+      </property>
+      <property name="font">
+       <font>
+        <family>Ubuntu</family>
+       </font>
+      </property>
+      <property name="styleSheet">
+       <string notr="true"/>
+      </property>
+      <property name="text">
+       <string>Feedback</string>
+      </property>
+      <property name="alignment">
+       <set>Qt::AlignCenter</set>
+      </property>
+     </widget>
+     <widget class="QDoubleSpinBox" name="fx3Feedback_2">
+      <property name="geometry">
+       <rect>
+        <x>860</x>
+        <y>310</y>
+        <width>62</width>
+        <height>21</height>
+       </rect>
+      </property>
+      <property name="maximum">
+       <double>1.000000000000000</double>
+      </property>
+      <property name="singleStep">
+       <double>0.050000000000000</double>
       </property>
      </widget>
     </widget>
