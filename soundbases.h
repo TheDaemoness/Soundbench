@@ -32,7 +32,7 @@ namespace sb {
         SoundBase()  {}
         virtual ~SoundBase()  {}
 
-        virtual void tick(float* sample, size_t chans, bool left = true) = 0;
+        virtual void tick(float* sample, size_t chans) = 0;
         virtual void ctrl(ModuleParams arg, ParameterValue val) = 0; //See the documentation for notes about this function.
         virtual void reset() = 0;
         virtual void updateSamplingRate() = 0;
@@ -48,6 +48,30 @@ namespace sb {
     };
 
     class FxBase : public SoundBase {
+    public:
+        FxBase() {
+            feedback = 0;
+            for(size_t i = 0; i < OutChannels; ++i)
+                prevframe[i] = SbSampleZero;
+        }
+        virtual ~FxBase() {}
+
+        void tick(float* sample, size_t chans) {
+            for(size_t i = 0; i < chans; ++i)
+                sample[i] = prevframe[i]*feedback/SbSampleMax + sample[i]*(SbSampleMax-feedback)/SbSampleMax;
+            internal_tick(sample,chans);
+            for(size_t i = 0; i < chans; ++i)
+                prevframe[i] = sample[i];
+        }
+
+        virtual void ctrl(ModuleParams arg, ParameterValue val) = 0; //See the documentation for notes about this function.
+        virtual void reset() = 0;
+        virtual void updateSamplingRate() = 0;
+    protected:
+        SbSample feedback;
+        virtual void internal_tick(float* sample, size_t chans) = 0;
+    private:
+        SbSample prevframe[OutChannels];
     };
 
 }

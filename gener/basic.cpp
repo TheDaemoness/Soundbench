@@ -100,7 +100,7 @@ namespace sb {
         envelope.resize(poly);
         ocean->setWaveCount(poly);
     }
-    void BasicGen::tick(float *sample, size_t chans, bool) {
+    void BasicGen::tick(float *sample, size_t chans) {
         //Cummulate all the samples from each active wave into the same float.
         sample[0] = 0.0f;
         for (size_t i = 0; i < currpoly; ++i) {

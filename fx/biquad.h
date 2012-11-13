@@ -30,13 +30,14 @@ namespace sb {
             float f0, dbgain, q, bw, s;
             float alpha, w0, a; //Intermediate variables.
             float a0, a1, a2, b0, b1, b2; //Coefficients.
-            SbSample prevl[2], prevr[2];
+            SbSample x[OutChannels][2], y[OutChannels][2];
     public:
         BiquadFx();
-            void tick(float *sample, size_t chans, bool left);
-            void ctrl(ModuleParams arg, ParameterValue val);
-            void updateSamplingRate();
-            void reset();
+        void ctrl(ModuleParams arg, ParameterValue val);
+        void updateSamplingRate();
+        void reset();
+    protected:
+        void internal_tick(float *sample, size_t chans);
     private:
         void recalc();
         BiquadTypes typpe;

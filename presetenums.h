@@ -41,24 +41,32 @@ namespace sb {
         GenBasicAmp = 3,
         GenBasicPhase = 4,
         GenBasicNoteBias = 5,
-        FxBiquadType = 6,
-        FxBiquadFreq = 7,
-        FxBiquadGain = 8,
-        FxBiquadQ = 9,
-        FxBiquadBW = 10,
-        FxBiquadS = 11
+        EffectFeedback = 6,
+        FxBiquadType = 7,
+        FxBiquadFreq = 8,
+        FxBiquadGain = 9,
+        FxBiquadQ = 10,
+        FxBiquadBW = 11,
+        FxBiquadS = 12,
+        FxBiquadA0 = 13,
+        FxBiquadA1 = 14,
+        FxBiquadA2 = 15,
+        FxBiquadB0 = 16,
+        FxBiquadB1 = 17,
+        FxBiquadB2 = 18
     };
 
     enum BiquadTypes {
-        BiquadLowpass = 0,
-        BiquadHighpass = 1,
-        BiquadBandpassZero = 2,
+        BiquadManual = 0,
+        BiquadLowpass = 1,
+        BiquadHighpass = 2,
         BiquadBandpassQ = 3,
-        BiquadNotch = 4,
-        BiquadAllpass = 5,
-        BiquadPeakingEQ = 6,
-        BiquadLowShelf = 7,
-        BiquadHighShelf = 8
+        BiquadBandpassZero = 4,
+        BiquadNotch = 5,
+        BiquadAllpass = 6,
+        BiquadPeakingEQ = 7,
+        BiquadLowShelf = 8,
+        BiquadHighShelf = 9
     };
 
     enum SimpleWaveTypes {

@@ -22,17 +22,71 @@
 namespace sb {
     void BiquadFx::ctrl(ModuleParams arg, ParameterValue val) {
         switch(arg) {
+        case EffectFeedback:
+            feedback = val.pod.value;
+            break;
         case FxBiquadType:
+            typpe = static_cast<BiquadTypes>(val.pod.value);
+            recalc();
             break;
         case FxBiquadFreq:
+            if(typpe == BiquadManual)
+                break;
+            f0 = val.pod.sample;
+            recalc();
             break;
         case FxBiquadGain:
+            if(typpe == BiquadManual)
+                break;
+            dbgain = val.pod.decim;
+            recalc();
             break;
         case FxBiquadQ:
+            if(typpe == BiquadManual)
+                break;
+            q = val.pod.decim;
+            recalc();
             break;
         case FxBiquadBW:
+            if(typpe == BiquadManual)
+                break;
+            bw = val.pod.decim;
+            recalc();
             break;
         case FxBiquadS:
+            if(typpe == BiquadManual)
+                break;
+            s = val.pod.decim;
+            recalc();
+            break;
+        case FxBiquadA0:
+            if(typpe != BiquadManual)
+                break;
+            a0 = val.pod.decim;
+            break;
+        case FxBiquadA1:
+            if(typpe != BiquadManual)
+                break;
+            a1 = val.pod.decim;
+            break;
+        case FxBiquadA2:
+            if(typpe != BiquadManual)
+                break;
+            a2 = val.pod.decim;
+        case FxBiquadB0:
+            if(typpe != BiquadManual)
+                break;
+            b0 = val.pod.decim;
+            break;
+        case FxBiquadB1:
+            if(typpe != BiquadManual)
+                break;
+            b1 = val.pod.decim;
+            break;
+        case FxBiquadB2:
+            if(typpe != BiquadManual)
+                break;
+            b2 = val.pod.decim;
             break;
         default:
             break;
