@@ -65,30 +65,27 @@ namespace sb {
             if(syn->gener[ous] != nullptr)
                 delete syn->gener[ous];
             switch (blu->gener[ous]) {
-            case NoGener:
-                syn->gener[ous] = nullptr;
-                ++(syn->inactivechans);
-                break;
+
             case GenerBasic:
                 syn->gener[ous] = new BasicGen(syn->currentpoly);
                 break;
             default:
                 std::cerr << "Unimplemented generator type #" << blu->gener[ous] <<  " requested for channel " << ous+1 << ". Defaulting to no generator.\n";
+            case NoGener:
                 syn->gener[ous] = nullptr;
                 ++(syn->inactivechans);
                 break;
             }
             for (size_t effous = 0; effous < FxPerChannel; ++effous) {
+                if(syn->eff[ous][effous] != nullptr)
+                    delete syn->eff[ous][effous];
                 switch (blu->eff[ous][effous]) {
-                case NoFx:
-                    if(syn->eff[ous][effous] != nullptr)
-                        delete syn->eff[ous][effous];
-                    syn->eff[ous][effous] = nullptr;
+                case FxBiquad:
+                    syn->eff[ous][effous] = new BiquadFx;
                     break;
                 default:
                     std::cerr << "Unimplemented effect type #" << blu->eff[ous][effous] <<  " requested for channel " << ous+1 <<  ", effect " << effous+1 << ". Defaulting to no effect.\n";
-                    if(syn->eff[ous][effous] != nullptr)
-                        delete syn->eff[ous][effous];
+                case NoFx:
                     syn->eff[ous][effous] = nullptr;
                     break;
                 }
@@ -96,6 +93,10 @@ namespace sb {
             for (std::pair<const sb::ModuleParams,ParameterValue> dat : blu->gener_data[ous]) { //Humbug.
                 if(syn->gener[ous] != nullptr)
                     syn->gener[ous]->ctrl(dat.first,dat.second);
+                for(size_t ness = 0; ness < FxPerChannel; ++ness) {
+                    if(syn->eff[ous][ness] != nullptr)
+                        syn->eff[ous][ness]->ctrl(dat.first,dat.second);
+                }
             }
             for (uint8_t parrot = 0; parrot < syn->currentpoly && syn->currentpoly != DefaultPolyphony; ++parrot) {
                 if(syn->gener[parrot] != nullptr)

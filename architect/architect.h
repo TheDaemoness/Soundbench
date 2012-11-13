@@ -20,8 +20,11 @@
 #ifndef ARCHITECT_H
 #define ARCHITECT_H
 
-#include "blueprint.h"
 #include "gener/basic.h"
+
+#include "fx/biquad.h"
+
+#include "blueprint.h"
 #include "synth/synth.h"
 
 #include <fstream>
