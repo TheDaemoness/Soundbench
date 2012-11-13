@@ -1840,9 +1840,9 @@ Several audio editing utilities support this sampling rate.</string>
      <widget class="QLabel" name="fxNumberLabel3">
       <property name="geometry">
        <rect>
-        <x>590</x>
+        <x>585</x>
         <y>220</y>
-        <width>121</width>
+        <width>126</width>
         <height>25</height>
        </rect>
       </property>
@@ -1864,9 +1864,9 @@ Several audio editing utilities support this sampling rate.</string>
      <widget class="QLabel" name="fxNumberLabel4">
       <property name="geometry">
        <rect>
-        <x>835</x>
+        <x>830</x>
         <y>220</y>
-        <width>121</width>
+        <width>126</width>
         <height>25</height>
        </rect>
       </property>
@@ -1936,7 +1936,7 @@ Several audio editing utilities support this sampling rate.</string>
      <widget class="QSpinBox" name="fxNumberBox4">
       <property name="geometry">
        <rect>
-        <x>865</x>
+        <x>860</x>
         <y>245</y>
         <width>60</width>
         <height>21</height>
