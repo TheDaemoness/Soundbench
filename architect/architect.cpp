@@ -24,32 +24,6 @@ namespace sb {
     Architect::Architect() {
     }
 
-    void Architect::planAllDefaults(Blueprint* blu) {
-        for (size_t i = 0; i < InternalChannels; ++i)
-            planDefaultBasicGen(blu, i);
-        for (size_t ac = 0; ac < InternalChannels; ++ac) {
-            blu->gener[ac] = NoGener;
-            for (size_t ed = 0; ed < FxPerChannel; ++ed)
-                blu->eff[ac][ed] = NoFx; //Indeed.
-        }
-    }
-
-    void Architect::planDefaultBasicGen(Blueprint* blu, size_t chan_index) {
-        blu->gener_data[chan_index][GenBasicNoteBias] = makeParamfromInt(0);
-        blu->gener_data[chan_index][GenBasicWave] = makeParamfromInt(SineWave);
-        blu->gener_data[chan_index][GenBasicAmp] = makeParamfromSample(1.0);
-        blu->gener_data[chan_index][GenBasicPhase] = makeParamfromSample(0);
-        blu->gener_data[chan_index][GenerAttackTime] = makeParamfromFloat(0.1);
-        blu->gener_data[chan_index][GenerReleaseTime] = makeParamfromFloat(0.5);
-
-        blu->gener_data[chan_index][GenBasicNoteBias].type = sb::ParameterPosInt;
-        blu->gener_data[chan_index][GenBasicWave].type = sb::ParameterPosInt;
-        blu->gener_data[chan_index][GenBasicAmp].type = sb::ParameterSample;
-        blu->gener_data[chan_index][GenBasicPhase].type = sb::ParameterSample;
-        blu->gener_data[chan_index][GenerAttackTime].type = sb::ParameterDecim;
-        blu->gener_data[chan_index][GenerReleaseTime].type = sb::ParameterDecim;
-    }
-
     void Architect::stripSynth(Synth* syn) {
         for (size_t alized = 0; alized < InternalChannels; ++alized) {
             if(syn->gener[alized] != nullptr) {

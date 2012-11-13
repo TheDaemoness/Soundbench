@@ -39,8 +39,7 @@ namespace sb {
         std::string tags;
     };
 
-    class Architect
-    {
+    class Architect {
     public:
         Architect();
         //Planning functions.
@@ -49,7 +48,10 @@ namespace sb {
         PresetMeta savePreset(std::string path, std::string presetdir, Blueprint* blu, std::string name = "", std::string arti = "", std::string desc = "");
 
         void planAllDefaults(Blueprint*);
+
         void planDefaultBasicGen(Blueprint*,size_t chan_index = 0);
+
+        void planDefaultBiquadFx(Blueprint*,size_t chan_index = 0, size_t fx_num = 0);
 
         //Building functions
         void stripSynth(Synth*);
