@@ -22,10 +22,9 @@
 #include <algorithm>
 
 namespace sb {
-
     bool JackAudioBackend::instantiable() {
 #ifndef NO_JACK
-        if (cli == nullptr)
+        if (cli == nullptr && stat == 0)
             cli = jack_client_open("Soundbench",JackNoStartServer,&stat); //May remove the JackNoStartServer option in the future.
         if (stat & JackFailure) {
             if (stat & JackServerFailed)

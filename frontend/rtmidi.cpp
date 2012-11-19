@@ -22,8 +22,27 @@
 namespace sb {
 #ifndef NO_RTMIDI
     bool RtMidiFrontend::instantiable() {
-        RtMidiIn inne;
-        return (inne.getPortCount() > 0);
+        try {
+#if defined(SB_ENV_LINUX) & !defined(NO_JACK)
+            std::vector<RtMidi::Api> vec;
+            RtMidiIn::getCompiledApi(vec);
+            for (RtMidi::Api apii : vec) {
+                if (apii == RtMidi::LINUX_ALSA) {
+                    RtMidiIn inne(RtMidi::LINUX_ALSA,"Soundbench Probe");
+                    return (inne.getPortCount() > 0);
+                }
+            }
+            std::cerr << "No ALSA support on the RtMidi platform used to compile Soundbench for Linux.\n";
+            return false;
+#else
+            RtMidiIn inne(RtMidi::UNSPECIFIED,"Soundbench Probe");
+            return (inne.getPortCount() > 0);
+#endif
+        }
+        catch (RtError& e) {
+            std::cerr << "RtMidi threw an exception: " << e.getMessage() << ". Skipping this frontend...\n";
+            return false;
+        }
     }
 
     RtMidiFrontend::RtMidiFrontend(Synth *s, size_t porte) : MidiFrontend(s, porte) {
@@ -33,7 +52,11 @@ namespace sb {
         udata.recording = false;
 
         try {
+#if defined(SB_ENV_LINUX) & !defined(NO_JACK)
+            rtm = new RtMidiIn(RtMidi::LINUX_ALSA,"Soundbench");
+#else
             rtm = new RtMidiIn(RtMidi::UNSPECIFIED,"Soundbench");
+#endif
         }
         catch (RtError& e) {
             ready = false;

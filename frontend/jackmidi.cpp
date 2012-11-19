@@ -19,13 +19,19 @@
 #include "jackmidi.h"
 
 namespace sb {
+    bool JackMidiFrontend::instantiable() {
 #ifndef NO_JACK
-    bool JackMidiFrontend::instantiable() {
-        return true; //Not much one can do short of starting the server.
-    }
+        if (cli == nullptr && stat == 0)
+            cli = jack_client_open("Soundbench",JackNoStartServer,&stat); //May remove the JackNoStartServer option in the future.
+        if (stat & JackFailure) {
+            if (stat & JackServerFailed)
+                std::cerr << "Could not find a running JACK server.\nNote: Soundbench does not start the server if it's not present.\n";
+            if (stat & JackServerError)
+                std::cerr << "Could not communicate with the JACK server.\n";
+        }
+        return !(stat & JackFailure);
 #else
-    bool JackMidiFrontend::instantiable() {
         return false;
-    }
 #endif
+    }
 }
