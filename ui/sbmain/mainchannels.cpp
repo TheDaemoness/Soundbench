@@ -85,6 +85,7 @@ void SoundbenchMain::updateChannelEffectInfo(int chan) {
     }
 }
 void SoundbenchMain::setEffectFeedback(int chan) {
+    stopAndReset();
     switch (chan) {
     case 0:
         blu->eff_data[chan][ui->fxNumberBox1->value()-1][sb::EffectFeedback] = sb::makeParamfromSample(ui->fx1Feedback->value());
@@ -102,6 +103,9 @@ void SoundbenchMain::setEffectFeedback(int chan) {
         std::cerr << "Feedback cannot be set for an effect that has no possibility of existing.\n";
         return;
     }
+    arch->buildSynth(syn,blu);
+    syn->reset();
+    em->start();
 }
 
 void SoundbenchMain::channelEffectSettings(int chan) {
@@ -118,13 +122,13 @@ void SoundbenchMain::channelEffectSettings(int chan) {
     else
         std::cerr << "Something tried to change the settings for an effect in a channel that doesn't exist.\n";
     arch->buildSynth(syn,blu);
-    syn->reset();
     met->startMeter();
     em->start();
 }
 
 
 void SoundbenchMain::changeChannelEffect(int chan) {
+    stopAndReset();
     switch (chan) {
     case 0:
         blu->eff[chan][ui->fxNumberBox1->value()-1] = static_cast<sb::FxType>(ui->fx1TypeBox->currentIndex());
@@ -142,6 +146,8 @@ void SoundbenchMain::changeChannelEffect(int chan) {
         std::cerr << "An effect type-changing function was called by some random widget.\n";
         return;
     }
+    arch->buildSynth(syn,blu);
+    em->start();
     updateChannelEffectInfo(chan);
 }
 
