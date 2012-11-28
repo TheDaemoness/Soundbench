@@ -102,7 +102,6 @@ void SoundbenchMain::setEffectFeedback(int chan) {
         std::cerr << "Feedback cannot be set for an effect that has no possibility of existing.\n";
         return;
     }
-    updateChannelEffectInfo(chan);
 }
 
 void SoundbenchMain::channelEffectSettings(int chan) {
@@ -143,6 +142,7 @@ void SoundbenchMain::changeChannelEffect(int chan) {
         std::cerr << "An effect type-changing function was called by some random widget.\n";
         return;
     }
+    updateChannelEffectInfo(chan);
 }
 
 void SoundbenchMain::genSetts(size_t i) {

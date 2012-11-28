@@ -48,6 +48,7 @@ public:
     ~SoundbenchMain();
     void delayedConstructor();
     void initSetupPage();
+    void initChannelsPage();
 
 public slots:
     //void disableRtAu();
