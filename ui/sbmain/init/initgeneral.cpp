@@ -27,10 +27,14 @@ SoundbenchMain::SoundbenchMain(QWidget *parent) : QMainWindow(parent) {
 
     ui = new Ui::SoundbenchMain();
     ui->setupUi(this);
-    sett_sigmap = new QSignalMapper;
-    type_sigmap = new QSignalMapper;
+    gen_sett_sigmap = new QSignalMapper;
+    gen_type_sigmap = new QSignalMapper;
     rate_sigmap = new QSignalMapper;
     emit_sigmap = new QSignalMapper;
+    fx_num_sigmap = new QSignalMapper;
+    fx_sett_sigmap = new QSignalMapper;
+    fx_type_sigmap = new QSignalMapper;
+    fx_fb_sigmap = new QSignalMapper;
 
     sc_new = new QShortcut(QKeySequence("Ctrl+N"),this);
     sc_open = new QShortcut(QKeySequence("Ctrl+O"),this);
@@ -96,15 +100,35 @@ void SoundbenchMain::delayedConstructor() {
     loadDevices();
 
     //Set up the sigmaps.
-    type_sigmap->setMapping(ui->gener1TypeBox,0);
-    type_sigmap->setMapping(ui->gener2TypeBox,1);
-    type_sigmap->setMapping(ui->gener3TypeBox,2);
-    type_sigmap->setMapping(ui->gener4TypeBox,3);
+    gen_type_sigmap->setMapping(ui->gener1TypeBox,0);
+    gen_type_sigmap->setMapping(ui->gener2TypeBox,1);
+    gen_type_sigmap->setMapping(ui->gener3TypeBox,2);
+    gen_type_sigmap->setMapping(ui->gener4TypeBox,3);
 
-    sett_sigmap->setMapping(ui->gen1SettButton,0);
-    sett_sigmap->setMapping(ui->gen2SettButton,1);
-    sett_sigmap->setMapping(ui->gen3SettButton,2);
-    sett_sigmap->setMapping(ui->gen4SettButton,3);
+    gen_sett_sigmap->setMapping(ui->gen1SettButton,0);
+    gen_sett_sigmap->setMapping(ui->gen2SettButton,1);
+    gen_sett_sigmap->setMapping(ui->gen3SettButton,2);
+    gen_sett_sigmap->setMapping(ui->gen4SettButton,3);
+
+    fx_num_sigmap->setMapping(ui->fxNumberBox1,0);
+    fx_num_sigmap->setMapping(ui->fxNumberBox2,1);
+    fx_num_sigmap->setMapping(ui->fxNumberBox3,2);
+    fx_num_sigmap->setMapping(ui->fxNumberBox4,3);
+
+    fx_sett_sigmap->setMapping(ui->fx1SettButton,0);
+    fx_sett_sigmap->setMapping(ui->fx2SettButton,1);
+    fx_sett_sigmap->setMapping(ui->fx3SettButton,2);
+    fx_sett_sigmap->setMapping(ui->fx4SettButton,3);
+
+    fx_type_sigmap->setMapping(ui->fx1TypeBox,0);
+    fx_type_sigmap->setMapping(ui->fx2TypeBox,1);
+    fx_type_sigmap->setMapping(ui->fx3TypeBox,2);
+    fx_type_sigmap->setMapping(ui->fx4TypeBox,3);
+
+    fx_fb_sigmap->setMapping(ui->fx1Feedback,0);
+    fx_fb_sigmap->setMapping(ui->fx2Feedback,1);
+    fx_fb_sigmap->setMapping(ui->fx3Feedback,2);
+    fx_fb_sigmap->setMapping(ui->fx4Feedback,3);
 
     //Check off the sampling rate being used.
     if (sb::global_srate == sb::SupportedRates[0])
@@ -165,21 +189,7 @@ void SoundbenchMain::delayedConstructor() {
     initSetupPage();
 
     //Connect and setup the Channels page widgets.
-    connect(ui->gener1TypeBox,SIGNAL(currentIndexChanged(int)),type_sigmap,SLOT(map()));
-    connect(ui->gener2TypeBox,SIGNAL(currentIndexChanged(int)),type_sigmap,SLOT(map()));
-    connect(ui->gener3TypeBox,SIGNAL(currentIndexChanged(int)),type_sigmap,SLOT(map()));
-    connect(ui->gener4TypeBox,SIGNAL(currentIndexChanged(int)),type_sigmap,SLOT(map()));
-
-    connect(ui->gen1SettButton,SIGNAL(clicked()),sett_sigmap,SLOT(map()));
-    connect(ui->gen2SettButton,SIGNAL(clicked()),sett_sigmap,SLOT(map()));
-    connect(ui->gen3SettButton,SIGNAL(clicked()),sett_sigmap,SLOT(map()));
-    connect(ui->gen4SettButton,SIGNAL(clicked()),sett_sigmap,SLOT(map()));
-
-    //Connect the sigmaps.
-    connect(sett_sigmap,SIGNAL(mapped(int)),SLOT(setGenSett(int)));
-    connect(type_sigmap,SIGNAL(mapped(int)),SLOT(setGenType(int)));
-    connect(rate_sigmap,SIGNAL(mapped(int)),SLOT(setSampleRate(int)));
-    connect(emit_sigmap,SIGNAL(mapped(int)),SLOT(changeAudioAPI(int)));
+    initChannelsPage();
 
     ui->versionLabel->setText(SBVERSION);
 

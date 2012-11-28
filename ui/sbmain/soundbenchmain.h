@@ -86,8 +86,14 @@ private slots:
     void holdKeyboard(int);
     void displayPresets();
 
+    void updateChannelEffectInfo(int);
+    void changeChannelEffect(int);
+    void channelEffectSettings(int);
+    void setEffectFeedback(int);
+
 private:
     void genSetts(size_t i);
+    void fxSetts(size_t chan, size_t nel);
     void writePresetRecord();
     void loadPresetList();
     void stopAndReset();
@@ -109,7 +115,7 @@ private:
 
     std::string datadir;
 
-    QSignalMapper *sett_sigmap, *type_sigmap, *rate_sigmap, *emit_sigmap;
+    QSignalMapper *gen_sett_sigmap, *gen_type_sigmap, *rate_sigmap, *emit_sigmap, *fx_num_sigmap, *fx_sett_sigmap, *fx_type_sigmap, *fx_fb_sigmap;
 
     union {
         BasicGenerSettings* basic;

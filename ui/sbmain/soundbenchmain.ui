@@ -2281,7 +2281,7 @@ Several audio editing utilities support this sampling rate.</string>
        <set>Qt::AlignCenter</set>
       </property>
      </widget>
-     <widget class="QDoubleSpinBox" name="fx3Feedback_2">
+     <widget class="QDoubleSpinBox" name="fx4Feedback">
       <property name="geometry">
        <rect>
         <x>860</x>

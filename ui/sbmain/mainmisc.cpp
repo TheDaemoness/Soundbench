@@ -19,16 +19,6 @@
 
 #include "soundbenchmain.h"
 
-void SoundbenchMain::genSetts(size_t i) {
-    if (blu->gener[i] == sb::GenerBasic) {
-        gsd.basic = new BasicGenerSettings(i,blu);
-        gsd.basic->exec();
-        delete gsd.basic;
-    }
-    else
-        std::cerr << "A request for an unimplemented generator's settings was made. Ignoring...\n";
-}
-
 SoundbenchMain::~SoundbenchMain() {
     writePresetRecord();
 
@@ -41,10 +31,14 @@ SoundbenchMain::~SoundbenchMain() {
 
     delete met;
 
-    delete sett_sigmap;
-    delete type_sigmap;
+    delete gen_sett_sigmap;
+    delete gen_type_sigmap;
     delete rate_sigmap;
     delete emit_sigmap;
+    delete fx_num_sigmap;
+    delete fx_sett_sigmap;
+    delete fx_type_sigmap;
+    delete fx_fb_sigmap;
 
     delete sc_new;
     delete sc_open;

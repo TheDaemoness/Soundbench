@@ -105,7 +105,8 @@ SOURCES += \
     fx/biquad.cpp \
     fx/biquad_ctrl.cpp \
     synth/synthticks.cpp \
-    architect/architectdefaults.cpp
+    architect/architectdefaults.cpp \
+    ui/sbmain/init/initchannels.cpp
 
 RESOURCES += \
     resources.qrc
