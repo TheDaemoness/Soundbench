@@ -49,9 +49,9 @@ namespace sb {
 
     void Architect::planDefaultBiquadFx(Blueprint* blu, size_t chan_index, size_t fx_num) {
         blu->eff_data[chan_index][fx_num][FxBiquadType] = makeParamfromInt(BiquadLowpass);
-        blu->eff_data[chan_index][fx_num][FxBiquadFreq] = makeParamfromFloat(global_srate/4);
-        blu->eff_data[chan_index][fx_num][FxBiquadGain] = makeParamfromFloat(-3.0);
-        blu->eff_data[chan_index][fx_num][FxBiquadQ] = makeParamfromFloat(1.0);
+        blu->eff_data[chan_index][fx_num][FxBiquadFreq] = makeParamfromFloat(global_srate/3);
+        blu->eff_data[chan_index][fx_num][FxBiquadGain] = makeParamfromFloat(-12.0);
+        blu->eff_data[chan_index][fx_num][FxBiquadQ] = makeParamfromFloat(3.0);
         blu->eff_data[chan_index][fx_num][FxBiquadBW] = makeParamfromFloat(2.0);
         blu->eff_data[chan_index][fx_num][FxBiquadS] = makeParamfromFloat(1.0);
 

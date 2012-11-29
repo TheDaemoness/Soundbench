@@ -67,16 +67,18 @@ namespace sb {
             for (std::pair<const sb::ModuleParams,ParameterValue> dat : blu->gener_data[ous]) { //Humbug.
                 if(syn->gener[ous] != nullptr)
                     syn->gener[ous]->ctrl(dat.first,dat.second);
-                for(size_t ness = 0; ness < FxPerChannel; ++ness) {
+            }
+            for(size_t ness = 0; ness < FxPerChannel; ++ness) {
+                for (std::pair<const sb::ModuleParams,ParameterValue> dat : blu->eff_data[ous][ness]) {
+
                     if(syn->eff[ous][ness] != nullptr)
                         syn->eff[ous][ness]->ctrl(dat.first,dat.second);
                 }
             }
-            for (uint8_t parrot = 0; parrot < syn->currentpoly && syn->currentpoly != DefaultPolyphony; ++parrot) {
-                if(syn->gener[parrot] != nullptr)
-                    syn->gener[parrot]->setPolymorphism(parrot);
-            }
-
+        }
+        for (uint8_t parrot = 0; parrot < syn->currentpoly && syn->currentpoly != DefaultPolyphony; ++parrot) {
+            if(syn->gener[parrot] != nullptr)
+                syn->gener[parrot]->setPolymorphism(parrot);
         }
     }
 }

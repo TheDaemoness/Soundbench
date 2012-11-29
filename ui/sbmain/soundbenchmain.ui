@@ -446,6 +446,26 @@ QLineEdit:focus {
 }
 QLineEdit:disabled {
 	border-image: url(:/lineedit/lineedit_disabled.png);
+}
+
+QTabWidget::pane {
+	background-color: rgba(0, 0, 0, 0);
+}
+QTabBar::tab {
+	border-image: url(:/buttons/tab_idle.png);
+	width: 90px;
+	height: 30px;
+	margin: 6px;
+	color: cyan;
+}
+QTabBar::tab:hover {
+	border-image: url(:/buttons/tab_hover.png);
+}
+QTabBar::tab:pressed{
+	border-image: url(:/buttons/tab_press.png);
+}
+QTabBar::tab:selected {
+	border-image: url(:/buttons/tab_select.png);
 }</string>
   </property>
   <property name="dockOptions">
@@ -506,25 +526,7 @@ QLineEdit:disabled {
      </font>
     </property>
     <property name="styleSheet">
-     <string notr="true">QTabWidget::pane {
-	background-color: rgba(0, 0, 0, 0);
-}
-QTabBar::tab {
-	border-image: url(:/buttons/tab_idle.png);
-	width: 90px;
-	height: 30px;
-	margin: 6px;
-	color: cyan;
-}
-QTabBar::tab:hover {
-	border-image: url(:/buttons/tab_hover.png);
-}
-QTabBar::tab:pressed{
-	border-image: url(:/buttons/tab_press.png);
-}
-QTabBar::tab:selected {
-	border-image: url(:/buttons/tab_select.png);
-}</string>
+     <string notr="true"/>
     </property>
     <property name="currentIndex">
      <number>3</number>

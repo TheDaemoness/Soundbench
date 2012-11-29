@@ -22,9 +22,9 @@
 namespace sb {
     BiquadFx::BiquadFx() {
         typpe = BiquadLowpass;
-        f0 = global_srate/4;
-        dbgain = -3;
-        q = 1;
+        f0 = global_srate/3;
+        dbgain = -12;
+        q = 3;
         bw = 2;
         s = 1;
 
