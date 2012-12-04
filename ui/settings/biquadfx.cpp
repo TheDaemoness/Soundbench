@@ -40,6 +40,7 @@ BiquadFxSettings::BiquadFxSettings(size_t chan, size_t num, sb::Blueprint* blu, 
 
     typechanged(blu->eff_data[chan][num][sb::FxBiquadType].pod.value-1);
     ui->freqSpinBox->setMaximum(srate/2);
+    ui->freqSpinBox->setSingleStep(srate/60);
 
     ui->freqSpinBox->setValue(blu->eff_data[chan][num][sb::FxBiquadFreq].pod.decim);
     ui->qSpinBox->setValue(blu->eff_data[chan][num][sb::FxBiquadQ].pod.decim);

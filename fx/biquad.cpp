@@ -40,7 +40,7 @@ namespace sb {
         for(size_t i = 0; i < chans; ++i) {
             x[i][1] = x[i][0];
             x[i][0] = sample[i];
-            sample[i] = (b0/a0)*sample[i] + (b1/a0)*x[i][0] + (b2/a0)*x[i][1] - (a1/a0)*y[i][1] - (a2/a0)*y[i][2];
+            sample[i] = (b0/a0)*sample[i] + (b1/a0)*x[i][0] + (b2/a0)*x[i][1] - (a1/a0)*y[i][0] - (a2/a0)*y[i][1];
             y[i][1] = y[i][0];
             y[i][0] = sample[i];
         }
@@ -82,7 +82,7 @@ namespace sb {
             break;
         }
 
-        //Calculate the actual coefficients.
+        //Calculate the actual coefficients
         switch (typpe) {
         case BiquadLowpass:
             b0 =    (1.0 - std::cos(w0))/2.0;
