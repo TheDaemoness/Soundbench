@@ -26,9 +26,11 @@
 #include "architect/architect.h"
 #include "synth/synth.h"
 #include "player/player.h"
+#include "cpumeter.h"
 
 #include "ui/settings/basicgen.h"
-#include "cpumeter.h"
+
+#include "ui/settings/biquadfx.h"
 
 #include <QSignalMapper>
 #include <QFileDialog>
@@ -121,6 +123,9 @@ private:
     union {
         BasicGenerSettings* basic;
     } gsd;
+    union {
+        BiquadFxSettings* biquad;
+    } fsd;
 
     CpuMeter* met;
 };

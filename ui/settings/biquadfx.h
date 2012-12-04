@@ -32,14 +32,16 @@ class BiquadFxSettings : public QDialog {
     Q_OBJECT
     
 public:
-    explicit BiquadFxSettings(QWidget *parent = 0);
+    explicit BiquadFxSettings(size_t chan, size_t num, sb::Blueprint* blu, size_t srate, QWidget *parent = 0);
     ~BiquadFxSettings();
 
 private slots:
+    void affect();
+    void typechanged(int);
     
 private:
-    size_t affectedchan;
-    sb::Blueprint* affectedblu;
+    size_t chan, num;
+    sb::Blueprint* blu;
     Ui::BiquadFxSettings *ui;
 };
 

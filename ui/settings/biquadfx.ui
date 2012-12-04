@@ -217,7 +217,7 @@ QTabBar::tab:selected {
       </rect>
      </property>
     </widget>
-    <widget class="QComboBox" name="comboBox">
+    <widget class="QComboBox" name="filterTypeBox">
      <property name="geometry">
       <rect>
        <x>20</x>
@@ -288,7 +288,7 @@ QTabBar::tab:selected {
       <set>Qt::AlignCenter</set>
      </property>
     </widget>
-    <widget class="QDoubleSpinBox" name="doubleSpinBox">
+    <widget class="QDoubleSpinBox" name="freqSpinBox">
      <property name="geometry">
       <rect>
        <x>220</x>
@@ -303,8 +303,11 @@ QTabBar::tab:selected {
      <property name="suffix">
       <string> HZ</string>
      </property>
+     <property name="maximum">
+      <double>200000.000000000000000</double>
+     </property>
     </widget>
-    <widget class="QLabel" name="label_2">
+    <widget class="QLabel" name="sFreqLabel">
      <property name="geometry">
       <rect>
        <x>220</x>
@@ -320,7 +323,7 @@ QTabBar::tab:selected {
       <set>Qt::AlignCenter</set>
      </property>
     </widget>
-    <widget class="QDoubleSpinBox" name="doubleSpinBox_2">
+    <widget class="QDoubleSpinBox" name="qSpinBox">
      <property name="geometry">
       <rect>
        <x>0</x>
@@ -332,8 +335,14 @@ QTabBar::tab:selected {
      <property name="decimals">
       <number>3</number>
      </property>
+     <property name="minimum">
+      <double>-99.998999999999995</double>
+     </property>
+     <property name="maximum">
+      <double>99.998999999999995</double>
+     </property>
     </widget>
-    <widget class="QDoubleSpinBox" name="doubleSpinBox_3">
+    <widget class="QDoubleSpinBox" name="bwSpinBox">
      <property name="geometry">
       <rect>
        <x>100</x>
@@ -345,8 +354,14 @@ QTabBar::tab:selected {
      <property name="decimals">
       <number>3</number>
      </property>
+     <property name="minimum">
+      <double>-99.998999999999995</double>
+     </property>
+     <property name="maximum">
+      <double>99.998999999999995</double>
+     </property>
     </widget>
-    <widget class="QDoubleSpinBox" name="doubleSpinBox_4">
+    <widget class="QDoubleSpinBox" name="eqSpinBox">
      <property name="geometry">
       <rect>
        <x>200</x>
@@ -358,8 +373,14 @@ QTabBar::tab:selected {
      <property name="decimals">
       <number>3</number>
      </property>
+     <property name="minimum">
+      <double>-99.998999999999995</double>
+     </property>
+     <property name="maximum">
+      <double>99.998999999999995</double>
+     </property>
     </widget>
-    <widget class="QDoubleSpinBox" name="doubleSpinBox_5">
+    <widget class="QDoubleSpinBox" name="sSpinBox">
      <property name="geometry">
       <rect>
        <x>300</x>
@@ -371,8 +392,14 @@ QTabBar::tab:selected {
      <property name="decimals">
       <number>3</number>
      </property>
+     <property name="minimum">
+      <double>-99.998999999999995</double>
+     </property>
+     <property name="maximum">
+      <double>99.998999999999995</double>
+     </property>
     </widget>
-    <widget class="QLabel" name="label_3">
+    <widget class="QLabel" name="qLabel">
      <property name="geometry">
       <rect>
        <x>0</x>
@@ -388,7 +415,7 @@ QTabBar::tab:selected {
       <set>Qt::AlignCenter</set>
      </property>
     </widget>
-    <widget class="QLabel" name="label_4">
+    <widget class="QLabel" name="bwLabel">
      <property name="geometry">
       <rect>
        <x>100</x>
@@ -404,7 +431,7 @@ QTabBar::tab:selected {
       <set>Qt::AlignCenter</set>
      </property>
     </widget>
-    <widget class="QLabel" name="label_5">
+    <widget class="QLabel" name="eqLabel">
      <property name="geometry">
       <rect>
        <x>200</x>
@@ -420,7 +447,7 @@ QTabBar::tab:selected {
       <set>Qt::AlignCenter</set>
      </property>
     </widget>
-    <widget class="QLabel" name="label_6">
+    <widget class="QLabel" name="sLabel">
      <property name="geometry">
       <rect>
        <x>300</x>
@@ -441,7 +468,7 @@ QTabBar::tab:selected {
     <attribute name="title">
      <string>Manual</string>
     </attribute>
-    <widget class="QGraphicsView" name="autoBackdrop_2">
+    <widget class="QGraphicsView" name="manualBackdrop">
      <property name="geometry">
       <rect>
        <x>-1</x>
@@ -451,7 +478,7 @@ QTabBar::tab:selected {
       </rect>
      </property>
     </widget>
-    <widget class="QDoubleSpinBox" name="doubleSpinBox_6">
+    <widget class="QDoubleSpinBox" name="a0SpinBox">
      <property name="geometry">
       <rect>
        <x>10</x>
@@ -461,36 +488,16 @@ QTabBar::tab:selected {
       </rect>
      </property>
      <property name="decimals">
-      <number>3</number>
+      <number>4</number>
+     </property>
+     <property name="minimum">
+      <double>-99.999899999999997</double>
+     </property>
+     <property name="maximum">
+      <double>99.999899999999997</double>
      </property>
     </widget>
-    <widget class="QDoubleSpinBox" name="doubleSpinBox_7">
-     <property name="geometry">
-      <rect>
-       <x>145</x>
-       <y>30</y>
-       <width>91</width>
-       <height>21</height>
-      </rect>
-     </property>
-     <property name="decimals">
-      <number>3</number>
-     </property>
-    </widget>
-    <widget class="QDoubleSpinBox" name="doubleSpinBox_8">
-     <property name="geometry">
-      <rect>
-       <x>280</x>
-       <y>30</y>
-       <width>91</width>
-       <height>21</height>
-      </rect>
-     </property>
-     <property name="decimals">
-      <number>3</number>
-     </property>
-    </widget>
-    <widget class="QLabel" name="label_7">
+    <widget class="QLabel" name="a0Label">
      <property name="geometry">
       <rect>
        <x>10</x>
@@ -506,7 +513,7 @@ QTabBar::tab:selected {
       <set>Qt::AlignCenter</set>
      </property>
     </widget>
-    <widget class="QLabel" name="label_8">
+    <widget class="QLabel" name="a1Label">
      <property name="geometry">
       <rect>
        <x>145</x>
@@ -522,7 +529,7 @@ QTabBar::tab:selected {
       <set>Qt::AlignCenter</set>
      </property>
     </widget>
-    <widget class="QLabel" name="label_9">
+    <widget class="QLabel" name="a2Label">
      <property name="geometry">
       <rect>
        <x>280</x>
@@ -538,20 +545,7 @@ QTabBar::tab:selected {
       <set>Qt::AlignCenter</set>
      </property>
     </widget>
-    <widget class="QDoubleSpinBox" name="doubleSpinBox_9">
-     <property name="geometry">
-      <rect>
-       <x>10</x>
-       <y>100</y>
-       <width>91</width>
-       <height>21</height>
-      </rect>
-     </property>
-     <property name="decimals">
-      <number>3</number>
-     </property>
-    </widget>
-    <widget class="QLabel" name="label_10">
+    <widget class="QLabel" name="b0Label">
      <property name="geometry">
       <rect>
        <x>10</x>
@@ -567,20 +561,7 @@ QTabBar::tab:selected {
       <set>Qt::AlignCenter</set>
      </property>
     </widget>
-    <widget class="QDoubleSpinBox" name="doubleSpinBox_10">
-     <property name="geometry">
-      <rect>
-       <x>145</x>
-       <y>100</y>
-       <width>91</width>
-       <height>21</height>
-      </rect>
-     </property>
-     <property name="decimals">
-      <number>3</number>
-     </property>
-    </widget>
-    <widget class="QLabel" name="label_11">
+    <widget class="QLabel" name="b1Label">
      <property name="geometry">
       <rect>
        <x>145</x>
@@ -596,20 +577,7 @@ QTabBar::tab:selected {
       <set>Qt::AlignCenter</set>
      </property>
     </widget>
-    <widget class="QDoubleSpinBox" name="doubleSpinBox_11">
-     <property name="geometry">
-      <rect>
-       <x>280</x>
-       <y>100</y>
-       <width>91</width>
-       <height>21</height>
-      </rect>
-     </property>
-     <property name="decimals">
-      <number>3</number>
-     </property>
-    </widget>
-    <widget class="QLabel" name="label_12">
+    <widget class="QLabel" name="b2Label">
      <property name="geometry">
       <rect>
        <x>280</x>
@@ -623,6 +591,101 @@ QTabBar::tab:selected {
      </property>
      <property name="alignment">
       <set>Qt::AlignCenter</set>
+     </property>
+    </widget>
+    <widget class="QDoubleSpinBox" name="a1SpinBox">
+     <property name="geometry">
+      <rect>
+       <x>145</x>
+       <y>30</y>
+       <width>91</width>
+       <height>21</height>
+      </rect>
+     </property>
+     <property name="decimals">
+      <number>4</number>
+     </property>
+     <property name="minimum">
+      <double>-99.999899999999997</double>
+     </property>
+     <property name="maximum">
+      <double>99.999899999999997</double>
+     </property>
+    </widget>
+    <widget class="QDoubleSpinBox" name="a2SpinBox">
+     <property name="geometry">
+      <rect>
+       <x>280</x>
+       <y>30</y>
+       <width>91</width>
+       <height>21</height>
+      </rect>
+     </property>
+     <property name="decimals">
+      <number>4</number>
+     </property>
+     <property name="minimum">
+      <double>-99.999899999999997</double>
+     </property>
+     <property name="maximum">
+      <double>99.999899999999997</double>
+     </property>
+    </widget>
+    <widget class="QDoubleSpinBox" name="b0SpinBox">
+     <property name="geometry">
+      <rect>
+       <x>10</x>
+       <y>100</y>
+       <width>91</width>
+       <height>21</height>
+      </rect>
+     </property>
+     <property name="decimals">
+      <number>4</number>
+     </property>
+     <property name="minimum">
+      <double>-99.999899999999997</double>
+     </property>
+     <property name="maximum">
+      <double>99.999899999999997</double>
+     </property>
+    </widget>
+    <widget class="QDoubleSpinBox" name="b1SpinBox">
+     <property name="geometry">
+      <rect>
+       <x>145</x>
+       <y>100</y>
+       <width>91</width>
+       <height>21</height>
+      </rect>
+     </property>
+     <property name="decimals">
+      <number>4</number>
+     </property>
+     <property name="minimum">
+      <double>-99.999899999999997</double>
+     </property>
+     <property name="maximum">
+      <double>99.999899999999997</double>
+     </property>
+    </widget>
+    <widget class="QDoubleSpinBox" name="b2SpinBox">
+     <property name="geometry">
+      <rect>
+       <x>280</x>
+       <y>100</y>
+       <width>91</width>
+       <height>21</height>
+      </rect>
+     </property>
+     <property name="decimals">
+      <number>4</number>
+     </property>
+     <property name="minimum">
+      <double>-99.999899999999997</double>
+     </property>
+     <property name="maximum">
+      <double>99.999899999999997</double>
      </property>
     </widget>
    </widget>

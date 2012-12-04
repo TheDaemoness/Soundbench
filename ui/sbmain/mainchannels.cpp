@@ -162,8 +162,11 @@ void SoundbenchMain::genSetts(size_t i) {
 }
 
 void SoundbenchMain::fxSetts(size_t chan, size_t nel) {
-    if(blu->eff[chan][nel] == sb::FxBiquad)
-        std::cerr << "Biquad settings interface not yet implemented.\n";
+    if(blu->eff[chan][nel] == sb::FxBiquad) {
+        fsd.biquad = new BiquadFxSettings(chan,nel,blu,sb::global_srate);
+        fsd.biquad->exec();
+        delete fsd.biquad;
+    }
     else
         std::cerr << "A request for an unimplemented effect's settings was made. Ignoring...\n";
 }

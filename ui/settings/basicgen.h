@@ -28,8 +28,7 @@ namespace Ui {
     class BasicGenerSettings;
 }
 
-class BasicGenerSettings : public QDialog
-{
+class BasicGenerSettings : public QDialog {
     Q_OBJECT
     
 public:
