@@ -33,19 +33,7 @@ BasicGenerSettings::BasicGenerSettings(size_t chan, sb::Blueprint* blu, QWidget 
     ui->noteBiasBox->setValue(blu->gener_data[chan][sb::GenBasicNoteBias].pod.value);
     ui->attackBox->setValue(blu->gener_data[chan][sb::GenerAttackTime].pod.decim);
     ui->releaseBox->setValue(blu->gener_data[chan][sb::GenerReleaseTime].pod.decim);
-
-    if (static_cast<sb::SimpleWaveTypes>(blu->gener_data[chan][sb::GenBasicWave].pod.value) == sb::TriangleWave)
-        ui->waveTypeBox->setCurrentIndex(1);
-    else if (static_cast<sb::SimpleWaveTypes>(blu->gener_data[chan][sb::GenBasicWave].pod.value) == sb::SquareWave)
-        ui->waveTypeBox->setCurrentIndex(2);
-    else if (static_cast<sb::SimpleWaveTypes>(blu->gener_data[chan][sb::GenBasicWave].pod.value) == sb::SawtoothWave)
-        ui->waveTypeBox->setCurrentIndex(3);
-    else if (static_cast<sb::SimpleWaveTypes>(blu->gener_data[chan][sb::GenBasicWave].pod.value) == sb::OvalWave)
-        ui->waveTypeBox->setCurrentIndex(4);
-    else if (static_cast<sb::SimpleWaveTypes>(blu->gener_data[chan][sb::GenBasicWave].pod.value) == sb::PeakWave)
-        ui->waveTypeBox->setCurrentIndex(5);
-    else
-        ui->waveTypeBox->setCurrentIndex(0);
+    ui->waveTypeBox->setCurrentIndex(blu->gener_data[chan][sb::GenBasicWave].pod.value-1);
 
     connect(ui->applyButton,SIGNAL(clicked()),SLOT(affect()));
     connect(ui->closeButton,SIGNAL(clicked()),SLOT(close()));
@@ -57,26 +45,7 @@ void BasicGenerSettings::affect() {
     affectedblu->gener_data[affectedchan][sb::GenBasicNoteBias] = sb::makeParamfromInt(ui->noteBiasBox->value());
     affectedblu->gener_data[affectedchan][sb::GenerAttackTime] = sb::makeParamfromFloat(ui->attackBox->value());
     affectedblu->gener_data[affectedchan][sb::GenerReleaseTime] = sb::makeParamfromFloat(ui->releaseBox->value());
-    switch(ui->waveTypeBox->currentIndex()) {
-    case 1:
-        affectedblu->gener_data[affectedchan][sb::GenBasicWave] = sb::makeParamfromInt(sb::TriangleWave);
-        break;
-    case 2:
-        affectedblu->gener_data[affectedchan][sb::GenBasicWave] = sb::makeParamfromInt(sb::SquareWave);
-        break;
-    case 3:
-        affectedblu->gener_data[affectedchan][sb::GenBasicWave] = sb::makeParamfromInt(sb::SawtoothWave);
-        break;
-    case 4:
-        affectedblu->gener_data[affectedchan][sb::GenBasicWave] = sb::makeParamfromInt(sb::OvalWave);
-        break;
-    case 5:
-        affectedblu->gener_data[affectedchan][sb::GenBasicWave] = sb::makeParamfromInt(sb::PeakWave);
-        break;
-    default:
-        affectedblu->gener_data[affectedchan][sb::GenBasicWave] = sb::makeParamfromInt(sb::SineWave);
-        break;
-    }
+    affectedblu->gener_data[affectedchan][sb::GenBasicWave] = sb::makeParamfromInt(ui->waveTypeBox->currentIndex()+1);
     close();
 }
 
