@@ -66,8 +66,6 @@ namespace sb {
                 planAllDefaults(blu);
                 return PresetMeta();
             }
-            if ((munch & Nibble2) > 0)
-                std::cerr << "Warning: This version of Soundbench ignores effect data (offset=" << in.tellg() << ").\n";
 
             //Get the data field.
             uint16_t whichparam = 0;

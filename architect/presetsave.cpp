@@ -49,8 +49,9 @@ namespace sb {
                 river.put(static_cast<unsigned char>(tard));
         }
 
-        //Write the generator's parameters.
-        for (size_t i = 0; i < InternalChannels; ++i) {
+        //Write the parameters.
+        std::map<ModuleParams,ParameterValue> pear;
+        for (size_t i = 0; i < InternalChannels; ++i)
             for (const auto& pear : blu->gener_data[i]) {
                 unsigned char bb = static_cast<unsigned char>(i+1);
                 bb <<= 4; //The second nibble should be zero;
@@ -85,7 +86,48 @@ namespace sb {
                     std::cerr << "Unsupported type field requested. This is likely an internal error.\n";
                 }
             }
+
+        //Write the effects' parameters.
+        for (size_t i = 0; i < InternalChannels; ++i) {
+            for(size_t j = 0; i < FxPerChannel; ++j) {
+                for (const auto& pear : blu->eff_data[i][j]) {
+                    unsigned char bb = static_cast<unsigned char>(i+1);
+                    bb <<= 4;
+                    bb |= (j+1) & Nibble2;
+                    river.put(bb);
+
+                    uint16_t whichparam = static_cast<uint16_t>(pear.first);
+                    river.write(reinterpret_cast<char*>(&whichparam),2);
+
+                    river.put(static_cast<char>(pear.second.type));
+
+                    switch(pear.second.type) {
+                    case ParameterPosByte:
+                        river.put(static_cast<const unsigned char>(pear.second.pod.value & 255));
+                        break;
+                    case ParameterSigByte:
+                        river.put(static_cast<const char>(pear.second.pod.value & 255));
+                        break;
+                    case ParameterPosInt:
+                    case ParameterSigInt:
+                        river.write(reinterpret_cast<const char*>(&pear.second.pod.value),2);
+                        break;
+                    case ParameterByteArray:
+                        byteArrayWrite(river,pear.second.str);
+                        break;
+                    case ParameterDecim:
+                        river.write(reinterpret_cast<const char*>(&pear.second.pod.decim),sizeof(decltype(pear.second.pod.decim)));
+                        break;
+                    case ParameterSample:
+                        river.write(reinterpret_cast<const char*>(&pear.second.pod.sample),sizeof(SbSample));
+                        break;
+                    default:
+                        std::cerr << "Unsupported type field requested. This is likely an internal error.\n";
+                    }
+                }
+            }
         }
+
         river.put(0); //Ending marker.
         river.close();
 
