@@ -20,6 +20,7 @@
 #include "ui/sbmain/soundbenchmain.h"
 
 void SoundbenchMain::initSetupPage() {
+    //Set up the sampling rate sigmap.
     rate_sigmap->setMapping(ui->button441Sampling,0);
     rate_sigmap->setMapping(ui->button48Sampling,1);
     rate_sigmap->setMapping(ui->button882Sampling,2);
@@ -27,17 +28,16 @@ void SoundbenchMain::initSetupPage() {
     rate_sigmap->setMapping(ui->button176Sampling,4);
     rate_sigmap->setMapping(ui->button192Sampling,5);
 
-    emit_sigmap->setMapping(ui->jackAudioButton,static_cast<int>(sb::JACK_O));
-    emit_sigmap->setMapping(ui->portAudioButton,static_cast<int>(sb::PortAudio_O));
-    emit_sigmap->setMapping(ui->rtAudioButton,static_cast<int>(sb::RtAudio_O));
-
-    connect(ui->holdA4Button,SIGNAL(toggled(bool)),SLOT(testSynth(bool)));
-    connect(ui->importButton,SIGNAL(clicked()),SLOT(importOpen()));
-    connect(ui->exportButton,SIGNAL(clicked()),SLOT(exportOpen()));
-    connect(ui->songsTracksList,SIGNAL(clicked(QModelIndex)),SLOT(setTrack()));
-    connect(ui->tempoBox,SIGNAL(valueChanged(int)),SLOT(setTempo(int)));
+    ui->polyphonyBox->setValue(sb::DefaultPolyphony);
     ui->exportButton->setDisabled(true);
+
+//Do all the frontend initialization stuff.
 #ifndef NO_MIDIFRONTEND
+    if(plai->isRtAvailable())
+        ui->rtMidiButton->setChecked(true);
+    else
+        ui->rtMidiButton->setDisabled(true);
+
     ui->inputRetry->setDisabled(plai->isRtAvailable());
 
     ui->inputsList->setEnabled(plai->isRtAvailable());
@@ -45,43 +45,25 @@ void SoundbenchMain::initSetupPage() {
     ui->recordButton->setEnabled(plai->isRtAvailable());
     ui->inputVirtual->setEnabled(plai->setVirtualPort(false)); //Effectively a support check.
 
+    if(!plai->isRtAvailable())
+        ui->inputsList->addItem("Frontend initialization failed.");
+
     connect(ui->inputsList,SIGNAL(clicked(QModelIndex)),SLOT(setPort()));
     connect(ui->inputVirtual,SIGNAL(toggled(bool)),SLOT(useVPort(bool)));
     connect(ui->inputReload,SIGNAL(clicked()),SLOT(loadPorts()));
     connect(ui->inputRetry,SIGNAL(clicked()),SLOT(reloadPlayer()));
     connect(ui->recordButton,SIGNAL(toggled(bool)),SLOT(record(bool)));
-
-    connect(ui->jackAudioButton,SIGNAL(clicked()),emit_sigmap,SLOT(map()));
-    connect(ui->portAudioButton,SIGNAL(clicked()),emit_sigmap,SLOT(map()));
-    connect(ui->rtAudioButton,SIGNAL(clicked()),emit_sigmap,SLOT(map()));
-
-    if(!plai->isRtAvailable())
-        ui->inputsList->addItem("Frontend initialization failed.");
 #else
     ui->inputsList->addItem("Compiled without any frontends.");
     ui->inputsList->setDisabled(true);
     ui->recordButton->setDisabled(true);
     ui->inputVirtual->setDisabled(true);
     ui->inputReload->setDisabled(true);
+    ui->rtMidiButton->setDisabled(true);
 #endif
+
+//Do all the backend initialization stuff.
 #ifndef NO_AUDIOBACKEND
-    ui->outputRetry->setDisabled(em->isRtAvailable());
-
-    loadDevices();
-
-    connect(ui->outputRetry,SIGNAL(clicked()),SLOT(reloadEmitter()));
-    connect(ui->outputReload,SIGNAL(clicked()),SLOT(loadDevices()));
-    connect(ui->playButton,SIGNAL(toggled(bool)),SLOT(playSynth(bool)));
-    connect(plai,SIGNAL(donePlaying()),ui->playButton,SLOT(toggle()));
-
-    if(!em->isRtAvailable())
-        ui->outputsList->addItem("Backend initialization failed.");
-#else
-    ui->outputsList->addItem("Compiled without any backends.");
-    ui->outputsList->setDisabled(true);
-    ui->outputReload->setDisabled(true);
-#endif
-
     auto audio_apis = em->getSupportedAPIs();
     if(!audio_apis[sb::JACK_O])
         ui->jackAudioButton->setDisabled(true);
@@ -98,11 +80,36 @@ void SoundbenchMain::initSetupPage() {
     else if(usedbackend == sb::RtAudio_O)
         ui->rtAudioButton->setChecked(true);
 
-    if(plai->isRtAvailable())
-        ui->rtMidiButton->setChecked(true);
-    else
-        ui->rtMidiButton->setDisabled(true);
+    ui->outputRetry->setDisabled(em->isRtAvailable());
 
+    loadDevices();
+
+    if(!em->isRtAvailable())
+        ui->outputsList->addItem("Backend initialization failed.");
+
+    //Set up the emitter backend sigmap.
+    emit_sigmap->setMapping(ui->jackAudioButton,static_cast<int>(sb::JACK_O));
+    emit_sigmap->setMapping(ui->portAudioButton,static_cast<int>(sb::PortAudio_O));
+    emit_sigmap->setMapping(ui->rtAudioButton,static_cast<int>(sb::RtAudio_O));
+
+    connect(ui->jackAudioButton,SIGNAL(clicked()),emit_sigmap,SLOT(map()));
+    connect(ui->portAudioButton,SIGNAL(clicked()),emit_sigmap,SLOT(map()));
+    connect(ui->rtAudioButton,SIGNAL(clicked()),emit_sigmap,SLOT(map()));
+
+    connect(ui->outputRetry,SIGNAL(clicked()),SLOT(reloadEmitter()));
+    connect(ui->outputReload,SIGNAL(clicked()),SLOT(loadDevices()));
+    connect(ui->playButton,SIGNAL(toggled(bool)),SLOT(playSynth(bool)));
+    connect(plai,SIGNAL(donePlaying()),ui->playButton,SLOT(toggle()));
+#else
+    ui->outputsList->addItem("Compiled without any backends.");
+    ui->outputsList->setDisabled(true);
+    ui->outputReload->setDisabled(true);
+    ui->jackAudioButton->setDisabled(true);
+    ui->portAudioButton->setDisabled(true);
+    ui->rtAudioButton->setDisabled(true);
+#endif
+
+    //Connect everything else~
     connect(ui->button441Sampling,SIGNAL(clicked()),rate_sigmap,SLOT(map()));
     connect(ui->button48Sampling,SIGNAL(clicked()),rate_sigmap,SLOT(map()));
     connect(ui->button882Sampling,SIGNAL(clicked()),rate_sigmap,SLOT(map()));
@@ -110,5 +117,10 @@ void SoundbenchMain::initSetupPage() {
     connect(ui->button176Sampling,SIGNAL(clicked()),rate_sigmap,SLOT(map()));
     connect(ui->button192Sampling,SIGNAL(clicked()),rate_sigmap,SLOT(map()));
     connect(ui->polyphonyBox,SIGNAL(valueChanged(int)),SLOT(setPoly(int)));
-    ui->polyphonyBox->setValue(sb::DefaultPolyphony);
+
+    connect(ui->holdA4Button,SIGNAL(toggled(bool)),SLOT(testSynth(bool)));
+    connect(ui->importButton,SIGNAL(clicked()),SLOT(importOpen()));
+    connect(ui->exportButton,SIGNAL(clicked()),SLOT(exportOpen()));
+    connect(ui->songsTracksList,SIGNAL(clicked(QModelIndex)),SLOT(setTrack()));
+    connect(ui->tempoBox,SIGNAL(valueChanged(int)),SLOT(setTempo(int)));
 }

@@ -27,12 +27,16 @@ namespace sb {
             std::vector<RtMidi::Api> vec;
             RtMidiIn::getCompiledApi(vec);
             for (RtMidi::Api apii : vec) {
-                if (apii == RtMidi::LINUX_ALSA) {
-                    RtMidiIn inne(RtMidi::LINUX_ALSA,"Soundbench Probe");
-                    return (inne.getPortCount() > 0);
+                if (apii != RtMidi::UNIX_JACK) {
+                    RtMidiIn inne(apii,"Soundbench Probe");
+                    if (inne.getPortCount() > 0)
+                        return true;
                 }
             }
-            std::cerr << "No ALSA support on the RtMidi platform used to compile Soundbench for Linux.\n";
+            if(vec.size() == 1 && vec.back() == RtMidi::UNIX_JACK)
+                std::cerr << "Only JACK support exists for the RtMidi frontend and the JACK frontend has been compiled. Skipping this frontend...\n";
+            else if(vec.size() > 1)
+                std::cerr << "All of the supported APIs for the RtMidi frontend failed. Skipping this frontend...\n";
             return false;
 #else
             RtMidiIn inne(RtMidi::UNSPECIFIED,"Soundbench Probe");
