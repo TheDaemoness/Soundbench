@@ -21,6 +21,7 @@
 #define ARCHITECT_H
 
 #include "gener/basic.h"
+#include "gener/sampler.h"
 
 #include "fx/biquad.h"
 
@@ -50,6 +51,7 @@ namespace sb {
         void planAllDefaults(Blueprint*);
 
         void planDefaultBasicGen(Blueprint*,size_t chan_index = 0);
+        void planDefaultSamplerGen(Blueprint*,size_t chan_index = 0);
 
         void planDefaultBiquadFx(Blueprint*,size_t chan_index = 0, size_t fx_num = 0);
 

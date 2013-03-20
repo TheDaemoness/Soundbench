@@ -20,7 +20,7 @@
 #ifndef SYNTH_H
 #define SYNTH_H
 
-#include "gener/basic.h"
+#include "soundbases.h"
 
 #include <chrono>
 #include <thread>

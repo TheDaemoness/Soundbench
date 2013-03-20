@@ -156,6 +156,12 @@ namespace sb {
         valu.type = sb::ParameterDecim;
         return valu;
     }
+    inline ParameterValue makeParamfromString(std::string in) {
+        ParameterValue valu;
+        valu.str = in;
+        valu.type = sb::ParameterByteArray;
+        return valu;
+    }
 
     enum ChannelMapping {
         Mono,

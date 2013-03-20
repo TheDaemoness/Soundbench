@@ -18,13 +18,10 @@ HEADERS += architect/architect.h \
     blueprint.h \
     common.h \
     emitter/emitter.h \
-    errorpopup.h \
     ui/sbmain/soundbenchmain.h \
-    warningpopup.h \
     meterupdater.h \
     player/player.h \
     midichain.h \
-    problemfix.h \
     backend/base.h \
     sbutilities.h \
     ui/settings/basicgen.h \
@@ -33,11 +30,8 @@ HEADERS += architect/architect.h \
     cpumeter.h \
     midifio/midifio.h \
     sfwriter.h \
-    sampletable.h \
     frontend/base.h \
-    trapezoid.h \
     presetenums.h \
-    ticker.h \
     printhelp.h \
     waves/waves.h \
     waves/basicwaves.h \
@@ -50,10 +44,18 @@ HEADERS += architect/architect.h \
     backend/jackaudio.h \
     emitter/initbackend.h \
     frontend/jackmidi.h \
-    jackbase.h \
     synth/synth.h \
     ui/settings/biquadfx.h \
-    fx/biquad.h
+    fx/biquad.h \
+    gener/sampler.h \
+    util/floatticker.h \
+    util/intticker.h \
+    util/jackbase.h \
+    err/problemfix.h \
+    err/errorpopup.h \
+    err/warningpopup.h \
+    envelope/trapezoid.h \
+    sampletable/periodictable.h
 
 FORMS += errorpopup.ui \
     ui/sbmain/soundbenchmain.ui \
@@ -72,8 +74,6 @@ SOURCES += \
     ui/settings/basicgen.cpp \
     gener/basic.cpp \
     sfwriter.cpp \
-    sampletable.cpp \
-    trapezoid.cpp \
     waves/basicwaves.cpp \
     backend/rtaudio.cpp \
     frontend/rtmidi.cpp \
@@ -106,7 +106,10 @@ SOURCES += \
     fx/biquad_ctrl.cpp \
     synth/synthticks.cpp \
     architect/architectdefaults.cpp \
-    ui/sbmain/init/initchannels.cpp
+    ui/sbmain/init/initchannels.cpp \
+    gener/sampler.cpp \
+    envelope/trapezoid.cpp \
+    sampletable/periodictable.cpp
 
 RESOURCES += \
     resources.qrc

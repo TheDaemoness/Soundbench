@@ -17,35 +17,35 @@
     Copyright 2012  Amaya S.
 */
 
-#ifndef TICKER_H
-#define TICKER_H
+#ifndef INTTICKER_H
+#define INTTICKER_H
 
 #include "sbutilities.h"
 
 namespace sb {
-    class Ticker {
+    class IntTicker {
     private:
-        float pos;
+        double pos;
         float speed;
     public:
-        Ticker() {
+        IntTicker() {
             pos = 0;
             speed = 0;
         }
-        void setPos(float p) {
-            pos = p;
+        void setPos(size_t p) {
+            pos = static_cast<double>(p);
         }
         void setSpeed(float s) {
             speed = s;
         }
-        float tick() {
+        size_t tick() {
             pos += speed;
-            return pos;
+            return static_cast<size_t>(pos);
         }
-        float getValue() {
-            return pos;
+        size_t getValue() {
+            return static_cast<size_t>(pos);
         }
     };
 }
 
-#endif // TICKER_H
+#endif // INTTICKER_H

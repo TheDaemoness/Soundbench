@@ -62,4 +62,8 @@ namespace sb {
         blu->eff_data[chan_index][fx_num][FxBiquadB1] = makeParamfromFloat(0.0);
         blu->eff_data[chan_index][fx_num][FxBiquadB2] = makeParamfromFloat(0.0);
     }
+
+    void Architect::planDefaultSamplerGen(Blueprint* blu, size_t chan_index) {
+        blu->gener_data[chan_index][GenSamplerPath] = makeParamfromString("");
+    }
 }

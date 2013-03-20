@@ -21,7 +21,7 @@
 #define SAMPLETABLE_H
 
 #include "waves/basicwaves.h"
-#include "ticker.h"
+#include "util/floatticker.h"
 
 namespace sb {
 
@@ -34,12 +34,12 @@ namespace sb {
         }
         void setWave(float freq, SbSample amp, size_t pos);
         void setOffsets(size_t offset) {
-            for(Ticker& pronoun : iters)
+            for(FloatTicker& pronoun : iters)
                 pronoun.setPos(static_cast<float>(offset));
         }
 
         void reset() {
-            for(Ticker& ti : iters) {
+            for(FloatTicker& ti : iters) {
                 ti.setPos(0);
                 ti.setSpeed(0);
             }
@@ -48,7 +48,7 @@ namespace sb {
 
     protected:
         std::vector<SbSample> samples;
-        std::vector<Ticker> iters;
+        std::vector<FloatTicker> iters;
         std::vector<SbSample> amps;
     };
 

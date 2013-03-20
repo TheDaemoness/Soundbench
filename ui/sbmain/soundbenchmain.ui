@@ -529,7 +529,7 @@ QTabBar::tab:selected {
      <string notr="true"/>
     </property>
     <property name="currentIndex">
-     <number>3</number>
+     <number>0</number>
     </property>
     <widget class="QWidget" name="tabPresets">
      <attribute name="title">

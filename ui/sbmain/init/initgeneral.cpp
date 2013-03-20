@@ -49,7 +49,7 @@ void SoundbenchMain::delayedConstructor() {
     std::cerr << "Threading Level: ";
     if(syn->getThreadLevel() == sb::ThreadingNone)
         std::cerr << "None\n";
-    if(syn->getThreadLevel() == sb::ThreadingChannelwise)
+    else if(syn->getThreadLevel() == sb::ThreadingChannelwise)
         std::cerr << "Channelwise\n";
 
     em = new sb::Emitter(syn);

@@ -24,10 +24,9 @@ namespace sb {
     enum GenerType {
         NoGener = 0,
         GenerBasic = 1,
-        GenerAdditive = 2,
-        GenerSampler = 3,
-        GenerModal = 4,
-        GenerWaveguide = 5
+        GenerSampler = 2,
+        GenerModal = 3,
+        GenerWaveguide = 4
     };
     enum FxType {
         NoFx = 0,
@@ -53,7 +52,8 @@ namespace sb {
         FxBiquadA2 = 15,
         FxBiquadB0 = 16,
         FxBiquadB1 = 17,
-        FxBiquadB2 = 18
+        FxBiquadB2 = 18,
+        GenSamplerPath = 19
     };
 
     enum BiquadTypes {
