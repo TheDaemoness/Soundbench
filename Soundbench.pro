@@ -3,15 +3,17 @@
 #######################################################################
 
 QMAKE_CXXFLAGS_WARN_ON += -Wall -Wextra -pedantic
-QMAKE_CXXFLAGS += -std=c++0x
+QMAKE_CXXFLAGS += -std=c++11
 
 DEFINES += IS_SOUNDBENCH
 
 TEMPLATE = app
-TARGET = 
 DEPENDPATH += .
 
 unix: INCLUDEPATH += /usr/include/
+unix: LIBS += -L/usr/lib/
+
+macx: INCLUDEPATH += /Library/Developer/CommandLineTools/usr/lib/c++/v1/
 
 # Input
 HEADERS += architect/architect.h \
@@ -55,7 +57,10 @@ HEADERS += architect/architect.h \
     err/errorpopup.h \
     err/warningpopup.h \
     envelope/trapezoid.h \
-    sampletable/periodictable.h
+    sampletable/periodictable.h \
+    sampletable/sampletablebase.h \
+    sampletable/playbacktable.h \
+    util/ticker.h
 
 FORMS += errorpopup.ui \
     ui/sbmain/soundbenchmain.ui \
@@ -109,12 +114,11 @@ SOURCES += \
     ui/sbmain/init/initchannels.cpp \
     gener/sampler.cpp \
     envelope/trapezoid.cpp \
-    sampletable/periodictable.cpp
+    sampletable/periodictable.cpp \
+    sampletable/playbacktable.cpp
 
 RESOURCES += \
     resources.qrc
-
-unix: LIBS += -L/usr/lib/
 
 LIBS += -lsndfile
 
