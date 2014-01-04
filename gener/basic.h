@@ -21,7 +21,7 @@
 #define CHAINS_H
 
 #include "soundbases.h"
-#include "sampletable.h"
+#include "sampletable/periodictable.h"
 
 namespace sb {
 

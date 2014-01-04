@@ -32,7 +32,7 @@
 #include <cmath>
 
 #include "common.h"
-#include "problemfix.h"
+#include "err/problemfix.h"
 
 #ifndef IS_SOUNDBENCH
     #define IS_SOUNDBENCH

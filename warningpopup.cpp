@@ -17,7 +17,7 @@
     Copyright 2012  Amaya S.
 */
 
-#include "warningpopup.h"
+#include "err/warningpopup.h"
 #include "ui_warningpopup.h"
 
 WarningPopup::WarningPopup(QWidget *parent) :

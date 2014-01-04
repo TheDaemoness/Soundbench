@@ -23,8 +23,8 @@
 #include <fstream>
 
 #ifdef IS_SOUNDBENCH
-#include "errorpopup.h"
-#include "warningpopup.h"
+#include "err/errorpopup.h"
+#include "err/warningpopup.h"
 #endif
 
 #include "common.h"

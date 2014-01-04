@@ -17,7 +17,7 @@
     Copyright 2012  Amaya S.
 */
 
-#include "errorpopup.h"
+#include "err/errorpopup.h"
 #include "ui_errorpopup.h"
 
 const char ErrorPopup::fixcount;

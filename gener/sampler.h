@@ -21,7 +21,7 @@
 #define SAMPLER_H
 
 #include "soundbases.h"
-#include "sampletable.h"
+#include "sampletable/playbacktable.h"
 
 namespace sb {
 
@@ -43,7 +43,7 @@ namespace sb {
     private:
         std::vector<Trapezoid> envelope;
         std::vector<SbSample> sampletable;
-        std::vector<sb::FloatTicker> tickers;
+        std::vector<sb::IntTicker> tickers;
         size_t sustainmarker, releasemarker;
     };
 

@@ -45,6 +45,9 @@ namespace sb {
         float getValue() {
             return pos;
         }
+        void reset() {
+            pos = 0;
+        }
     };
 }
 

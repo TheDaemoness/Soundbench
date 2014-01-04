@@ -18,7 +18,7 @@
 */
 
 #include "backend/base.h"
-#include "jackbase.h"
+#include "util/jackbase.h"
 
 #ifndef JACKAUDIO_H
 #define JACKAUDIO_H

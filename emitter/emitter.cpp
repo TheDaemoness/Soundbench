@@ -18,8 +18,8 @@
 */
 
 #include "emitter.h"
-#include "warningpopup.h"
-#include "errorpopup.h"
+#include "err/warningpopup.h"
+#include "err/errorpopup.h"
 #include "initbackend.h"
 
 namespace sb {

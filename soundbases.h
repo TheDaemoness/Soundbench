@@ -20,7 +20,7 @@
 #ifndef MODULES_H
 #define MODULES_H
 
-#include "trapezoid.h"
+#include "envelope/trapezoid.h"
 #include "waves/basicwaves.h"
 
 #include <cstring>

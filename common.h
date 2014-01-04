@@ -32,7 +32,6 @@
     If you are a project developer, DO NOT ADD ANYTHING TO THIS FILE WITHOUT CONSULTING THE PROJECT HEAD!
 */
 
-#include <cinttypes>
 #include <iostream>
 #include <sstream>
 #include <vector>

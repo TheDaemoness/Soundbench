@@ -27,7 +27,7 @@ namespace sb {
 
     class PeriodicSampleTable {
     public:
-        explicit PeriodicSampleTable(WaveBase* wav = nullptr, size_t wavecount = DefaultPolyphony, bool autodelete = true);
+        explicit PeriodicSampleTable(WaveBase* wav = nullptr, size_t mendelev = DefaultPolyphony, bool autodelete = true);
         void setWaveCount (size_t its) {
             iters.resize(its);
             amps.resize(its);

@@ -45,6 +45,9 @@ namespace sb {
         size_t getValue() {
             return static_cast<size_t>(pos);
         }
+        void reset() {
+            pos = 0;
+        }
     };
 }
 
