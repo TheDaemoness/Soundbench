@@ -20,7 +20,7 @@
 #ifndef WARNINGPOPUP_H
 #define WARNINGPOPUP_H
 
-#include <QDialog>
+#include <QtWidgets/QDialog>
 
 #include "problemfix.h"
 

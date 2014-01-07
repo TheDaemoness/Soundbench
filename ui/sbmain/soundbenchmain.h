@@ -33,7 +33,7 @@
 #include "ui/settings/biquadfx.h"
 
 #include <QSignalMapper>
-#include <QFileDialog>
+#include <QtWidgets/QFileDialog>
 #include <QThread>
 #include <QShortcut>
 
