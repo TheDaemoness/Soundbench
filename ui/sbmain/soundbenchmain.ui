@@ -191,7 +191,7 @@
    <string>Soundbench</string>
   </property>
   <property name="windowIcon">
-   <iconset resource="../../resources.qrc">
+   <iconset>
     <normaloff>:/icons/sbicon.png</normaloff>:/icons/sbicon.png</iconset>
   </property>
   <property name="windowOpacity">
@@ -218,212 +218,212 @@ QRadioButton:disabled {
 	color: gray;
 }
 QRadioButton::indicator:disabled {
-	border-image: url(:/radio/radio_disabled.png);
+	border-image: url(:/assets/button_radio/radio_disabled.png);
 }
 QRadioButton::indicator {
 	width: 17px;
 	height: 17px;
-	border-image: url(:/radio/radio_off.png);
+	border-image: url(:/assets/button_radio/radio_off.png);
 }
 QRadioButton::indicator:hover {
 	width: 17px;
 	height: 17px;
-	border-image: url(:/radio/radio_off_hover.png);
+	border-image: url(:/assets/button_radio/radio_off_hover.png);
 }
 QRadioButton::indicator:pressed {
 	width: 17px;
 	height: 17px;
-	border-image: url(:/radio/radio_pressed.png);
+	border-image: url(:/assets/button_radio/radio_pressed.png);
 }
 QRadioButton::indicator:checked {
 	width: 17px;
 	height: 17px;
-	border-image: url(:/radio/radio_selected.png);
+	border-image: url(:/assets/button_radio/radio_selected.png);
 }
 QRadioButton::indicator:checked:hover {
 	width: 17px;
 	height: 17px;
-	border-image: url(:/radio/radio_selected_hover.png);
+	border-image: url(:/assets/button_radio/radio_selected_hover.png);
 }
 
 QSpinBox {
 	color: cyan;
-	border-image: url(:/spinbox/spinbox_frame.png);
+	border-image: url(:/assets/spinbox/spinbox_frame.png);
 }
 QSpinBox:hover {
-	border-image: url(:/spinbox/spinbox_frame_hover.png);
+	border-image: url(:/assets/spinbox/spinbox_frame_hover.png);
 }
 QSpinBox:focus {
-	border-image: url(:/spinbox/spinbox_frame_edit.png);
+	border-image: url(:/assets/spinbox/spinbox_frame_edit.png);
 }
 QSpinBox:disabled{
-	border-image: url(:/spinbox/spinbox_frame_disabled.png);
+	border-image: url(:/assets/spinbox/spinbox_frame_disabled.png);
 	color: gray;
 }
 QSpinBox::up-button {
 	height: 11px;
 	width: 20px;
-	border-image: url(:/spinbox/spinbox_upper_idle.png);
+	border-image: url(:/assets/spinbox/spinbox_upper_idle.png);
 }
 QSpinBox::down-button {
 	height: 11px;
 	width: 20px;
-	border-image: url(:/spinbox/spinbox_lower_idle.png);
+	border-image: url(:/assets/spinbox/spinbox_lower_idle.png);
 }
 QSpinBox::up-button:hover {
-	border-image: url(:/spinbox/spinbox_upper_hover.png);
+	border-image: url(:/assets/spinbox/spinbox_upper_hover.png);
 }
 QSpinBox::up-button:pressed {
-	border-image: url(:/spinbox/spinbox_upper_pressed.png);
+	border-image: url(:/assets/spinbox/spinbox_upper_pressed.png);
 }
 QSpinBox::up-button:disabled {
-	border-image: url(:/spinbox/spinbox_upper_disabled.png);
+	border-image: url(:/assets/spinbox/spinbox_upper_disabled.png);
 }
 
 QSpinBox::down-button:hover {
-	border-image: url(:/spinbox/spinbox_lower_hover.png);
+	border-image: url(:/assets/spinbox/spinbox_lower_hover.png);
 }
 QSpinBox::down-button:pressed {
-	border-image: url(:/spinbox/spinbox_lower_pressed.png);
+	border-image: url(:/assets/spinbox/spinbox_lower_pressed.png);
 }
 QSpinBox::down-button:disabled {
-	border-image: url(:/spinbox/spinbox_lower_disabled.png);
+	border-image: url(:/assets/spinbox/spinbox_lower_disabled.png);
 }
 
 QDoubleSpinBox {
 	color: cyan;
-	border-image: url(:/spinbox/spinbox_frame.png);
+	border-image: url(:/assets/spinbox/spinbox_frame.png);
 }
 QDoubleSpinBox:hover {
-	border-image: url(:/spinbox/spinbox_frame_hover.png);
+	border-image: url(:/assets/spinbox/spinbox_frame_hover.png);
 }
 QDoubleSpinBox:focus {
-	border-image: url(:/spinbox/spinbox_frame_edit.png);
+	border-image: url(:/assets/spinbox/spinbox_frame_edit.png);
 }
 QDoubleSpinBox:disabled{
-	border-image: url(:/spinbox/spinbox_frame_disabled.png);
+	border-image: url(:/assets/spinbox/spinbox_frame_disabled.png);
 	color: gray;
 }
 QDoubleSpinBox::up-button {
 	height: 11px;
 	width: 20px;
-	border-image: url(:/spinbox/spinbox_upper_idle.png);
+	border-image: url(:/assets/spinbox/spinbox_upper_idle.png);
 }
 QDoubleSpinBox::down-button {
 	height: 11px;
 	width: 20px;
-	border-image: url(:/spinbox/spinbox_lower_idle.png);
+	border-image: url(:/assets/spinbox/spinbox_lower_idle.png);
 }
 QDoubleSpinBox::up-button:hover {
-	border-image: url(:/spinbox/spinbox_upper_hover.png);
+	border-image: url(:/assets/spinbox/spinbox_upper_hover.png);
 }
 QDoubleSpinBox::up-button:pressed {
-	border-image: url(:/spinbox/spinbox_upper_pressed.png);
+	border-image: url(:/assets/spinbox/spinbox_upper_pressed.png);
 }
 QDoubleSpinBox::up-button:disabled {
-	border-image: url(:/spinbox/spinbox_upper_disabled.png);
+	border-image: url(:/assets/spinbox/spinbox_upper_disabled.png);
 }
 
 QDoubleSpinBox::down-button:hover {
-	border-image: url(:/spinbox/spinbox_lower_hover.png);
+	border-image: url(:/assets/spinbox/spinbox_lower_hover.png);
 }
 QDoubleSpinBox::down-button:pressed {
-	border-image: url(:/spinbox/spinbox_lower_pressed.png);
+	border-image: url(:/assets/spinbox/spinbox_lower_pressed.png);
 }
 QDoubleSpinBox::down-button:disabled {
-	border-image: url(:/spinbox/spinbox_lower_disabled.png);
+	border-image: url(:/assets/spinbox/spinbox_lower_disabled.png);
 }
 
 QPushButton {
-	border-image: url(:/buttons/button75_idle.png);
+	border-image: url(:/assets/button_click/button75_idle.png);
 }
 QPushButton:disabled {
 	color: gray;
-	border-image: url(:/buttons/button75_disabled.png);
+	border-image: url(:/assets/button_click/button75_disabled.png);
 }
 QPushButton:hover {
-	border-image: url(:/buttons/button75_hover.png);
+	border-image: url(:/assets/button_click/button75_hover.png);
 }
 QPushButton:pressed {
-	border-image: url(:/buttons/button75_pressed.png);
+	border-image: url(:/assets/button_click/button75_pressed.png);
 }
 QPushButton:checked {
-	border-image: url(:/buttons/button75_toggled.png);
+	border-image: url(:/assets/button_click/button75_toggled.png);
 }
 
 QSlider::groove:horizontal {
-	border-image: url(:/sliders/grooveh_square_idle.png);
+	border-image: url(:/assets/slider/grooveh_square_idle.png);
 }
 QSlider::groove:horizontal:hover {
-	border-image: url(:/sliders/grooveh_square_hover.png);
+	border-image: url(:/assets/slider/grooveh_square_hover.png);
 }
 QSlider::groove:horizontal:pressed {
-	border-image: url(:/sliders/grooveh_square_click.png);
+	border-image: url(:/assets/slider/grooveh_square_click.png);
 }
 QSlider::handle:horizontal {
-	border-image: url(:/sliders/slider_square_idle.png);
+	border-image: url(:/assets/slider/slider_square_idle.png);
 	width: 16px;
 }
 QSlider::handle:hover:horizontal {
-	border-image: url(:/sliders/slider_square_hover.png);
+	border-image: url(:/assets/slider/slider_square_hover.png);
 }
 QSlider::handle:pressed:horizontal {
-	border-image: url(:/sliders/slider_square_click.png);
+	border-image: url(:/assets/slider/slider_square_click.png);
 }
 QSlider::groove:vertical {
-	border-image: url(:/sliders/groovev_square_idle.png);
+	border-image: url(:/assets/slider/groovev_square_idle.png);
 }
 QSlider::groove:vertical:hover {
-	border-image: url(:/sliders/groovev_square_hover.png);
+	border-image: url(:/assets/slider/groovev_square_hover.png);
 }
 QSlider::groove:vertical:pressed {
-	border-image: url(:/sliders/groovev_square_click.png);
+	border-image: url(:/assets/slider/groovev_square_click.png);
 }
 QSlider::handle:vertical{
-	border-image: url(:/sliders/slider_square_idle.png);
+	border-image: url(:/assets/slider/slider_square_idle.png);
 	height: 16px;
 }
 QSlider::handle:hover:vertical {
-	border-image: url(:/sliders/slider_square_hover.png);
+	border-image: url(:/assets/slider/slider_square_hover.png);
 	height: 16px;
 }
 QSlider::handle:pressed:vertical {
-	border-image: url(:/sliders/slider_square_click.png);
+	border-image: url(:/assets/slider/slider_square_click.png);
 	height: 16px;
 }
 
 QProgressBar::chunk {
-	background-image: url(:/meters/cpumeter_on.png);
+	background-image: url(:/assets/cpumeter/cpumeter_on.png);
     background-position: center left;
     background-repeat: 0;
 }
 QProgressBar {
-	border-image: url(:/meters/cpumeter_off.png);
+	border-image: url(:/assets/cpumeter/cpumeter_off.png);
     color: black;
 }
 
 
 QComboBox {
-	border-image: url(:/combobox/combobox_frame_idle.png);
+	border-image: url(:/assets/combobox/combobox_frame_idle.png);
 }
 QComboBox:hover {
-	border-image: url(:/combobox/combobox_frame_hover.png);
+	border-image: url(:/assets/combobox/combobox_frame_hover.png);
 }
 QComboBox:disabled {
-	border-image: url(:/combobox/combobox_frame_disabled.png);
+	border-image: url(:/assets/combobox/combobox_frame_disabled.png);
 	color: gray;
 }
 QComboBox::drop-down {
-	border-image: url(:/combobox/combobox_button_idle.png);
+	border-image: url(:/assets/combobox/combobox_button_idle.png);
 }
 QComboBox::drop-down:hover {
-	border-image: url(:/combobox/combobox_button_hover.png);
+	border-image: url(:/assets/combobox/combobox_button_hover.png);
 }
 QComboBox::drop-down:pressed {
-	border-image: url(:/combobox/combobox_button_pressed.png);
+	border-image: url(:/assets/combobox/combobox_button_pressed.png);
 }
 QComboBox::drop-down:disabled {
-	border-image: url(:/combobox/combobox_button_disabled.png);
+	border-image: url(:/assets/combobox/combobox_button_disabled.png);
 }
 QComboBox QAbstractItemView {
 	background-color: black;
@@ -436,36 +436,36 @@ QListWidget {
 }
 
 QLineEdit {
-	border-image: url(:/lineedit/lineedit_idle.png);
+	border-image: url(:/assets/lineedit/lineedit_idle.png);
 }
 QLineEdit:hover {
-	border-image: url(:/lineedit/lineedit_hover.png);
+	border-image: url(:/assets/lineedit/lineedit_hover.png);
 }
 QLineEdit:focus {
-	border-image: url(:/lineedit/lineedit_focus.png);
+	border-image: url(:/assets/lineedit/lineedit_focus.png);
 }
 QLineEdit:disabled {
-	border-image: url(:/lineedit/lineedit_disabled.png);
+	border-image: url(:/assets/lineedit/lineedit_disabled.png);
 }
 
 QTabWidget::pane {
 	background-color: rgba(0, 0, 0, 0);
 }
 QTabBar::tab {
-	border-image: url(:/buttons/tab_idle.png);
+	border-image: url(:/assets/tab/tab_idle.png);
 	width: 90px;
 	height: 30px;
 	margin: 6px;
 	color: cyan;
 }
 QTabBar::tab:hover {
-	border-image: url(:/buttons/tab_hover.png);
+	border-image: url(:/assets/tab/tab_hover.png);
 }
 QTabBar::tab:pressed{
-	border-image: url(:/buttons/tab_press.png);
+	border-image: url(:/assets/tab/tab_press.png);
 }
 QTabBar::tab:selected {
-	border-image: url(:/buttons/tab_select.png);
+	border-image: url(:/assets/tab/tab_select.png);
 }</string>
   </property>
   <property name="dockOptions">
@@ -529,7 +529,7 @@ QTabBar::tab:selected {
      <string notr="true"/>
     </property>
     <property name="currentIndex">
-     <number>0</number>
+     <number>6</number>
     </property>
     <widget class="QWidget" name="tabPresets">
      <attribute name="title">
@@ -546,7 +546,7 @@ QTabBar::tab:selected {
       </property>
       <property name="styleSheet">
        <string notr="true">QGraphicsView {
-	border-image: url(:/backdrops/selectbackdrop.png);
+	border-image: url(:/assets/backdrops/selectbackdrop.png);
 }</string>
       </property>
      </widget>
@@ -1522,7 +1522,7 @@ Several audio editing utilities support this sampling rate.</string>
       </property>
       <property name="styleSheet">
        <string notr="true">QGraphicsView {
-	border-image: url(:/backdrops/playerbackdrop.png);
+	border-image: url(:/assets/backdrops/playerbackdrop.png);
 }</string>
       </property>
      </widget>
@@ -1599,7 +1599,7 @@ Several audio editing utilities support this sampling rate.</string>
       </property>
       <property name="styleSheet">
        <string notr="true">QGraphicsView {
-	background-image: url(:/backdrops/channelsbackdrop.png);
+	background-image: url(:/assets/backdrops/channelsbackdrop.png);
 }</string>
       </property>
      </widget>
@@ -1896,6 +1896,9 @@ Several audio editing utilities support this sampling rate.</string>
         <height>21</height>
        </rect>
       </property>
+      <property name="prefix">
+       <string> </string>
+      </property>
       <property name="minimum">
        <number>1</number>
       </property>
@@ -1911,6 +1914,9 @@ Several audio editing utilities support this sampling rate.</string>
         <width>60</width>
         <height>21</height>
        </rect>
+      </property>
+      <property name="prefix">
+       <string> </string>
       </property>
       <property name="minimum">
        <number>1</number>
@@ -1928,6 +1934,9 @@ Several audio editing utilities support this sampling rate.</string>
         <height>21</height>
        </rect>
       </property>
+      <property name="prefix">
+       <string> </string>
+      </property>
       <property name="minimum">
        <number>1</number>
       </property>
@@ -1943,6 +1952,9 @@ Several audio editing utilities support this sampling rate.</string>
         <width>60</width>
         <height>21</height>
        </rect>
+      </property>
+      <property name="prefix">
+       <string> </string>
       </property>
       <property name="minimum">
        <number>1</number>
@@ -2403,7 +2415,7 @@ Several audio editing utilities support this sampling rate.</string>
       </property>
       <property name="styleSheet">
        <string notr="true">QGraphicsView {
-	background-image: url(:/backdrops/aboutbackdrop.png);
+	background-image: url(:/assets/backdrops/aboutbackdrop.png);
 }</string>
       </property>
      </widget>
@@ -2494,7 +2506,7 @@ Several audio editing utilities support this sampling rate.</string>
 &lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;style type=&quot;text/css&quot;&gt;
 p, li { white-space: pre-wrap; }
 &lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:'Ubuntu'; font-size:14pt; font-weight:600; font-style:normal;&quot;&gt;
-&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-family:'Cantarell';&quot;&gt;Copyright © 2012  Amaya S.&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-family:'Cantarell';&quot;&gt;Copyright © 2014  Amaya S.&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
       </property>
       <property name="alignment">
        <set>Qt::AlignCenter</set>
@@ -2635,23 +2647,23 @@ p, li { white-space: pre-wrap; }
     </property>
     <property name="styleSheet">
      <string notr="true">QSlider::groove:horizontal {
-	border-image: url(:/sliders/grooveh_short_idle.png);
+	border-image: url(:/assets/slider/grooveh_short_idle.png);
 }
 QSlider::groove:horizontal:hover {
-	border-image: url(:/sliders/grooveh_short_hover.png);
+	border-image: url(:/assets/slider/grooveh_short_hover.png);
 }
 QSlider::groove:horizontal:pressed {
-	border-image: url(:/sliders/grooveh_short_click.png);
+	border-image: url(:/assets/slider/grooveh_short_click.png);
 }
 QSlider::handle:horizontal {
-	border-image: url(:/sliders/slider_idle.png);
+	border-image: url(:/assets/slider/slider_idle.png);
 	width: 20px;
 }
 QSlider::handle:hover:horizontal {
-	border-image: url(:/sliders/slider_hover.png);
+	border-image: url(:/assets/slider/slider_hover.png);
 }
 QSlider::handle:pressed:horizontal {
-	border-image: url(:/sliders/slider_click.png);
+	border-image: url(:/assets/slider/slider_click.png);
 }</string>
     </property>
     <property name="maximum">
@@ -2668,7 +2680,7 @@ QSlider::handle:pressed:horizontal {
     <property name="geometry">
      <rect>
       <x>770</x>
-      <y>30</y>
+      <y>25</y>
       <width>281</width>
       <height>25</height>
      </rect>
@@ -2828,8 +2840,6 @@ This is just to quickly hear what a sound sounds like.</string>
   </widget>
  </widget>
  <layoutdefault spacing="6" margin="11"/>
- <resources>
-  <include location="../../resources.qrc"/>
- </resources>
+ <resources/>
  <connections/>
 </ui>

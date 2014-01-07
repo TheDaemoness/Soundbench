@@ -1,81 +1,72 @@
 <RCC>
-    <qresource prefix="/backdrops">
-        <file>channelsbackdrop.png</file>
-        <file>mainbackdrop.png</file>
-        <file>aboutbackdrop.png</file>
-        <file>playerbackdrop.png</file>
-        <file>selectbackdrop.png</file>
-    </qresource>
-    <qresource prefix="/sliders">
-        <file>slider_click.png</file>
-        <file>slider_hover.png</file>
-        <file>slider_idle.png</file>
-        <file>grooveh_short_click.png</file>
-        <file>grooveh_short_hover.png</file>
-        <file>grooveh_short_idle.png</file>
-    </qresource>
-    <qresource prefix="/buttons">
-        <file>button75_hover.png</file>
-        <file>button75_idle.png</file>
-        <file>button75_pressed.png</file>
-        <file>button75_disabled.png</file>
-        <file>tab_hover.png</file>
-        <file>tab_idle.png</file>
-        <file>tab_press.png</file>
-        <file>tab_select.png</file>
-        <file>button75_toggled.png</file>
-    </qresource>
-    <qresource prefix="/radio">
-        <file>radio_off.png</file>
-        <file>radio_off_hover.png</file>
-        <file>radio_pressed.png</file>
-        <file>radio_selected.png</file>
-        <file>radio_selected_hover.png</file>
-        <file>radio_disabled.png</file>
-    </qresource>
-    <qresource prefix="/spinbox">
-        <file>spinbox_frame.png</file>
-        <file>spinbox_frame_edit.png</file>
-        <file>spinbox_frame_hover.png</file>
-        <file>spinbox_lower_disabled.png</file>
-        <file>spinbox_lower_hover.png</file>
-        <file>spinbox_lower_idle.png</file>
-        <file>spinbox_lower_pressed.png</file>
-        <file>spinbox_upper_disabled.png</file>
-        <file>spinbox_upper_hover.png</file>
-        <file>spinbox_upper_idle.png</file>
-        <file>spinbox_upper_pressed.png</file>
-        <file>spinbox_frame_disabled.png</file>
-    </qresource>
-    <qresource prefix="/icons">
-        <file>sbicon.png</file>
-    </qresource>
-    <qresource prefix="/meters">
-        <file>cpumeter_off.png</file>
-        <file>cpumeter_on.png</file>
-        <file>cpumeter_warn.png</file>
-        <file>cpumeter_progress.png</file>
-        <file>cpumeter_red.png</file>
-    </qresource>
-    <qresource prefix="/popups">
-        <file>error_popup.png</file>
-        <file>warning_popup.png</file>
-        <file>gentype_popup.png</file>
-        <file>basicgener_backdrop.png</file>
-    </qresource>
-    <qresource prefix="/combobox">
-        <file>combobox_frame_idle.png</file>
-        <file>combobox_button_disabled.png</file>
-        <file>combobox_button_hover.png</file>
-        <file>combobox_button_idle.png</file>
-        <file>combobox_button_pressed.png</file>
-        <file>combobox_frame_hover.png</file>
-        <file>combobox_frame_disabled.png</file>
-    </qresource>
-    <qresource prefix="/lineedit">
-        <file>lineedit_hover.png</file>
-        <file>lineedit_focus.png</file>
-        <file>lineedit_idle.png</file>
-        <file>lineedit_disabled.png</file>
+    <qresource prefix="/">
+        <file>assets/tab/tab_hover.png</file>
+        <file>assets/tab/tab_idle.png</file>
+        <file>assets/tab/tab_press.png</file>
+        <file>assets/tab/tab_select.png</file>
+        <file>assets/slider/grooveh_short_click.png</file>
+        <file>assets/slider/grooveh_short_hover.png</file>
+        <file>assets/slider/grooveh_short_idle.png</file>
+        <file>assets/slider/grooveh_square_click.png</file>
+        <file>assets/slider/grooveh_square_hover.png</file>
+        <file>assets/slider/grooveh_square_idle.png</file>
+        <file>assets/slider/groovev_square_click.png</file>
+        <file>assets/slider/groovev_square_hover.png</file>
+        <file>assets/slider/groovev_square_idle.png</file>
+        <file>assets/slider/slider_click.png</file>
+        <file>assets/slider/slider_hover.png</file>
+        <file>assets/slider/slider_idle.png</file>
+        <file>assets/spinbox/spinbox_frame_disabled.png</file>
+        <file>assets/spinbox/spinbox_frame_edit.png</file>
+        <file>assets/spinbox/spinbox_frame_hover.png</file>
+        <file>assets/spinbox/spinbox_frame.png</file>
+        <file>assets/spinbox/spinbox_lower_disabled.png</file>
+        <file>assets/spinbox/spinbox_lower_hover.png</file>
+        <file>assets/spinbox/spinbox_lower_idle.png</file>
+        <file>assets/spinbox/spinbox_lower_pressed.png</file>
+        <file>assets/spinbox/spinbox_upper_disabled.png</file>
+        <file>assets/spinbox/spinbox_upper_hover.png</file>
+        <file>assets/spinbox/spinbox_upper_idle.png</file>
+        <file>assets/spinbox/spinbox_upper_pressed.png</file>
+        <file>assets/backdrops/aboutbackdrop.png</file>
+        <file>assets/backdrops/channelsbackdrop.png</file>
+        <file>assets/backdrops/macrobackdrop.png</file>
+        <file>assets/backdrops/mainbackdrop.png</file>
+        <file>assets/backdrops/mixerbackdrop.png</file>
+        <file>assets/backdrops/patchesbackdrop.png</file>
+        <file>assets/backdrops/playerbackdrop.png</file>
+        <file>assets/backdrops/selectbackdrop.png</file>
+        <file>assets/button_click/button75_disabled.png</file>
+        <file>assets/button_click/button75_hover.png</file>
+        <file>assets/button_click/button75_idle.png</file>
+        <file>assets/button_click/button75_pressed.png</file>
+        <file>assets/button_click/button75_toggled.png</file>
+        <file>assets/button_radio/radio_disabled.png</file>
+        <file>assets/button_radio/radio_hover.png</file>
+        <file>assets/button_radio/radio_off_hover.png</file>
+        <file>assets/button_radio/radio_off.png</file>
+        <file>assets/button_radio/radio_pressed.png</file>
+        <file>assets/button_radio/radio_selected_hover.png</file>
+        <file>assets/button_radio/radio_selected.png</file>
+        <file>assets/combobox/combobox_button_disabled.png</file>
+        <file>assets/combobox/combobox_button_hover.png</file>
+        <file>assets/combobox/combobox_button_idle.png</file>
+        <file>assets/combobox/combobox_button_pressed.png</file>
+        <file>assets/combobox/combobox_frame_disabled.png</file>
+        <file>assets/combobox/combobox_frame_hover.png</file>
+        <file>assets/combobox/combobox_frame_idle.png</file>
+        <file>assets/cpumeter/cpumeter_off.png</file>
+        <file>assets/cpumeter/cpumeter_on.png</file>
+        <file>assets/cpumeter/cpumeter_progress.png</file>
+        <file>assets/cpumeter/cpumeter_red.png</file>
+        <file>assets/cpumeter/cpumeter_warn.png</file>
+        <file>assets/lineedit/lineedit_disabled.png</file>
+        <file>assets/lineedit/lineedit_focus.png</file>
+        <file>assets/lineedit/lineedit_hover.png</file>
+        <file>assets/lineedit/lineedit_idle.png</file>
+        <file>assets/popups/basicgener_popup.png</file>
+        <file>assets/popups/error_popup.png</file>
+        <file>assets/popups/gentype_popup.png</file>
+        <file>assets/popups/warning_popup.png</file>
     </qresource>
 </RCC>

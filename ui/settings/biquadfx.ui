@@ -32,130 +32,130 @@ QLabel:disabled {
 
 QSpinBox {
 	color: cyan;
-	border-image: url(:/spinbox/spinbox_frame.png);
+	border-image: url(:/assets/spinbox/spinbox_frame.png);
 }
 QSpinBox:hover {
-	border-image: url(:/spinbox/spinbox_frame_hover.png);
+	border-image: url(:/assets/spinbox/spinbox_frame_hover.png);
 }
 QSpinBox:focus {
-	border-image: url(:/spinbox/spinbox_frame_edit.png);
+	border-image: url(:/assets/spinbox/spinbox_frame_edit.png);
 }
 QSpinBox:disabled{
-	border-image: url(:/spinbox/spinbox_frame_disabled.png);
+	border-image: url(:/assets/spinbox/spinbox_frame_disabled.png);
 	color: gray;
 }
 QSpinBox::up-button {
 	height: 11px;
 	width: 20px;
-	border-image: url(:/spinbox/spinbox_upper_idle.png);
+	border-image: url(:/assets/spinbox/spinbox_upper_idle.png);
 }
 QSpinBox::down-button {
 	height: 11px;
 	width: 20px;
-	border-image: url(:/spinbox/spinbox_lower_idle.png);
+	border-image: url(:/assets/spinbox/spinbox_lower_idle.png);
 }
 QSpinBox::up-button:hover {
-	border-image: url(:/spinbox/spinbox_upper_hover.png);
+	border-image: url(:/assets/spinbox/spinbox_upper_hover.png);
 }
 QSpinBox::up-button:pressed {
-	border-image: url(:/spinbox/spinbox_upper_pressed.png);
+	border-image: url(:/assets/spinbox/spinbox_upper_pressed.png);
 }
 QSpinBox::up-button:disabled {
-	border-image: url(:/spinbox/spinbox_upper_disabled.png);
+	border-image: url(:/assets/spinbox/spinbox_upper_disabled.png);
 }
 
 QSpinBox::down-button:hover {
-	border-image: url(:/spinbox/spinbox_lower_hover.png);
+	border-image: url(:/assets/spinbox/spinbox_lower_hover.png);
 }
 QSpinBox::down-button:pressed {
-	border-image: url(:/spinbox/spinbox_lower_pressed.png);
+	border-image: url(:/assets/spinbox/spinbox_lower_pressed.png);
 }
 QSpinBox::down-button:disabled {
-	border-image: url(:/spinbox/spinbox_lower_disabled.png);
+	border-image: url(:/assets/spinbox/spinbox_lower_disabled.png);
 }
 
 QDoubleSpinBox {
 	color: cyan;
-	border-image: url(:/spinbox/spinbox_frame.png);
+	border-image: url(:/assets/spinbox/spinbox_frame.png);
 }
 QDoubleSpinBox:hover {
-	border-image: url(:/spinbox/spinbox_frame_hover.png);
+	border-image: url(:/assets/spinbox/spinbox_frame_hover.png);
 }
 QDoubleSpinBox:focus {
-	border-image: url(:/spinbox/spinbox_frame_edit.png);
+	border-image: url(:/assets/spinbox/spinbox_frame_edit.png);
 }
 QDoubleSpinBox:disabled{
-	border-image: url(:/spinbox/spinbox_frame_disabled.png);
+	border-image: url(:/assets/spinbox/spinbox_frame_disabled.png);
 	color: gray;
 }
 QDoubleSpinBox::up-button {
 	height: 11px;
 	width: 20px;
-	border-image: url(:/spinbox/spinbox_upper_idle.png);
+	border-image: url(:/assets/spinbox/spinbox_upper_idle.png);
 }
 QDoubleSpinBox::down-button {
 	height: 11px;
 	width: 20px;
-	border-image: url(:/spinbox/spinbox_lower_idle.png);
+	border-image: url(:/assets/spinbox/spinbox_lower_idle.png);
 }
 QDoubleSpinBox::up-button:hover {
-	border-image: url(:/spinbox/spinbox_upper_hover.png);
+	border-image: url(:/assets/spinbox/spinbox_upper_hover.png);
 }
 QDoubleSpinBox::up-button:pressed {
-	border-image: url(:/spinbox/spinbox_upper_pressed.png);
+	border-image: url(:/assets/spinbox/spinbox_upper_pressed.png);
 }
 QDoubleSpinBox::up-button:disabled {
-	border-image: url(:/spinbox/spinbox_upper_disabled.png);
+	border-image: url(:/assets/spinbox/spinbox_upper_disabled.png);
 }
 
 QDoubleSpinBox::down-button:hover {
-	border-image: url(:/spinbox/spinbox_lower_hover.png);
+	border-image: url(:/assets/spinbox/spinbox_lower_hover.png);
 }
 QDoubleSpinBox::down-button:pressed {
-	border-image: url(:/spinbox/spinbox_lower_pressed.png);
+	border-image: url(:/assets/spinbox/spinbox_lower_pressed.png);
 }
 QDoubleSpinBox::down-button:disabled {
-	border-image: url(:/spinbox/spinbox_lower_disabled.png);
+	border-image: url(:/assets/spinbox/spinbox_lower_disabled.png);
 }
 
 QPushButton {
-	border-image: url(:/buttons/button75_idle.png);
+	border-image: url(:/assets/button_click/button75_idle.png);
 }
 QPushButton:disabled {
 	color: gray;
-	border-image: url(:/buttons/button75_disabled.png);
+	border-image: url(:/assets/button_click/button75_disabled.png);
 }
 QPushButton:hover {
-	border-image: url(:/buttons/button75_hover.png);
+	border-image: url(:/assets/button_click/button75_hover.png);
 }
 QPushButton:pressed {
-	border-image: url(:/buttons/button75_pressed.png);
+	border-image: url(:/assets/button_click/button75_pressed.png);
 }
 QPushButton:checked {
-	border-image: url(:/buttons/button75_toggled.png);
+	border-image: url(:/assets/button_click/button75_toggled.png);
 }
 
 QComboBox {
-	border-image: url(:/combobox/combobox_frame_idle.png);
+	border-image: url(:/assets/combobox/combobox_frame_idle.png);
 }
 QComboBox:hover {
-	border-image: url(:/combobox/combobox_frame_hover.png);
+	border-image: url(:/assets/combobox/combobox_frame_hover.png);
 }
 QComboBox:disabled {
-	border-image: url(:/combobox/combobox_frame_disabled.png);
+	border-image: url(:/assets/combobox/combobox_frame_disabled.png);
 	color: gray;
 }
 QComboBox::drop-down {
-	border-image: url(:/combobox/combobox_button_idle.png);
+	border-image: url(:/assets/combobox/combobox_button_idle.png);
 }
 QComboBox::drop-down:hover {
-	border-image: url(:/combobox/combobox_button_hover.png);
+	border-image: url(:/assets/combobox/combobox_button_hover.png);
 }
 QComboBox::drop-down:pressed {
-	border-image: url(:/combobox/combobox_button_pressed.png);
+	border-image: url(:/assets/combobox/combobox_button_pressed.png);
 }
 QComboBox::drop-down:disabled {
-	border-image: url(:/combobox/combobox_button_disabled.png);
+	border-image: url(:/assets/combobox/combobox_button_disabled.png);
 }
 QComboBox QAbstractItemView {
 	background-color: black;
@@ -165,20 +165,20 @@ QTabWidget::pane {
 	background-color: rgba(0, 0, 0, 0);
 }
 QTabBar::tab {
-	border-image: url(:/buttons/tab_idle.png);
+	border-image: url(:/assets/tab/tab_idle.png);
 	width: 90px;
 	height: 30px;
 	margin: 5px;
 	color: cyan;
 }
 QTabBar::tab:hover {
-	border-image: url(:/buttons/tab_hover.png);
+	border-image: url(:/assets/tab/tab_hover.png);
 }
 QTabBar::tab:pressed{
-	border-image: url(:/buttons/tab_press.png);
+	border-image: url(:/assets/tab/tab_press.png);
 }
 QTabBar::tab:selected {
-	border-image: url(:/buttons/tab_select.png);
+	border-image: url(:/assets/tab/tab_select.png);
 }</string>
   </property>
   <widget class="QGraphicsView" name="mainBackdrop">
@@ -195,9 +195,9 @@ QTabBar::tab:selected {
    <property name="geometry">
     <rect>
      <x>10</x>
-     <y>15</y>
+     <y>30</y>
      <width>381</width>
-     <height>181</height>
+     <height>161</height>
     </rect>
    </property>
    <property name="currentIndex">
@@ -693,11 +693,14 @@ QTabBar::tab:selected {
   <widget class="QPushButton" name="cancelButton">
    <property name="geometry">
     <rect>
-     <x>235</x>
-     <y>25</y>
+     <x>240</x>
+     <y>10</y>
      <width>71</width>
      <height>21</height>
     </rect>
+   </property>
+   <property name="layoutDirection">
+    <enum>Qt::LeftToRight</enum>
    </property>
    <property name="text">
     <string>Cancel</string>
@@ -706,8 +709,8 @@ QTabBar::tab:selected {
   <widget class="QPushButton" name="applyButton">
    <property name="geometry">
     <rect>
-     <x>315</x>
-     <y>25</y>
+     <x>320</x>
+     <y>10</y>
      <width>71</width>
      <height>21</height>
     </rect>

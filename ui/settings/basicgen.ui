@@ -14,7 +14,7 @@
    <string>Basic Generator Settings</string>
   </property>
   <property name="windowIcon">
-   <iconset resource="../../resources.qrc">
+   <iconset>
     <normaloff>:/icons/sbicon.png</normaloff>:/icons/sbicon.png</iconset>
   </property>
   <property name="windowOpacity">
@@ -25,106 +25,139 @@
 	color: cyan;
 }
 
+QSpinBox {
+	color: cyan;
+	border-image: url(:/assets/spinbox/spinbox_frame.png);
+}
+QSpinBox:hover {
+	border-image: url(:/assets/spinbox/spinbox_frame_hover.png);
+}
+QSpinBox:focus {
+	border-image: url(:/assets/spinbox/spinbox_frame_edit.png);
+}
+QSpinBox::up-button {
+	height: 11px;
+	width: 20px;
+	border-image: url(:/assets/spinbox/spinbox_upper_idle.png);
+}
+QSpinBox::down-button {
+	height: 11px;
+	width: 20px;
+	border-image: url(:/assets/spinbox/spinbox_lower_idle.png);
+}
+QSpinBox::up-button:hover {
+	border-image: url(:/assets/spinbox/spinbox_upper_hover.png);
+}
+QSpinBox::up-button:pressed {
+	border-image: url(:/assets/spinbox/spinbox_upper_pressed.png);
+}
+QSpinBox::down-button:hover {
+	border-image: url(:/assets/spinbox/spinbox_lower_hover.png);
+}
+QSpinBox::down-button:pressed {
+	border-image: url(:/assets/spinbox/spinbox_lower_pressed.png);
+}
+
 QRadioButton:disabled {
 	color: gray;
 }
 QRadioButton::indicator:disabled {
-	border-image: url(:/radio/radio_disabled.png);
+	border-image: url(:/assets/button_radio/radio_disabled.png);
 }
 QRadioButton::indicator {
 	width: 17px;
 	height: 17px;
-	border-image: url(:/radio/radio_off.png);
+	border-image: url(:/assets/button_radio/radio_off.png);
 }
 QRadioButton::indicator:hover {
 	width: 17px;
 	height: 17px;
-	border-image: url(:/radio/radio_off_hover.png);
+	border-image: url(:/assets/button_radio/radio_off_hover.png);
 }
 QRadioButton::indicator:pressed {
 	width: 17px;
 	height: 17px;
-	border-image: url(:/radio/radio_pressed.png);
+	border-image: url(:/assets/button_radio/radio_pressed.png);
 }
 QRadioButton::indicator:checked {
 	width: 17px;
 	height: 17px;
-	border-image: url(:/radio/radio_selected.png);
+	border-image: url(:/assets/button_radio/radio_selected.png);
 }
 QRadioButton::indicator:checked:hover {
 	width: 17px;
 	height: 17px;
-	border-image: url(:/radio/radio_selected_hover.png);
+	border-image: url(:/assets/button_radio/radio_selected_hover.png);
 }
 
 QDoubleSpinBox {
 	color: cyan;
-	border-image: url(:/spinbox/spinbox_frame.png);
+	border-image: url(:/assets/spinbox/spinbox_frame.png);
 }
 QDoubleSpinBox:hover {
-	border-image: url(:/spinbox/spinbox_frame_hover.png);
+	border-image: url(:/assets/spinbox/spinbox_frame_hover.png);
 }
 QDoubleSpinBox:focus {
-	border-image: url(:/spinbox/spinbox_frame_edit.png);
+	border-image: url(:/assets/spinbox/spinbox_frame_edit.png);
 }
 QDoubleSpinBox::up-button {
 	height: 11px;
 	width: 20px;
-	border-image: url(:/spinbox/spinbox_upper_idle.png);
+	border-image: url(:/assets/spinbox/spinbox_upper_idle.png);
 }
 QDoubleSpinBox::down-button {
 	height: 11px;
 	width: 20px;
-	border-image: url(:/spinbox/spinbox_lower_idle.png);
+	border-image: url(:/assets/spinbox/spinbox_lower_idle.png);
 }
 QDoubleSpinBox::up-button:hover {
-	border-image: url(:/spinbox/spinbox_upper_hover.png);
+	border-image: url(:/assets/spinbox/spinbox_upper_hover.png);
 }
 QDoubleSpinBox::up-button:pressed {
-	border-image: url(:/spinbox/spinbox_upper_pressed.png);
+	border-image: url(:/assets/spinbox/spinbox_upper_pressed.png);
 }
 QDoubleSpinBox::down-button:hover {
-	border-image: url(:/spinbox/spinbox_lower_hover.png);
+	border-image: url(:/assets/spinbox/spinbox_lower_hover.png);
 }
 QDoubleSpinBox::down-button:pressed {
-	border-image: url(:/spinbox/spinbox_lower_pressed.png);
+	border-image: url(:/assets/spinbox/spinbox_lower_pressed.png);
 }
 
 QPushButton {
-	border-image: url(:/buttons/button75_idle.png);
+	border-image: url(:/assets/button_click/button75_idle.png);
 }
 QPushButton:disabled {
 	color: gray;
-	border-image: url(:/buttons/button75_disabled.png);
+	border-image: url(:/assets/button_click/button75_disabled.png);
 }
 QPushButton:hover {
-	border-image: url(:/buttons/button75_hover.png);
+	border-image: url(:/assets/button_click/button75_hover.png);
 }
 QPushButton:pressed {
-	border-image: url(:/buttons/button75_pressed.png);
+	border-image: url(:/assets/button_click/button75_pressed.png);
 }
 
 QComboBox {
-	border-image: url(:/combobox/combobox_frame_idle.png);
+	border-image: url(:/assets/combobox/combobox_frame_idle.png);
 }
 QComboBox:hover {
-	border-image: url(:/combobox/combobox_frame_hover.png);
+	border-image: url(:/assets/combobox/combobox_frame_hover.png);
 }
 QComboBox:disabled {
-	border-image: url(:/combobox/combobox_frame_disabled.png);
+	border-image: url(:/assets/combobox/combobox_frame_disabled.png);
 	color: gray;
 }
 QComboBox::drop-down {
-	border-image: url(:/combobox/combobox_button_idle.png);
+	border-image: url(:/assets/combobox/combobox_button_idle.png);
 }
 QComboBox::drop-down:hover {
-	border-image: url(:/combobox/combobox_button_hover.png);
+	border-image: url(:/assets/combobox/combobox_button_hover.png);
 }
 QComboBox::drop-down:pressed {
-	border-image: url(:/combobox/combobox_button_pressed.png);
+	border-image: url(:/assets/combobox/combobox_button_pressed.png);
 }
 QComboBox::drop-down:disabled {
-	border-image: url(:/combobox/combobox_button_disabled.png);
+	border-image: url(:/assets/combobox/combobox_button_disabled.png);
 }
 QComboBox QAbstractItemView {
 	background-color: black;
@@ -273,38 +306,7 @@ QComboBox QAbstractItemView {
     <string>Biases the generator's frequency by the number halfsteps here.</string>
    </property>
    <property name="styleSheet">
-    <string notr="true">QSpinBox {
-	color: cyan;
-	border-image: url(:/spinbox/spinbox_frame.png);
-}
-QSpinBox:hover {
-	border-image: url(:/spinbox/spinbox_frame_hover.png);
-}
-QSpinBox:focus {
-	border-image: url(:/spinbox/spinbox_frame_edit.png);
-}
-QSpinBox::up-button {
-	height: 11px;
-	width: 20px;
-	border-image: url(:/spinbox/spinbox_upper_idle.png);
-}
-QSpinBox::down-button {
-	height: 11px;
-	width: 20px;
-	border-image: url(:/spinbox/spinbox_lower_idle.png);
-}
-QSpinBox::up-button:hover {
-	border-image: url(:/spinbox/spinbox_upper_hover.png);
-}
-QSpinBox::up-button:pressed {
-	border-image: url(:/spinbox/spinbox_upper_pressed.png);
-}
-QSpinBox::down-button:hover {
-	border-image: url(:/spinbox/spinbox_lower_hover.png);
-}
-QSpinBox::down-button:pressed {
-	border-image: url(:/spinbox/spinbox_lower_pressed.png);
-}</string>
+    <string notr="true"/>
    </property>
    <property name="prefix">
     <string/>
@@ -324,7 +326,7 @@ QSpinBox::down-button:pressed {
    </property>
    <property name="styleSheet">
     <string notr="true">QGraphicsView {
-	border-image: url(:/popups/basicgener_backdrop.png);
+	border-image: url(:/assets/popups/basicgener_popup.png);
 }</string>
    </property>
   </widget>
@@ -491,8 +493,6 @@ QSpinBox::down-button:pressed {
   <zorder>waveTypeBox</zorder>
   <zorder>waveTypeLabel</zorder>
  </widget>
- <resources>
-  <include location="../../resources.qrc"/>
- </resources>
+ <resources/>
  <connections/>
 </ui>
