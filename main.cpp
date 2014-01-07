@@ -18,7 +18,7 @@
 */
 
 #include <QApplication>
-#include <QCleanlooksStyle>
+#include <QStyleFactory>
 
 #include "ui/sbmain/soundbenchmain.h"
 #include "printhelp.h"
@@ -30,7 +30,7 @@ jack_status_t sb::JackBase::stat = static_cast<jack_status_t>(0);
 
 int main(int argc, char *argv[]) {
     QApplication a(argc, argv);
-    a.setStyle(new QCleanlooksStyle);
+    a.setStyle(QStyleFactory::create("Fusion"));
 
     //Parse some arguments.
     std::string arg;

@@ -20,7 +20,7 @@
 #ifndef ERRORPOPUP_H
 #define ERRORPOPUP_H
 
-#include <QtWidgets/QDialog>
+#include <QDialog>
 
 #include "problemfix.h"
 
