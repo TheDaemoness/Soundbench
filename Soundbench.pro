@@ -148,7 +148,7 @@ noRtMidi {
     LIBS += -ljack
 }
 noJack {
-    DEFINES += NO_RTMIDI
+    DEFINES += NO_JACK
 }
 
 
