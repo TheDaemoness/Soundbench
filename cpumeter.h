@@ -67,7 +67,7 @@ public slots:
         if (!progressmode) {
             teimer->stop();
             affectedbar->setStyleSheet("QProgressBar::chunk {\n"
-                                       "background-image: url(:/meters/cpumeter_progress.png);\n"
+                                       "background-image: url(:/assets/cpumeter/cpumeter_progress.png);\n"
                                        "background-position: center left;\n"
                                        "background-repeat: 0;\n"
                                        "}");
@@ -82,7 +82,7 @@ private slots:
     void restyleCPUMeter() {
         if((affectedbar->value() >= 750) && !warning && !alternate) {
             affectedbar->setStyleSheet("QProgressBar::chunk {\n"
-                                       "background-image: url(:/meters/cpumeter_warn.png);\n"
+                                       "background-image: url(:/assets/cpumeter/cpumeter_warn.png);\n"
                                        "background-position: center left;\n"
                                        "background-repeat: 0;\n"
                                        "}");
@@ -96,14 +96,14 @@ private slots:
         }
         else if ((affectedbar->value() >= 900) && warning && !alternate) {
             affectedbar->setStyleSheet("QProgressBar::chunk {\n"
-                                       "background-image: url(:/meters/cpumeter_red.png);\n"
+                                       "background-image: url(:/assets/cpumeter/cpumeter_red.png);\n"
                                        "background-position: center left;\n"
                                        "background-repeat: 0;\n"
                                        "}");alternate = true;
         }
         else if ((affectedbar->value() <= 850) && warning && alternate) {
             affectedbar->setStyleSheet("QProgressBar::chunk {\n"
-                                       "background-image: url(:/meters/cpumeter_warn.png);\n"
+                                       "background-image: url(:/assets/cpumeter/cpumeter_warn.png);\n"
                                        "background-position: center left;\n"
                                        "background-repeat: 0;\n"
                                        "}");
