@@ -114,7 +114,7 @@ private:
     sb::Emitter* em;
     sb::Player* plai;
 
-    QShortcut *sc_new, *sc_open, *sc_export, *sc_save;
+    QShortcut *sc_new, *sc_open, *sc_save_as, *sc_save, *sc_import, *sc_export;
 
     std::string datadir;
 

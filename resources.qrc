@@ -68,5 +68,7 @@
         <file>assets/popups/error_popup.png</file>
         <file>assets/popups/gentype_popup.png</file>
         <file>assets/popups/warning_popup.png</file>
+        <file>sbbanner.png</file>
+        <file>sbicon.png</file>
     </qresource>
 </RCC>

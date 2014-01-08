@@ -69,7 +69,8 @@ HEADERS += architect/architect.h \
     sampletable/periodictable.h \
     sampletable/sampletablebase.h \
     sampletable/playbacktable.h \
-    util/ticker.h
+    util/ticker.h \
+    synth/synthbase.h
 
 FORMS += errorpopup.ui \
     ui/sbmain/soundbenchmain.ui \

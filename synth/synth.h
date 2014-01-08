@@ -20,33 +20,15 @@
 #ifndef SYNTH_H
 #define SYNTH_H
 
-#include "soundbases.h"
-
+#include "synthbase.h"
 #include <chrono>
 #include <thread>
 
 namespace sb {
 
-    enum ThreadLevel {
-        ThreadingNone = 0,
-        ThreadingChannelwise = 1,
-        ThreadingPartial = 2
-    };
-
     class Architect;
 
-    /*
-        WARNING: This enum is *very* close to conflicting with the one on midienums.h.
-
-        Although they are in different namespaces, for the sake of avoiding confusion, please try to keep the names in each one different.
-    */
-    enum SupportedPedals {
-        NoPedal,
-        Hold,
-        Sustenuto
-    };
-
-    class Synth {
+    class Synth : public SynthBase {
     public:
         Synth();
         void noteOn(int halfsteps, SbSample amp);
@@ -61,8 +43,7 @@ namespace sb {
         void setPolyphony(uint8_t);
         void updateSamplingRate();
 
-        inline SbSample& volume() {return vol;}
-        inline ThreadLevel getThreadLevel() {return tlevel;}
+        uint8_t channel_count() {return sb::InternalChannels;}
 
         friend class Architect;
 
@@ -86,10 +67,8 @@ namespace sb {
 
         bool holdped, sustped;
 
-        SbSample vol;
         uint8_t currentpoly;
         size_t inactivechans;
-        ThreadLevel tlevel;
     };
 }
 

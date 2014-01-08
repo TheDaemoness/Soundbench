@@ -192,7 +192,7 @@
   </property>
   <property name="windowIcon">
    <iconset>
-    <normaloff>:/icons/sbicon.png</normaloff>:/icons/sbicon.png</iconset>
+    <normaloff>../../sbicon.png</normaloff>../../sbicon.png</iconset>
   </property>
   <property name="windowOpacity">
    <double>0.950000000000000</double>
@@ -1897,7 +1897,7 @@ Several audio editing utilities support this sampling rate.</string>
        </rect>
       </property>
       <property name="prefix">
-       <string> </string>
+       <string/>
       </property>
       <property name="minimum">
        <number>1</number>
@@ -1916,7 +1916,7 @@ Several audio editing utilities support this sampling rate.</string>
        </rect>
       </property>
       <property name="prefix">
-       <string> </string>
+       <string/>
       </property>
       <property name="minimum">
        <number>1</number>
@@ -1935,7 +1935,7 @@ Several audio editing utilities support this sampling rate.</string>
        </rect>
       </property>
       <property name="prefix">
-       <string> </string>
+       <string/>
       </property>
       <property name="minimum">
        <number>1</number>
@@ -1954,7 +1954,7 @@ Several audio editing utilities support this sampling rate.</string>
        </rect>
       </property>
       <property name="prefix">
-       <string> </string>
+       <string/>
       </property>
       <property name="minimum">
        <number>1</number>

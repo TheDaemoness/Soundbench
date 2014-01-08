@@ -35,6 +35,10 @@ namespace sb {
         void start();
         void stop();
 
+        bool isRunning() {
+            return rta.isStreamRunning();
+        }
+
         size_t getDefaultDevice(){
             return rta.getDefaultOutputDevice();
         }

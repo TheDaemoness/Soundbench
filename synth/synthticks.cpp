@@ -82,6 +82,7 @@ namespace sb {
             }
             break;
         case ThreadingPartial:
+        default:
         case ThreadingNone:
             for(uint8_t i = 0; i < InternalChannels; ++i) {
                 SbSample buff[OutChannels];
@@ -132,6 +133,7 @@ namespace sb {
             }
             break;
         case ThreadingPartial:
+        default:
         case ThreadingNone:
             for(uint8_t er = 0; er < InternalChannels; ++er) {
                 SbSample buff[2];

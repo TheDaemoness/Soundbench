@@ -40,6 +40,8 @@ namespace sb {
             tlevel = ThreadingNone;
         else if(QThread::idealThreadCount() == InternalChannels)
             tlevel = ThreadingChannelwise;
+        else if(QThread::idealThreadCount() > InternalChannels)
+            tlevel = ThreadingChannelwise;
 
         for (size_t ate = 0; ate < InternalChannels; ++ate) {
             gener[ate] = nullptr;

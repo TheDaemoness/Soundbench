@@ -39,7 +39,8 @@ SoundbenchMain::SoundbenchMain(QWidget *parent) : QMainWindow(parent) {
     sc_new = new QShortcut(QKeySequence("Ctrl+N"),this);
     sc_open = new QShortcut(QKeySequence("Ctrl+O"),this);
     sc_save = new QShortcut(QKeySequence("Ctrl+S"),this);
-    sc_export = new QShortcut(QKeySequence("Ctrl+Shift+S"),this);
+    sc_save_as = new QShortcut(QKeySequence("Ctrl+Shift+S"),this);
+    sc_import = new QShortcut(QKeySequence("Ctrl+I"),this);
 }
 
 void SoundbenchMain::delayedConstructor() {
@@ -47,10 +48,12 @@ void SoundbenchMain::delayedConstructor() {
 
     syn = new sb::Synth;
     std::cerr << "Threading Level: ";
-    if(syn->getThreadLevel() == sb::ThreadingNone)
-        std::cerr << "None\n";
+    if(syn->getThreadLevel() == sb::ThreadingPartial)
+        std::cerr << "Partial\n";
     else if(syn->getThreadLevel() == sb::ThreadingChannelwise)
         std::cerr << "Channelwise\n";
+    else
+        std::cerr << "None\n";
 
     em = new sb::Emitter(syn);
     met = new CpuMeter(ui->cpuMeter,ui->cpuLabel);
@@ -183,7 +186,7 @@ void SoundbenchMain::delayedConstructor() {
     connect(sc_new,SIGNAL(activated()),SLOT(resetBlueprint()));
     connect(sc_open,SIGNAL(activated()),SLOT(loadExternalPreset()));
     connect(sc_save,SIGNAL(activated()),SLOT(savePreset()));
-    connect(sc_export,SIGNAL(activated()),SLOT(exportPreset()));
+    connect(sc_save_as,SIGNAL(activated()),SLOT(exportPreset()));
 
     //Connect and setup the Setup page widgets.
     initSetupPage();

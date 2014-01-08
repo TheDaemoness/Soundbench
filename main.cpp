@@ -49,6 +49,8 @@ int main(int argc, char *argv[]) {
     if (arg == "--version" || arg == "-v")
         return 0;
 
+    std::cout.flush();
+
     SoundbenchMain w;
     w.delayedConstructor();
 
