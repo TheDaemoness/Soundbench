@@ -783,7 +783,7 @@ Save the preset as another file.</string>
        </rect>
       </property>
       <property name="toolTip">
-       <string>Export a sound or MIDI file using the specified tune.</string>
+       <string>Export a sound file using the specified tune.</string>
       </property>
       <property name="text">
        <string>Export</string>
@@ -848,7 +848,7 @@ Save the preset as another file.</string>
        </font>
       </property>
       <property name="toolTip">
-       <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Coming in version 0.3.0.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+       <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Play the specified track using the current settings for the synthesizer.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
       </property>
       <property name="styleSheet">
        <string notr="true"/>

@@ -66,7 +66,6 @@ namespace sb {
 
         void setEmitterType(EmitterType);
 
-
         bool doesBackendUsePorts() {
             if (backend != nullptr)
                 return backend->usesPorts();

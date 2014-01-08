@@ -41,6 +41,7 @@ SoundbenchMain::SoundbenchMain(QWidget *parent) : QMainWindow(parent) {
     sc_save = new QShortcut(QKeySequence("Ctrl+S"),this);
     sc_save_as = new QShortcut(QKeySequence("Ctrl+Shift+S"),this);
     sc_import = new QShortcut(QKeySequence("Ctrl+I"),this);
+    sc_export = new QShortcut(QKeySequence("Ctrl+E"),this);
 }
 
 void SoundbenchMain::delayedConstructor() {
@@ -183,10 +184,14 @@ void SoundbenchMain::delayedConstructor() {
     connect(ui->presetLine,SIGNAL(textEdited(QString)),SLOT(displayPresets()));
     if (ui->mainTabs->currentIndex() == 0)
         ui->presetLine->grabKeyboard();
+
+    //Connect the shortcuts.
     connect(sc_new,SIGNAL(activated()),SLOT(resetBlueprint()));
     connect(sc_open,SIGNAL(activated()),SLOT(loadExternalPreset()));
     connect(sc_save,SIGNAL(activated()),SLOT(savePreset()));
     connect(sc_save_as,SIGNAL(activated()),SLOT(exportPreset()));
+    connect(sc_import,SIGNAL(activated()),SLOT(importOpen()));
+    connect(sc_export,SIGNAL(activated()),SLOT(exportOpen()));
 
     //Connect and setup the Setup page widgets.
     initSetupPage();
