@@ -25,6 +25,8 @@
 namespace sb {
 
     Emitter::Emitter(Synth* s) {
+        for(int i = 0; i < SupportedRatesCount; ++i)
+            supported_rates[SupportedRates[i]] = false;
 #ifdef NO_AUDIOBACKEND
         std::cerr << "Soundbench was compiled without any audio backends.\n";
         em_type = NoEmitter;

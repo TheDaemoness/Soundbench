@@ -52,19 +52,17 @@ RtAudioBackend::RtAudioBackend(Synth* syns, size_t& srate, std::map<size_t,bool>
     syn = syns;
     sampling_rate = srate;
     params.nChannels = chans;
-    devic = rta.getDefaultOutputDevice();
+    params.deviceId = rta.getDefaultOutputDevice();
     bufflen = sampling_rate/100;
 
     rta.showWarnings(false);
 
-    for(auto& pear : supported_rates) {
+    for(auto& pear : supported_rates)
         pear.second = false;
-        for(uint32_t srat : rta.getDeviceInfo(devic).sampleRates) {
-            if (srat == pear.first) {
-                pear.second = true;
-                break;
-            }
-        }
+
+    for(uint32_t srat : rta.getDeviceInfo(params.deviceId).sampleRates) {
+        if (supported_rates.count(srat))
+            supported_rates[srat] = true;
     }
 
     ready = true;
@@ -73,7 +71,7 @@ RtAudioBackend::RtAudioBackend(Synth* syns, size_t& srate, std::map<size_t,bool>
 void RtAudioBackend::start() {
     try {
         if (!rta.isStreamOpen())
-            rta.openStream(&params,NULL,RTAUDIO_FLOAT32,sampling_rate,&bufflen,callback,reinterpret_cast<void*>(syn));
+            rta.openStream(&params,nullptr,RTAUDIO_FLOAT32,sampling_rate,&bufflen,callback,reinterpret_cast<void*>(syn));
         if(!rta.isStreamRunning())
             rta.startStream();
         running = true;

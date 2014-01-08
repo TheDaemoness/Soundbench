@@ -39,7 +39,7 @@ namespace sb {
             return rta.getDefaultOutputDevice();
         }
         size_t getCurrentDevice() {
-            return devic;
+            return params.deviceId;
         }
 
         void setSamplingRate(size_t neorate) {
@@ -54,9 +54,9 @@ namespace sb {
         void setDevice(uint32_t dev) {
             stop();
             if (!dev)
-                devic = rta.getDefaultOutputDevice();
+                params.deviceId = rta.getDefaultOutputDevice();
             else
-                devic = dev;
+                params.deviceId = dev;
             if(rta.isStreamOpen())
                 rta.closeStream();
             rta.openStream(&params,NULL,RTAUDIO_FLOAT32,sampling_rate,&bufflen,callback,reinterpret_cast<void*>(syn));
@@ -68,7 +68,6 @@ namespace sb {
         uint32_t bufflen;
         RtAudio::StreamParameters params;
         RtAudio rta;
-        uint32_t devic;
     };
 }
 #else
