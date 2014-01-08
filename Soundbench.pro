@@ -13,12 +13,16 @@ QMAKE_CXXFLAGS += -std=c++11
 DEFINES += IS_SOUNDBENCH
 
 TEMPLATE = app
+TARGET = Soundbench
 DEPENDPATH += .
 
 unix: INCLUDEPATH += /usr/include/
+unix: INCLUDEPATH += /usr/local/include/
 unix: LIBS += -L/usr/lib/
+unix: LIBS += -L/usr/local/lib/
 
 macx: INCLUDEPATH += /Library/Developer/CommandLineTools/usr/lib/c++/v1/
+macx: LIBS += -lc++
 
 # Input
 HEADERS += architect/architect.h \

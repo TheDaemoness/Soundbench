@@ -29,14 +29,9 @@ namespace sb {
         PlaybackSampleTable();
 
         SbSample tick(size_t pos = 0);
-        void setIterator(float freq, SbSample amp, size_t pos) {
 
-        }
-
-        void setIteratorOffset(size_t loc, size_t offset = 0) {
-            if(loc < tickles.size())
-                tickles[loc].setPos(offset);
-        }
+        void setIterator(float freq, SbSample amp, size_t pos);
+        void setIteratorOffset(size_t loc, size_t offset = 0);
 
         inline size_t getIteratorCount() {
             return this->tickles.size();
@@ -45,9 +40,7 @@ namespace sb {
             return samples.size();
         }
 
-        void resetIterator(size_t pos) {
-            tickles[pos].reset();
-        }
+        void resetIterator(size_t pos);
 
         void setSample(size_t loc, SbSample val) {
             if(loc < samples.size())

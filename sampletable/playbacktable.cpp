@@ -48,6 +48,7 @@ namespace sb {
     }
 
     void PlaybackSampleTable::setIteratorOffset(size_t pos, size_t offset) {
-
+        if(pos < tickles.size())
+            tickles[pos].setPos(offset);
     }
 }

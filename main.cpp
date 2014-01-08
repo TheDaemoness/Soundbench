@@ -25,8 +25,11 @@
 
 size_t sb::global_srate;
 sb::Synth* sb::midi::nodes::MIDIEventNode::synref;
+
+#ifndef NO_JACK
 jack_client_t* sb::JackBase::cli = nullptr;
 jack_status_t sb::JackBase::stat = static_cast<jack_status_t>(0);
+#endif
 
 int main(int argc, char *argv[]) {
     QApplication a(argc, argv);

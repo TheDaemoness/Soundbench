@@ -22,6 +22,11 @@
 
 #include <thread>
 
+#ifdef SB_ENV_MACOS
+#include <mach/clock.h>
+#include <mach/mach.h>
+#endif
+
 MeterUpdater::MeterUpdater(QProgressBar* bare, QObject *parent) :
     QObject(parent)
 {
@@ -37,11 +42,26 @@ void MeterUpdater::update() {
     time = ruse.ru_utime.tv_usec + ruse.ru_utime.tv_sec*1000000;
 
     //Ignore this thread.
+#ifdef SB_ENV_MACOS
+
+#else
+
     getrusage(RUSAGE_THREAD,&ruse);
+#endif
     time -= ruse.ru_utime.tv_usec + ruse.ru_utime.tv_sec*1000000;
 
     //Get total system time.
+#ifdef SB_ENV_MACOS // OS X does not have clock_gettime, use clock_get_time
+    clock_serv_t cclock;
+    mach_timespec_t mts;
+    host_get_clock_service(mach_host_self(), CALENDAR_CLOCK, &cclock);
+    clock_get_time(cclock, &mts);
+    mach_port_deallocate(mach_task_self(), cclock);
+    dust.tv_sec = mts.tv_sec;
+    dust.tv_nsec = mts.tv_nsec;
+#else
     clock_gettime(CLOCK_REALTIME,&dust);
+#endif
     totaltime = dust.tv_nsec/1000 + dust.tv_sec*1000000;
 
     //A bit of value averaging.
@@ -58,8 +78,8 @@ void MeterUpdater::update() {
 }
 #elif defined(SB_ENV_WNDOS)
 static uint64_t filetime_to_ull(const FILETIME &ft) {
-  uint64_t hi=ft.dwHighDateTime;
-  return (uint64_t)(ft.dwLowDateTime)|(hi<<32);
+    uint64_t hi=ft.dwHighDateTime;
+    return (uint64_t)(ft.dwLowDateTime)|(hi<<32);
 }
 
 void MeterUpdater::update() {
