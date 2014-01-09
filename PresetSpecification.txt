@@ -31,9 +31,9 @@ General format:
 SoundbenchPreset <preset_version> <name> <artist> <description> <channels> <chan_arguments>
 
 preset_version: A two-byte long integer storing the version of the preset to allow Soundbench to recognize older files.
-name: A byte array storing the preset's name.
-artist: A byte array sorting the artist's name.
-description: A byte array sorting a short description of the preset.
+name: A byte array storing the preset's name (ASCII-encoded).
+artist: A byte array sorting the artist's name (ASCII-encoded).
+description: A byte array sorting a short description of the preset (ASCII-encoded).
 channels: A multi-element field that indicates which generators and effects to load.
 chan_arguments: An array of records that store arguments to the generators and channels to set their individual settings.
 
