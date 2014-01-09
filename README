@@ -1,16 +1,17 @@
 To build Soundbench, you have to make absolutely sure you have the following:
         A (mostly) C++11 compliant compiler. The following compilers have been tested and are known to work:
-            g++ 4.6.3
-            clang++ 3.1
+            g++ 4.7.0
+            clang++ 3.2
         qmake
-        libqt (version 4.7+)
+        libqt (version 5.0+)
 	libsndfile
 
 In addition, the following are strongly recommended:
         One or more of the following:
-            RtAudio
+            RtAudio (version 4+)
             PortAudio (version 19+)
         RtMidi (version 2.0+)
+        JACK Audio Connection Kit (1 or 2, 2 is preferred)
 
 ===BUILDING ON *NIX===
 All you need to do is open a terminal and type the following:
@@ -20,43 +21,30 @@ All you need to do is open a terminal and type the following:
 
 Your executable will be in the same directory and will be named "Soundbench". Have fun!
 
-
-===ON BUILDING WITH CLANG===
-If you're going to build Soundbench with clang, then as at the time of writing qmake doesn't have a spec file for clang++, you will have to use few extra steps.
-
-In addition to the above prerequisites, we recommend having LLVM's libc++ as clang++ doesn't play too nicely with libstdc++.
-
-If g++ is your defualt C++ compiler, then open a terminal, and type the following
-	cd path/to/the/code
-	qmake
-
-Then open the resulting Makefile in your favorite text-editing program, and do the following:
-	Change lines 11, 12, and 17 to use clang and clang++ instead of gcc and g++, respectively.
-	Add the flag -stdlib=libc++ to list of flags on lines 15 and 18.
-
-Go back to your terminal (assuming it's still open) and type 'make'. If it's not open, reopen it and type
-	cd path/to/the/code
-	make
-
-Your project should be now built! Congrats!
-
-
 ===BUILDING ON WINDOWS===
-We highly recommend using Cygwin, as some parts of this program aren't fully functional without the POSIX APIs.
-
 Instructions on how to build on Windows will be provided soon.
 
 If attempting to build on Windows, we recommend doing so without PortAudio as apparently it is rather difficult to compile.
 
 
+===OS X NOTES===
+Currently, the CPU meter is broken on OS X.
+
+If there are problems compiling libsndfile due to a missing Carbon header in sndfile-play, removing the line:
+#include <Carbon.h> 
+...from the offending file may fix the problem.
+
 ===CONFIGURATIONS===
 Soundbench does have a few configurations that allow the user to disable one or more features in exchange for a removed dependency.
 
 noPortAudio
-Remove PortAudio. This will remove Soundbench's default audio backend.
+Remove PortAudio.
 
 noRtAudio
-Remove RtAudio. This will remove Soundbench's fallback audio backend.
+Remove RtAudio. This will remove Soundbench's default audio backend.
+
+noJack
+Remove JACK. Soundbench may still work with JACK if one of the other APIs is compiled to use it.
 
 noRtMidi
-Remove RtMidi. As of the 0.3.0 development branch, this will disable all real-time Midi input, as there is no alternative note input frontend.
+Remove RtMidi. This will remove Soundbench's default MIDI frontend.
