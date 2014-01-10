@@ -45,17 +45,34 @@ SoundbenchMain::SoundbenchMain(QWidget *parent) : QMainWindow(parent) {
 }
 
 void SoundbenchMain::delayedConstructor() {
+    if(sb::isLittleEndian())
+        std::cerr << "System is little-endian.\n";
+    else {
+        std::cerr << "System is big-endian.\n";
+        WarningPopup* p = new WarningPopup(nullptr);
+        p->setWarningText("System is Big-Endian");
+        p->setInfoText("Soundbench has detected that it is running on a big-endian system.\n"
+                       "While this will not interfere with most of Soundbench's functions, at the present, presets saved on big-endian machines are incompatible with those saved on little-endian machines.");
+        p->exec();
+        if(!p->fixed()) {
+            delete p;
+            AbortSoundbench();
+        }
+        delete p;
+    }
+
     sb::global_srate = sb::SupportedRates[1];
 
     syn = new sb::Synth;
-    std::cerr << "Threading Level:\n";
+    std::cerr << "Threading Level: ";
     if(syn->getThreadLevel() & sb::ThreadingChannelwise)
-        std::cerr << "Per Audio Channel\n";
+        std::cerr << "\nPer Audio Channel.";
     if(syn->getThreadLevel() & sb::ThreadingGenerators)
-        std::cerr << "Per Generator\n";
+        std::cerr << "\nPer Generator.";
     if(syn->getThreadLevel() == sb::ThreadingNone)
-        std::cerr << "None\n";
-    std::cerr << std::endl;
+        std::cerr << "None." << std::endl;
+    else
+        std::cerr << std::endl;
 
     em = new sb::Emitter(syn);
     met = new CpuMeter(ui->cpuMeter,ui->cpuLabel);

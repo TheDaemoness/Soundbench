@@ -28,13 +28,20 @@ A type field is a 1-byte field that indicates the amount and type of data after 
 ~~~~~~~~~~~~~~~~~
 
 General format:
-SoundbenchPreset <preset_version> <name> <artist> <description> <channels> <chan_arguments>
+<header> <preset_version> <name> <artist> <description> <channels> <chan_arguments>
+
+header: A 16-character ASCII string that reads either SoundbenchPreset for presets made on little-endian machines, or PresetSoundbench for presets made on big-endian machines.
 
 preset_version: A two-byte long integer storing the version of the preset to allow Soundbench to recognize older files.
+
 name: A byte array storing the preset's name (ASCII-encoded).
+
 artist: A byte array sorting the artist's name (ASCII-encoded).
+
 description: A byte array sorting a short description of the preset (ASCII-encoded).
+
 channels: A multi-element field that indicates which generators and effects to load.
+
 chan_arguments: An array of records that store arguments to the generators and channels to set their individual settings.
 
 ~~~~~~~~~~~~~~~~~
@@ -49,7 +56,7 @@ effects#_array: A series of 4 bytes storing the types of effects, in order.
 
 ~~~~~~~~~~~~~~~~~
 
-Channel arguents section:
+Channel arguements section:
 
 This is an array of argument fields (read: NOT A BYTE ARRAY). These will be passed via ctrl() to each Channel element.
 The array does not store its own size, but is terminated by a special element.

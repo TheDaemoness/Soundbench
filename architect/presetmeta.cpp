@@ -39,7 +39,12 @@ namespace sb {
             return PresetMeta();
         }
 
-        std::string magicheader("SoundbenchPreset");
+        std::string magicheader;
+        if(sb::isLittleEndian())
+            magicheader = "SoundbenchPreset";
+        else
+            magicheader = "PresetSoundbench";
+
         for (char c : magicheader) {
             if(in->get() != c) {
                 std::cerr << path << " is not a valid preset. Aborting...\n";

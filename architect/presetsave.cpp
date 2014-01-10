@@ -28,7 +28,10 @@ namespace sb {
             return PresetMeta();
         }
         PresetMeta toreturn;
-        river.write("SoundbenchPreset",16);
+        if(sb::isLittleEndian())
+            river.write("SoundbenchPreset",16);
+        else
+            river.write("PresetSoundbench",16);
 
         uint16_t ver = SB_PRESET_VERSION;
         river.write(reinterpret_cast<char*>(&ver),2);

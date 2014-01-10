@@ -32,6 +32,12 @@
 
 namespace sb {
 
+    inline bool isLittleEndian() {
+        uint16_t number = 0x1;
+        uint8_t *numPtr = reinterpret_cast<uint8_t*>(&number);
+        return (numPtr[0] == 1);
+    }
+
     struct PresetMeta {
         std::string path;
         std::string name;
