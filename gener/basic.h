@@ -48,7 +48,7 @@ namespace sb {
         void noteOff(size_t pos);
         void reset();
         void setPolymorphism(size_t poly);
-        void tick(float *sample, size_t chans);
+        void tick(SbSample *sample, size_t chans);
         void updateSamplingRate();
     };
 }

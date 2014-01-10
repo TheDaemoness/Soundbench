@@ -39,8 +39,9 @@ namespace sb {
     }
 
     void Synth::channel_tick(uint8_t ic, SbSample *frame) {
-        if (gener[ic] != nullptr)
+        if (gener[ic] != nullptr) {
             gener[ic]->tick(frame, OutChannels);
+        }
         else {
             for (size_t z = 0; z < OutChannels; ++z)
                 frame[z] = SbSampleZero;
@@ -55,33 +56,8 @@ namespace sb {
         for (size_t i = 0; i < framecount*OutChannels; ++i)
             frames[i] = SbSampleZero;
 
-        auto singleChannelCallback = [&,this](uint8_t chan) {
-            SbSample buff[OutChannels];
-            for(size_t p = 0; p < framecount*OutChannels; p+=OutChannels)  {
-                channel_tick(chan,buff);
-                for(size_t et = 0; et < OutChannels; ++et) {
-                    frames[p+et] += buff[et];
-                }
-            }
-        };
-
         switch(tlevel) {
         case ThreadingChannelwise:
-            std::thread* t[InternalChannels];
-            for (uint8_t ie = 0; ie < InternalChannels; ++ie) {
-                if (gener[ie] != nullptr)
-                    t[ie] = new std::thread(singleChannelCallback,ie);
-                else
-                    t[ie] = nullptr;
-            }
-            for (uint8_t i = 0; i < InternalChannels; ++i) {
-                if (t[i] != nullptr) {
-                    t[i]->join();
-                    delete t[i];
-                }
-            }
-            break;
-        case ThreadingPartial:
         default:
         case ThreadingNone:
             for(uint8_t i = 0; i < InternalChannels; ++i) {
@@ -94,11 +70,10 @@ namespace sb {
             }
             break;
         }
-        if (inactivechans != InternalChannels) {
-            for (size_t out = 0; out < OutChannels; ++out) {
+        for (size_t out = 0; out < OutChannels*framecount; ++out) {
+            if(inactivechans != InternalChannels)
                 frames[out] /= (InternalChannels-inactivechans); //Correctly average the signal from the running channels.
-                frames[out] *= vol; //Apply the master volume.
-            }
+            frames[out] *= vol; //Apply the master volume.
         }
     }
     void Synth::uninterleaved_blocks(SbSample *lframes, SbSample *rframes, size_t framecount) {
@@ -118,21 +93,6 @@ namespace sb {
 
         switch(tlevel) {
         case ThreadingChannelwise:
-            std::thread* t[InternalChannels];
-            for (uint8_t ie = 0; ie < InternalChannels; ++ie) {
-                if (gener[ie] != nullptr)
-                    t[ie] = new std::thread(singleChannelCallback,ie);
-                else
-                    t[ie] = nullptr;
-            }
-            for (uint8_t i = 0; i < InternalChannels; ++i) {
-                if (t[i] != nullptr) {
-                    t[i]->join();
-                    delete t[i];
-                }
-            }
-            break;
-        case ThreadingPartial:
         default:
         case ThreadingNone:
             for(uint8_t er = 0; er < InternalChannels; ++er) {
@@ -145,13 +105,13 @@ namespace sb {
             }
             break;
         }
-        if (inactivechans != InternalChannels) {
-            for (size_t out = 0; out < OutChannels; ++out) {
+        for (size_t out = 0; out < OutChannels; ++out) {
+            if(inactivechans != InternalChannels) {
                 lframes[out] /= (InternalChannels-inactivechans); //Correctly average the signal from the running channels.
-                lframes[out] *= vol; //Apply the master volume.
                 rframes[out] /= (InternalChannels-inactivechans); //Correctly average the signal from the running channels.
-                rframes[out] *= vol; //Apply the master volume.
             }
+            lframes[out] *= vol; //Apply the master volume.
+            rframes[out] *= vol; //Apply the master volume.
         }
     }
 }

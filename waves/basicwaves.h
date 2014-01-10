@@ -20,42 +20,53 @@
 #ifndef BASICWAVES_H
 #define BASICWAVES_H
 
-#include "waves/waves.h"
+#include "waves/wavebase.h"
 
 namespace sb {
 
-    class Sine : public WaveBase {
+    class BasicWave : public WaveBase {
+    public:
+        explicit BasicWave (int sample_r) : WaveBase(sample_r) {}
+
+        virtual SbSample getRaw(float radians) = 0;
+        SbSample tick();
+        size_t getWaveLen() {
+            return this->sample_rate;
+        }
+    };
+
+    class Sine : public BasicWave {
     public:
         explicit Sine (int sample_r);
         SbSample getRaw(float radians);
 
     };
 
-    class Sawtooth : public WaveBase {
+    class Sawtooth : public BasicWave {
     public:
         explicit Sawtooth (int sample_r);
         SbSample getRaw(float radians);
     };
 
-    class Square : public WaveBase {
+    class Square : public BasicWave {
     public:
         explicit Square (int sample_r);
         SbSample getRaw(float radians);
     };
 
-    class Triangle : public WaveBase {
+    class Triangle : public BasicWave {
     public:
         explicit Triangle (int sample_r);
         SbSample getRaw(float radians);
     };
 
-    class Oval : public WaveBase {
+    class Oval : public BasicWave {
     public:
         explicit Oval (int sample_r);
         SbSample getRaw(float radians);
     };
 
-    class Peak : public WaveBase {
+    class Peak : public BasicWave {
     public:
         explicit Peak (int sample_r);
         SbSample getRaw(float radians);

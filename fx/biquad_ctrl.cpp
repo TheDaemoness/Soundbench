@@ -23,7 +23,7 @@ namespace sb {
     void BiquadFx::ctrl(ModuleParams arg, ParameterValue val) {
         switch(arg) {
         case EffectFeedback:
-            feedback = val.pod.value;
+            feedback = val.pod.decim;
             break;
         case FxBiquadType:
             typpe = static_cast<BiquadTypes>(val.pod.value);

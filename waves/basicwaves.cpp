@@ -23,13 +23,18 @@
 
 namespace sb {
 
-    Sine::Sine(int sample_r) : Sine::WaveBase(sample_r) {}
-    Sawtooth::Sawtooth(int sample_r) : Sawtooth::WaveBase(sample_r) {}
-    Square::Square(int sample_r) : Square::WaveBase(sample_r) {}
-    Triangle::Triangle(int sample_r) : Triangle::WaveBase(sample_r) {}
-    Oval::Oval(int sample_r) : Oval::WaveBase(sample_r) {}
-    Peak::Peak(int sample_r) : Peak::WaveBase(sample_r) {}
+    Sine::Sine(int sample_r) : BasicWave(sample_r) {}
+    Sawtooth::Sawtooth(int sample_r) : BasicWave(sample_r) {}
+    Square::Square(int sample_r) : BasicWave(sample_r) {}
+    Triangle::Triangle(int sample_r) : BasicWave(sample_r) {}
+    Oval::Oval(int sample_r) : BasicWave(sample_r) {}
+    Peak::Peak(int sample_r) : BasicWave(sample_r) {}
 
+    SbSample BasicWave::tick() {
+        ++samp_pos;
+        float rad = (static_cast<float>(samp_pos)/static_cast<float>(getWaveLen())*2.0F*sb::Pi);
+        return getRaw(rad);
+    }
 
     SbSample Sine::getRaw(float x) {
         return std::sin(x);

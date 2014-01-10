@@ -34,14 +34,11 @@ namespace sb {
         holdped = false;
         sustped = false;
 
-        if(QThread::idealThreadCount() < 2)
-            tlevel = ThreadingNone;
-        else if(QThread::idealThreadCount() < InternalChannels)
-            tlevel = ThreadingNone;
-        else if(QThread::idealThreadCount() == InternalChannels)
-            tlevel = ThreadingChannelwise;
-        else if(QThread::idealThreadCount() > InternalChannels)
-            tlevel = ThreadingChannelwise;
+        tlevel = ThreadingNone;
+        if(QThread::idealThreadCount() >= sb::InternalChannels)
+            tlevel |= ThreadingNone;
+        if(QThread::idealThreadCount() >= OutChannels)
+            tlevel |= ThreadingNone;
 
         for (size_t ate = 0; ate < InternalChannels; ++ate) {
             gener[ate] = nullptr;

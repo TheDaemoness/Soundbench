@@ -14,20 +14,20 @@
     You should have received a copy of the GNU General Public License
     along with Soundbench.  If not, see <http://www.gnu.org/licenses/>.
 
-    Copyright 2012  Amaya S.
+    Copyright 2014  Amaya S.
 */
 
 #ifndef SAMPLETABLE_H
 #define SAMPLETABLE_H
 
 #include "waves/basicwaves.h"
-#include "util/floatticker.h"
+#include "util/basicticker.h"
 
 namespace sb {
 
     class PeriodicSampleTable {
     public:
-        explicit PeriodicSampleTable(WaveBase* wav = nullptr, size_t mendelev = DefaultPolyphony, bool autodelete = true);
+        explicit PeriodicSampleTable(WaveBase* wav, size_t mendelev, bool autodelete = true);
         void setWaveCount (size_t its) {
             iters.resize(its);
             amps.resize(its);

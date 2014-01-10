@@ -22,13 +22,13 @@
 namespace sb {
     PeriodicSampleTable::PeriodicSampleTable(WaveBase* wav, size_t mendelev, bool autodelete) {
         if (wav == nullptr) {
-            samples.resize(global_srate,0.0);
+            samples.resize(global_srate,SbSampleZero);
             return;
         }
-        samples.reserve(global_srate);
-        float factor = Pi*2.0/global_srate;
-        for (uint32_t i = 0; i < global_srate; ++i)
-            samples.push_back(wav->getRaw(factor*i));
+        size_t wavlen = wav->getWaveLen();
+        samples.reserve(wavlen);
+        for (size_t i = 0; i < wavlen; ++i)
+            samples.push_back(wav->tick());
         if (autodelete)
             delete wav;
         setWaveCount(mendelev);
@@ -42,11 +42,11 @@ namespace sb {
     }
 
     SbSample PeriodicSampleTable::tick(size_t pos) {
-        float num = iters[pos].tick();
-        if (num >= samples.size()) {
-            num = std::fmod(num,samples.size());
-            iters[pos].setPos(num);
-        }
+        FloatTicker& it = iters[pos];
+        float num = it.getValue();
+        it.tick();
+        while (it.getValue() >= samples.size())
+            it.setPos(it.getValue()-samples.size());
         return samples[static_cast<size_t>(num)]*amps[pos];
     }
 }

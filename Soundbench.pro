@@ -35,6 +35,7 @@ HEADERS += architect/architect.h \
     midichain.h \
     backend/base.h \
     sbutilities.h \
+    sampletable/periodictable.h \
     ui/settings/basicgen.h \
     soundbases.h \
     gener/basic.h \
@@ -44,7 +45,6 @@ HEADERS += architect/architect.h \
     frontend/base.h \
     presetenums.h \
     printhelp.h \
-    waves/waves.h \
     waves/basicwaves.h \
     backend/portaudio.h \
     backend/rtaudio.h \
@@ -59,18 +59,14 @@ HEADERS += architect/architect.h \
     ui/settings/biquadfx.h \
     fx/biquad.h \
     gener/sampler.h \
-    util/floatticker.h \
-    util/intticker.h \
     util/jackbase.h \
     err/problemfix.h \
     err/errorpopup.h \
     err/warningpopup.h \
     envelope/trapezoid.h \
-    sampletable/periodictable.h \
-    sampletable/sampletablebase.h \
-    sampletable/playbacktable.h \
-    util/ticker.h \
-    synth/synthbase.h
+    synth/synthbase.h \
+    util/basicticker.h \
+    waves/wavebase.h
 
 FORMS += errorpopup.ui \
     ui/sbmain/soundbenchmain.ui \
@@ -124,8 +120,7 @@ SOURCES += \
     ui/sbmain/init/initchannels.cpp \
     gener/sampler.cpp \
     envelope/trapezoid.cpp \
-    sampletable/periodictable.cpp \
-    sampletable/playbacktable.cpp
+    sampletable/periodictable.cpp
 
 RESOURCES += \
     resources.qrc

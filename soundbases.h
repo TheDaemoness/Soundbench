@@ -32,7 +32,7 @@ namespace sb {
         SoundBase()  {}
         virtual ~SoundBase()  {}
 
-        virtual void tick(float* sample, size_t chans) = 0;
+        virtual void tick(SbSample* sample, size_t chans) = 0;
         virtual void ctrl(ModuleParams arg, ParameterValue val) = 0; //See the documentation for notes about this function.
         virtual void reset() = 0;
         virtual void updateSamplingRate() = 0;
@@ -56,12 +56,21 @@ namespace sb {
         }
         virtual ~FxBase() {}
 
-        void tick(float* sample, size_t chans) {
+        void tick(SbSample* sample, size_t chans) {
             for(size_t i = 0; i < chans; ++i)
                 sample[i] = prevframe[i]*feedback/SbSampleMax + sample[i]*(SbSampleMax-feedback)/SbSampleMax;
             internal_tick(sample,chans);
             for(size_t i = 0; i < chans; ++i)
                 prevframe[i] = sample[i];
+        }
+
+        //Soon to replace the tick function in the synthticks functions.
+        virtual void fill(SbSample* sample_buffer, size_t size, uint8_t chan_num, bool interleaved = true) {
+            for(uint8_t i = (interleaved?chan_num:0); i < size*(interleaved?OutChannels:1); i += (interleaved?OutChannels:1)) {
+                //TODO: Feedback here.
+                //TODO: Processing here.
+                //TODO: Set prevframe here.
+            }
         }
 
         virtual void ctrl(ModuleParams arg, ParameterValue val) = 0; //See the documentation for notes about this function.

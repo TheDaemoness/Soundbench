@@ -48,13 +48,14 @@ void SoundbenchMain::delayedConstructor() {
     sb::global_srate = sb::SupportedRates[1];
 
     syn = new sb::Synth;
-    std::cerr << "Threading Level: ";
-    if(syn->getThreadLevel() == sb::ThreadingPartial)
-        std::cerr << "Partial\n";
-    else if(syn->getThreadLevel() == sb::ThreadingChannelwise)
-        std::cerr << "Channelwise\n";
-    else
+    std::cerr << "Threading Level:\n";
+    if(syn->getThreadLevel() & sb::ThreadingChannelwise)
+        std::cerr << "Per Audio Channel\n";
+    if(syn->getThreadLevel() & sb::ThreadingGenerators)
+        std::cerr << "Per Generator\n";
+    if(syn->getThreadLevel() == sb::ThreadingNone)
         std::cerr << "None\n";
+    std::cerr << std::endl;
 
     em = new sb::Emitter(syn);
     met = new CpuMeter(ui->cpuMeter,ui->cpuLabel);
@@ -94,6 +95,10 @@ void SoundbenchMain::delayedConstructor() {
     if(!sbdata.exists("presets")) {
         std::cerr << "Setting up presets directory.\n";
         sbdata.mkdir("presets");
+    }
+    if(!sbdata.exists("samples")) {
+        std::cerr << "Setting up samples directory.\n";
+        sbdata.mkdir("samples");
     }
 
     //Set up the device, port, and preset lists.

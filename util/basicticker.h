@@ -14,41 +14,43 @@
     You should have received a copy of the GNU General Public License
     along with Soundbench.  If not, see <http://www.gnu.org/licenses/>.
 
-    Copyright 2012  Amaya S.
+    Copyright 2014  Amaya S.
 */
 
-#ifndef TICKER_H
-#define TICKER_H
-
-#include "sbutilities.h"
+#ifndef BASICTICKER_H
+#define BASICTICKER_H
 
 namespace sb {
-    class FloatTicker {
+    template <typename T, typename Internal = T>
+    class BasicTicker {
     private:
-        float pos;
-        float speed;
+        Internal pos;
+        Internal speed;
     public:
-        FloatTicker() {
-            pos = 0;
+        BasicTicker() {
+            reset();
             speed = 0;
         }
-        void setPos(float p) {
-            pos = p;
+        void setPos(T p) {
+            pos = static_cast<Internal>(p);
         }
-        void setSpeed(float s) {
-            speed = s;
+        void setSpeed(T s) {
+            speed = static_cast<Internal>(s);
         }
-        float tick() {
+        T tick() {
             pos += speed;
-            return pos;
+            return static_cast<T>(pos);
         }
-        float getValue() {
-            return pos;
+        T getValue() {
+            return static_cast<T>(pos);
         }
         void reset() {
             pos = 0;
         }
     };
+
+    typedef sb::BasicTicker<float> FloatTicker;
+    typedef sb::BasicTicker<int> IntTicker;
 }
 
-#endif // TICKER_H
+#endif // BASICTICKER_H
