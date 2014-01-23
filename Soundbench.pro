@@ -39,7 +39,6 @@ HEADERS += architect/architect.h \
     ui/settings/basicgen.h \
     soundbases.h \
     gener/basic.h \
-    cpumeter.h \
     midifio/midifio.h \
     sfwriter.h \
     frontend/base.h \
@@ -66,7 +65,8 @@ HEADERS += architect/architect.h \
     envelope/trapezoid.h \
     synth/synthbase.h \
     util/basicticker.h \
-    waves/wavebase.h
+    waves/wavebase.h \
+    ui/cpumeter.h
 
 FORMS += errorpopup.ui \
     ui/sbmain/soundbenchmain.ui \
@@ -120,7 +120,8 @@ SOURCES += \
     ui/sbmain/init/initchannels.cpp \
     gener/sampler.cpp \
     envelope/trapezoid.cpp \
-    sampletable/periodictable.cpp
+    sampletable/periodictable.cpp \
+    ui/cpumeter.cpp
 
 RESOURCES += \
     resources.qrc

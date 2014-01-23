@@ -26,7 +26,7 @@
 #include "architect/architect.h"
 #include "synth/synth.h"
 #include "player/player.h"
-#include "cpumeter.h"
+#include "ui/cpumeter.h"
 
 #include "ui/settings/basicgen.h"
 

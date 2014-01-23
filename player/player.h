@@ -22,7 +22,7 @@
 
 #include "midichain.h"
 #include "midifio/midifio.h"
-#include "cpumeter.h"
+#include "ui/cpumeter.h"
 #include "sfwriter.h"
 
 #include "frontend/rtmidi.h"
