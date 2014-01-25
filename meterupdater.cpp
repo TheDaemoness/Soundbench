@@ -25,6 +25,7 @@
 #ifdef SB_ENV_MACOS
 #include <mach/clock.h>
 #include <mach/mach.h>
+#include <mach/mach_time.h>
 #endif
 
 MeterUpdater::MeterUpdater(QProgressBar* bare, QObject *parent) :
@@ -38,27 +39,29 @@ MeterUpdater::MeterUpdater(QProgressBar* bare, QObject *parent) :
 #if defined(SB_ENV_POSIX)
 void MeterUpdater::update() {
     //Get the CPU time for this process.
+
+#if defined(SB_ENV_MACOS)
+    getrusage(RUSAGE_SELF,&ruse);
+#else
     getrusage(RUSAGE_SELF,&ruse);
     time = ruse.ru_utime.tv_usec + ruse.ru_utime.tv_sec*1000000;
+#endif
 
     //Ignore this thread.
-#ifdef SB_ENV_MACOS
+#if defined(SB_ENV_MACOS)
+    task_basic_info task_inf;
+    mach_msg_type_number_t dracula = TASK_BASIC_INFO_COUNT;
 
-#else
-
+    if (task_info(mach_task_self(),TASK_BASIC_INFO, (task_info_t)&task_inf, &dracula) == KERN_SUCCESS)
+        time -= task_inf.user_time.microseconds + task_inf.user_time.seconds*1000000;
+#elif defined(SB_ENV_LINUX)
     getrusage(RUSAGE_THREAD,&ruse);
-#endif
     time -= ruse.ru_utime.tv_usec + ruse.ru_utime.tv_sec*1000000;
+#endif
 
     //Get total system time.
-#ifdef SB_ENV_MACOS // OS X does not have clock_gettime, use clock_get_time
-    clock_serv_t cclock;
-    mach_timespec_t mts;
-    host_get_clock_service(mach_host_self(), CALENDAR_CLOCK, &cclock);
-    clock_get_time(cclock, &mts);
-    mach_port_deallocate(mach_task_self(), cclock);
-    dust.tv_sec = mts.tv_sec;
-    dust.tv_nsec = mts.tv_nsec;
+#ifdef SB_ENV_MACOS // OS X does not have clock_gettime
+    dust = orwl_gettime();
 #else
     clock_gettime(CLOCK_REALTIME,&dust);
 #endif
@@ -70,12 +73,32 @@ void MeterUpdater::update() {
     avgtime = time - prevtime.front();
     avgtotaltime = totaltime - prevtotaltime.front();
 
+    std::cerr << avgtime << '\t' << avgtotaltime << '\n';
+
     affectedbar->setValue(avgtime/avgtotaltime*1000.0);
-    if (prevtime.size() >= 450) { //Only one queue is checked because both queues should maintain the same size.
+    while (prevtime.size() >= 450) { //Only one queue is checked because both queues should maintain the same size.
         prevtime.pop();
         prevtotaltime.pop();
     }
 }
+#ifdef SB_ENV_MACOS
+struct timespec MeterUpdater::orwl_gettime(void) {
+  // be more careful in a multithreaded environement
+  if (!orwl_timestart) {
+    mach_timebase_info_data_t tb = { 0 };
+    mach_timebase_info(&tb);
+    orwl_timebase = tb.numer;
+    orwl_timebase /= tb.denom;
+    orwl_timestart = mach_absolute_time();
+  }
+  struct timespec t;
+  double diff = (mach_absolute_time() - orwl_timestart) * orwl_timebase;
+  t.tv_sec = diff * ORWL_NANO;
+  t.tv_nsec = diff - (t.tv_sec * ORWL_GIGA);
+  return t;
+}
+#endif
+
 #elif defined(SB_ENV_WNDOS)
 static uint64_t filetime_to_ull(const FILETIME &ft) {
     uint64_t hi=ft.dwHighDateTime;
@@ -102,7 +125,7 @@ void MeterUpdater::update() {
     avgtotaltime = totaltime - prevtotaltime.front();
 
     affectedbar->setValue(avgtime/avgtotaltime*1000.0);
-    if (prevtime.size() >= 450) { //Only one queue is checked because both queues should maintain the same size.
+    while (prevtime.size() >= 450) { //Only one queue is checked because both queues should maintain the same size.
         prevtime.pop();
         prevtotaltime.pop();
     }

@@ -42,6 +42,7 @@ private slots:
     void restyleCPUMeter();
 
 private:
+
     QProgressBar* affectedbar;
     QLabel* affectedtex;
 

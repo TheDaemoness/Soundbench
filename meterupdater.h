@@ -57,6 +57,16 @@ public slots:
 private:
     QProgressBar* affectedbar;
 
+#ifdef SB_ENV_MACOS
+    static constexpr double ORWL_NANO = +1.0E-9;
+    static constexpr uint64_t ORWL_GIGA = 1000000000;
+
+    double orwl_timebase = 0.0;
+    uint64_t orwl_timestart = 0;
+
+    timespec orwl_gettime(void);
+#endif
+
 #if defined(SB_ENV_POSIX)
     rusage ruse;
     timespec dust;
