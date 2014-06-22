@@ -1,7 +1,7 @@
-To build Soundbench, you have to make absolutely sure you have the following:
+To build Soundbench, the following are required:
         A (mostly) C++11 compliant compiler. The following compilers have been tested and are known to work:
-            g++ 4.7.0
-            clang++ 3.2
+            g++ 4.8.0
+            clang++ 3.4
         qmake
         libqt (version 5.0+)
 	libsndfile
@@ -9,13 +9,13 @@ To build Soundbench, you have to make absolutely sure you have the following:
 In addition, the following are strongly recommended:
         One or more of the following:
             RtAudio (version 4+)
-            PortAudio (version 19+)
-        RtMidi (version 2.0+)
+            PortAudio (version 19+, deprecated)
+        RtMidi (version 2.0+, may not work on OS X)
         JACK Audio Connection Kit (1 or 2, 2 is preferred)
 
 ===BUILDING ON *NIX===
 All you need to do is open a terminal and type the following:
-	cd path/to/the/code
+	cd path/to/the/src
 	qmake
 	make
 
@@ -24,8 +24,9 @@ Your executable will be in the same directory and will be named "Soundbench". Ha
 ===BUILDING ON WINDOWS===
 Instructions on how to build on Windows will be provided soon.
 
-If attempting to build on Windows, we recommend doing so without PortAudio as apparently it is rather difficult to compile.
+Building, however, shouldn't vary too much from the procedure for building on *NIXes.
 
+If attempting to build on Windows, building without PortAudio is strongly recommended. It's apparently a living hell to set up on Windows.
 
 ===OS X NOTES===
 Currently, the CPU meter is broken on OS X.
@@ -34,8 +35,8 @@ If there are problems compiling libsndfile due to a missing Carbon header in snd
 #include <Carbon.h> 
 ...from the offending file may fix the problem.
 
-===CONFIGURATIONS===
-Soundbench does have a few configurations that allow the user to disable one or more features in exchange for a removed dependency.
+===COMPILE-TIME CONFIGURATION SWITCHES===
+Soundbench does have a few qmake variables that allow the user to disable one or more features in exchange for a removed dependency.
 
 noPortAudio
 Remove PortAudio.
