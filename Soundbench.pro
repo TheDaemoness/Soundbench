@@ -26,13 +26,11 @@ macx: LIBS += -lc++
 
 # Input
 HEADERS += architect/architect.h \
-    blueprint.h \
     common.h \
     emitter/emitter.h \
     ui/sbmain/soundbenchmain.h \
     meterupdater.h \
     player/player.h \
-    midichain.h \
     backend/base.h \
     sbutilities.h \
     sampletable/periodictable.h \
@@ -40,7 +38,6 @@ HEADERS += architect/architect.h \
     soundbases.h \
     gener/basic.h \
     midifio/midifio.h \
-    sfwriter.h \
     frontend/base.h \
     presetenums.h \
     printhelp.h \
@@ -48,9 +45,6 @@ HEADERS += architect/architect.h \
     backend/portaudio.h \
     backend/rtaudio.h \
     frontend/rtmidi.h \
-    midievents.h \
-    fileparsers.h \
-    filewriters.h \
     backend/jackaudio.h \
     emitter/initbackend.h \
     frontend/jackmidi.h \
@@ -66,7 +60,13 @@ HEADERS += architect/architect.h \
     synth/synthbase.h \
     util/basicticker.h \
     waves/wavebase.h \
-    ui/cpumeter.h
+    ui/cpumeter.h \
+    architect/blueprint.h \
+    util/fileparsers.h \
+    util/filewriters.h \
+    player/midichain.h \
+    util/sfwriter.h \
+    midifio/midievents.h
 
 FORMS += errorpopup.ui \
     ui/sbmain/soundbenchmain.ui \
@@ -78,19 +78,14 @@ SOURCES += \
     architect/architect.cpp \
     backend/portaudio.cpp \
     emitter/emitter.cpp \
-    errorpopup.cpp \
     main.cpp \
-    warningpopup.cpp \
     meterupdater.cpp \
     ui/settings/basicgen.cpp \
     gener/basic.cpp \
-    sfwriter.cpp \
     waves/basicwaves.cpp \
     backend/rtaudio.cpp \
     frontend/rtmidi.cpp \
-    makenode.cpp \
     ui/sbmain/mainchannels.cpp \
-    doevent.cpp \
     player/playermisc.cpp \
     player/midiinit.cpp \
     player/playerload.cpp \
@@ -121,7 +116,12 @@ SOURCES += \
     gener/sampler.cpp \
     envelope/trapezoid.cpp \
     sampletable/periodictable.cpp \
-    ui/cpumeter.cpp
+    ui/cpumeter.cpp \
+    err/errorpopup.cpp \
+    util/sfwriter.cpp \
+    synth/doevent.cpp \
+    player/makenode.cpp \
+    err/warningpopup.cpp
 
 RESOURCES += \
     resources.qrc

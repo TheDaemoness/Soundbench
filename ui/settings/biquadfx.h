@@ -22,7 +22,7 @@
 
 #include <QDialog>
 
-#include "blueprint.h"
+#include "architect/blueprint.h"
 
 namespace Ui {
     class BiquadFxSettings;

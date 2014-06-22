@@ -18,7 +18,7 @@
 */
 
 #include "architect.h"
-#include "fileparsers.h"
+#include "util/fileparsers.h"
 
 namespace sb {
 

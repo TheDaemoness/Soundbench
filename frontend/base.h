@@ -21,8 +21,8 @@
 #define FRONTEND_H
 
 #include "sbutilities.h"
-#include "midichain.h"
-#include "midievents.h"
+#include "player/midichain.h"
+#include "midifio/midievents.h"
 #include "synth/synth.h"
 
 namespace sb {

@@ -21,7 +21,7 @@
 #define MIDICHAIN_H
 
 #include "synth/synth.h"
-#include "midievents.h"
+#include "midifio/midievents.h"
 
 #include <thread>
 

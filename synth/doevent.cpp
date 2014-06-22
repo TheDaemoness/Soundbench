@@ -17,7 +17,7 @@
     Copyright 2012  Amaya S.
 */
 
-#include "midievents.h"
+#include "midifio/midievents.h"
 #include "synth/synth.h"
 
 namespace sb {
