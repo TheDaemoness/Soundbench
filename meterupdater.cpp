@@ -73,8 +73,6 @@ void MeterUpdater::update() {
     avgtime = time - prevtime.front();
     avgtotaltime = totaltime - prevtotaltime.front();
 
-    std::cerr << avgtime << '\t' << avgtotaltime << '\n';
-
     affectedbar->setValue(avgtime/avgtotaltime*1000.0);
     while (prevtime.size() >= 450) { //Only one queue is checked because both queues should maintain the same size.
         prevtime.pop();
