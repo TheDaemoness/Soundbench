@@ -20,9 +20,8 @@
 #include "player.h"
 
 namespace sb {
-    Player::Player(Synth* syn, QListWidget* tracklist, CpuMeter* themet) {
-        affectedlist = tracklist;
-        affectedmet = themet;
+	Player::Player(Synth* syn, QListWidget* tracklist) {
+		affectedlist = tracklist;
 
         reed = new midi::MidiFIO;
         first = new midi::nodes::PlayerStartNode(syn);
@@ -32,13 +31,10 @@ namespace sb {
         playing = false;
         fetype = NoMIDI;
 
-        initfrontend(syn);
-
-        connect(this,SIGNAL(progressed(int)),affectedmet,SLOT(setProgress(int)));
-        connect(this,SIGNAL(donePlaying()),SLOT(cleanThread()));
+		initfrontend(syn);
     }
-    Player::~Player() {
-        disconnect(SIGNAL(progressed(int)),affectedmet,SLOT(setProgress(int)));
+
+	Player::~Player() {
         if (first != nullptr)
             delete first;
         delete reed;

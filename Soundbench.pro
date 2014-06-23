@@ -25,15 +25,12 @@ macx: INCLUDEPATH += /Library/Developer/CommandLineTools/usr/lib/c++/v1/
 macx: LIBS += -lc++
 
 # Input
-HEADERS += architect/architect.h \
-    common.h \
-    emitter/emitter.h \
-    ui/sbmain/soundbenchmain.h \
+HEADERS += common.h \
+	emitter/emitter.h \
     player/player.h \
     backend/base.h \
     sbutilities.h \
-    sampletable/periodictable.h \
-    ui/settings/basicgen.h \
+	sampletable/periodictable.h \
     gener/basic.h \
     midifio/midifio.h \
     frontend/base.h \
@@ -46,8 +43,7 @@ HEADERS += architect/architect.h \
     backend/jackaudio.h \
     emitter/initbackend.h \
     frontend/jackmidi.h \
-    synth/synth.h \
-    ui/settings/biquadfx.h \
+	synth/synth.h \
     fx/biquad.h \
     gener/sampler.h \
     util/jackbase.h \
@@ -55,76 +51,45 @@ HEADERS += architect/architect.h \
     err/errorpopup.h \
     err/warningpopup.h \
     envelope/trapezoid.h \
-    synth/synthbase.h \
     util/basicticker.h \
-    waves/wavebase.h \
-    ui/cpumeter.h \
-    architect/blueprint.h \
+	waves/wavebase.h \
     util/fileparsers.h \
     util/filewriters.h \
     player/midichain.h \
     util/sfwriter.h \
     midifio/midievents.h \
     util/meterupdater.h \
-    synth/soundbases.h
-
-FORMS += errorpopup.ui \
-    ui/sbmain/soundbenchmain.ui \
-    warningpopup.ui \
-    ui/settings/basicgen.ui \
-    ui/settings/biquadfx.ui
+    synth/synth.h
 
 SOURCES += \
-    architect/architect.cpp \
     backend/portaudio.cpp \
     emitter/emitter.cpp \
-    main.cpp \
-    ui/settings/basicgen.cpp \
+	main.cpp \
     gener/basic.cpp \
     waves/basicwaves.cpp \
     backend/rtaudio.cpp \
-    frontend/rtmidi.cpp \
-    ui/sbmain/mainchannels.cpp \
+	frontend/rtmidi.cpp \
     player/playermisc.cpp \
     player/midiinit.cpp \
     player/playerload.cpp \
     player/playerwrite.cpp \
-    player/playerinit.cpp \
-    architect/presetload.cpp \
-    architect/presetmeta.cpp \
-    architect/presetsave.cpp \
-    ui/sbmain/mainmisc.cpp \
+	player/playerinit.cpp \
     midifio/fiomisc.cpp \
     midifio/fioread.cpp \
     midifio/fioreadopen.cpp \
     backend/jackaudio.cpp \
-    frontend/jackmidi.cpp \
-    synth/synth.cpp \
-    ui/sbmain/init/initgeneral.cpp \
-    ui/sbmain/init/initsetup.cpp \
-    ui/sbmain/mainsetup.cpp \
-    ui/sbmain/mainpresetload.cpp \
-    ui/sbmain/mainpresetsave.cpp \
-    ui/sbmain/mainpreset.cpp \
-    ui/settings/biquadfx.cpp \
+	frontend/jackmidi.cpp \
     fx/biquad.cpp \
-    fx/biquad_ctrl.cpp \
-    synth/synthticks.cpp \
-    architect/architectdefaults.cpp \
-    ui/sbmain/init/initchannels.cpp \
+	fx/biquad_ctrl.cpp \
     gener/sampler.cpp \
     envelope/trapezoid.cpp \
-    sampletable/periodictable.cpp \
-    ui/cpumeter.cpp \
+	sampletable/periodictable.cpp \
     err/errorpopup.cpp \
     util/sfwriter.cpp \
     synth/doevent.cpp \
     player/makenode.cpp \
     err/warningpopup.cpp \
     util/meterupdater.cpp
-
-RESOURCES += \
-    resources.qrc
 
 LIBS += -lsndfile
 

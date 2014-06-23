@@ -68,7 +68,7 @@ namespace sb {
     protected:
         bool ready;
         size_t sampling_rate;
-        sb::Synth* syn;
+		sb::Synth* syn;
         bool running;
     };
 

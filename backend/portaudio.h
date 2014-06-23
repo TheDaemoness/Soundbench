@@ -67,7 +67,7 @@ namespace sb {
     class PortaudioBackend : public EmitterBackend {
     public:
         static bool instantiable();
-        explicit PortaudioBackend(sb::Synth*, size_t&,std::map<size_t,bool>&,size_t) {}
+		explicit PortaudioBackend(sb::Synth*, size_t&,std::map<size_t,bool>&,size_t) {}
         size_t returnSuggestedBufferSize() {return 0;}
         ~PortaudioBackend() {}
         void start() {}

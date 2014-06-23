@@ -20,7 +20,9 @@
 #include <QApplication>
 #include <QStyleFactory>
 
-#include "ui/sbmain/soundbenchmain.h"
+#include "sbutilities.h"
+#include "synth/synth.h"
+#include "player/midichain.h"
 #include "printhelp.h"
 
 size_t sb::global_srate;
@@ -49,14 +51,9 @@ int main(int argc, char *argv[]) {
     if (arg == "--version" || arg == "-v")
         return 0;
 
-    std::cout.flush();
+	std::cout << "Soundbench loaded.\n";
+	std::cout.flush();
 
-    SoundbenchMain w;
-    w.delayedConstructor();
-
-    std::cerr << "Soundbench loaded.\n";
-
-    w.show();
     return a.exec();
 }
 

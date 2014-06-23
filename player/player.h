@@ -22,7 +22,6 @@
 
 #include "midichain.h"
 #include "midifio/midifio.h"
-#include "ui/cpumeter.h"
 #include "util/sfwriter.h"
 
 #include "frontend/rtmidi.h"
@@ -40,7 +39,7 @@ namespace sb {
         Q_OBJECT
 
     public:
-        explicit Player(Synth* syn, QListWidget* tracklist, CpuMeter* themet);
+		explicit Player(Synth* syn, QListWidget* tracklist);
         ~Player();
 
         bool loadTrack(uint16_t track);
@@ -115,8 +114,7 @@ namespace sb {
         FrontendType fetype;
         std::thread* playthread;
 
-        QListWidget* affectedlist;
-        CpuMeter* affectedmet;
+		QListWidget* affectedlist;
 
         static void playChain(Player*);
     };

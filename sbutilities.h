@@ -186,9 +186,7 @@ namespace sb {
     const size_t OutChannels = 2;
     const float Pi = 3.14159265358979323846264338327950288f;
 
-    const size_t DefaultPolyphony = 12;
-    const uint8_t InternalChannels = 4;
-    const uint8_t FxPerChannel = 4;
+	const size_t DefaultPolyphony = 12;
 
     const size_t SupportedRates[] = {44100,48000,88200,96000,176400,192000};
     const size_t SupportedRatesCount = 6;
