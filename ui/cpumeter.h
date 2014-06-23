@@ -24,7 +24,7 @@
 #include <QLabel>
 #include <QTimer>
 
-#include "meterupdater.h"
+#include "util/meterupdater.h"
 
 class CpuMeter : public QObject {
     Q_OBJECT

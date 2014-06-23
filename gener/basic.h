@@ -20,7 +20,7 @@
 #ifndef CHAINS_H
 #define CHAINS_H
 
-#include "soundbases.h"
+#include "synth/soundbases.h"
 #include "sampletable/periodictable.h"
 
 namespace sb {

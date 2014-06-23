@@ -20,8 +20,7 @@
 #ifndef BIQUAD_H
 #define BIQUAD_H
 
-
-#include "soundbases.h"
+#include "synth/soundbases.h"
 
 namespace sb {
 

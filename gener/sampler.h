@@ -20,7 +20,7 @@
 #ifndef SAMPLER_H
 #define SAMPLER_H
 
-#include "soundbases.h"
+#include "synth/soundbases.h"
 #include "util/basicticker.h"
 
 namespace sb {

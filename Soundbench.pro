@@ -29,13 +29,11 @@ HEADERS += architect/architect.h \
     common.h \
     emitter/emitter.h \
     ui/sbmain/soundbenchmain.h \
-    meterupdater.h \
     player/player.h \
     backend/base.h \
     sbutilities.h \
     sampletable/periodictable.h \
     ui/settings/basicgen.h \
-    soundbases.h \
     gener/basic.h \
     midifio/midifio.h \
     frontend/base.h \
@@ -66,7 +64,9 @@ HEADERS += architect/architect.h \
     util/filewriters.h \
     player/midichain.h \
     util/sfwriter.h \
-    midifio/midievents.h
+    midifio/midievents.h \
+    util/meterupdater.h \
+    synth/soundbases.h
 
 FORMS += errorpopup.ui \
     ui/sbmain/soundbenchmain.ui \
@@ -79,7 +79,6 @@ SOURCES += \
     backend/portaudio.cpp \
     emitter/emitter.cpp \
     main.cpp \
-    meterupdater.cpp \
     ui/settings/basicgen.cpp \
     gener/basic.cpp \
     waves/basicwaves.cpp \
@@ -121,7 +120,8 @@ SOURCES += \
     util/sfwriter.cpp \
     synth/doevent.cpp \
     player/makenode.cpp \
-    err/warningpopup.cpp
+    err/warningpopup.cpp \
+    util/meterupdater.cpp
 
 RESOURCES += \
     resources.qrc
