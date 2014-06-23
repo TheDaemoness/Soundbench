@@ -34,7 +34,6 @@ HEADERS += common.h \
 	synth/gener/basic.h \
     midifio/midifio.h \
 	player/frontend/base.h \
-    presetenums.h \
     printhelp.h \
     waves/basicwaves.h \
 	emitter/backend/portaudio.h \

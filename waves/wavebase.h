@@ -21,7 +21,6 @@
 #define WAVES_H
 
 #include "sbutilities.h"
-#include "presetenums.h"
 
 namespace sb {
 
