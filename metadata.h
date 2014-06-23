@@ -27,18 +27,18 @@
 #define SBVERSION_PATCH 0
 
 #if defined(__linux__)
-	#define SB_ENV_LINUX
-	#define SB_ENV_POSIX
+#define SB_ENV_LINUX
+#define SB_ENV_POSIX
 #elif defined (__APPLE__) & defined (__MACH__)
-	#define SB_ENV_MACOS
-	#define SB_ENV_POSIX
+#define SB_ENV_MACOS
+#define SB_ENV_POSIX
 #elif defined(__CYGWIN__)
-	#define SB_ENV_WNDOS
-	#define SB_ENV_POSIX
+#define SB_ENV_WNDOS
+#define SB_ENV_POSIX
 #elif defined(_WIN32)
-	#define SB_ENV_WNDOS
+#define SB_ENV_WNDOS
 #elif defined(_POSIX_VERSION)
-	#define SB_ENV_POSIX
+#define SB_ENV_POSIX
 #endif
 
 #if defined(NO_RTMIDI)

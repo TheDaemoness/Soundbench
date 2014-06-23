@@ -1,20 +1,20 @@
 /*
-    This file is part of Soundbench.
+	This file is part of Soundbench.
 
-    Soundbench is free software: you can redistribute it and/or modify
-    it under the terms of the GNU General Public License as published by
-    the Free Software Foundation, either version 3 of the License, or
-    (at your option) any later version.
+	Soundbench is free software: you can redistribute it and/or modify
+	it under the terms of the GNU General Public License as published by
+	the Free Software Foundation, either version 3 of the License, or
+	(at your option) any later version.
 
-    Soundbench is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-    GNU General Public License for more details.
+	Soundbench is distributed in the hope that it will be useful,
+	but WITHOUT ANY WARRANTY; without even the implied warranty of
+	MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+	GNU General Public License for more details.
 
-    You should have received a copy of the GNU General Public License
-    along with Soundbench.  If not, see <http://www.gnu.org/licenses/>.
+	You should have received a copy of the GNU General Public License
+	along with Soundbench.  If not, see <http://www.gnu.org/licenses/>.
 
-    Copyright 2012  Amaya S.
+	Copyright 2012  Amaya S.
 */
 
 #ifndef ERRORPOPUP_H
@@ -25,32 +25,32 @@
 #include "problemfix.h"
 
 namespace Ui {
-    class ErrorPopup;
+	class ErrorPopup;
 }
 
 class ErrorPopup : public QDialog
 {
-    Q_OBJECT
+	Q_OBJECT
 
 public:
-    static const char fixcount = 7;
-    explicit ErrorPopup(QWidget *parent = 0);
-    ~ErrorPopup();
-    void setErrorText(std::string);
-    void setInfoText(std::string);
-    void addFix(sb::errs::fixes::ProblemFix*, std::string desc = "", std::string comments = "");
-    bool fixed() {
-        return wasfixed;
-    }
+	static const char fixcount = 7;
+	explicit ErrorPopup(QWidget *parent = 0);
+	~ErrorPopup();
+	void setErrorText(std::string);
+	void setInfoText(std::string);
+	void addFix(sb::errs::fixes::ProblemFix*, std::string desc = "", std::string comments = "");
+	bool fixed() {
+		return wasfixed;
+	}
 
 private slots:
-    void takeAction();
+	void takeAction();
 
 private:
-    Ui::ErrorPopup *ui;
-    char whichfix;
-    bool wasfixed;
-    sb::errs::fixes::ProblemFix* fixes[fixcount];
+	Ui::ErrorPopup *ui;
+	char whichfix;
+	bool wasfixed;
+	sb::errs::fixes::ProblemFix* fixes[fixcount];
 };
 
 #endif // ERRORPOPUP_H

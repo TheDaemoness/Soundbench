@@ -1,20 +1,20 @@
 /*
-    This file is part of Soundbench.
+	This file is part of Soundbench.
 
-    Soundbench is free software: you can redistribute it and/or modify
-    it under the terms of the GNU General Public License as published by
-    the Free Software Foundation, either version 3 of the License, or
-    (at your option) any later version.
+	Soundbench is free software: you can redistribute it and/or modify
+	it under the terms of the GNU General Public License as published by
+	the Free Software Foundation, either version 3 of the License, or
+	(at your option) any later version.
 
-    Soundbench is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-    GNU General Public License for more details.
+	Soundbench is distributed in the hope that it will be useful,
+	but WITHOUT ANY WARRANTY; without even the implied warranty of
+	MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+	GNU General Public License for more details.
 
-    You should have received a copy of the GNU General Public License
-    along with Soundbench.  If not, see <http://www.gnu.org/licenses/>.
+	You should have received a copy of the GNU General Public License
+	along with Soundbench.  If not, see <http://www.gnu.org/licenses/>.
 
-    Copyright 2012  Amaya S.
+	Copyright 2012  Amaya S.
 */
 
 #ifndef SBUTILITIES_H
@@ -37,7 +37,7 @@
 #include "metadata.h"
 
 #ifndef IS_SOUNDBENCH
-	#define IS_SOUNDBENCH
+#define IS_SOUNDBENCH
 #endif
 
 typedef float SbSample;
@@ -59,13 +59,13 @@ namespace sb {
 	class sbException {
 	public:
 		sbException(std::string type, std::string info = "",
-				sb::errs::fixes::ProblemFix* fix1 = nullptr,
-				sb::errs::fixes::ProblemFix* fix2 = nullptr,
-				sb::errs::fixes::ProblemFix* fix3 = nullptr,
-				sb::errs::fixes::ProblemFix* fix4 = nullptr,
-				sb::errs::fixes::ProblemFix* fix5 = nullptr,
-				sb::errs::fixes::ProblemFix* fix6 = nullptr,
-				sb::errs::fixes::ProblemFix* fix7 = nullptr) {
+					sb::errs::fixes::ProblemFix* fix1 = nullptr,
+					sb::errs::fixes::ProblemFix* fix2 = nullptr,
+					sb::errs::fixes::ProblemFix* fix3 = nullptr,
+					sb::errs::fixes::ProblemFix* fix4 = nullptr,
+					sb::errs::fixes::ProblemFix* fix5 = nullptr,
+					sb::errs::fixes::ProblemFix* fix6 = nullptr,
+					sb::errs::fixes::ProblemFix* fix7 = nullptr) {
 			errdata.first = type;
 			errdata.second = info;
 			fixlist.push_back(fix1);
@@ -88,10 +88,10 @@ namespace sb {
 	const size_t SAMPLING_RATES[] = {44100,48000,88200,96000,176400,192000};
 	const size_t SAMPLING_RATES_COUNT = 6;
 
-    extern size_t global_srate;
-    inline float getFrequencyFromNote(int8_t delta, float A4 = 440.00) {
-        return A4*std::pow(pow(2.0,1.0/12),delta);
-    }
+	extern size_t global_srate;
+	inline float getFrequencyFromNote(int8_t delta, float A4 = 440.00) {
+		return A4*std::pow(pow(2.0,1.0/12),delta);
+	}
 }
 
 #endif // SBUTILITIES_H
