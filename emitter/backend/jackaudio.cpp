@@ -17,7 +17,7 @@
     Copyright 2012  Amaya S.
 */
 
-#include "backend/jackaudio.h"
+#include "jackaudio.h"
 
 #include <algorithm>
 

@@ -20,7 +20,7 @@
 #ifndef BACKEND_RTAUDIO_H
 #define BACKEND_RTAUDIO_H
 
-#include "backend/base.h"
+#include "base.h"
 
 #ifndef NO_RTAUDIO
 #include <RtAudio.h>

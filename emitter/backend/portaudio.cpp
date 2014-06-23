@@ -17,7 +17,7 @@
     Copyright 2012  Amaya S.
 */
 
-#include "backend/portaudio.h"
+#include "portaudio.h"
 
 namespace sb {
 #ifndef NO_PORTAUDIO

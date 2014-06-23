@@ -20,7 +20,7 @@
 #ifndef FRONTEND_RTMIDI_H
 #define FRONTEND_RTMIDI_H
 
-#include "frontend/base.h"
+#include "base.h"
 #include <mutex>
 
 #ifndef NO_RTMIDI

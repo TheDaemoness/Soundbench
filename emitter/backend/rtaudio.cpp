@@ -17,7 +17,7 @@
     Copyright 2012  Amaya S.
 */
 
-#include "backend/rtaudio.h"
+#include "rtaudio.h"
 
 namespace sb {
 #ifndef NO_RTAUDIO

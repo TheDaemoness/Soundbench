@@ -20,7 +20,7 @@
 #ifndef JACKMIDI_H
 #define JACKMIDI_H
 
-#include "frontend/base.h"
+#include "base.h"
 #include "util/jackbase.h"
 
 #ifndef NO_JACK

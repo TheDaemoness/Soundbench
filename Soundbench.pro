@@ -28,24 +28,22 @@ macx: LIBS += -lc++
 HEADERS += common.h \
 	emitter/emitter.h \
     player/player.h \
-    backend/base.h \
+	emitter/backend/base.h \
     sbutilities.h \
 	sampletable/periodictable.h \
-    gener/basic.h \
+	synth/gener/basic.h \
     midifio/midifio.h \
-    frontend/base.h \
+	player/frontend/base.h \
     presetenums.h \
     printhelp.h \
     waves/basicwaves.h \
-    backend/portaudio.h \
-    backend/rtaudio.h \
+	emitter/backend/portaudio.h \
+	emitter/backend/rtaudio.h \
     frontend/rtmidi.h \
-    backend/jackaudio.h \
+	emitter/backend/jackaudio.h \
     emitter/initbackend.h \
-    frontend/jackmidi.h \
+	player/frontend/jackmidi.h \
 	synth/synth.h \
-    fx/biquad.h \
-    gener/sampler.h \
     util/jackbase.h \
     err/problemfix.h \
     err/errorpopup.h \
@@ -62,13 +60,12 @@ HEADERS += common.h \
     synth/synth.h
 
 SOURCES += \
-    backend/portaudio.cpp \
+	emitter/backend/portaudio.cpp \
     emitter/emitter.cpp \
 	main.cpp \
-    gener/basic.cpp \
     waves/basicwaves.cpp \
-    backend/rtaudio.cpp \
-	frontend/rtmidi.cpp \
+	emitter/backend/rtaudio.cpp \
+	player/frontend/rtmidi.cpp \
     player/playermisc.cpp \
     player/midiinit.cpp \
     player/playerload.cpp \
@@ -77,11 +74,8 @@ SOURCES += \
     midifio/fiomisc.cpp \
     midifio/fioread.cpp \
     midifio/fioreadopen.cpp \
-    backend/jackaudio.cpp \
-	frontend/jackmidi.cpp \
-    fx/biquad.cpp \
-	fx/biquad_ctrl.cpp \
-    gener/sampler.cpp \
+	emitter/backend/jackaudio.cpp \
+	player/frontend/jackmidi.cpp \
     envelope/trapezoid.cpp \
 	sampletable/periodictable.cpp \
     err/errorpopup.cpp \
@@ -128,4 +122,5 @@ OTHER_FILES += \
     COPYING \
     README \
     PresetSpecification.txt \
-    RecordSpecification.txt
+    RecordSpecification.txt \
+    ui/uimain.qml

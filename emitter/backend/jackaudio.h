@@ -17,7 +17,7 @@
     Copyright 2012  Amaya S.
 */
 
-#include "backend/base.h"
+#include "base.h"
 #include "util/jackbase.h"
 
 #ifndef JACKAUDIO_H

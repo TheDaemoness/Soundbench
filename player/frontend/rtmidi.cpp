@@ -17,7 +17,7 @@
     Copyright 2012  Amaya S.
 */
 
-#include "frontend/rtmidi.h"
+#include "rtmidi.h"
 
 namespace sb {
 #ifndef NO_RTMIDI

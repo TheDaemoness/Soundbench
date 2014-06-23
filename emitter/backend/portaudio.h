@@ -20,7 +20,7 @@
 #ifndef BACKEND_PORTAUDIO_H
 #define BACKEND_PORTAUDIO_H
 
-#include "backend/base.h"
+#include "base.h"
 
 //NOTICE: Do not reimplement this class to use Pa_WriteStream. It uses the callback to take advantage of the high-priority thread it runs in.
 
