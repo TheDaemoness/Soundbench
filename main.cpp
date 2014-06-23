@@ -23,6 +23,7 @@
 #include "sbutilities.h"
 #include "synth/synth.h"
 #include "player/midichain.h"
+#include "config/config.h"
 #include "printhelp.h"
 
 size_t sb::global_srate;
@@ -46,13 +47,14 @@ int main(int argc, char *argv[]) {
             return 0;
         }
     }
-    std::cout << "Soundbench " << SBVERSION << '\n';
-    std::cout << "Version Series: " << SBVERSION_MAJOR << '.' << SBVERSION_MINOR << ".x\n";
+	std::cerr << "Soundbench " << SBVERSION << " (" << SBVERSION_CODENAME << ")\n";
+	std::cerr << "Version Series: " << SBVERSION_MAJOR << '.' << SBVERSION_MINOR << ".x\n";
     if (arg == "--version" || arg == "-v")
         return 0;
 
-	std::cout << "Soundbench loaded.\n";
-	std::cout.flush();
+	ConfigManager mgr;
+
+	std::cerr << "Soundbench loaded.\n";
 
     return a.exec();
 }

@@ -56,7 +56,8 @@ HEADERS += common.h \
     util/sfwriter.h \
     midifio/midievents.h \
     util/meterupdater.h \
-    synth/synth.h
+    synth/synth.h \
+    config/config.h
 
 SOURCES += \
 	emitter/backend/portaudio.cpp \
@@ -82,7 +83,8 @@ SOURCES += \
     synth/doevent.cpp \
     player/makenode.cpp \
     err/warningpopup.cpp \
-    util/meterupdater.cpp
+    util/meterupdater.cpp \
+    config/config.cpp
 
 LIBS += -lsndfile
 

@@ -41,7 +41,7 @@ namespace sb {
         }
 
     protected:
-        size_t samp_pos; //WARNING: samp_pos is in samples, and it must start at -1!
+		size_t samp_pos; //WARNING: samp_pos is in samples, and it must start at -1!
         int sample_rate;
     };
 }

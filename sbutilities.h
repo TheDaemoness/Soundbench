@@ -54,10 +54,10 @@
 #endif
 
 #define SBVERSION "Development Version"
+#define SBVERSION_CODENAME "Phoenix"
 #define SBVERSION_MAJOR 0
-#define SBVERSION_MINOR 4
+#define SBVERSION_MINOR 5
 #define SBVERSION_PATCH 0
-#define SB_PRESET_VERSION 1
 
 inline void AbortSoundbench() {
     try {
