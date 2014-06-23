@@ -25,29 +25,34 @@
 
 ConfigManager::ConfigManager() {
 	QDir sbdata(QDir::home());
+	errored = false;
 #if defined(SB_ENV_MACOS)
-	sbdata.cd("Library");
-	sbdata.cd("Application Support");
+	errored |= !sbdata.cd("Library");
+	errored |= !sbdata.cd("Application Support");
 	if (!sbdata.exists("Soundbench")) {
 		std::cerr << "Setting up directories...\n";
-		sbdata.mkdir("Soundbench");
+		errored |= !sbdata.mkdir("Soundbench");
 	}
-	sbdata.cd("Soundbench");
+	errored |= !sbdata.cd("Soundbench");
 #elif defined(SB_ENV_WNDOS)
-	sbdata.cd("AppData");
+	errored |= sbdata.cd("AppData");
 	if (!sbdata.exists("Soundbench")) {
 		std::cerr << "Setting up directories...\n";
-		sbdata.mkdir("Soundbench");
+		errored |= !sbdata.mkdir("Soundbench");
 	}
-	sbdata.cd("Soundbench");
+	errored |= !sbdata.cd("Soundbench");
 #else
 	if (!sbdata.exists(".soundbench")) {
 		std::cerr << "Setting up directories...\n";
-		sbdata.mkdir(".soundbench");
+		errored |= !sbdata.mkdir(".soundbench");
 	}
-	sbdata.cd(".soundbench");
+	errored |= ! sbdata.cd(".soundbench");
 #endif
 
+	if(errored) {
+		std::cerr << "Failed to access application data directory.\n";
+		return;
+	}
 	datadir = sbdata.absolutePath().toStdString();
 	if(!sbdata.exists("presets")) {
 		std::cerr << "Setting up presets directory.\n";

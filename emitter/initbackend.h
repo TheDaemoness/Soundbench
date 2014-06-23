@@ -27,18 +27,18 @@ namespace sb {
     bool initBackend(Emitter* em) {
         em->em_type = TypeEnum;
         if (em->supported_apis[TypeEnum]) {
-            em->backend = new Backside(em->syn,global_srate,em->supported_rates,OutChannels);
+            em->backend = new Backside(em->syn,global_srate,em->supported_rates,OUTPUT_CHANS);
             if (em->backend->isReady())
                 return true;
             else {
                 delete em->backend;
                 em->backend = nullptr;
-                em->em_type = NoEmitter;
+                em->em_type = NO_EMITTER;
                 return false;
             }
         }
         else {
-            em->em_type = NoEmitter;
+            em->em_type = NO_EMITTER;
             return false;
         }
     }

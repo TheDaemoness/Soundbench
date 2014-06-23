@@ -23,7 +23,7 @@ namespace sb {
     bool SoundFileWriter::open(std::string name, ExportableFiles ex) {
         SF_INFO params;
         params.samplerate = global_srate;
-        params.channels = OutChannels;
+        params.channels = OUTPUT_CHANS;
         params.format = SF_FORMAT_PCM_32;
         if (ex == FileWAV)
             params.format |= SF_FORMAT_WAV;

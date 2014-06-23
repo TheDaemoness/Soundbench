@@ -101,7 +101,7 @@ namespace sb {
         }
 
     private:
-        bool initSomeBackend(EmitterType notthisone = NoEmitter);
+		bool initSomeBackend(EmitterType notthisone = NO_EMITTER);
         bool initPortAudio();
         bool initRtAudio();
 

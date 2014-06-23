@@ -37,7 +37,7 @@ namespace sb {
             timedown = downs;
         }
         inline void reset() {
-            level = SbSampleZero;
+            level = SbSample_ZERO;
             up = true;
             top = true;
             bottom = true;

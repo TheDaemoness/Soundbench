@@ -32,7 +32,7 @@ namespace sb {
 
     SbSample BasicWave::tick() {
         ++samp_pos;
-        float rad = (static_cast<float>(samp_pos)/static_cast<float>(getWaveLen())*2.0F*sb::Pi);
+        float rad = (static_cast<float>(samp_pos)/static_cast<float>(getWaveLen())*2.0F*sb::PI);
         return getRaw(rad);
     }
 
@@ -41,38 +41,38 @@ namespace sb {
     }
 
     SbSample Sawtooth::getRaw(float rads) {
-        return std::fmod(rads+Pi,2.0f*Pi)/Pi - 1.0;
+        return std::fmod(rads+PI,2.0f*PI)/PI - 1.0;
     }
 
     SbSample Square::getRaw(float rads) {
-        rads = std::fmod(rads,2.0f*Pi);
-        return (rads < Pi?1.0:-1.0);
+        rads = std::fmod(rads,2.0f*PI);
+        return (rads < PI?1.0:-1.0);
     }
 
     SbSample Triangle::getRaw(float rads) {
-        rads = std::fmod(rads,2.0f*Pi);
-        if (rads < 2.0*Pi/4.0)
-            return rads*4.0/(2.0*Pi);
-        else if ((rads >= 2.0*Pi/4.0) && (rads < 6.0*Pi/4.0))
-            return 1.0 - (rads-2.0*Pi/4.0)*4.0/(2.0*Pi);
+        rads = std::fmod(rads,2.0f*PI);
+        if (rads < 2.0*PI/4.0)
+            return rads*4.0/(2.0*PI);
+        else if ((rads >= 2.0*PI/4.0) && (rads < 6.0*PI/4.0))
+            return 1.0 - (rads-2.0*PI/4.0)*4.0/(2.0*PI);
         else
-            return (rads-6.0*Pi/4.0)*4.0/(2.0*Pi)-1.0;
+            return (rads-6.0*PI/4.0)*4.0/(2.0*PI)-1.0;
     }
 
     SbSample Oval::getRaw(float rads) {
-        rads = std::fmod(rads,2.0f*Pi);
-        bool invert = rads > Pi;
-        rads = std::fmod(rads,Pi);
-        return (invert?-2.0:2.0)/Pi*std::sqrt(Pi*rads-rads*rads);
+        rads = std::fmod(rads,2.0f*PI);
+        bool invert = rads > PI;
+        rads = std::fmod(rads,PI);
+        return (invert?-2.0:2.0)/PI*std::sqrt(PI*rads-rads*rads);
     }
 
     SbSample Peak::getRaw(float rads) {
-        rads = std::fmod(rads,2.0f*Pi);
-        bool invert = rads >= Pi;
-        rads = std::fmod(rads,Pi);
-        if(rads >= Pi/2.0)
-            return (invert?SbSampleMin:SbSampleMax)*(SbSampleMax - 2.0/Pi*std::sqrt(Pi*rads-rads*rads));
+        rads = std::fmod(rads,2.0f*PI);
+        bool invert = rads >= PI;
+        rads = std::fmod(rads,PI);
+        if(rads >= PI/2.0)
+            return (invert?SbSample_MIN:SbSample_MAX)*(SbSample_MAX - 2.0/PI*std::sqrt(PI*rads-rads*rads));
         else
-            return (invert?SbSampleMin:SbSampleMax)*(SbSampleMin + 2.0/Pi*std::sqrt(Pi*rads-rads*rads));
+            return (invert?SbSample_MIN:SbSample_MAX)*(SbSample_MIN + 2.0/PI*std::sqrt(PI*rads-rads*rads));
     }
 }

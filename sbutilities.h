@@ -70,9 +70,9 @@ inline void AbortSoundbench() {
 }
 
 typedef float SbSample;
-const SbSample SbSampleMin = -1.0;
-const SbSample SbSampleMax = 1.0;
-const SbSample SbSampleZero = 0.0;
+const SbSample SbSample_MIN = -1.0;
+const SbSample SbSample_MAX = 1.0;
+const SbSample SbSample_ZERO = 0.0;
 
 #if defined(NO_RTMIDI)
 #define NO_MIDIFRONTEND
@@ -107,89 +107,27 @@ public:
 };
 
 namespace sb {
-    enum ParameterValueType {
-        ParameterPosByte = 0x0,
-        ParameterSigByte = 0x1,
-        ParameterPosInt = 0x2,
-        ParameterSigInt = 0x3, //Har har.
-        ParameterByteArray = 0x4,
-        ParameterDecim = 0x5,
-        ParameterSample = 0x6
-    };
-
-    struct ParameterValue {
-        union {
-            SbSample sample;
-            int value;
-            float decim;
-            struct {
-            char* type;
-            void* data;
-            } other;
-        } pod;
-        std::string str;
-        ParameterValueType type;
-    };
-    template <typename T>
-    inline ParameterValue makeParamfromInt(T i) {
-        ParameterValue valu;
-        valu.pod.value = static_cast<int>(i);
-        if (i < 0 && i >= -128)
-            valu.type = sb::ParameterSigByte;
-        else if (i < 256)
-            valu.type = sb::ParameterPosByte;
-        else if (i >= 0)
-            valu.type = sb::ParameterPosInt;
-        else
-            valu.type = sb::ParameterSigInt;
-        return valu;
-    }
-    inline ParameterValue makeParamfromSample(SbSample i) {
-        ParameterValue valu;
-        valu.pod.sample = i;
-        valu.type = sb::ParameterSample;
-        return valu;
-    }
-    inline ParameterValue makeParamfromFloat(float i) {
-        ParameterValue valu;
-        valu.pod.decim = i;
-        valu.type = sb::ParameterDecim;
-        return valu;
-    }
-    inline ParameterValue makeParamfromString(std::string in) {
-        ParameterValue valu;
-        valu.str = in;
-        valu.type = sb::ParameterByteArray;
-        return valu;
-    }
-
-    enum ChannelMapping {
-        Mono,
-        Stereo,
-        StereoLeft,
-        StereoRight
-    };
 
     enum EmitterType {
-        NoEmitter,
-        PortAudio_O,
-        RtAudio_O,
+		NO_EMITTER,
+		PORTAUDIO_O,
+		RTAUDIO_O,
         JACK_O
     };
 
     enum FrontendType {
-        NoMIDI,
-        RtMidi_I,
+		NO_MIDI,
+		RTMIDI_I,
         JACK_I //Not implemented.
     };
 
-    const size_t OutChannels = 2;
-    const float Pi = 3.14159265358979323846264338327950288f;
+	const size_t OUTPUT_CHANS = 2;
+	const float PI = 3.14159265358979323846264338327950288f;
 
-	const size_t DefaultPolyphony = 12;
+	const size_t DEFAULT_POLYPHONY = 12;
 
-    const size_t SupportedRates[] = {44100,48000,88200,96000,176400,192000};
-    const size_t SupportedRatesCount = 6;
+	const size_t SAMPLING_RATES[] = {44100,48000,88200,96000,176400,192000};
+	const size_t SAMPLING_RATES_COUNT = 6;
 
     extern size_t global_srate;
     inline float getFrequencyFromNote(int8_t delta, float A4 = 440.00) {

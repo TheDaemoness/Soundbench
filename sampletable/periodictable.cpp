@@ -22,7 +22,7 @@
 namespace sb {
     PeriodicSampleTable::PeriodicSampleTable(WaveBase* wav, size_t mendelev, bool autodelete) {
         if (wav == nullptr) {
-            samples.resize(global_srate,SbSampleZero);
+            samples.resize(global_srate,SbSample_ZERO);
             return;
         }
         size_t wavlen = wav->getWaveLen();

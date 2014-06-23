@@ -29,7 +29,7 @@ namespace sb {
         playthread = nullptr;
 
         playing = false;
-        fetype = NoMIDI;
+        fetype = NO_MIDI;
 
 		initfrontend(syn);
     }

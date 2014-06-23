@@ -25,23 +25,23 @@
 namespace sb {
 
     Emitter::Emitter(Synth* s) {
-        for(int i = 0; i < SupportedRatesCount; ++i)
-            supported_rates[SupportedRates[i]] = false;
+        for(int i = 0; i < SAMPLING_RATES_COUNT; ++i)
+            supported_rates[SAMPLING_RATES[i]] = false;
 #ifdef NO_AUDIOBACKEND
         std::cerr << "Soundbench was compiled without any audio backends.\n";
         em_type = NoEmitter;
 #else
         std::cerr << "Determining which audio backends will initialize...\n";
-        supported_apis[PortAudio_O] = PortaudioBackend::instantiable();
-        supported_apis[RtAudio_O] = RtAudioBackend::instantiable();
+        supported_apis[PORTAUDIO_O] = PortaudioBackend::instantiable();
+        supported_apis[RTAUDIO_O] = RtAudioBackend::instantiable();
         supported_apis[JACK_O] = JackAudioBackend::instantiable();
 
         if (supported_apis[JACK_O])
             em_type = JACK_O;
-        else if (supported_apis[PortAudio_O])
-            em_type = PortAudio_O;
-        else if (supported_apis[RtAudio_O])
-            em_type = RtAudio_O;
+        else if (supported_apis[PORTAUDIO_O])
+            em_type = PORTAUDIO_O;
+        else if (supported_apis[RTAUDIO_O])
+            em_type = RTAUDIO_O;
         else {
             std::cerr << "...none will initialize.\n";
             ErrorPopup* er = new ErrorPopup;
@@ -56,7 +56,7 @@ namespace sb {
             delete er;
             if (killoption)
                 AbortSoundbench();
-            em_type = NoEmitter;
+            em_type = NO_EMITTER;
         }
 #endif
 
@@ -70,26 +70,26 @@ namespace sb {
             delete backend;
             backend = nullptr;
         }
-        if (emt == NoEmitter)
+        if (emt == NO_EMITTER)
             return;
         em_type = emt;
         bool initialed = false;
 
-        if (emt == PortAudio_O)
-            initialed = initBackend<PortAudio_O,PortaudioBackend>(this);
+        if (emt == PORTAUDIO_O)
+            initialed = initBackend<PORTAUDIO_O,PortaudioBackend>(this);
         else if (emt == JACK_O)
             initialed = initBackend<JACK_O,JackAudioBackend>(this);
-        else if (emt == RtAudio_O)
-            initialed = initBackend<RtAudio_O,RtAudioBackend>(this);
+        else if (emt == RTAUDIO_O)
+            initialed = initBackend<RTAUDIO_O,RtAudioBackend>(this);
 
         //Try the other backends if the chosen one didn't work out.
         if (!initialed)
             initSomeBackend(emt);
 
         if (backend != nullptr) {
-            if(emt == RtAudio_O)
+            if(emt == RTAUDIO_O)
                 std::cerr << "Using an RtAudio backend.\n";
-            else if (emt == PortAudio_O)
+            else if (emt == PORTAUDIO_O)
                 std::cerr << "Using a PortAudio backend.\n";
             else if (emt == JACK_O)
                 std::cerr << "Using a JACK backend.\n";
@@ -116,7 +116,7 @@ namespace sb {
         else if (!initialed && backend == nullptr) {
             //All the backends failed.
             ErrorPopup* er = new ErrorPopup;
-            em_type = NoEmitter;
+            em_type = NO_EMITTER;
             er->setErrorText("All Backends Failed");
             er->setInfoText("All the audio backends failed to initialize. This is not necessarily due to a fault in Soundbench.\n\nThis error may be ignored, but the program would run without real-time audio output.");
 
@@ -137,12 +137,12 @@ namespace sb {
 
     bool Emitter::initSomeBackend(EmitterType notthisone) {
         for (auto pair : supported_apis) {
-            if (pair.first == PortAudio_O && notthisone != PortAudio_O) {
-                if (initBackend<PortAudio_O,PortaudioBackend>(this))
+            if (pair.first == PORTAUDIO_O && notthisone != PORTAUDIO_O) {
+                if (initBackend<PORTAUDIO_O,PortaudioBackend>(this))
                     return true;
             }
-            else if (pair.first == RtAudio_O && notthisone != RtAudio_O) {
-                if (initBackend<RtAudio_O,RtAudioBackend>(this))
+            else if (pair.first == RTAUDIO_O && notthisone != RTAUDIO_O) {
+                if (initBackend<RTAUDIO_O,RtAudioBackend>(this))
                     return true;
             }
         }

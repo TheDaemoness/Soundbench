@@ -26,8 +26,10 @@ class ConfigManager
 {
 public:
 	ConfigManager();
+	inline bool isErrored() {return errored;}
 private:
 	std::string datadir;
+	bool errored;
 };
 
 #endif // CONFIG_H

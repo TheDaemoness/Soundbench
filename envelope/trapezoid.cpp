@@ -30,25 +30,25 @@ namespace sb {
             level -= rate;
 
         //Deal with potential overshooting.
-        if (level > SbSampleMax) {
+        if (level > SbSample_MAX) {
             top = true;
-            level = SbSampleMax;
+            level = SbSample_MAX;
         }
-        else if (level < SbSampleZero) {
+        else if (level < SbSample_ZERO) {
             bottom = true;
-            level = SbSampleZero;
+            level = SbSample_ZERO;
         }
 
         return level;
     }
     void Trapezoid::attack() {
         up = true;
-        rate = 1.0/(timeup*global_srate)*SbSampleMax;
+        rate = 1.0/(timeup*global_srate)*SbSample_MAX;
         top = false;
     }
     void Trapezoid::release() {
         up = false;
-        rate = 1.0/(timedown*global_srate)*SbSampleMax;
+        rate = 1.0/(timedown*global_srate)*SbSample_MAX;
         bottom = false;
     }
 }
