@@ -17,21 +17,16 @@
 	Copyright 2014  Amaya S.
 */
 
-#ifndef CONFIG_H
-#define CONFIG_H
+#ifndef EMITTER_ENUMS_H
+#define EMITTER_ENUMS_H
 
-#include <string>
-#include <QDir>
+namespace sb {
+	enum EmitterType {
+		NO_EMITTER,
+		PORTAUDIO_O,
+		RTAUDIO_O,
+		JACK_O
+	};
+}
 
-class ConfigManager
-{
-public:
-	ConfigManager();
-	ConfigManager(const QDir& path);
-	inline bool isErrored() {return errored;}
-private:
-	std::string datadir;
-	bool errored;
-};
-
-#endif // CONFIG_H
+#endif // EMITTER_ENUMS_H

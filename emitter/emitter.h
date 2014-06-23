@@ -23,6 +23,7 @@
 
 //local
 #include "sbutilities.h"
+#include "emitterenums.h"
 #include "backend/portaudio.h"
 #include "backend/rtaudio.h"
 #include "backend/jackaudio.h"

@@ -27,6 +27,8 @@
 #include "frontend/rtmidi.h"
 #include "frontend/jackmidi.h"
 
+#include "playerenums.h"
+
 #include <deque>
 #include <cstdio>
 #include <thread>

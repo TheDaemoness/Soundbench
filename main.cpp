@@ -20,7 +20,7 @@
 #include <QApplication>
 #include <QStyleFactory>
 
-#include "sbutilities.h"
+#include "metadata.h"
 #include "synth/synth.h"
 #include "player/midichain.h"
 #include "config/config.h"

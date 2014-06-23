@@ -19,9 +19,12 @@
 
 #include "config.h"
 
-#include <QDir>
-
 #include <iostream>
+
+ConfigManager::ConfigManager(const QDir& path) {
+	errored = false;
+	datadir = path.absolutePath().toStdString();
+}
 
 ConfigManager::ConfigManager() {
 	QDir sbdata(QDir::home());

@@ -57,7 +57,10 @@ HEADERS += common.h \
     midifio/midievents.h \
     util/meterupdater.h \
     synth/synth.h \
-    config/config.h
+    config/config.h \
+    player/playerenums.h \
+    emitter/emitterenums.h \
+	metadata.h
 
 SOURCES += \
 	emitter/backend/portaudio.cpp \
