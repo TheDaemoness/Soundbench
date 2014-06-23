@@ -91,6 +91,10 @@ SOURCES += \
 
 LIBS += -lsndfile
 
+ICON = sbicon.icns
+
+RC_ICONS = sbion.ico
+
 #Configuration switches to remove certain functionality and dependencies where necessary.
 !noPortAudio {
     LIBS += -lportaudio -lportaudiocpp
@@ -128,3 +132,6 @@ OTHER_FILES += \
     PresetSpecification.txt \
     RecordSpecification.txt \
     ui/uimain.qml
+
+RESOURCES += \
+    assets/images.qrc

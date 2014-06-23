@@ -19,6 +19,7 @@
 
 #include <QApplication>
 #include <QStyleFactory>
+#include <QIcon>
 
 #include "metadata.h"
 #include "synth/synth.h"
@@ -35,8 +36,12 @@ jack_status_t sb::JackBase::stat = static_cast<jack_status_t>(0);
 #endif
 
 int main(int argc, char *argv[]) {
-    QApplication a(argc, argv);
+	QApplication a(argc, argv);
+	a.setWindowIcon(QIcon(":/sbicon.png"));
     a.setStyle(QStyleFactory::create("Fusion"));
+	a.setApplicationName("Soundbench");
+	a.setApplicationDisplayName("Soundbench");
+	a.setApplicationVersion(QString::fromStdString(std::to_string(SBVERSION_MAJOR)+'.'+std::to_string(SBVERSION_MINOR)+'.'+std::to_string(SBVERSION_PATCH)));
 
     //Parse some arguments.
     std::string arg;
