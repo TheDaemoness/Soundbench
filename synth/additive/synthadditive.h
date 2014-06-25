@@ -17,15 +17,13 @@
 	Copyright 2014  Amaya S.
 */
 
-#include "synth.h"
+#ifndef SYNTHADDITIVE_H
+#define SYNTHADDITIVE_H
 
-#ifndef SYNTHSILENT_H
-#define SYNTHSILENT_H
-
-class SynthSilent : public Synth
+class SynthAdditive : public Synth
 {
 public:
-	SynthSilent() {}
+	SynthAdditive();
 	void noteOn(int halfsteps, SbSample amp) {}
 	void noteOff(int halfsteps) {}
 	void pedal(SupportedPedals which, bool val = true) {}
@@ -48,4 +46,4 @@ public:
 	}
 };
 
-#endif // SYNTHSILENT_H
+#endif // SYNTHADDITIVE_H

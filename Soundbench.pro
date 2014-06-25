@@ -61,7 +61,8 @@ HEADERS += common.h \
     player/playerenums.h \
     emitter/emitterenums.h \
 	metadata.h \
-    synth/synthsilent.h
+    synth/synthsilent.h \
+    synth/additive/synthadditive.h
 
 SOURCES += \
 	emitter/backend/portaudio.cpp \
@@ -88,7 +89,8 @@ SOURCES += \
     player/makenode.cpp \
     err/warningpopup.cpp \
     util/meterupdater.cpp \
-    config/config.cpp
+    config/config.cpp \
+    synth/additive/synthadditive.cpp
 
 LIBS += -lsndfile
 
