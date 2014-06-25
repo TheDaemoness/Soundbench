@@ -60,7 +60,8 @@ HEADERS += common.h \
     config/config.h \
     player/playerenums.h \
     emitter/emitterenums.h \
-	metadata.h
+	metadata.h \
+    synth/synthsilent.h
 
 SOURCES += \
 	emitter/backend/portaudio.cpp \

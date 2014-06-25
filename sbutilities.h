@@ -41,9 +41,9 @@
 #endif
 
 typedef float SbSample;
-const SbSample SbSample_MIN = -1.0;
-const SbSample SbSample_MAX = 1.0;
-const SbSample SbSample_ZERO = 0.0;
+const SbSample SbSample_MIN = -1.0F;
+const SbSample SbSample_MAX = 1.0F;
+const SbSample SbSample_ZERO = 0.0F;
 
 namespace sb {
 
