@@ -23,15 +23,22 @@
 #include "synth/synth.h"
 #include "player/player.h"
 #include "emitter/emitter.h"
+#include "config/config.h"
 
-class Soundbench
-{
-public:
-	Soundbench();
-private:
-	Player* plai;
-	Synth* syn;
-	Emitter* em;
-};
+namespace sb {
+
+	class Soundbench
+	{
+	public:
+		Soundbench(ConfigManager* mgr);
+		~Soundbench();
+	private:
+		ConfigManager* mgr;
+		Player* plai;
+		Synth* syn;
+		Emitter* em;
+	};
+
+}
 
 #endif // SOUNDBENCH_H

@@ -23,15 +23,18 @@
 #include <string>
 #include <QDir>
 
-class ConfigManager
-{
-public:
-	ConfigManager();
-	ConfigManager(const QDir& path);
-	inline bool isErrored() {return errored;}
-private:
-	std::string datadir;
-	bool errored;
-};
+namespace sb {
+	class ConfigManager
+	{
+	public:
+		ConfigManager();
+		ConfigManager(const QDir& path);
+		inline bool isErrored() {return errored;}
+	private:
+		std::string datadir;
+		bool errored;
+	};
+}
+
 
 #endif // CONFIG_H

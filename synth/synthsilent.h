@@ -22,30 +22,31 @@
 #ifndef SYNTHSILENT_H
 #define SYNTHSILENT_H
 
-class SynthSilent : public Synth
-{
-public:
-	SynthSilent() {}
-	void noteOn(int halfsteps, SbSample amp) {}
-	void noteOff(int halfsteps) {}
-	void pedal(SupportedPedals which, bool val = true) {}
-	void reset() {}
-	void tick(SbSample* frame) {*frame = sb::SbSample_ZERO;}
-	uint8_t channel_count() {return 0;}
+namespace sb {
+	class SynthSilent : public Synth {
+	public:
+		SynthSilent() {}
+		void noteOn(int halfsteps, SbSample amp) {}
+		void noteOff(int halfsteps) {}
+		void pedal(SupportedPedals which, bool val = true) {}
+		void reset() {}
+		void tick(SbSample* frame) {*frame = SbSample_ZERO;}
+		uint8_t channel_count() {return 0;}
 
-	void setPolyphony(uint8_t) {}
-	void updateSamplingRate() {}
+		void setPolyphony(uint8_t) {}
+		void updateSamplingRate() {}
 
-	void interleaved_block(SbSample* frames, size_t framecount) {
-		for(size_t i = 0; i < framecount*sb::OUTPUT_CHANS; ++i)
-			frames[i] = 0;
-	}
-	void uninterleaved_blocks(SbSample* lframes, SbSample* rframes, size_t framecount) {
-		for(size_t i = 0; i < framecount; ++i) {
-			lframes[i] = 0;
-			rframes[i] = 0;
+		void interleaved_block(SbSample* frames, size_t framecount) {
+			for(size_t i = 0; i < framecount*sb::OUTPUT_CHANS; ++i)
+				frames[i] = 0;
 		}
-	}
-};
+		void uninterleaved_blocks(SbSample* lframes, SbSample* rframes, size_t framecount) {
+			for(size_t i = 0; i < framecount; ++i) {
+				lframes[i] = 0;
+				rframes[i] = 0;
+			}
+		}
+	};
+}
 
 #endif // SYNTHSILENT_H

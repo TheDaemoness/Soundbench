@@ -14,7 +14,7 @@
 	You should have received a copy of the GNU General Public License
 	along with Soundbench.  If not, see <http://www.gnu.org/licenses/>.
 
-	Copyright 2012  Amaya S.
+	Copyright 2014  Amaya S.
 */
 
 #include <QApplication>
@@ -22,18 +22,9 @@
 #include <QIcon>
 
 #include "metadata.h"
-#include "synth/synth.h"
-#include "player/midichain.h"
+#include "soundbench.h"
 #include "config/config.h"
 #include "printhelp.h"
-
-size_t sb::global_srate;
-sb::Synth* sb::midi::nodes::MIDIEventNode::synref;
-
-#ifndef NO_JACK
-jack_client_t* sb::JackBase::cli = nullptr;
-jack_status_t sb::JackBase::stat = static_cast<jack_status_t>(0);
-#endif
 
 int main(int argc, char *argv[]) {
 	QApplication a(argc, argv);
@@ -57,7 +48,8 @@ int main(int argc, char *argv[]) {
 	if (arg == "--version" || arg == "-v")
 		return 0;
 
-	ConfigManager mgr;
+	sb::ConfigManager mgr;
+	sb::Soundbench sb(&mgr);
 
 	std::cerr << "Soundbench loaded.\n";
 

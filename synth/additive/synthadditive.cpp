@@ -19,5 +19,7 @@
 
 #include "synthadditive.h"
 
-SynthAdditive::SynthAdditive() {
+namespace sb {
+	SynthAdditive::SynthAdditive() {
+	}
 }

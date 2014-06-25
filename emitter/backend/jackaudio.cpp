@@ -21,6 +21,11 @@
 
 #include <algorithm>
 
+#ifndef NO_JACK
+jack_client_t* sb::JackBase::cli = nullptr;
+jack_status_t sb::JackBase::stat = static_cast<jack_status_t>(0);
+#endif
+
 namespace sb {
 	bool JackAudioBackend::instantiable() {
 #ifndef NO_JACK

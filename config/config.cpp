@@ -21,44 +21,48 @@
 
 #include <iostream>
 
-ConfigManager::ConfigManager(const QDir& path) {
-	errored = false;
-	datadir = path.absolutePath().toStdString();
-}
+namespace sb {
 
-ConfigManager::ConfigManager() {
-	QDir sbdata(QDir::home());
-	errored = false;
+	ConfigManager::ConfigManager(const QDir& path) {
+		errored = false;
+		datadir = path.absolutePath().toStdString();
+	}
+
+	ConfigManager::ConfigManager() {
+		QDir sbdata(QDir::home());
+		errored = false;
 #if defined(SB_ENV_MACOS)
-	errored |= !sbdata.cd("Library");
-	errored |= !sbdata.cd("Application Support");
-	if (!sbdata.exists("Soundbench")) {
-		std::cerr << "Setting up directories...\n";
-		errored |= !sbdata.mkdir("Soundbench");
-	}
-	errored |= !sbdata.cd("Soundbench");
+		errored |= !sbdata.cd("Library");
+		errored |= !sbdata.cd("Application Support");
+		if (!sbdata.exists("Soundbench")) {
+			std::cerr << "Setting up directories...\n";
+			errored |= !sbdata.mkdir("Soundbench");
+		}
+		errored |= !sbdata.cd("Soundbench");
 #elif defined(SB_ENV_WNDOS)
-	errored |= sbdata.cd("AppData");
-	if (!sbdata.exists("Soundbench")) {
-		std::cerr << "Setting up directories...\n";
-		errored |= !sbdata.mkdir("Soundbench");
-	}
-	errored |= !sbdata.cd("Soundbench");
+		errored |= sbdata.cd("AppData");
+		if (!sbdata.exists("Soundbench")) {
+			std::cerr << "Setting up directories...\n";
+			errored |= !sbdata.mkdir("Soundbench");
+		}
+		errored |= !sbdata.cd("Soundbench");
 #else
-	if (!sbdata.exists(".soundbench")) {
-		std::cerr << "Setting up directories...\n";
-		errored |= !sbdata.mkdir(".soundbench");
-	}
-	errored |= ! sbdata.cd(".soundbench");
+		if (!sbdata.exists(".soundbench")) {
+			std::cerr << "Setting up directories...\n";
+			errored |= !sbdata.mkdir(".soundbench");
+		}
+		errored |= ! sbdata.cd(".soundbench");
 #endif
 
-	if(errored) {
-		std::cerr << "Failed to access application data directory.\n";
-		return;
+		if(errored) {
+			std::cerr << "Failed to access application data directory.\n";
+			return;
+		}
+		datadir = sbdata.absolutePath().toStdString();
+		if(!sbdata.exists("presets")) {
+			std::cerr << "Setting up presets directory.\n";
+			sbdata.mkdir("presets");
+		}
 	}
-	datadir = sbdata.absolutePath().toStdString();
-	if(!sbdata.exists("presets")) {
-		std::cerr << "Setting up presets directory.\n";
-		sbdata.mkdir("presets");
-	}
+
 }
