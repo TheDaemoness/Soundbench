@@ -62,7 +62,8 @@ HEADERS += common.h \
     emitter/emitterenums.h \
 	metadata.h \
     synth/synthsilent.h \
-    synth/additive/synthadditive.h
+    synth/additive/synthadditive.h \
+    soundbench.h
 
 SOURCES += \
 	emitter/backend/portaudio.cpp \
@@ -90,7 +91,8 @@ SOURCES += \
     err/warningpopup.cpp \
     util/meterupdater.cpp \
     config/config.cpp \
-    synth/additive/synthadditive.cpp
+    synth/additive/synthadditive.cpp \
+    soundbench.cpp
 
 LIBS += -lsndfile
 
