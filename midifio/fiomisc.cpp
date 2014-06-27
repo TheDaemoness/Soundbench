@@ -85,7 +85,7 @@ namespace sb {
 			for(uint8_t i = 0; i < 3; ++i) {
 				if(river.get() != tracknamebytes[i]) {
 					if (filetype == 1 && traque != 0)
-						return std::string("Instrument Track ") + lexical_cast<std::string>(traque);
+						return std::string("Instrument Track ") + std::to_string(traque);
 					else if (filetype == 1)
 						return std::string("Metadata Track");
 					else

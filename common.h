@@ -55,24 +55,6 @@ namespace sb {
 		Nibble1 = Bit1 | Bit2 | Bit3 | Bit4,
 		Nibble2 = Bit5 | Bit6 | Bit7 | Bit8
 	};
-
-	template <typename outType, typename inType>
-	outType lexical_cast(inType in) {
-		std::stringstream strm;
-		strm.str(std::string());
-		strm << in;
-		outType out;
-		strm >> out;
-		return out;
-	}
-
-	template <typename inType> //We know that function template specializations are evil.
-	std::string lexical_cast(inType in) {
-		std::stringstream strm;
-		strm.str(std::string());
-		strm << in;
-		return strm.str();
-	}
 }
 
 #endif // COMMON_H
