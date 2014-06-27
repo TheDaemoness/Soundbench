@@ -35,8 +35,8 @@ namespace sb {
 	}
 
 	Soundbench::~Soundbench() {
-		delete syn;
-		delete em;
 		delete plai;
+		delete em;
+		delete syn;
 	}
 }

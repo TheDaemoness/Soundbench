@@ -63,7 +63,8 @@ HEADERS += common.h \
 	metadata.h \
     synth/synthsilent.h \
     synth/additive/synthadditive.h \
-    soundbench.h
+    soundbench.h \
+    ui/sbuimain.h
 
 SOURCES += \
 	emitter/backend/portaudio.cpp \
@@ -92,7 +93,8 @@ SOURCES += \
     util/meterupdater.cpp \
     config/config.cpp \
     synth/additive/synthadditive.cpp \
-    soundbench.cpp
+    soundbench.cpp \
+    ui/sbuimain.cpp
 
 LIBS += -lsndfile
 
@@ -140,3 +142,6 @@ OTHER_FILES += \
 
 RESOURCES += \
     assets/images.qrc
+
+FORMS += \
+    ui/sbuimain.ui

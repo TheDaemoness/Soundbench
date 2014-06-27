@@ -25,6 +25,7 @@
 #include "soundbench.h"
 #include "config/config.h"
 #include "printhelp.h"
+#include "ui/sbuimain.h"
 
 int main(int argc, char *argv[]) {
 	QApplication a(argc, argv);
@@ -48,11 +49,12 @@ int main(int argc, char *argv[]) {
 	if (arg == "--version" || arg == "-v")
 		return 0;
 
-	sb::ConfigManager mgr;
-	sb::Soundbench sb(&mgr);
-
+	sb::ConfigManager* cfg = new sb::ConfigManager;
+	SoundbenchUI sbui(new sb::Soundbench(cfg), true);
+	sbui.show();
 	std::cerr << "Soundbench loaded.\n";
-
-	return a.exec();
+	int ret = a.exec();
+	delete cfg;
+	return ret;
 }
 
