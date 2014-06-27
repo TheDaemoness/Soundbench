@@ -31,7 +31,7 @@ namespace sb {
 		this->mgr = mgr;
 		syn = new sb::SynthSilent;
 		em = new sb::Emitter(syn);
-		plai = new sb::Player(syn,nullptr);
+		plai = new sb::Player(syn);
 	}
 
 	Soundbench::~Soundbench() {

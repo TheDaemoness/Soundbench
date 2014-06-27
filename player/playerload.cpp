@@ -23,24 +23,29 @@
 namespace sb {
 	bool Player::loadFile() {
 		reed->close();
-		affectedlist->clear();
+		tracklist.clear();
 
 		if(!reed->readerOpen(fi)) {
 			std::cerr << "Aborted reading.\n";
+			emit this->updatedTrackList();
 			return false;
 		}
 
 		for(uint16_t i = (reed->getFileType() == midi::MultiTrack?1:0), e = reed->getTrackCount(); i < e; ++i)
-			affectedlist->addItem(reed->getTrackName(i).c_str());
+			tracklist.push_back(reed->getTrackName(i));
 		if (reed->getFileType() == midi::MultiTrack) {
-			if(!loadTrack(1))
+			if(!loadTrack(1)) {
+				emit this->updatedTrackList();
 				return false;
+			}
 		}
 		else {
-			if(!loadTrack(0))
+			if(!loadTrack(0)) {
+				emit this->updatedTrackList();
 				return false;
+			}
 		}
-		affectedlist->setCurrentRow(0);
+		emit this->updatedTrackList();
 		return true;
 	}
 

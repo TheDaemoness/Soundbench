@@ -20,9 +20,7 @@
 #include "player.h"
 
 namespace sb {
-	Player::Player(Synth* syn, QListWidget* tracklist) {
-		affectedlist = tracklist;
-
+	Player::Player(Synth* syn) {
 		reed = new midi::MidiFIO;
 		first = new midi::nodes::PlayerStartNode(syn);
 		wri = new SoundFileWriter(syn);

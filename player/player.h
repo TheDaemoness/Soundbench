@@ -40,14 +40,19 @@ namespace sb {
 	class Player : public QObject {
 		Q_OBJECT
 
+	std::vector<std::string> tracklist; //DO NOT MOVE DOWN.
 	public:
-		explicit Player(Synth* syn, QListWidget* tracklist);
+		explicit Player(Synth* syn);
 		~Player();
 
 		bool loadTrack(uint16_t track);
 		std::vector<std::string> getPorts();
 		size_t getCurrentPort();
 		bool setVirtualPort(bool vport);
+
+		inline const decltype(tracklist)& getTracks() {
+			return tracklist;
+		}
 
 		inline void close() {
 			reed->close();
@@ -88,6 +93,7 @@ namespace sb {
 	signals:
 		void progressed(int gression);
 		void donePlaying();
+		void updatedTrackList();
 
 	public slots:
 		void writeFile();
@@ -115,8 +121,6 @@ namespace sb {
 		MidiFrontend* midin;
 		FrontendType fetype;
 		std::thread* playthread;
-
-		QListWidget* affectedlist;
 
 		static void playChain(Player*);
 	};
