@@ -25,10 +25,9 @@ size_t sb::global_srate;
 sb::Synth* sb::midi::nodes::MIDIEventNode::synref;
 
 namespace sb {
-	Soundbench::Soundbench(ConfigManager* mgr) {
+	Soundbench::Soundbench() {
 		global_srate = SAMPLING_RATES[1];
 
-		this->mgr = mgr;
 		syn = new sb::SynthSilent;
 		em = new sb::Emitter(syn);
 		plai = new sb::Player(syn);

@@ -23,6 +23,8 @@
 #include <string>
 #include <QDir>
 
+#include "soundbench.h"
+
 namespace sb {
 	class ConfigManager
 	{
@@ -30,6 +32,7 @@ namespace sb {
 		ConfigManager();
 		ConfigManager(const QDir& path);
 		inline bool isErrored() {return errored;}
+		Soundbench* initSoundbench() {return new Soundbench;}
 	private:
 		std::string datadir;
 		bool errored;

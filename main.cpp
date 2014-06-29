@@ -50,10 +50,12 @@ int main(int argc, char *argv[]) {
 		return 0;
 
 	sb::ConfigManager* cfg = new sb::ConfigManager;
-	SoundbenchUI sbui(new sb::Soundbench(cfg), true);
+	sb::Soundbench* sb = cfg->initSoundbench();
+	SoundbenchUI sbui(sb, cfg);
 	sbui.show();
 	std::cerr << "Soundbench loaded.\n";
 	int ret = a.exec();
+	delete sb;
 	delete cfg;
 	return ret;
 }

@@ -23,17 +23,16 @@
 #include "synth/synth.h"
 #include "player/player.h"
 #include "emitter/emitter.h"
-#include "config/config.h"
 
 namespace sb {
 
 	class Soundbench
 	{
+		friend class ConfigManager;
 	public:
-		Soundbench(ConfigManager* mgr);
+		Soundbench();
 		~Soundbench();
 	private:
-		ConfigManager* mgr;
 		Player* plai;
 		Synth* syn;
 		Emitter* em;
