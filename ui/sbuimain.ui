@@ -159,14 +159,42 @@
       <height>361</height>
      </rect>
     </property>
-    <widget class="QWidget" name="tab">
+    <property name="currentIndex">
+     <number>6</number>
+    </property>
+    <widget class="QWidget" name="tab_presets">
      <attribute name="title">
-      <string>Tab 1</string>
+      <string>Presets</string>
      </attribute>
     </widget>
-    <widget class="QWidget" name="tab_2">
+    <widget class="QWidget" name="tab_setup">
      <attribute name="title">
-      <string>Tab 2</string>
+      <string>Audio/MIDI</string>
+     </attribute>
+    </widget>
+    <widget class="QWidget" name="tab_controls">
+     <attribute name="title">
+      <string>Controls</string>
+     </attribute>
+    </widget>
+    <widget class="QWidget" name="tab_synth">
+     <attribute name="title">
+      <string>Synthesis</string>
+     </attribute>
+    </widget>
+    <widget class="QWidget" name="tab_envel">
+     <attribute name="title">
+      <string>Envelopes</string>
+     </attribute>
+    </widget>
+    <widget class="QWidget" name="tab_player">
+     <attribute name="title">
+      <string>Player</string>
+     </attribute>
+    </widget>
+    <widget class="QWidget" name="tab_about">
+     <attribute name="title">
+      <string>About</string>
      </attribute>
     </widget>
    </widget>
