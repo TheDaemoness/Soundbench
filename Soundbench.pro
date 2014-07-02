@@ -137,8 +137,7 @@ OTHER_FILES += \
     COPYING \
     README \
     PresetSpecification.txt \
-    RecordSpecification.txt \
-    ui/uimain.qml
+    RecordSpecification.txt
 
 RESOURCES += \
     assets/images.qrc
