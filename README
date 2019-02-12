@@ -1,3 +1,5 @@
+WARNING: This project has been abandoned. It is potentially usable for simple chiptune music, but will not be receiving updates.
+
 To build Soundbench, the following are required:
         A (mostly) C++11 compliant compiler. The following compilers have been tested and are known to work:
             g++ 4.8.0
